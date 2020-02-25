@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                        <a href="{{$user->id}}/devices">I tuoi dispositivi</a>
                 </div>
             </div>
         </div>
