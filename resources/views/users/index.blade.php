@@ -2,19 +2,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <h1>Dashboard</h1>
+    <div class="d-felx">
+        <div class="col-3-auto p-3" style="max-width: 13rem">
             <div class="card">
-                <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                        <a href="{{$user->id}}/devices">I tuoi dispositivi</a>
+                    <h5 class="card-title">Dispositivi disponibili</h5>
+                    <p class="card-text">{{$user->device()->count()}}</p>
+                    <a href="{{$user->id}}/devices" class="btn btn-primary">Vai ai dispositivi</a>
                 </div>
             </div>
         </div>

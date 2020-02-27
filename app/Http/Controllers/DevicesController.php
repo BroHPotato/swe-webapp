@@ -25,66 +25,7 @@ class DevicesController extends Controller
      */
     public function index(User $user)
     {
-        $response = array(
-            array(
-                'nome' => 'device_1',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_2',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_3',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-        );//todo API Request here
-
-        $devices = collect();
-        foreach ($response as $tempdevice) {
-            $dev = new Device();
-            $dev->fill($tempdevice);
-            $devices->push($dev);
-        }
+        $devices = $user->device();
         return view('devices.index', compact('user', 'devices'));
     }
 
@@ -108,66 +49,7 @@ class DevicesController extends Controller
      */
     public function show(User $user, /*Device*/ $device)
     {
-        $response = array(
-            array(
-                'nome' => 'device_1',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_2',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_3',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-        );//todo API Request here
-
-        $devices = collect();
-        foreach ($response as $tempdevice) {
-            $dev = new Device();
-            $dev->fill($tempdevice);
-            $devices->push($dev);
-        }
+        $devices = $user->device();
         $device = $devices->firstWhere('nome', $device);
         return view('devices.show', compact('user', 'device'));
     }
@@ -192,5 +74,28 @@ class DevicesController extends Controller
     public function destroy()
     {
         //API to destroy
+    }
+    public function fetch(User $user, Device $device){
+        $response = array(
+                'nome' => 'device_1',
+                'sensori' => array(
+                    array(
+                        'nome' => 'temp_air',
+                        'dato' => rand(0,10)
+                    ),
+                    array(
+                        'nome' => 'temp_oil',
+                        'dato' => rand(0,10)
+                    ),
+                    array(
+                        'nome' => 'utilz',
+                        'dato' => rand(0,10)
+                    )
+                ),
+            );//todo API Request here for data of device
+
+        $device->fill($response);
+        return $device;
+        //return $device->nome;
     }
 }

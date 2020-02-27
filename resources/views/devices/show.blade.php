@@ -8,8 +8,12 @@
         @foreach($device->sensori as $sensore)
             <div class="row">
                 <h3>{{$sensore['nome']}}</h3>
-                <canvas class="RTChart" id="{{$sensore['nome']}}" width="1300" height="300"></canvas>
             </div>
+            <chart-management
+                :user='{!! json_encode($user) !!}'
+                :device='{!! json_encode($device) !!}'
+                :sensor='{!! json_encode($sensore) !!}'
+            ></chart-management>
         @endforeach
     </div>
 @endsection

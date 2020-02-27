@@ -2,21 +2,22 @@
 
 @section('content')
     <div class="container">
-        <div class="div">ecco i tuoi devices</div>
+        <h1>I tuoi dispositivi</h1>
         <div class="d-flex">
             @foreach($devices as $device)
-                <div class="col">
+                <div class="col-3-auto p-3">
                     <div class="card">
-                        <a href="/user/{{ $user->id.'/devices/'.$device->nome}}">
-                            <div class="card-header">
-                                <h2>{{$device->nome}}</h2>
-                            </div>
-                        </a>
+                        <div class="card-header">
+                            <h2>{{$device->nome}}</h2>
+                        </div>
                         <div class="card-body">
-                            <h3>Sensori disponibili</h3>
-                            @foreach($device->sensori as $sensore)
-                                <p>{{$sensore['nome']}}</p>
-                            @endforeach
+                            <h5 class="card-title">Sensori disponibilii</h5>
+                            <p class="card-text">
+                                @foreach($device->sensori as $sensore)
+                                    {{$sensore['nome']}}<br>
+                                @endforeach
+                            </p>
+                            <a href="/user/{{ $user->id.'/devices/'.$device->nome}}" class="btn btn-primary">Vai al dipositivo</a>
                         </div>
                     </div>
                 </div>
