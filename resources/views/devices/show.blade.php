@@ -10,9 +10,9 @@
                 <h3>{{$sensore['nome']}}</h3>
             </div>
             <chart-management
-                :user='{!! json_encode($user) !!}'
-                :device='{!! json_encode($device) !!}'
-                :sensor='{!! json_encode($sensore) !!}'
+                v-bind:user='{!! json_encode($user) !!}'
+                v-bind:device='{!! json_encode($device) !!}'
+                v-bind:sensor='{!! json_encode($sensore) !!}'
             ></chart-management>
         @endforeach
     </div>

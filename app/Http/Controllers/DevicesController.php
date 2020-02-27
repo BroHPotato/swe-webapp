@@ -47,7 +47,7 @@ class DevicesController extends Controller
      * @param Device $device
      * @return Factory|View
      */
-    public function show(User $user, /*Device*/ $device)
+    public function show(User $user, $device)
     {
         $devices = $user->device();
         $device = $devices->firstWhere('nome', $device);
@@ -74,28 +74,5 @@ class DevicesController extends Controller
     public function destroy()
     {
         //API to destroy
-    }
-    public function fetch(User $user, Device $device){
-        $response = array(
-                'nome' => 'device_1',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            );//todo API Request here for data of device
-
-        $device->fill($response);
-        return $device;
-        //return $device->nome;
     }
 }

@@ -20,6 +20,6 @@ Auth::routes();
 //le Route DEVONO essere ordinate secondo logica di matching "if"
 
 Route::get('/user/{user}', 'UserController@index')->name('profile.show');
-Route::get('/user/{user}/devices', 'DevicesController@index')->name('device.index'); //todo
-Route::get('/user/{user}/devices/{device}', 'DevicesController@show')->name('device.show'); //todo
-Route::post('/fetch/{user}/{device}', 'DevicesController@fetch');
+Route::get('/user/{user}/devices', 'DevicesController@index')->name('device.index');
+Route::get('/user/{user}/devices/{device}', 'DevicesController@show')->name('device.show');
+Route::post('/fetch/{user}/{device}', 'APIController@show');
