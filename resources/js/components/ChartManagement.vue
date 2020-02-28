@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    let date = new Date(Date.now());
-    let label = date.getHours() + " : " + date.getMinutes() + " : " + date.getSeconds();
-    let newData;
+    var date;
+    var label;
+    var newData;
     export default {
         props:  {
             user: Object,
@@ -27,7 +27,7 @@
                         },
                     },
                     xaxis: {
-                        categories: [this.label],
+                        categories: [],
                     },
                 },
                 series: [{
@@ -37,37 +37,39 @@
             }
         },
         mounted(){
-          this.startInterval();
+            this.fetchData();
+            this.startInterval();
         },
         methods: {
             startInterval() {
                 setInterval(() => {
                     if(this.series[0].data.length >= 10){
-                        this.series[0].data.shift();
-                        this.chartOptions.xaxis.categories.shift();
+                        this.removeData();
                     }
-                    this.fetch_data();
-                    console.log(this.newData);
+                    this.fetchData();
                     this.$refs.RTChart.appendData([{
                             data: [this.newData]
                             }], false);
-                    this.date = new Date(Date.now());
-                    this.label = this.date.getHours() + " : " + this.date.getMinutes() + " : " + this.date.getSeconds();
+
                     this.chartOptions.xaxis.categories.push(this.label);
                 }, 1000);
             },
-            fetch_data(){
-                var toreturn;
+            fetchData(){
                 axios.post('/fetch/' + this.$props.user.id + '/' + this.$props.device.nome)
                 .then( response =>{
                     this.newData = Number((response.data.sensori.find(sensore =>
                         sensore.nome ===this.$props.sensor.nome)
                     ).dato);
+                    this.date = new Date(Date.now());
+                    this.label = this.date.getHours() + " : " + this.date.getMinutes() + " : " + this.date.getSeconds();
                 })
                 .catch(errors => {
                     this.newData = NaN;
                 });
-
+            },
+            removeData(){
+                this.series[0].data.shift();
+                this.chartOptions.xaxis.categories.shift();
             }
         }
     };

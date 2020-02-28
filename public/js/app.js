@@ -1942,8 +1942,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var date = new Date(Date.now());
-var label = date.getHours() + " : " + date.getMinutes() + " : " + date.getSeconds();
+var date;
+var label;
 var newData;
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -1964,7 +1964,7 @@ var newData;
           }
         },
         xaxis: {
-          categories: [this.label]
+          categories: []
         }
       },
       series: [{
@@ -1974,6 +1974,7 @@ var newData;
     };
   },
   mounted: function mounted() {
+    this.fetchData();
     this.startInterval();
   },
   methods: {
@@ -1982,36 +1983,34 @@ var newData;
 
       setInterval(function () {
         if (_this.series[0].data.length >= 10) {
-          _this.series[0].data.shift();
-
-          _this.chartOptions.xaxis.categories.shift();
+          _this.removeData();
         }
 
-        _this.fetch_data();
-
-        console.log(_this.newData);
+        _this.fetchData();
 
         _this.$refs.RTChart.appendData([{
           data: [_this.newData]
         }], false);
 
-        _this.date = new Date(Date.now());
-        _this.label = _this.date.getHours() + " : " + _this.date.getMinutes() + " : " + _this.date.getSeconds();
-
         _this.chartOptions.xaxis.categories.push(_this.label);
       }, 1000);
     },
-    fetch_data: function fetch_data() {
+    fetchData: function fetchData() {
       var _this2 = this;
 
-      var toreturn;
       axios.post('/fetch/' + this.$props.user.id + '/' + this.$props.device.nome).then(function (response) {
         _this2.newData = Number(response.data.sensori.find(function (sensore) {
           return sensore.nome === _this2.$props.sensor.nome;
         }).dato);
+        _this2.date = new Date(Date.now());
+        _this2.label = _this2.date.getHours() + " : " + _this2.date.getMinutes() + " : " + _this2.date.getSeconds();
       })["catch"](function (errors) {
         _this2.newData = NaN;
       });
+    },
+    removeData: function removeData() {
+      this.series[0].data.shift();
+      this.chartOptions.xaxis.categories.shift();
     }
   }
 });
@@ -49905,7 +49904,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ChartComponent.vue -> <example-component></example-component>
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -49975,15 +49974,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*****************************************************!*\
   !*** ./resources/js/components/ChartManagement.vue ***!
   \*****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ChartManagement_vue_vue_type_template_id_7b3332a6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartManagement.vue?vue&type=template&id=7b3332a6& */ "./resources/js/components/ChartManagement.vue?vue&type=template&id=7b3332a6&");
 /* harmony import */ var _ChartManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChartManagement.vue?vue&type=script&lang=js& */ "./resources/js/components/ChartManagement.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ChartManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ChartManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -50013,7 +50011,7 @@ component.options.__file = "resources/js/components/ChartManagement.vue"
 /*!******************************************************************************!*\
   !*** ./resources/js/components/ChartManagement.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
