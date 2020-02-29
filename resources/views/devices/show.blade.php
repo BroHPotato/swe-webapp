@@ -7,7 +7,7 @@
         </div>
         @foreach($device->sensorsList as $sensore)
             <div class="row">
-                <h3>{{$sensore['sensorId']}}</h3>
+                <h3>Sensore #{{$sensore['sensorId']}}</h3>
             </div>
             <chart-management
                 v-bind:user='{!! json_encode($user) !!}'

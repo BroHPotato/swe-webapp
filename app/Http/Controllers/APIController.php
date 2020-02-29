@@ -24,7 +24,6 @@ class APIController extends Controller
             $dev->fill($tempdevice);
             $devices->push($dev);
         }
-        //dd($devices);
         return $devices;
     }
 
