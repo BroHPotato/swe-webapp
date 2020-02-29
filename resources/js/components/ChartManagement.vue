@@ -27,11 +27,11 @@
                         },
                     },
                     xaxis: {
-                        categories: [],
+                        categories: [''],
                     },
                 },
                 series: [{
-                    name: this.$props.sensor.nome,
+                    name: this.$props.sensor.sensorId,
                     data: []
                 }]
             }
@@ -47,20 +47,21 @@
                         this.removeData();
                     }
                     this.fetchData();
+                    this.chartOptions.xaxis.categories.push(this.label);
                     this.$refs.RTChart.appendData([{
                             data: [this.newData]
                             }], false);
 
-                    this.chartOptions.xaxis.categories.push(this.label);
-                }, 1000);
+                }, 5000);
             },
             fetchData(){
-                axios.post('/fetch/' + this.$props.user.id + '/' + this.$props.device.nome)
+                axios.get('/fetch/' + this.$props.user.id + '/' + this.$props.device.deviceId)
                 .then( response =>{
-                    this.newData = Number((response.data.sensori.find(sensore =>
-                        sensore.nome ===this.$props.sensor.nome)
-                    ).dato);
-                    this.date = new Date(Date.now());
+                    let r = (response.data.sensorsList.find(sensor =>
+                            sensor.sensorId ===this.$props.sensor.sensorId)
+                    );
+                    this.newData = Number(r.value);
+                    this.date = new Date(Number(r.timestamp));
                     this.label = this.date.getHours() + " : " + this.date.getMinutes() + " : " + this.date.getSeconds();
                 })
                 .catch(errors => {

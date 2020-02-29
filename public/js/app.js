@@ -1964,11 +1964,11 @@ var newData;
           }
         },
         xaxis: {
-          categories: []
+          categories: ['']
         }
       },
       series: [{
-        name: this.$props.sensor.nome,
+        name: this.$props.sensor.sensorId,
         data: []
       }]
     };
@@ -1988,21 +1988,22 @@ var newData;
 
         _this.fetchData();
 
+        _this.chartOptions.xaxis.categories.push(_this.label);
+
         _this.$refs.RTChart.appendData([{
           data: [_this.newData]
         }], false);
-
-        _this.chartOptions.xaxis.categories.push(_this.label);
-      }, 1000);
+      }, 5000);
     },
     fetchData: function fetchData() {
       var _this2 = this;
 
-      axios.post('/fetch/' + this.$props.user.id + '/' + this.$props.device.nome).then(function (response) {
-        _this2.newData = Number(response.data.sensori.find(function (sensore) {
-          return sensore.nome === _this2.$props.sensor.nome;
-        }).dato);
-        _this2.date = new Date(Date.now());
+      axios.get('/fetch/' + this.$props.user.id + '/' + this.$props.device.deviceId).then(function (response) {
+        var r = response.data.sensorsList.find(function (sensor) {
+          return sensor.sensorId === _this2.$props.sensor.sensorId;
+        });
+        _this2.newData = Number(r.value);
+        _this2.date = new Date(Number(r.timestamp));
         _this2.label = _this2.date.getHours() + " : " + _this2.date.getMinutes() + " : " + _this2.date.getSeconds();
       })["catch"](function (errors) {
         _this2.newData = NaN;

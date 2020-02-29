@@ -10,11 +10,22 @@ class APIController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Support\Collection
      */
-    public function index()
+    public function index($user)
     {
-        //
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get('http://host.redroundrobin.site:9999/devices');
+        $response = json_decode($res->getBody(), true);
+
+        $devices = collect();
+        foreach ($response["devicesList"] as $tempdevice) {
+            $dev = new Device();
+            $dev->fill($tempdevice);
+            $devices->push($dev);
+        }
+        //dd($devices);
+        return $devices;
     }
 
     /**
@@ -37,23 +48,9 @@ class APIController extends Controller
      */
     public function show($user, $device)
     {
-        $response = array(
-            'nome' => 'device_1',
-            'sensori' => array(
-                array(
-                    'nome' => 'temp_air',
-                    'dato' => rand(0,10)
-                ),
-                array(
-                    'nome' => 'temp_oil',
-                    'dato' => rand(0,10)
-                ),
-                array(
-                    'nome' => 'utilz',
-                    'dato' => rand(0,10)
-                )
-            ),
-        );//todo API Request here for data of device
+        $client = new \GuzzleHttp\Client();
+        $res = $client->get('http://host.redroundrobin.site:9999/device/'.$device);
+        $response = json_decode($res->getBody(),true);
 
         $device = new Device();
         $device->fill($response);
