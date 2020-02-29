@@ -15,7 +15,7 @@ class APIController extends Controller
     public function index($user)
     {
         $client = new \GuzzleHttp\Client();
-        $res = $client->get('http://host.redroundrobin.site:9999/devices');
+        $res = $client->get('http://core.host.redroundrobin.site/devices');
         $response = json_decode($res->getBody(), true);
 
         $devices = collect();
@@ -49,7 +49,7 @@ class APIController extends Controller
     public function show($user, $device)
     {
         $client = new \GuzzleHttp\Client();
-        $res = $client->get('http://host.redroundrobin.site:9999/device/'.$device);
+        $res = $client->get('http://core.host.redroundrobin.site/device/'.$device);
         $response = json_decode($res->getBody(),true);
 
         $device = new Device();
