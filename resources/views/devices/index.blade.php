@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <h1>I tuoi dispositivi</h1>
+        <button class="btn-primary btn" onclick="window.history.back()">Indietro</button>
         <div class="d-flex">
             @foreach($devices as $device)
                 <div class="col-3-auto p-3">

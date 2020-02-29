@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="container">
+        <button class="btn-primary btn" onclick="window.history.back()">Indietro</button>
         <div class="row">
-            <h2>{{$device->deviceId}}</h2>
+            <h2>Dispositivo #{{$device->deviceId}}</h2>
         </div>
         @foreach($device->sensorsList as $sensore)
             <div class="row">
