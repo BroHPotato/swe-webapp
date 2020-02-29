@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\APIController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,67 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function device(){
-        $response = array(
-            array(
-                'nome' => 'device_1',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_2',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-            array(
-                'nome' => 'device_3',
-                'sensori' => array(
-                    array(
-                        'nome' => 'temp_air',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'temp_oil',
-                        'dato' => rand(0,10)
-                    ),
-                    array(
-                        'nome' => 'utilz',
-                        'dato' => rand(0,10)
-                    )
-                ),
-            ),
-        );//todo API Request here for list of device
-
-        $devices = collect();
-        foreach ($response as $tempdevice) {
-            $dev = new Device();
-            $dev->fill($tempdevice);
-            $devices->push($dev);
-        }
-        return $devices;
+    public function device($user){
+        return (new Http\Controllers\APIController)->index($user);
     }
 }

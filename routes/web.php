@@ -22,4 +22,4 @@ Auth::routes();
 Route::get('/user/{user}', 'UserController@index')->name('profile.show');
 Route::get('/user/{user}/devices', 'DevicesController@index')->name('device.index');
 Route::get('/user/{user}/devices/{device}', 'DevicesController@show')->name('device.show');
-Route::post('/fetch/{user}/{device}', 'APIController@show');
+Route::get('/fetch/{user}/{device}', 'APIController@show');

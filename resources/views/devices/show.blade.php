@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2>{{$device->nome}}</h2>
+            <h2>{{$device->deviceId}}</h2>
         </div>
-        @foreach($device->sensori as $sensore)
+        @foreach($device->sensorsList as $sensore)
             <div class="row">
-                <h3>{{$sensore['nome']}}</h3>
+                <h3>{{$sensore['sensorId']}}</h3>
             </div>
             <chart-management
                 v-bind:user='{!! json_encode($user) !!}'

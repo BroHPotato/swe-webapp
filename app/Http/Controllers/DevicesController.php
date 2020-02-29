@@ -25,7 +25,7 @@ class DevicesController extends Controller
      */
     public function index(User $user)
     {
-        $devices = $user->device();
+        $devices = $user->device($user);
         return view('devices.index', compact('user', 'devices'));
     }
 
@@ -49,8 +49,8 @@ class DevicesController extends Controller
      */
     public function show(User $user, $device)
     {
-        $devices = $user->device();
-        $device = $devices->firstWhere('nome', $device);
+        $devices = $user->device($user);
+        $device = $devices->firstWhere('deviceId', $device);
         return view('devices.show', compact('user', 'device'));
     }
 
