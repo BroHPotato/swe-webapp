@@ -1,6 +1,6 @@
-# swe-webapp
+# Web application - ThiReMa
 
-:fire: Versione: `v0.0.1-dev` 
+:fire: Versione componente: `v0.0.1-dev` 
 
 :pushpin: Main repo: [swe-thirema](https://github.com/Maxelweb/swe-thirema)
 
