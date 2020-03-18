@@ -1,12 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Http\Controllers\APIController;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use function foo\func;
 
 class User extends Authenticatable
 {
@@ -18,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'userId','token','name', 'email', 'password',
     ];
 
     /**
@@ -39,7 +36,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function device($user){
-        return (new Http\Controllers\APIController)->index($user);
+    public function getAuthIdentifierName(): string
+    {
+        return 'userId';
+    }
+
+    /**
+     * @param string
+     * @return string
+     */
+    public function getAuthIdentifier(): string
+    {
+        return $this->userId;
     }
 }

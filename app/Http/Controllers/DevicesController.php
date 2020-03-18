@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Device;
-use App\User;
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class DevicesController extends Controller
@@ -23,9 +22,8 @@ class DevicesController extends Controller
      * @param User $user
      * @return Factory|View
      */
-    public function index(User $user)
+    public function index( $user)
     {
-        $devices = $user->device($user);
         return view('devices.index', compact('user', 'devices'));
     }
 
@@ -47,10 +45,8 @@ class DevicesController extends Controller
      * @param Device $device
      * @return Factory|View
      */
-    public function show(User $user, $device)
+    public function show($user, $device)
     {
-        $devices = $user->device($user);
-        $device = $devices->firstWhere('deviceId', $device);
         return view('devices.show', compact('user', 'device'));
     }
 
