@@ -34,9 +34,9 @@ class User extends Authenticatable
 
     /**
      * @param string
-     * @return string
+     * @return int
      */
-    public function getAuthIdentifier(): string
+    public function getAuthIdentifier()
     {
         return $this->userId;
     }
