@@ -3,6 +3,7 @@ vendor/*
 .idea/*
 public/css
 public/js
+public/webfonts
 public/mix-manifest.json
 composer.lock
 build/*
