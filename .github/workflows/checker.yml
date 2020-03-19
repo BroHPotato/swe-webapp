@@ -1,18 +1,16 @@
 name: SWE Web App CI
 
-on: push
-
-#on:
-#   push:
-#    branches: 
-#      - develop
-#      - master
-#      - feature/**
-#  pull_request:
-#    branches: 
-#      - develop
-#      - master
-#      - feature/**
+on:
+   push:
+    branches: 
+      - develop
+      - master
+      - feature/**
+   pull_request:
+     branches: 
+       - develop
+       - master
+       - feature/**
 
 jobs:
   laravel-tests:
