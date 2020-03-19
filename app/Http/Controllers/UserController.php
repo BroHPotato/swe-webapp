@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->provider->findAllFrom(Auth::user());
+        $users = $this->provider->findAll();
         return view('users.index', compact('users'));
     }
 }

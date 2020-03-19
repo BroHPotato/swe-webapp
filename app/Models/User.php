@@ -8,14 +8,13 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'userId','name', 'surname', 'email', 'type', 'telegram_name', 'telegram_chat',
+        'userId','name', 'surname', 'email', 'type', 'telegram_name', 'telegram_chat','token'
     ];
 
     /**
@@ -26,6 +25,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 
     public function getAuthIdentifierName(): string
     {
@@ -40,5 +40,6 @@ class User extends Authenticatable
     {
         return $this->userId;
     }
+
 
 }
