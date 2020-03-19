@@ -15,8 +15,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
+    <!--<link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">-->
+   <!--<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">-->
 
 </head>
 <body>
@@ -29,7 +30,7 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+<!--<script src="{{ asset('js/bootstrap.min.js') }}"></script>-->
+<!--<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>-->
 </html>
 
