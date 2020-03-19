@@ -26,10 +26,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
 
-        Auth::provider('custom', function ($app, array $config) {
+        Auth::provider('custom', function () {
             // Return an instance of Illuminate\Contracts\Auth\UserProvider...
 
-            return new UserServiceProvider();
+            return resolve(UserServiceProvider::class);
         });
     }
 }

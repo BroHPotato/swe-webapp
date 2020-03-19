@@ -6,19 +6,20 @@ namespace App\Providers;
 
 use App\Models\User;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
 
-class UserServiceProvider implements UserProvider
+class UserServiceProvider extends EloquentUserProvider
 {
     //si occupa di prendere lo user dal database
+
     /**
      * @param mixed $identifier
      * @return User|Authenticatable|null
      */
     public function retrieveById($identifier){
         $request = new Client();
-
         $response = json_decode($request->get('localhost:9999/user/'.$identifier)->getBody());
         $user = new User();
         $user->fill((array)$response);
@@ -49,11 +50,22 @@ class UserServiceProvider implements UserProvider
      * @return User|Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials){
-            $request = new Client();
-            $response = json_decode($request->post('localhost:9999/auth')->getBody());
+        try {
+            $request = new Client([
+                'base_uri' => 'localhost:9999',
+                'headers' => [ 'Content-Type' => 'application/json' ],
+                'body' => '{"username":"'.$credentials["email"].'","password":"'.$credentials["password"].'"}'
+            ]);
+            $response = json_decode($request->post('authenticate')->getBody());
             $user = new User();
-            $user->fill((array)$response);
+            $userarray = (array)$response->user;
+            $userarray['token'] = $response->jwt;
+            $user->fill($userarray);
             return $user;
+        }catch (RequestException $e) {
+            dd($e);
+        }
+        return null;
     }
 
     /**
