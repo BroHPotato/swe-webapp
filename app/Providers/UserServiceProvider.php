@@ -64,4 +64,8 @@ class UserServiceProvider implements UserProvider
     public function validateCredentials(Authenticatable $user, array $credentials){
         return true;
     }
+
+    public function findAllFrom(Authenticatable $user){
+        return array("" => $user);
+    }
 }

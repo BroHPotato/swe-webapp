@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Providers\UserServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
-
-    private $provider;
     /**
      * Create a new controller instance.
      *
@@ -27,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->provider->findAllFrom(Auth::user());
-        return view('users.index', compact('users'));
+        $user = Auth::user();
+        return view('profile.index', compact('user'));
     }
 }

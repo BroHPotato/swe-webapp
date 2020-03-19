@@ -11,14 +11,29 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes(['register' => false, 'reset' => false]);
 
 //le Route DEVONO essere ordinate secondo logica di matching "if"
 
-Route::get('/user/{user}', 'UserController@index')->name('profile.show');
-Route::get('/user/{user}/devices', 'DevicesController@index')->name('device.index');
-Route::get('/user/{user}/devices/{device}', 'DevicesController@show')->name('device.show');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+
+
+//routes per gestione profilo
+Route::get('/profile', 'ProfileController@index')->name('profile.index');
+
+//routes per gestione user
+Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('/user/{userId}', 'UserController@show')->name('users.show');
+
+//routes per gestione gateways
+Route::get('/gateways', 'GatewayController@index')->name('gateway.index');
+Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateway.show');
+
+//routes per gestione devices
+Route::get('/devices', 'DeviceController@index')->name('devices.index');
+Route::get('/device/{deviceId}', 'DeviceController@show')->name('devices.show');
+
+
+
+

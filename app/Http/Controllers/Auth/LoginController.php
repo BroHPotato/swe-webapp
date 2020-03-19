@@ -27,7 +27,7 @@ class LoginController extends Controller
      * @return string
      */
     protected function redirectTo(){
-        return "user/".Auth::id();
+        return "/dashboard";
     }
 
     /**
