@@ -5,3 +5,4 @@ public/css
 public/js
 public/mix-manifest.json
 composer.lock
+build/*
