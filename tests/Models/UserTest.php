@@ -14,7 +14,7 @@ class UserTest extends TestCase
         $this->assertEquals('userId', $user->getAuthIdentifierName());
     }
 
-    public function testGetAuthIdentifier()
+    public function testGetWrongAuthIdentifier()
     {
         $user = new User();
         $this->assertEquals(null, $user->getAuthIdentifier());
