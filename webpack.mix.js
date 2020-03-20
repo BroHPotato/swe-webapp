@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js(['resources/js/app.js',
 		'resources/js/sb-admin-2.js'], 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .styles(['resources/css/fontawesome.min.css',
-   			'resources/css/sb-admin-2.min.css', ], 'public/css/theme.css')
+   .styles(['resources/css/fontawesome.css',
+            'resources/css/sb-admin-2.css',
+   			'resources/css/theme-edit.css', ], 'public/css/theme.css')
     .copyDirectory('resources/webfonts', 'public/webfonts');

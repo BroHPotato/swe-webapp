@@ -16,21 +16,22 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
-    <!--<link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">-->
-   <!--<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">-->
 
 </head>
-<body>
+<body id="page-top">
     <div id="app">
-        @include('layouts.navbar')
-        @yield('content')
+        <div id="wrapper">
+            @auth
+                @include('layouts.sidebar')
+            @endauth
+
+            @include('layouts.contentWrapper')
+        </div>
     </div>
 </body>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
-<!--<script src="{{ asset('js/bootstrap.min.js') }}"></script>-->
-<!--<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>-->
 </html>
 
