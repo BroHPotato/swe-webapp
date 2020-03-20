@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\UserServiceProvider;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
@@ -15,13 +15,12 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->provider = new UserServiceProvider();
     }
 
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {

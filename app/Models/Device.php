@@ -1,11 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    protected $fillable = ['deviceId', 'timestamp', 'sensorsList', 'sensorsNumber'];
-
+    protected $fillable = ['deviceId', 'name', 'frequency', 'gatewayId'];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,10 @@ class LoginController extends Controller
      * @return string
      */
     protected function redirectTo(){
-        return "/dashboard";
+        return redirect(RouteServiceProvider::DASHBOARD);
     }
+
+
 
     /**
      * Create a new controller instance.
@@ -47,7 +50,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('dashboard');
+            return redirect(RouteServiceProvider::DASHBOARD);;
         }
     }
 }

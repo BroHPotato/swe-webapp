@@ -9,21 +9,24 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserServiceProvider implements UserProvider
 {
     //si occupa di prendere lo user dal database
+    private $request;
 
     public function __construct()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ]);
     }
 
-    private $token;
 
     /**
      * @param mixed $identifier
@@ -31,18 +34,19 @@ class UserServiceProvider implements UserProvider
      */
     public function retrieveById($identifier){
         try {
-            $request = new Client([
-                'base_uri' => 'localhost:9999',
+
+            $response = json_decode($this->request->get('user/'.$identifier, [
                 'headers' => [
-                    'Content-Type' => 'application/json' ,
-                    'Authorization' => 'Bearer '.$_SESSION['token']
-                    ]
-            ]);
-            $response = json_decode($request->get('user/'.$identifier)->getBody());
+                    'Authorization' => 'Bearer '.session()->get('token')
+                ]
+            ])->getBody());
             $user = new User();
             $user->fill((array)$response);
             return $user;
         }catch (RequestException $e) {
+            if (false/*fai il controllo del token*/)
+                Auth::logout();
+            else
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
         return null;
@@ -73,23 +77,22 @@ class UserServiceProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials){
         try {
-            $request = new Client([
+            $this->request = new Client([
                 'base_uri' => 'localhost:9999',
                 'headers' => [ 'Content-Type' => 'application/json' ],
                 'body' => '{"username":"'.$credentials["email"].'","password":"'.$credentials["password"].'"}'
             ]);
-            $response = json_decode($request->post('authenticate')->getBody());
+            $response = json_decode($this->request->post('authenticate')->getBody());
             $userarray = (array)$response->user;
             $userarray['token'] = $response->jwt;
 
-            $this->token = $response->jwt;
-            $_SESSION['token'] = $response->jwt;
+            session(['token' => $response->jwt]);
             $user = new User();
             $user->fill($userarray);
             $this->user = $user;
             return $user;
         }catch (RequestException $e) {
-            session_destroy();
+            session()->flush();
             return null;
         }
     }
@@ -105,14 +108,12 @@ class UserServiceProvider implements UserProvider
 
     public function findAll(){
         try {
-            $request = new Client([
-                'base_uri' => 'localhost:9999',
+            $response = json_decode($this->request->get('users', [
                 'headers' => [
-                    'Content-Type' => 'application/json' ,
-                    'Authorization' => 'Bearer '.$_SESSION['token']
+                    'Authorization' => 'Bearer '.session()->get('token')
                 ]
-            ]);
-            $response = json_decode($request->get('users')->getBody());
+            ])->getBody());
+            $users = [];
             foreach ($response as $u){
                 $user = new User();
                 $user->fill((array)$u);
