@@ -18,7 +18,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 //le Route DEVONO essere ordinate secondo logica di matching "if"
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
-
+Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
 //routes per gestione profilo
 Route::get('/profile', 'ProfileController@index')->name('profile.index');

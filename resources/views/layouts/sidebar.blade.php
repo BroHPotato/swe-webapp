@@ -3,7 +3,7 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-home"></i>
         </div>
@@ -17,23 +17,22 @@
     </div>
 
     <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('dashboard.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('profile.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Profilo</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="#"><!-- route('settings.index') -->
             <i class="fas fa-fw fa-cog"></i>
             <span>Impostazioni</span></a>
     </li>
-
     <hr class="sidebar-divider">
 
     <div class="sidebar-heading">
@@ -41,13 +40,13 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('devices.index') }}">
             <i class="fas fa-fw fa-list-ul"></i>
             <span>Dispositivi e sensori</span></a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="#"><!-- route('views.index') -->
             <i class="fas fa-fw fa-chart-bar"></i>
             <span>Pagine view</span></a>
     </li>

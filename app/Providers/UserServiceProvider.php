@@ -77,20 +77,46 @@ class UserServiceProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials){
         try {
-            $this->request = new Client([
-                'base_uri' => 'localhost:9999',
-                'headers' => [ 'Content-Type' => 'application/json' ],
-                'body' => '{"username":"'.$credentials["email"].'","password":"'.$credentials["password"].'"}'
-            ]);
-            $response = json_decode($this->request->post('authenticate')->getBody());
-            $userarray = (array)$response->user;
-            $userarray['token'] = $response->jwt;
+            if(key_exists('code', $credentials)){
+                $this->request = new Client([
+                    'base_uri' => 'localhost:9999',
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer '.session()->get('token')
+                        ],
+                    'body' => '{"auth_code":"'.$credentials["code"].'"}'
+                ]);
+                $response = json_decode($this->request->post('auth/tfa')->getBody());
+                $userarray = (array)$response->user;
+                $userarray['token'] = $response->jwt;
 
-            session(['token' => $response->jwt]);
-            $user = new User();
-            $user->fill($userarray);
-            $this->user = $user;
-            return $user;
+                session(['token' => $response->jwt]);
+                $user = new User();
+                $user->fill($userarray);
+                $this->user = $user;
+                return $user;
+            }
+            else {
+                $this->request = new Client([
+                    'base_uri' => 'localhost:9999',
+                    'headers' => ['Content-Type' => 'application/json'],
+                    'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
+                ]);
+                $response = json_decode($this->request->post('auth')->getBody());
+                if ($response->tfa) {
+                    session(['token' => $response->token]);
+                    return redirect('/login/tfa');
+                } else {
+                    $userarray = (array)$response->user;
+                    $userarray['token'] = $response->jwt;
+
+                    session(['token' => $response->jwt]);
+                    $user = new User();
+                    $user->fill($userarray);
+                    $this->user = $user;
+                    return $user;
+                }
+            }
         }catch (RequestException $e) {
             session()->flush();
             return null;

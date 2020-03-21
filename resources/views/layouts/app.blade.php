@@ -24,8 +24,23 @@
             @auth
                 @include('layouts.sidebar')
             @endauth
-
-            @include('layouts.contentWrapper')
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                @auth
+                    @include('layouts.topbar')
+                @endauth
+                <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+                <!-- End of Main Content -->
+                @include('layouts.footer')
+            </div>
+            <!-- End of Content Wrapper -->
         </div>
     </div>
 </body>

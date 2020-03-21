@@ -46,11 +46,19 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        if ($request->exists('code'))
+            $credentials = $request->only('code');
+        else
+            $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return redirect(RouteServiceProvider::DASHBOARD);;
         }
     }
+    public function showTfaForm()
+    {
+        return view('auth.tfaLogin');
+    }
+
 }
