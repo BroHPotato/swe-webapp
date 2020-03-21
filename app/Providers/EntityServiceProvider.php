@@ -5,14 +5,16 @@ namespace App\Providers;
 use App\Models\Entity;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\ServiceProvider;
 
-class EntityServiceProvider
+class EntityServiceProvider extends ServiceProvider
 {
     //si occupa di prendere i device dal database
     private $request;
 
     public function __construct()
     {
+        parent::__construct(app());
         $this->request = new Client([
             'base_uri' => 'localhost:9999',
             'headers' => [

@@ -4,6 +4,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Carbon\Laravel\ServiceProvider;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -12,13 +13,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 
-class UserServiceProvider implements UserProvider
+class UserServiceProvider extends ServiceProvider implements UserProvider
 {
     //si occupa di prendere lo user dal database
     private $request;
 
     public function __construct()
     {
+        parent::__construct(app());
         $this->request = new Client([
             'base_uri' => 'localhost:9999',
             'headers' => [
