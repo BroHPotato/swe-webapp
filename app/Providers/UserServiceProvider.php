@@ -105,14 +105,15 @@ class UserServiceProvider implements UserProvider
                     'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
                 ]);
                 $response = json_decode($this->request->post('auth')->getBody());
-                if ($response->tfa) {
+
+                if (property_exists($response, 'tfa')) {
                     session(['token' => $response->token]);
                     return redirect('/login/tfa');
                 } else {
                     $userarray = (array)$response->user;
-                    $userarray['token'] = $response->jwt;
+                    $userarray['token'] = $response->token;
 
-                    session(['token' => $response->jwt]);
+                    session(['token' => $response->token]);
                     $user = new User();
                     $user->fill($userarray);
                     $this->user = $user;

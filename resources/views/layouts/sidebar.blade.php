@@ -51,13 +51,15 @@
             <span>Pagine view</span></a>
     </li>
 
+    @canany(['isAdmin', 'isMod'])
     <hr class="sidebar-divider">
-
     <div class="sidebar-heading">
         Centro di Controllo
     </div>
+    @endcanany
 
     <!-- TODO only for moderators -->
+    @can('isMod')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-user-tie"></i>
@@ -71,9 +73,11 @@
             </div>
         </div>
     </li>
+    @endcan
 
 
     <!-- TODO only for admins -->
+    @can('isAdmin')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-user-astronaut"></i>
@@ -89,6 +93,7 @@
             </div>
         </div>
     </li>
+    @endcan
 
 
     <hr class="sidebar-divider d-none d-md-block">
