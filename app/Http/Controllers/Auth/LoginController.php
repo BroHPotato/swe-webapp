@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -29,7 +31,7 @@ class LoginController extends Controller
      * @return string
      */
     protected function redirectTo(){
-        return redirect(RouteServiceProvider::DASHBOARD);
+        return RouteServiceProvider::DASHBOARD;
     }
 
 
@@ -61,4 +63,56 @@ class LoginController extends Controller
         return view('auth.tfaLogin');
     }
 
+    /**
+     * Get the failed login response instance.
+     *
+     * @param Request $request
+     * @return Response
+     *
+     * @throws ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        if ($request->exists('code')){
+            throw ValidationException::withMessages([
+                'code' => ['Codice non valido'],
+            ]);
+        }
+        else{
+            throw ValidationException::withMessages([
+                $this->username() => ['Opssssss qualcosa è andato storto! 👀'/*trans('auth.failed')*/],
+            ]);
+        }
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        if ($request->exists('code')){
+            $request->validate([
+               'code' => 'required|string'
+            ]);
+        }
+        else{
+            $request->validate([
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+            ]);
+        }
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        if ($request->exists('code')){
+            return $request->only('code');
+        }
+        else{
+            return $request->only($this->username(), 'password');
+        }
+    }
 }

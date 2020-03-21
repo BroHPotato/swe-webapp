@@ -16,10 +16,10 @@
                                     @csrf
                                     <div class="form-group">
                                         <input id="code" type="text"
-                                               class="form-control form-control-user form-codice-tfa @error('email') is-invalid @enderror"
+                                               class="form-control form-control-user form-codice-tfa @error('code') is-invalid @enderror"
                                                name="code" placeholder="Inserisci il codice">
 
-                                        @error('email')
+                                        @error('code')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

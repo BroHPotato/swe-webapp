@@ -24,7 +24,7 @@ Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 Route::get('/profile', 'ProfileController@index')->name('profile.index');
 
 //routes per gestione user
-Route::get('/users', 'UserController@index')->name('users.index');
+Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); //esempio limitazione users agli admin
 Route::get('/user/{userId}', 'UserController@show')->name('users.show');
 
 //routes per gestione gateways

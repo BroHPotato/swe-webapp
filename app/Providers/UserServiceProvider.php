@@ -77,7 +77,6 @@ class UserServiceProvider implements UserProvider
      * @return User|Authenticatable|RedirectResponse
      */
     public function retrieveByCredentials(array $credentials){
-
         try {
             if(key_exists('code', $credentials)){
                 $this->request = new Client([
