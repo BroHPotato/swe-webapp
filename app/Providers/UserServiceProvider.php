@@ -33,6 +33,7 @@ class UserServiceProvider implements UserProvider
      * @return User|Authenticatable|null
      */
     public function retrieveById($identifier){
+
         try {
 
             $response = json_decode($this->request->get('user/'.$identifier, [
@@ -76,6 +77,7 @@ class UserServiceProvider implements UserProvider
      * @return User|Authenticatable|RedirectResponse
      */
     public function retrieveByCredentials(array $credentials){
+        
         try {
             if(key_exists('code', $credentials)){
                 $this->request = new Client([
@@ -150,4 +152,18 @@ class UserServiceProvider implements UserProvider
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
+
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    public function ImJustAGuyDontBotherMe(){
+        $user = new User();
+        $arr = array_combine(array('userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token'),
+            array("1", "sys", "admin", "sys@admin.it", "0", "pippo", "123", "0", "0", "456"));
+        $user->fill($arr);
+        return $user;
+    }
+
+
 }
