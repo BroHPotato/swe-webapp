@@ -18,27 +18,28 @@
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
 
 </head>
-<body id="page-top">
+<body id="page-top" @guest class="bg-gradient-secondary" @endguest>
     <div id="app">
         <div id="wrapper">
             @auth
                 @include('layouts.sidebar')
-            @endauth
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
-                @auth
-                    @include('layouts.topbar')
-                @endauth
+
+                @include('layouts.topbar')
                 <!-- Begin Page Content -->
                     <div class="container-fluid">
+            @endauth
                         @yield('content')
+            @auth
                     </div>
                     <!-- /.container-fluid -->
                 </div>
                 <!-- End of Main Content -->
                 @include('layouts.footer')
+            @endauth
             </div>
             <!-- End of Content Wrapper -->
         </div>
