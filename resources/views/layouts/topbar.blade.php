@@ -45,7 +45,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600">{{Auth::user()->name}} {{Auth::user()->surname}}</span>
                 <img class="img-profile rounded-circle" src="https://i.postimg.cc/L5QPSt76/avatar.jpg">
             </a>
             <!-- Dropdown - User Information -->

@@ -10,7 +10,7 @@
                             <div class="p-5">
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Codice TFA <i class="fab fa-telegram text-primary"></i> </h1>
-                                    <p>Accedi a <strong>Telegram</strong> e inserisci il codice che ti è stato inviato.</p>
+                                    <p>Accedi a <strong>Telegram</strong> e inserisci il codice che ti è stato inviato entro 5 minuti.</p>
                                 </div>
                                 <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -32,6 +32,10 @@
                                         </button>
                                     </div>
                                 </form>
+                                <div class="mt-4">
+                                    <i class="fas fa-arrow-circle-left"></i>
+                                    <a href="{{ route('login') }}" class="text-secondary">Torna al login</a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>

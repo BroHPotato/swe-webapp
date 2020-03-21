@@ -53,9 +53,8 @@
                                     </div>
                                 </form>
                                 <hr>
-                                <div class="text-center">
-                                    <!-- TODO Pagina per il supporto tecnico -->
-                                    <a class="small" href="#">Password dimenticata?</a>
+                                <div class="text-center small">
+                                    <i class="fas fa-lock"></i> <strong>Password dimenticata?</strong> Contatta il supporto tecnico!
                                 </div>
                             </div>
                         </div>
