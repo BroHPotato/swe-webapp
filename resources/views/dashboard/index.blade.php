@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <div class="d-sm-flex mb-4">
+            <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
         </div>
 
         <div class="row">
@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">utenti attivi</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Utenti attivi</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">40,000</div>
                             </div>
                             <div class="col-auto">

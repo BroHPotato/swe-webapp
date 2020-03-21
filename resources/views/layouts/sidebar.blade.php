@@ -41,7 +41,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('devices.index') }}">
-            <i class="fas fa-fw fa-list-ul"></i>
+            <i class="fas fa-fw fa-microchip"></i>
             <span>Dispositivi e sensori</span></a>
     </li>
 
@@ -65,9 +65,9 @@
         </a>
         <div id="collapseMod" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('users.index') }}">Gestione Utenti</a>
-                <a class="collapse-item" href="{{ route('devices.index') }}">Gestione Dispositivi</a>
-                <a class="collapse-item" href="#">Gestione Alert</a>
+                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Utenti</a>
+                <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione Dispositivi</a>
+                <a class="collapse-item" href="#"><i class="fas fa-bell"></i> Gestione Alert</a>
             </div>
         </div>
     </li>
@@ -81,11 +81,11 @@
         </a>
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Gestione Alert</a>
-                <a class="collapse-item" href="{{ route('users.index') }}">Gestione Utenti</a>
-                <a class="collapse-item" href="#">Gestione Enti</a>
-                <a class="collapse-item" href="{{ route('devices.index') }}">Gestione Dispositivi</a>
-                <a class="collapse-item" href="{{ route('gateway.index') }}">Gestione Gateway</a>
+                <a class="collapse-item" href="#"><i class="fas fa-bell"></i> Gestione Alert</a>
+                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione Utenti</a>
+                <a class="collapse-item" href="#"><i class="far fa-building"></i> Gestione Enti</a>
+                <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione Dispositivi</a>
+                <a class="collapse-item" href="{{ route('gateway.index') }}"><i class="fas fa-dungeon"></i> Gestione Gateway</a>
             </div>
         </div>
     </li>

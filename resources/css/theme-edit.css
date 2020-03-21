@@ -5,3 +5,8 @@
     background-repeat: no-repeat;
     background-color: #C7C6D7;
 }
+
+.form-codice-tfa{
+    text-align: center;
+    font-size: 1.1rem !important;
+}
