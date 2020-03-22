@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumbs', Breadcrumbs::render('home'))
 @section('content')
     <div class="container-fluid">
 

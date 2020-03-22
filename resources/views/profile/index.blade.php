@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumbs', Breadcrumbs::render('settings'))
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex mb-4">
@@ -56,7 +56,7 @@
                             <span class="icon text-white-50">
                               <i class="fas fa-edit"></i>
                             </span>
-                            <span class="text">Modifica informazioni</span>
+                            <span class="text">Modifica</span>
                         </button>
                     </form>
                 </div>
@@ -103,7 +103,7 @@
                             <span class="icon text-white-50">
                               <i class="fas fa-edit"></i>
                             </span>
-                            <span class="text">Modifica password</span>
+                            <span class="text">Modifica</span>
                         </button>
                     </form>
                 </div>

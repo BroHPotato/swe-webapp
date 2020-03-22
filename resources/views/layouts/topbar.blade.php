@@ -7,11 +7,12 @@
         <i class="fa fa-bars"></i>
     </button>
 
+    <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 mt-3 mw-100">
+       @yield('breadcrumbs')
+    </div>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
-
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
