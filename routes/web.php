@@ -22,10 +22,17 @@ Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
 //routes per gestione profilo
 Route::get('/profile', 'ProfileController@index')->name('profile.index');
+Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
+Route::put('/profile', 'ProfileController@update');
 
 //routes per gestione user
 Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); //esempio limitazione users agli admin
+Route::get('/user/{userId}/edit', 'UserController@edit')->name('users.edit');
 Route::get('/user/{userId}', 'UserController@show')->name('users.show');
+Route::get('/user/create', 'UserController@create')->name('users.create');
+Route::post('/user', 'UserController@store');
+Route::put('/user/{userId}', 'UserController@update');
+Route::delete('/user/{userId}', 'UserController@delete');
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateway.index');
@@ -42,7 +49,3 @@ Route::get('/entity/{entityId}', 'EntityController@show')->name('entities.show')
 //routes per gestione sensor
 Route::get('/sensors', 'SensorController@index')->name('sensors.index');
 Route::get('/sensor/{sensorId}', 'SensorController@show')->name('sensors.show');
-
-
-
-

@@ -35,9 +35,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      * @return User|Authenticatable|null
      */
     public function retrieveById($identifier){
-
         try {
-
             $response = json_decode($this->request->get('user/'.$identifier, [
                 'headers' => [
                     'Authorization' => 'Bearer '.session()->get('token')
@@ -47,10 +45,12 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             $user->fill((array)$response);
             return $user;
         }catch (RequestException $e) {
-            if (false/*fai il controllo del token*/)
+            if ($e->getCode()==419/*fai il controllo del token*/){
                 Auth::logout();
+                session()->flush();
+            }
             else
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+                abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
         return null;
     }
@@ -81,48 +81,14 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function retrieveByCredentials(array $credentials){
         try {
             if(key_exists('code', $credentials)){
-                $this->request = new Client([
-                    'base_uri' => 'localhost:9999',
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer '.session()->get('token')
-                        ],
-                    'body' => '{"auth_code":"'.$credentials["code"].'"}'
-                ]);
-                $response = json_decode($this->request->post('auth/tfa')->getBody());
-                $userarray = (array)$response->user;
-                $userarray['token'] = $response->jwt;
-
-                session(['token' => $response->jwt]);
-                $user = new User();
-                $user->fill($userarray);
-                $this->user = $user;
-                return $user;
+                return $this->retriveByCode($this->request, $credentials);
             }
             else {
-                $this->request = new Client([
-                    'base_uri' => 'localhost:9999',
-                    'headers' => ['Content-Type' => 'application/json'],
-                    'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
-                ]);
-                $response = json_decode($this->request->post('auth')->getBody());
-
-                if (property_exists($response, 'tfa')) {
-                    session(['token' => $response->token]);
-                    return redirect('/login/tfa');
-                } else {
-                    $userarray = (array)$response->user;
-                    $userarray['token'] = $response->token;
-
-                    session(['token' => $response->token]);
-                    $user = new User();
-                    $user->fill($userarray);
-                    $this->user = $user;
-                    return $user;
-                }
+                return $this->retriveByCred($this->request, $credentials);
             }
         }catch (RequestException $e) {
-            session()->flush();
+            if ($e->getCode()==419/*fai il controllo del token*/)
+                Auth::logout();
             return null;
         }
     }
@@ -154,6 +120,50 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
+
+    private function retriveByCode($request, $credentials){
+        $request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.session()->get('token')
+            ],
+            'body' => '{"auth_code":"'.$credentials["code"].'"}'
+        ]);
+        $response = json_decode($request->post('auth/tfa')->getBody());
+        $userarray = (array)$response->user;
+        $userarray['token'] = $response->jwt;
+
+        session(['token' => $response->jwt]);
+        $user = new User();
+        $user->fill($userarray);
+        return $user;
+    }
+
+
+    private function retriveByCred($request, $credentials){
+        $request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
+        ]);
+        $response = json_decode($request->post('auth')->getBody());
+
+        if (property_exists($response, 'tfa')) {
+            session(['token' => $response->token]);
+            return redirect('/login/tfa');
+        } else {
+            $userarray = (array)$response->user;
+            $userarray['token'] = $response->token;
+
+            session(['token' => $response->token]);
+            $user = new User();
+            $user->fill($userarray);
+            return $user;
+        }
+    }
+
+
 
     // ===================================================
     // Mockup per un utente

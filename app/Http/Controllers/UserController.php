@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Providers\UserServiceProvider;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -41,6 +41,66 @@ class UserController extends Controller
     public function show($user)
     {
         $user = $this->provider->retrieveById($user);
-        return view('devices.show', compact('user'));
+        return view('users.show', compact('user'));
+    }
+
+    public function create(){
+        return view('users.create');
+    }
+
+    public function edit($user)
+    {
+        $user = $this->provider->retrieveById($user);
+        return view('users.edit', compact('user'));
+    }
+
+    public function store(){
+        $data = request()->validate([
+
+        ]);
+        $request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.session()->get('token')
+            ]
+        ]);
+        $user = new User();
+        $user->fill($data);
+        $request->post('/users/create', [
+            'body' => $user
+        ]);
+    }
+
+    public function update($user){
+        $data = request()->validate([
+
+        ]);
+        $user = $this->provider->retrieveById($user);
+        $user->fill($data);
+        $request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.session()->get('token')
+            ]
+        ]);
+
+        $request->put('/user/'.$user->getAuthIdentifier().'/update', [
+            'body' => $user
+        ]);
+    }
+
+
+    public function delete($user)
+    {
+        $request = new Client([
+            'base_uri' => 'localhost:9999',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.session()->get('token')
+            ]
+        ]);
+        $request->delete('/user/'.$user);
     }
 }
