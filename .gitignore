@@ -1,9 +1,13 @@
+.idea/*
+build/*
 node_modules/*
 vendor/*
-.idea/*
+coverage/*
+
 public/css
 public/js
 public/webfonts
 public/mix-manifest.json
+
 composer.lock
-build/*
+package-lock.json
