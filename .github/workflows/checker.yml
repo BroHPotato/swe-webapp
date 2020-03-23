@@ -26,12 +26,12 @@ jobs:
         node-version: 12.x
     - name: Run dependencies installation
       run: npm ci
-    - name: Run project formatter and linter
-      run: npm run prettier-eslint
+    # - name: Run project formatter and linter
+    #   run: npm run prettier-eslint
     - name: Check project formatter and linter
       run: npm run prettier-eslint-check
-    - name: Run project formatter and linter for tests
-      run: npm run prettier-eslint-test
+    # - name: Run project formatter and linter for tests
+    #   run: npm run prettier-eslint-test
     - name: Check project formatter and linter for tests
       run: npm run prettier-eslint-test-check
     - name: Run project build
@@ -51,9 +51,13 @@ jobs:
     - name: Create Database
       run: touch database/database.sqlite
     # - name: Run code style fixer
-    #  run: vendor/bin/phpcbf -n
-    - name: Run code style checker
+    #   run: vendor/bin/phpcbf -n
+    - name: Run code style sniffer
       run: vendor/bin/phpcs -s
+    # - name: Run code style fixer
+    #   run: vendor/bin/php-cs-fixer fix --config=.php_cs.php --diff -vvv
+    - name: Run code style checker
+      run: vendor/bin/php-cs-fixer fix --config=.php_cs.php --dry-run -vvv
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite

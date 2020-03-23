@@ -8,7 +8,6 @@
     <file>./tests</file>
 
     <arg name="basepath" value="."/>
-    <arg name="parallel" value="75"/>
     <arg value="sp"/>
 
     <rule ref="PSR1"/>

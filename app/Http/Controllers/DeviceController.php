@@ -30,13 +30,13 @@ class DeviceController extends Controller
     public function index()
     {
         $devices = $this->provider->findAll();
-                            $user = new Device();
-                            $arr = array_combine(
-                                array('deviceId', 'name', 'frequency', 'gatewayId'),
-                                array("1", "dev1", 123, 1)
-                            );
-                            $user->fill($arr);
-                            $devices[] = $user;
+        $user = new Device();
+        $arr = array_combine(
+            array('deviceId', 'name', 'frequency', 'gatewayId'),
+            array("1", "dev1", 123, 1)
+        );
+        $user->fill($arr);
+        $devices[] = $user;
         return view('devices.index', compact('devices'));
     }
 

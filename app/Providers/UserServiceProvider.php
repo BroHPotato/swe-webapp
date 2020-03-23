@@ -135,7 +135,6 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
 
     private function retriveByCred(Client $request, $credentials)
     {
-
         $response = json_decode($request->post('auth', [
             'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
         ])->getBody());
