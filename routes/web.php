@@ -21,9 +21,9 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
 //routes per gestione profilo
-Route::get('/profile', 'ProfileController@index')->name('profile.index');
-Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit');
-Route::put('/profile', 'ProfileController@update');
+//Route::get('/settings', 'SettingsController@index')->name('settings.index');
+Route::get('/settings/edit', 'SettingsController@edit')->name('settings.edit');
+Route::put('/settings', 'SettingsController@update');
 
 //routes per gestione user
 Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); //esempio limitazione users agli admin

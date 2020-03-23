@@ -8,5 +8,5 @@ Breadcrumbs::for('home', function ($trail) {
 // Home > Impostazioni
 Breadcrumbs::for('settings', function ($trail) {
     $trail->parent('home');
-    $trail->push('Impostazioni account', route('profile.index'));
+    $trail->push('Impostazioni account', route('settings.edit'));
 });

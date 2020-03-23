@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -27,13 +27,13 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('profile.index', compact('user'));
+        return view('settings.index', compact('user'));
     }
 
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        return view('settings.edit', compact('user'));
     }
 
     public function update(){

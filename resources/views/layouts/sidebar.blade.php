@@ -22,7 +22,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('profile.index') }}">
+        <a class="nav-link" href="{{ route('settings.edit') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Profilo</span></a>
     </li>

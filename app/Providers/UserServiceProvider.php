@@ -46,7 +46,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             return $user;
         }catch (RequestException $e) {
             if ($e->getCode()==419/*fai il controllo del token*/){
-                Auth::logout();
+                dd(session()->all());
+                //TODO
                 session()->flush();
             }
             else
