@@ -10,7 +10,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token'
+        'userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token', 'password'
     ];
 
     public function getAuthIdentifierName(): string
@@ -25,6 +25,18 @@ class User extends Authenticatable
     public function getAuthIdentifier()
     {
         return $this->userId;
+    }
+
+    public function getAuthPassword(){
+        return $this->password;
+    }
+
+    public function getTelegramName(){
+        return $this->telegramName;
+    }
+
+    public function getChatId(){
+        return $this->telegramChat;
     }
 
 }

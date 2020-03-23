@@ -21,14 +21,9 @@
             <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('settings.edit') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Profilo</span></a>
-    </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#"><!-- route('settings.index') -->
+        <a class="nav-link" href="{{ route('settings.edit') }}"><!-- route('settings.index') -->
             <i class="fas fa-fw fa-cog"></i>
             <span>Impostazioni</span></a>
     </li>

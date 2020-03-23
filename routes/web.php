@@ -23,7 +23,7 @@ Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 //routes per gestione profilo
 //Route::get('/settings', 'SettingsController@index')->name('settings.index');
 Route::get('/settings/edit', 'SettingsController@edit')->name('settings.edit');
-Route::put('/settings', 'SettingsController@update');
+Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user
 Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); //esempio limitazione users agli admin

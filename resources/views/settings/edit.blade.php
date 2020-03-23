@@ -17,18 +17,29 @@
                 </div>
                 <div class="card-body">
                     <p>Puoi modificare le informazioni del tuo account cambiando i campi contenuti di seguito.</p>
-                    <!-- TODO messaggio di errore per le info errate -->
-                    <form method="POST">
+                    <form method="POST" action="{{route('settings.update')}}">
+                        @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="inputEmail" class="col-sm-4 col-form-label"><i class="fas fa-envelope text-gray-500"></i> Email</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{$user->email}}">
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{$user->email}}" name="email">
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputTg" class="col-sm-4 col-form-label"><i class="fab fa-telegram text-primary"></i> Username Telegram</label>
                             <div class="col-sm-8">
-                                <input type="username" class="form-control" id="inputTg" placeholder="Username Telegram" value="{{$user->telegramName}}">
+                                <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{$user->telegramName}}" name="telegramName">
+                                @error('telegramName')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
@@ -36,12 +47,11 @@
                                 <i class="fas fa-shield-alt text-info"></i>
                                 Sicurezza account
                             </div>
-                            <!-- TODO se senza chat-id o cambia lo username allora disabled -->
                             <div class="col-sm-8">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="gridCheck">
+                                    <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa) checked @endif @if(!$user->telegramChat) disabled @endif>
                                     <label class="custom-control-label" for="gridCheck">
-                                        Autenticazione a due fattori con Telegram* </i>
+                                        <i>Autenticazione a due fattori con Telegram* </i>
                                     </label>
                                 </div>
                             </div>
@@ -72,30 +82,47 @@
                 </div>
                 <div class="card-body">
                     <p>Per modificare la password del tuo account, compila tutti i campi di seguito.</p>
-                    <!-- TODO messaggio di errore per le password e minlength -->
-                    <form method="POST">
+                    <!-- TODO minlength -->
+                    <form method="POST" action="{{route('settings.update')}}">
+                        @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="inputPA" class="col-sm-4 col-form-label">
                                 <i class="fas fa-lock-open text-danger"></i> Password attuale</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPA"
-                                       placeholder="Password attuale">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
+                                       placeholder="Password attuale" name="password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPN" class="col-sm-4 col-form-label">
                                 <i class="fas fa-lock text-success"></i> Nuova password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPN"
-                                       placeholder="Nuova password">
+                                <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
+                                       placeholder="Nuova password" name="new password">
+                                @error('new_password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputPNR" class="col-sm-4 col-form-label">
                                 <i class="fas fa-redo-alt text-success"></i> Ripeti nuova password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPNR"
-                                       placeholder="Ripeti nuova password">
+                                <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
+                                       placeholder="Ripeti nuova password" name="confirm password">
+                                @error('confirm_password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <hr class="mt-4">

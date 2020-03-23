@@ -10,7 +10,6 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 
 class UserServiceProvider extends ServiceProvider implements UserProvider
@@ -29,7 +28,6 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         ]);
     }
 
-
     /**
      * @param mixed $identifier
      * @return User|Authenticatable|null
@@ -46,8 +44,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             return $user;
         }catch (RequestException $e) {
             if ($e->getCode()==419/*fai il controllo del token*/){
-                dd(session()->all());
-                //TODO
+                session()->invalidate();
                 session()->flush();
             }
             else
@@ -88,8 +85,10 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
                 return $this->retriveByCred($this->request, $credentials);
             }
         }catch (RequestException $e) {
-            if ($e->getCode()==419/*fai il controllo del token*/)
-                Auth::logout();
+            if ($e->getCode()==419/*fai il controllo del token*/){
+                session()->invalidate();
+                session()->flush();
+            }
             return null;
         }
     }
@@ -118,20 +117,21 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             }
             return $users;
         }catch (RequestException $e) {
+            if ($e->getCode()==419/*fai il controllo del token*/){
+                session()->invalidate();
+                session()->flush();
+            }
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
-    private function retriveByCode($request, $credentials){
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
+    private function retriveByCode(Client $request, $credentials){
+        $response = json_decode($request->post('auth/tfa', [
             'headers' => [
-                'Content-Type' => 'application/json',
                 'Authorization' => 'Bearer '.session()->get('token')
             ],
             'body' => '{"auth_code":"'.$credentials["code"].'"}'
-        ]);
-        $response = json_decode($request->post('auth/tfa')->getBody());
+        ])->getBody());
         $userarray = (array)$response->user;
         $userarray['token'] = $response->jwt;
 
@@ -141,14 +141,11 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         return $user;
     }
 
+    private function retriveByCred(Client $request, $credentials){
 
-    private function retriveByCred($request, $credentials){
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => ['Content-Type' => 'application/json'],
+        $response = json_decode($request->post('auth', [
             'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
-        ]);
-        $response = json_decode($request->post('auth')->getBody());
+        ])->getBody());
 
         if (property_exists($response, 'tfa')) {
             session(['token' => $response->token]);
@@ -161,6 +158,24 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             $user = new User();
             $user->fill($userarray);
             return $user;
+        }
+    }
+
+    public function update(String $where, String $body){
+        try {
+            $this->request->put($where.'/update', [
+                'headers' => [
+                    'Authorization' => 'Bearer '.session()->get('token')
+                ],
+                'body' => $body
+            ]);
+        }
+        catch (RequestException $e){
+            if ($e->getCode()==419/*fai il controllo del token*/){
+                session()->invalidate();
+                session()->flush();
+            }
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
