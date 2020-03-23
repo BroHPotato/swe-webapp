@@ -42,10 +42,11 @@ Route::get('/gateway/{gatewayId}', 'GatewayController@show')->name('gateway.show
 Route::get('/devices', 'DeviceController@index')->name('devices.index');
 Route::get('/device/{deviceId}', 'DeviceController@show')->name('devices.show');
 
+//routes per gestione devices
+Route::get('/device/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
+Route::get('/device/{deviceId}/sensor/{sensorId}', 'SensorController@show')->name('sensors.show');
+
+
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');
 Route::get('/entity/{entityId}', 'EntityController@show')->name('entities.show');
-
-//routes per gestione sensor
-Route::get('/sensors', 'SensorController@index')->name('sensors.index');
-Route::get('/sensor/{sensorId}', 'SensorController@show')->name('sensors.show');

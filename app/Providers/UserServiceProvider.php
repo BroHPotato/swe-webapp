@@ -43,14 +43,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             $user->fill((array)$response);
             return $user;
         }catch (RequestException $e) {
-            if ($e->getCode()==419/*fai il controllo del token*/){
-                session()->invalidate();
-                session()->flush();
-            }
-            else
-                abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
-        return null;
     }
 
     /**
@@ -85,10 +80,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
                 return $this->retriveByCred($this->request, $credentials);
             }
         }catch (RequestException $e) {
-            if ($e->getCode()==419/*fai il controllo del token*/){
-                session()->invalidate();
-                session()->flush();
-            }
+            $this->isExpired($e);
             return null;
         }
     }
@@ -117,10 +109,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             }
             return $users;
         }catch (RequestException $e) {
-            if ($e->getCode()==419/*fai il controllo del token*/){
-                session()->invalidate();
-                session()->flush();
-            }
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
@@ -171,14 +160,18 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             ]);
         }
         catch (RequestException $e){
-            if ($e->getCode()==419/*fai il controllo del token*/){
-                session()->invalidate();
-                session()->flush();
-            }
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
+    private function isExpired(RequestException $e){
+        if ($e->getCode()==419/*fai il controllo del token*/){
+            session()->invalidate();
+            session()->flush();
+            return redirect('login');
+        }
+    }
 
 
     // ===================================================

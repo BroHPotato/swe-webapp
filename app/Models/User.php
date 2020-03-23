@@ -12,6 +12,7 @@ class User extends Authenticatable
     protected $fillable = [
         'userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token', 'password'
     ];
+    private $role = ['Utente', 'Moderatore', 'Amministratore'];
 
     public function getAuthIdentifierName(): string
     {
@@ -37,6 +38,10 @@ class User extends Authenticatable
 
     public function getChatId(){
         return $this->telegramChat;
+    }
+
+    public function getRole(){
+        return $this->role[$this->type];
     }
 
 }

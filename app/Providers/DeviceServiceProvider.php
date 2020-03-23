@@ -38,7 +38,7 @@ class DeviceServiceProvider extends ServiceProvider
             $device->fill((array)$response);
             return $device;
         }catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -61,8 +61,16 @@ class DeviceServiceProvider extends ServiceProvider
             }
             return $devices;
         }catch (RequestException $e) {
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            return null;
+        }
+    }
+
+    private function isExpired(RequestException $e){
+        if ($e->getCode()==419/*fai il controllo del token*/){
+            session()->invalidate();
+            session()->flush();
+            return redirect('login');
         }
     }
 }

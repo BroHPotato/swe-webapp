@@ -52,7 +52,6 @@
     </div>
     @endcanany
 
-    <!-- TODO only for moderators -->
     @can('isMod')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="true" aria-controls="collapseTwo">
@@ -70,7 +69,6 @@
     @endcan
 
 
-    <!-- TODO only for admins -->
     @can('isAdmin')
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseTwo">

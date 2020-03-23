@@ -1,20 +1,63 @@
 @extends('layouts.app')
-
+@section('breadcrumbs', Breadcrumbs::render('users'))
 @section('content')
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">email</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($users as $user)
-            <tr>
-                <td>{{$user->name}}</td>
-                <td>{{$user->email}}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="container-fluid">
+        <div class="d-sm-flex mb-4">
+            <h1 class="h3 mb-0 text-gray-800"> Dispositivi</h1>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Email</th>
+                        <th>Ruolo</th>
+                        <th>Stato</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Email</th>
+                        <th>Ruolo</th>
+                        <th>Stato</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{$user->userId}}</td>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->surname}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>{{$user->getRole()}}</td>
+                            <td>
+                                @if($user->deleted)
+                                    <span class="badge badge-danger">Disattivo</span>
+                                @else
+                                    <span class="badge badge-success">Attivo</span>
+                                @endif
+                            <td><a href="{{route('users.show', ['userId' => $user->userId ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <i class="fas fa-info-circle"></i>
+                                        </span>
+                                    <span class="text">Dettagli</span>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 @endsection
