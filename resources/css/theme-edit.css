@@ -1,0 +1,16 @@
+
+.bg-login-image{
+    background-image: url("https://www.redroundrobin.site/images/favicon.png");
+    background-size: 250px;
+    background-repeat: no-repeat;
+    background-color: #C7C6D7;
+}
+
+.form-codice-tfa{
+    text-align: center;
+    font-size: 1.1rem !important;
+}
+
+.breadcrumb{
+    background-color: transparent !important;
+}
