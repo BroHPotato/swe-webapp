@@ -26,7 +26,7 @@ Route::get('/settings/edit', 'SettingsController@edit')->name('settings.edit');
 Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user
-Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); //esempio limitazione users agli admin
+Route::get('/users', 'UserController@index')->middleware('can:isAdmin')->name('users.index'); // limita users agli admin
 Route::get('/user/{userId}/edit', 'UserController@edit')->name('users.edit');
 Route::get('/user/{userId}', 'UserController@show')->name('users.show');
 Route::get('/user/create', 'UserController@create')->name('users.create');

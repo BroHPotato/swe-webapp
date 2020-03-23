@@ -37,29 +37,31 @@ class SettingsController extends Controller
         return view('settings.edit', compact('user'));
     }
 
-    public function update(){
+    public function update()
+    {
         $user = Auth::user();
         $data = request()->validate([
             'email' => 'email',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
-            'password' => 'required_with:new_password|in:'.$user->getAuthPassword(),
+            'password' => 'required_with:new_password|in:' . $user->getAuthPassword(),
             'new_password' => 'required_with:password|min:6',
             'confirm_password' => 'required_with:new_password|same:new_password'
         ]);
 
-        if (key_exists('tfa', $data))
+        if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
-        else
+        } else {
             $data['tfa'] = false;
-        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId()))
+        }
+        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
             $data['tfa'] = false;
+        }
 
         $user->fill($data);
         $service = new UserServiceProvider();
-        $service->update('/user/'.$user->getAuthIdentifier(), $user);
+        $service->update('/user/' . $user->getAuthIdentifier(), $user);
         Auth::login($user);
         return redirect('/settings/edit');
     }
-
 }

@@ -11,7 +11,9 @@
         "test": "jest --forceExit",
         "eslint-prettier-check": "eslint --print-config **.js | eslint-config-prettier-check",
         "prettier-eslint": "eslint --fix **/resources/js/**/*.{js,vue}",
-        "prettier-eslint-test": "eslint --fix **/__tests__**/*.js"
+        "prettier-eslint-test": "eslint --fix **/__tests__**/*.js",
+        "prettier-eslint-check": "eslint **/resources/js/**/*.{js,vue}",
+        "prettier-eslint-test-check": "eslint **/__tests__**/*.js"
     },
     "devDependencies": {
         "@vue/test-utils": "^1.0.0-beta.32",

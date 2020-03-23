@@ -27,17 +27,18 @@ class DeviceServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Device
      */
-    public function retrieveById($identifier){
+    public function retrieveById($identifier)
+    {
         try {
-            $response = json_decode($this->request->get('device/'.$identifier, [
+            $response = json_decode($this->request->get('device/' . $identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $device = new Device();
             $device->fill((array)$response);
             return $device;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             $this->isExpired($e);
             return null;
         }
@@ -46,28 +47,30 @@ class DeviceServiceProvider extends ServiceProvider
     /**
      * @return array|null
      */
-    public function findAll(){
+    public function findAll()
+    {
         try {
             $response = json_decode($this->request->get('devices', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                     ]
                 ])->getBody());
             $devices = [];
-            foreach ($response as $d){
+            foreach ($response as $d) {
                 $device = new Device();
                 $device->fill((array)$d);
                 $devices[] = $device;
             }
             return $devices;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
-    private function isExpired(RequestException $e){
-        if ($e->getCode()==419/*fai il controllo del token*/){
+    private function isExpired(RequestException $e)
+    {
+        if ($e->getCode() == 419/*fai il controllo del token*/) {
             session()->invalidate();
             session()->flush();
             return redirect('login');

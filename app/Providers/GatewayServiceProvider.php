@@ -27,17 +27,18 @@ class GatewayServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Gateway
      */
-    public function retrieveById($identifier){
+    public function retrieveById($identifier)
+    {
         try {
-            $response = json_decode($this->request->get('gateways/'.$identifier, [
+            $response = json_decode($this->request->get('gateways/' . $identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $gateway = new Gateway();
             $gateway->fill((array)$response);
             return $gateway;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
@@ -46,24 +47,24 @@ class GatewayServiceProvider extends ServiceProvider
     /**
      * @return array|null
      */
-    public function findAll(){
+    public function findAll()
+    {
         try {
             $response = json_decode($this->request->get('gateways', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $gateways = [];
-            foreach ($response as $g){
+            foreach ($response as $g) {
                 $gateway = new Gateway();
                 $gateway->fill((array)$g);
                 $gateways[] = $gateway;
             }
             return $gateways;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
 }
-

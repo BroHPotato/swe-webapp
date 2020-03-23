@@ -44,7 +44,8 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('users.create');
     }
 
@@ -54,7 +55,8 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function store(){
+    public function store()
+    {
         $data = request()->validate([
 
         ]);
@@ -62,7 +64,7 @@ class UserController extends Controller
             'base_uri' => 'localhost:9999',
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.session()->get('token')
+                'Authorization' => 'Bearer ' . session()->get('token')
             ]
         ]);
         $user = new User();
@@ -72,7 +74,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function update($user){
+    public function update($user)
+    {
         $data = request()->validate([
 
         ]);
@@ -82,11 +85,11 @@ class UserController extends Controller
             'base_uri' => 'localhost:9999',
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.session()->get('token')
+                'Authorization' => 'Bearer ' . session()->get('token')
             ]
         ]);
 
-        $request->put('/user/'.$user->getAuthIdentifier().'/update', [
+        $request->put('/user/' . $user->getAuthIdentifier() . '/update', [
             'body' => $user
         ]);
     }
@@ -98,9 +101,9 @@ class UserController extends Controller
             'base_uri' => 'localhost:9999',
             'headers' => [
                 'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.session()->get('token')
+                'Authorization' => 'Bearer ' . session()->get('token')
             ]
         ]);
-        $request->delete('/user/'.$user);
+        $request->delete('/user/' . $user);
     }
 }

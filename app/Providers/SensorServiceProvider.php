@@ -27,17 +27,18 @@ class SensorServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Sensor
      */
-    public function retrieveById($identifier){
+    public function retrieveById($identifier)
+    {
         try {
-            $response = json_decode($this->request->get('sensor/'.$identifier, [
+            $response = json_decode($this->request->get('sensor/' . $identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $sensor = new Sensor();
             $sensor->fill((array)$response);
             return $sensor;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
@@ -46,21 +47,22 @@ class SensorServiceProvider extends ServiceProvider
     /**
      * @return array|null
      */
-    public function findAll(){
+    public function findAll()
+    {
         try {
             $response = json_decode($this->request->get('sensors', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $sensors = [];
-            foreach ($response as $d){
+            foreach ($response as $d) {
                 $sensor = new Sensor();
                 $sensor->fill((array)$d);
                 $sensors[] = $sensor;
             }
             return $sensors;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }

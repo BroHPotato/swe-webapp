@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Providers;
 
 use App\Models\User;
@@ -10,7 +9,6 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\RedirectResponse;
-
 
 class UserServiceProvider extends ServiceProvider implements UserProvider
 {
@@ -32,17 +30,18 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      * @param mixed $identifier
      * @return User|Authenticatable|null
      */
-    public function retrieveById($identifier){
+    public function retrieveById($identifier)
+    {
         try {
-            $response = json_decode($this->request->get('user/'.$identifier, [
+            $response = json_decode($this->request->get('user/' . $identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $user = new User();
             $user->fill((array)$response);
             return $user;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
@@ -53,7 +52,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      * @param string $token
      * @return Authenticatable|null
      */
-    public function retrieveByToken($identifier, $token){
+    public function retrieveByToken($identifier, $token)
+    {
         return null;
     }
 
@@ -63,23 +63,23 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      * @param Authenticatable $user
      * @param string $token
      */
-    public function updateRememberToken(Authenticatable $user, $token){
-
+    public function updateRememberToken(Authenticatable $user, $token)
+    {
     }
 
     /**
      * @param array $credentials
      * @return User|Authenticatable|RedirectResponse
      */
-    public function retrieveByCredentials(array $credentials){
+    public function retrieveByCredentials(array $credentials)
+    {
         try {
-            if(key_exists('code', $credentials)){
+            if (key_exists('code', $credentials)) {
                 return $this->retriveByCode($this->request, $credentials);
-            }
-            else {
+            } else {
                 return $this->retriveByCred($this->request, $credentials);
             }
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             $this->isExpired($e);
             return null;
         }
@@ -90,36 +90,39 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      * @param array $credentials
      * @return bool
      */
-    public function validateCredentials($user, array $credentials){
+    public function validateCredentials($user, array $credentials)
+    {
         return true;
     }
 
-    public function findAll(){
+    public function findAll()
+    {
         try {
             $response = json_decode($this->request->get('users', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
             $users = [];
-            foreach ($response as $u){
+            foreach ($response as $u) {
                 $user = new User();
                 $user->fill((array)$u);
                 $users[] = $user;
             }
             return $users;
-        }catch (RequestException $e) {
+        } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
-    private function retriveByCode(Client $request, $credentials){
+    private function retriveByCode(Client $request, $credentials)
+    {
         $response = json_decode($request->post('auth/tfa', [
             'headers' => [
-                'Authorization' => 'Bearer '.session()->get('token')
+                'Authorization' => 'Bearer ' . session()->get('token')
             ],
-            'body' => '{"auth_code":"'.$credentials["code"].'"}'
+            'body' => '{"auth_code":"' . $credentials["code"] . '"}'
         ])->getBody());
         $userarray = (array)$response->user;
         $userarray['token'] = $response->jwt;
@@ -130,7 +133,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         return $user;
     }
 
-    private function retriveByCred(Client $request, $credentials){
+    private function retriveByCred(Client $request, $credentials)
+    {
 
         $response = json_decode($request->post('auth', [
             'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
@@ -150,23 +154,24 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         }
     }
 
-    public function update(String $where, String $body){
+    public function update(string $where, string $body)
+    {
         try {
-            $this->request->put($where.'/update', [
+            $this->request->put($where . '/update', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token')
                 ],
                 'body' => $body
             ]);
-        }
-        catch (RequestException $e){
+        } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
-    private function isExpired(RequestException $e){
-        if ($e->getCode()==419/*fai il controllo del token*/){
+    private function isExpired(RequestException $e)
+    {
+        if ($e->getCode() == 419/*fai il controllo del token*/) {
             session()->invalidate();
             session()->flush();
             return redirect('login');
@@ -178,13 +183,15 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     // Mockup per un utente
     // Funzione da rimuovere in production
 
-    public function ImJustAGuyDontBotherMe(){
+    public function imJustAGuyDontBotherMe()
+    {
         $user = new User();
-        $arr = array_combine(array('userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token'),
-            array("1", "sys", "admin", "sys@admin.it", "0", "pippo", "123", "0", "0", "456"));
+        $arr = array_combine(
+            array('userId', 'name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa',
+                'token'),
+            array("1", "sys", "admin", "sys@admin.it", "0", "pippo", "123", "0", "0", "456")
+        );
         $user->fill($arr);
         return $user;
     }
-
-
 }

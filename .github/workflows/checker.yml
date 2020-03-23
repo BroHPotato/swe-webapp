@@ -28,8 +28,12 @@ jobs:
       run: npm ci
     - name: Run project formatter and linter
       run: npm run prettier-eslint
+    - name: Check project formatter and linter
+      run: npm run prettier-eslint-check
     - name: Run project formatter and linter for tests
       run: npm run prettier-eslint-test
+    - name: Check project formatter and linter for tests
+      run: npm run prettier-eslint-test-check
     - name: Run project build
       run: npm run build --if-present
     - name: Run project test
@@ -46,6 +50,10 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
       run: touch database/database.sqlite
+    # - name: Run code style fixer
+    #  run: vendor/bin/phpcbf -n
+    - name: Run code style checker
+      run: vendor/bin/phpcs -s
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite

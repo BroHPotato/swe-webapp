@@ -22,7 +22,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
 
     protected $maxAttempts = 3;
@@ -32,7 +31,8 @@ class LoginController extends Controller
      *
      * @return string
      */
-    protected function redirectTo(){
+    protected function redirectTo()
+    {
         return RouteServiceProvider::DASHBOARD;
     }
 
@@ -50,20 +50,23 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        if ($request->exists('code'))
+        if ($request->exists('code')) {
             $credentials = $request->only('code');
-        else
+        } else {
             $credentials = $request->only('email', 'password');
+        }
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect(RouteServiceProvider::DASHBOARD);;
+            return redirect(RouteServiceProvider::DASHBOARD);
+            ;
         }
     }
     public function showTfaForm()
     {
-        if (!session()->exists('token' ))
+        if (!session()->exists('token')) {
             return redirect('login');
+        }
         return view('auth.tfaLogin');
     }
 
@@ -77,12 +80,11 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        if ($request->exists('code')){
+        if ($request->exists('code')) {
             throw ValidationException::withMessages([
                 'code' => ['Codice non valido'],
             ]);
-        }
-        else{
+        } else {
             throw ValidationException::withMessages([
                 $this->username() => ['Opssssss qualcosa è andato storto! 👀'/*trans('auth.failed')*/],
             ]);
@@ -91,12 +93,11 @@ class LoginController extends Controller
 
     protected function validateLogin(Request $request)
     {
-        if ($request->exists('code')){
+        if ($request->exists('code')) {
             $request->validate([
                'code' => 'required|string'
             ]);
-        }
-        else{
+        } else {
             $request->validate([
                 $this->username() => 'required|string',
                 'password' => 'required|string',
@@ -112,10 +113,9 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
-        if ($request->exists('code')){
+        if ($request->exists('code')) {
             return $request->only('code');
-        }
-        else{
+        } else {
             return $request->only($this->username(), 'password');
         }
     }
@@ -135,10 +135,9 @@ class LoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
 
-            if (session()->exists('token')){
+        if (method_exists($this, 'hasTooManyLoginAttempts') && $this->hasTooManyLoginAttempts($request)) {
+            if (session()->exists('token')) {
                 session()->flush();
                 return redirect('login')->withErrors([
                     $this->username() => 'Riprova, sarai più fortunato!'
