@@ -33,6 +33,8 @@ class DashboardController extends Controller
         $usersActiveEntity = array_filter($usersEntity, function ($u) {
             return !$u->deleted;
         });
-        return view('dashboard.index', compact(['user', 'users', 'entities', 'devices', 'devicesEntity', '$usersEntity', 'usersActive', 'usersActiveEntity']));
+        return view('dashboard.index', compact([
+            'user', 'users', 'entities', 'devices', 'devicesEntity', '$usersEntity', 'usersActive', 'usersActiveEntity'
+        ]));
     }
 }
