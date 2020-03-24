@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Providers\UserServiceProvider;
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Renderable;
 
 class UserController extends Controller
@@ -73,7 +72,6 @@ class UserController extends Controller
         $user = $this->provider->retrieveById($user);
         $user->fill($data);
         $this->provider->update($user->getAuthIdentifier(), $user);
-
     }
 
     public function destroy($user)
@@ -89,6 +87,4 @@ class UserController extends Controller
         $user->setDeleted(false);
         $this->provider->update($user->getAuthIdentifier(), $user);
     }
-
-
 }

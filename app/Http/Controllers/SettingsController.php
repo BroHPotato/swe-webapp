@@ -61,7 +61,6 @@ class SettingsController extends Controller
         $user->fill($data);
         $service = new UserServiceProvider();
         $service->update($user->getAuthIdentifier(), $user);
-        Auth::login($user);
         return redirect('/settings/edit');
     }
 }
