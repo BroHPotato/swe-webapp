@@ -39,6 +39,7 @@ class SensorServiceProvider extends ServiceProvider
             $sensor->fill((array)$response);
             return $sensor;
         } catch (RequestException $e) {
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
@@ -63,8 +64,41 @@ class SensorServiceProvider extends ServiceProvider
             }
             return $sensors;
         } catch (RequestException $e) {
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
+        }
+    }
+
+    public function findAllFromDevice($deviceId)
+    {
+        try {
+            $response = json_decode($this->request->get('sensors', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'deviceId=' . $deviceId
+            ])->getBody());
+            $sensors = [];
+            foreach ($response as $d) {
+                $sensor = new Sensor();
+                $sensor->fill((array)$d);
+                $sensors[] = $sensor;
+            }
+            return $sensors;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
+    private function isExpired(RequestException $e)
+    {
+        if ($e->getCode() == 419/*fai il controllo del token*/) {
+            session()->invalidate();
+            session()->flush();
+            return redirect('login');
         }
     }
 }

@@ -30,7 +30,7 @@ class EntityServiceProvider extends ServiceProvider
     public function retrieveById($identifier)
     {
         try {
-            $response = json_decode($this->request->get('enity/' . $identifier, [
+            $response = json_decode($this->request->get('entity/' . $identifier, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
@@ -39,6 +39,7 @@ class EntityServiceProvider extends ServiceProvider
             $entity->fill((array)$response);
             return $entity;
         } catch (RequestException $e) {
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
@@ -63,8 +64,36 @@ class EntityServiceProvider extends ServiceProvider
             }
             return $entities;
         } catch (RequestException $e) {
+            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
+        }
+    }
+
+    public function retrieveByDevice($deviceId){
+        try {
+            $response = json_decode($this->request->get('entities', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'deviceId=' . $deviceId
+            ])->getBody());
+            $entity = new Entity();
+            $entity->fill((array)$response);
+            return $entity;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
+    private function isExpired(RequestException $e)
+    {
+        if ($e->getCode() == 419/*fai il controllo del token*/) {
+            session()->invalidate();
+            session()->flush();
+            return redirect('login');
         }
     }
 }

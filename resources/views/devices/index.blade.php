@@ -40,8 +40,8 @@
                                 <td><span class="badge badge-success">Attivo</span></td>
                                 <td>{{$device->deviceId}}</td>
                                 <td>{{$device->name}}</td>
-                                <td>{{ "TBD" }}</td>
-                                <td>{{ "TBD" }}</td>
+                                <td>{{count($device->getSensors())}}</td>
+                                <td>{{$device->getEntity()->getName()}}</td>
                                 <td><a href="{{route('sensors.index', ['deviceId' => $device->deviceId ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <i class="fas fa-thermometer-half"></i>
