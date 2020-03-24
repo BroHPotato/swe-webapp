@@ -33,5 +33,3 @@ Breadcrumbs::for('user', function ($trail, $userId) {
     $trail->parent('users');
     $trail->push('Utente ' . $userId, route('users.show', ['userId' => $userId]));
 });
-
-
