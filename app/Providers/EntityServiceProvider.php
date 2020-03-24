@@ -70,7 +70,7 @@ class EntityServiceProvider extends ServiceProvider
         }
     }
 
-    public function retrieveByDevice($deviceId)
+    public function findFromDevice($deviceId)
     {
         try {
             $response = json_decode($this->request->get('entities', [
@@ -88,6 +88,26 @@ class EntityServiceProvider extends ServiceProvider
             return null;
         }
     }
+
+    public function findFromUser($userId)
+    {
+        try {
+            $response = json_decode($this->request->get('entities', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'userId=' . $userId
+            ])->getBody());
+            $entity = new Entity();
+            $entity->fill((array)$response);
+            return $entity;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
 
     private function isExpired(RequestException $e)
     {
