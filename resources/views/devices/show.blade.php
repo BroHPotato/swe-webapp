@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('breadcrumbs', Breadcrumbs::render('device', $device->deviceId))
 @section('content')
     <div class="container">
         <button class="btn-primary btn" onclick="window.history.back()">Indietro</button>

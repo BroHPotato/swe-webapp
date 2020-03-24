@@ -35,12 +35,13 @@ class DeviceServiceProvider extends ServiceProvider
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
+
             $device = new Device();
             $device->fill((array)$response);
             return $device;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            return null;
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 

@@ -49,7 +49,8 @@ class User extends Authenticatable
         return $this->role[$this->type];
     }
 
-    public function setDeleted(bool $b){
+    public function setDeleted(bool $b)
+    {
         $this->deleted = $b;
     }
 }
