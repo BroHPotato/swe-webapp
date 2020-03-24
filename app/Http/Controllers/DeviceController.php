@@ -29,7 +29,8 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = $this->provider->findAll();
+        //$devices = $this->provider->findAll();
+        ///FAKER
         $user = new Device();
         $arr = array_combine(
             array('deviceId', 'name', 'frequency', 'gatewayId'),
@@ -37,6 +38,7 @@ class DeviceController extends Controller
         );
         $user->fill($arr);
         $devices[] = $user;
+        //TODO remove
         return view('devices.index', compact('devices'));
     }
 
@@ -48,7 +50,16 @@ class DeviceController extends Controller
      */
     public function show($device)
     {
-        $device = $this->provider->retrieveById($device);
+        //$device = $this->provider->retrieveById($device);
+        ///FAKER
+        $user = new Device();
+        $arr = array_combine(
+            array('deviceId', 'name', 'frequency', 'gatewayId'),
+            array("1", "dev1", 123, 1)
+        );
+        $user->fill($arr);
+        $device = $user;
+        //TODO remove
         return view('devices.show', compact('device'));
     }
 }

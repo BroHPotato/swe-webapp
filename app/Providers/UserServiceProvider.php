@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class UserServiceProvider extends ServiceProvider implements UserProvider
 {
@@ -157,12 +158,22 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     {
         dd($body);
         try {
-            $this->request->put('/user/' . $who . '/update', [
+            $response = json_decode($this->request->put('/user/' . $who . '/update', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ],
                 'body' => $body
-            ]);
+            ])->getBody());
+            if (property_exists($response, 'token')) {
+                $userarray = (array)$response->user;
+                $userarray['token'] = $response->token;
+
+                session(['token' => $response->token]);
+                $user = new User();
+                $user->fill($userarray);
+                Auth::login($user);
+                //TODO testare sta roba
+            }
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
