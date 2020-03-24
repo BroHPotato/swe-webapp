@@ -58,52 +58,37 @@ class UserController extends Controller
     public function store()
     {
         $data = request()->validate([
-
-        ]);
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
+            //TODO
         ]);
         $user = new User();
         $user->fill($data);
-        $request->post('/users/create', [
-            'body' => $user
-        ]);
+        $this->provider->store($user);
     }
 
     public function update($user)
     {
         $data = request()->validate([
-
+            //TODO
         ]);
         $user = $this->provider->retrieveById($user);
         $user->fill($data);
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
-        ]);
+        $this->provider->update($user->getAuthIdentifier(), $user);
 
-        $request->put('/user/' . $user->getAuthIdentifier() . '/update', [
-            'body' => $user
-        ]);
     }
 
-
-    public function delete($user)
+    public function destroy($user)
     {
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
-        ]);
-        $request->delete('/user/' . $user);
+        $user = $this->provider->retrieveById($user);
+        $user->setDeleted(true);
+        $this->provider->destroy($user->getAuthIdentifier(), $user);
     }
+
+    public function restore($user)
+    {
+        $user = $this->provider->retrieveById($user);
+        $user->setDeleted(false);
+        $this->provider->update($user->getAuthIdentifier(), $user);
+    }
+
+
 }

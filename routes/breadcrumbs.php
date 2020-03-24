@@ -24,3 +24,7 @@ Breadcrumbs::for('users', function ($trail) {
     $trail->parent('home');
     $trail->push('Gestione Utenti', route('users.index'));
 });
+Breadcrumbs::for('user', function ($trail, $userId) {
+    $trail->parent('users');
+    $trail->push('Utente ' . $userId, route('users.show', ['userId' => $userId]));
+});

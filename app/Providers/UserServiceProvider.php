@@ -153,10 +153,27 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         }
     }
 
-    public function update(string $where, string $body)
+    public function update(string $who, string $body)
     {
+        dd($body);
         try {
-            $this->request->put($where . '/update', [
+            $this->request->put('/user/' . $who . '/update', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'body' => $body
+            ]);
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    public function destroy(string $who, string $body)
+    {
+        dd($body);
+        try {
+            $this->request->delete('/user/' . $who . '/destroy', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ],
@@ -174,6 +191,22 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
             session()->invalidate();
             session()->flush();
             return redirect('login');
+        }
+    }
+
+    public function store(string $body)
+    {
+        dd($body);
+        try {
+            $this->request->delete('users/store', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'body' => $body
+            ]);
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 

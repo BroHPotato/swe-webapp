@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Impostazioni account</h1>
+            <h1 class="h3 mb-0 text-gray-800">Impostazioni account</h1>
         </div>
 
         <div class="row">
@@ -138,7 +138,7 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-bell"></i> Notifiche alert attive</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-bell"></i> Notifiche alert</h6>
             </div>
             <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
