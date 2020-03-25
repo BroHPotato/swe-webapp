@@ -17,13 +17,19 @@ Breadcrumbs::for('devices', function ($trail) {
 });
 Breadcrumbs::for('device', function ($trail, $deviceId) {
     $trail->parent('devices');
-    $trail->push('Dispositivo ' . $deviceId, route('devices.show', ['userId' => $deviceId]));
+    $trail->push('Dispositivo ' . $deviceId, route('devices.show', ['deviceId' => $deviceId]));
 });
 // Sensori
 Breadcrumbs::for('sensors', function ($trail, $deviceId) {
-    $trail->parent('device');
-    $trail->push('Sensori', route('sensors.index'));
+    $trail->parent('device', $deviceId);
+    $trail->push('Sensori', route('sensors.index',  ['deviceId' => $deviceId]));
 });
+Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
+    $trail->parent('sensors', $deviceId);
+    $trail->push('Sensore ' . $sensorId, route('sensors.index',  ['deviceId' => $deviceId, 'sensorId'=> $sensorId]));
+});
+
+
 // Utenti
 Breadcrumbs::for('users', function ($trail) {
     $trail->parent('home');
