@@ -73,7 +73,7 @@ export default {
                 );
             }, timer);
         },
-        changePullrate(timer){
+        changePullrate(timer) {
             clearInterval(pull);
             pull = this.startInterval(timer.target.value);
         },
