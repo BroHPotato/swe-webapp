@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('users'))
+@section('breadcrumbs', Breadcrumbs::render('users.index'))
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -70,13 +70,13 @@
                                 <td>
                                     @if($user->deleted)
                                         <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
-                                           onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                           onclick="event.preventDefault(); document.getElementById('restore-form').submit();">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-user-check"></i>
                                             </span>
                                             <span class="text">Ripristina</span>
                                         </a>
-                                        <form id="delete-form" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                        <form id="restore-form" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
                                             @csrf
                                             @method('PUT')
                                         </form>

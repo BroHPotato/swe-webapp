@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Providers\UserServiceProvider;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -57,8 +58,29 @@ class UserController extends Controller
     public function store()
     {
         $data = request()->validate([
-            //TODO
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'type' => 'required|in:1,2,3|numeric',
+            'email' => 'required|email',
+            'telegramName' => 'nullable|string|required_if:tfa,==,true',
+            'telegramChat' => 'nullable|string|required_if:tfa,==,true',
+            'tfa' => 'nullable|in:true',
+            'deleted' => 'nullable|in:true',
+            'password' => 'nullable|min:6',
+            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
+
+        if (key_exists('deleted', $data)) {
+            $data['deleted'] = boolval($data['deleted']);
+        } else {
+            $data['deleted'] = false;
+        }
+
+        if (key_exists('tfa', $data)) {
+            $data['tfa'] = boolval($data['tfa']);
+        } else {
+            $data['tfa'] = false;
+        }
         $user = new User();
         $user->fill($data);
         $this->provider->store($user);
@@ -66,10 +88,34 @@ class UserController extends Controller
 
     public function update($user)
     {
-        $data = request()->validate([
-            //TODO
-        ]);
         $user = $this->provider->retrieveById($user);
+        $data = request()->validate([
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'type' => 'required|in:1,2,3|numeric',
+            'email' => 'required|email',
+            'telegramName' => 'nullable|string|required_if:tfa,==,true',
+            'telegramChat' => 'nullable|string|required_if:tfa,==,true',
+            'tfa' => 'nullable|in:true',
+            'deleted' => 'nullable|in:true',
+            'password' => 'nullable|min:6',
+            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
+        ]);
+
+        if (key_exists('deleted', $data)) {
+            $data['deleted'] = boolval($data['deleted']);
+        } else {
+            $data['deleted'] = false;
+        }
+
+        if (key_exists('tfa', $data)) {
+            $data['tfa'] = boolval($data['tfa']);
+        } else {
+            $data['tfa'] = false;
+        }
+        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
+            $data['tfa'] = false;
+        }
         $user->fill($data);
         $this->provider->update($user->getAuthIdentifier(), $user);
     }
