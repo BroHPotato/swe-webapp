@@ -26,10 +26,10 @@ class SensorController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index($device)
     {
-        $sensors = $this->provider->findAll();
-        return view('sensors.index', compact('sensors'));
+        $sensors = $this->provider->findAllFromDevice($device);
+        return view('sensors.index', compact(['sensors', 'device'] ));
     }
 
     /**
@@ -38,9 +38,14 @@ class SensorController extends Controller
      * @param $sensor
      * @return Factory|View
      */
-    public function show($sensor)
+    public function show($device, $sensor)
     {
-        $sensor = $this->provider->retrieveById($sensor);
-        return view('sensors.show', compact('sensor'));
+        $sensor = $this->provider->find($device, $sensor);
+        return view('sensors.show', compact(['sensor', 'device']));
+    }
+
+    public function fetch($device, $sensor)
+    {
+        return $this->provider->fetch($device, $sensor);
     }
 }

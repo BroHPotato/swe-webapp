@@ -31,7 +31,7 @@ Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
 Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
 Route::put('/users/{userId}', 'UserController@update')->name('users.update');
-Route::put('/users/{userId}', 'UserController@restore')->name('users.restore');
+Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore');
 Route::delete('/users/{userId}', 'UserController@destroy')->name('users.destroy');
 
 //routes per gestione gateways
@@ -44,7 +44,7 @@ Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show')
 
 //routes per gestione sensori
 Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');//TODO
-Route::get('/devices/{deviceId}/sensor/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
+Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
 
 
 //routes per gestione entity
@@ -52,4 +52,6 @@ Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
 Route::get('/entity/{entityId}', 'EntityController@show')->name('entities.show');//TODO
 
 
+//data
+Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin
