@@ -39,6 +39,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
+
             $user = new User();
             $user->fill((array)$response);
             return $user;
@@ -103,6 +104,28 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
+            ])->getBody());
+            $users = [];
+            foreach ($response as $u) {
+                $user = new User();
+                $user->fill((array)$u);
+                $users[] = $user;
+            }
+            return $users;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    public function findAllFromEntity($entityId)
+    {
+        try {
+            $response = json_decode($this->request->get('users', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'entityId=' . $entityId
             ])->getBody());
             $users = [];
             foreach ($response as $u) {

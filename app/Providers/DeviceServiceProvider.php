@@ -27,7 +27,7 @@ class DeviceServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Device
      */
-    public function retrieveById($identifier)
+    public function find($identifier)
     {
         try {
             $response = json_decode($this->request->get('device/' . $identifier, [
@@ -75,6 +75,28 @@ class DeviceServiceProvider extends ServiceProvider
             session()->invalidate();
             session()->flush();
             return redirect('login');
+        }
+    }
+
+    public function findAllFromEntity($entity)
+    {
+        try {
+            $response = json_decode($this->request->get('devices', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'entityId=' . $entity
+            ])->getBody());
+            $devices = [];
+            foreach ($response as $d) {
+                $device = new Device();
+                $device->fill((array)$d);
+                $devices[] = $device;
+            }
+            return $devices;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 }
