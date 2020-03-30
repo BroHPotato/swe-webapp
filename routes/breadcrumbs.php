@@ -25,11 +25,15 @@ Breadcrumbs::for('sensors', function ($trail, $deviceId) {
     $trail->push('Sensori', route('sensors.index'));
 });
 // Utenti
-Breadcrumbs::for('users', function ($trail) {
+Breadcrumbs::for('users.index', function ($trail) {
     $trail->parent('home');
     $trail->push('Gestione Utenti', route('users.index'));
 });
-Breadcrumbs::for('user', function ($trail, $userId) {
-    $trail->parent('users');
+Breadcrumbs::for('users.show', function ($trail, $userId) {
+    $trail->parent('users.index');
     $trail->push('Utente ' . $userId, route('users.show', ['userId' => $userId]));
+});
+Breadcrumbs::for('users.edit', function ($trail, $userId) {
+    $trail->parent('users.show', $userId);
+    $trail->push('Modifica', route('users.edit', ['userId' => $userId]));
 });
