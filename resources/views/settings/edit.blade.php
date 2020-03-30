@@ -23,7 +23,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-4 col-form-label"><i class="fas fa-envelope text-gray-500"></i> Email</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{$user->email}}" name="email">
+                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
                             <div class="form-group row">
                                 <label for="inputTg" class="col-sm-4 col-form-label"><i class="fab fa-telegram text-primary"></i> Username Telegram</label>
                                 <div class="col-sm-8">
-                                    <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{$user->telegramName}}" name="telegramName">
+                                    <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                     @error('telegramName')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="custom-control custom-checkbox">
-                                        <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa) checked @endif @if(!$user->telegramChat) disabled @endif>
+                                        <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa || old('tfa')) checked @endif @if(!$user->telegramChat) disabled @endif>
                                         <label class="custom-control-label" for="gridCheck">
                                             <i>Autenticazione a due fattori con Telegram* </i>
                                         </label>

@@ -31,7 +31,7 @@ Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
 Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
 Route::put('/users/{userId}', 'UserController@update')->name('users.update');
-Route::put('/users/{userId}', 'UserController@restore')->name('users.restore');
+Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore');
 Route::delete('/users/{userId}', 'UserController@destroy')->name('users.destroy');
 
 //routes per gestione gateways

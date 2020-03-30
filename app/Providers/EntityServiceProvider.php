@@ -89,6 +89,26 @@ class EntityServiceProvider extends ServiceProvider
         }
     }
 
+    public function findFromUser($userId)
+    {
+        try {
+            $response = json_decode($this->request->get('entities', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'userId=' . $userId
+            ])->getBody());
+            $entity = new Entity();
+            $entity->fill((array)$response);
+            return $entity;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
+
     private function isExpired(RequestException $e)
     {
         if ($e->getCode() == 419/*fai il controllo del token*/) {
