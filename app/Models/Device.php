@@ -19,6 +19,6 @@ class Device extends Model
     public function getEntity()
     {
         $provider = new EntityServiceProvider();
-        return $provider->retrieveByDevice($this->deviceId);
+        return $provider->findFromDevice($this->deviceId);
     }
 }
