@@ -179,7 +179,6 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
 
     public function update(string $who, string $body)
     {
-        dd($body);
         try {
             $response = json_decode($this->request->put('/user/' . $who . '/update', [
                 'headers' => [

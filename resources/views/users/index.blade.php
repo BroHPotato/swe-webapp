@@ -1,19 +1,21 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('users'))
+@section('breadcrumbs', Breadcrumbs::render('users.index'))
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800"> Gestione utenti</h1>
             </div>
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                  <i class="fas fa-user-plus"></i>
-                </span>
-                    <span class="text">Aggiungi</span>
-                </a>
-            </div>
+            @canany(['isAdmin', 'isMod'])
+                <div class="d-sm-flex mb-4 ml-sm-auto">
+                    <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                        <span class="text">Aggiungi</span>
+                    </a>
+                </div>
+            @endcanany
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -68,34 +70,33 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @if($user->deleted)
-                                        <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
-                                           onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                    @canany(['isAdmin', 'isMod'])
+                                        @if($user->deleted)
+                                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
+                                               onclick="event.preventDefault(); document.getElementById('restore-form').submit();">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-user-check"></i>
                                             </span>
-                                            <span class="text">Ripristina</span>
-                                        </a>
-                                        <form id="delete-form" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('PUT')
-                                        </form>
-                                    @else
-                                        <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
-                                           onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                                <span class="text">Ripristina</span>
+                                            </a>
+                                            <form id="restore-form" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('PUT')
+                                            </form>
+                                        @else
+                                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
+                                               onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-user-times"></i>
                                             </span>
-                                            <span class="text">Elimina</span>
-                                        </a>
-                                        <form id="delete-form" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    @endif
-
-
-
+                                                <span class="text">Elimina</span>
+                                            </a>
+                                            <form id="delete-form" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        @endif
+                                    @endcanany
                                 </td>
                             </tr>
                         @endforeach
