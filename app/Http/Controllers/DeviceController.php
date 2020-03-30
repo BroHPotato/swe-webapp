@@ -50,7 +50,7 @@ class DeviceController extends Controller
      */
     public function show($device)
     {
-        //$device = $this->provider->retrieveById($device);
+        //$device = $this->provider->find($device);
         ///FAKER
         $user = new Device();
         $arr = array_combine(

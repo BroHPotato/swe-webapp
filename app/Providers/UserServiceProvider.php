@@ -39,6 +39,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
             ])->getBody());
+
             $user = new User();
             $user->fill((array)$response);
             return $user;
@@ -117,6 +118,28 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         }
     }
 
+    public function findAllFromEntity($entityId)
+    {
+        try {
+            $response = json_decode($this->request->get('users', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'entityId=' . $entityId
+            ])->getBody());
+            $users = [];
+            foreach ($response as $u) {
+                $user = new User();
+                $user->fill((array)$u);
+                $users[] = $user;
+            }
+            return $users;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
     private function retriveByCode(Client $request, $credentials)
     {
         $response = json_decode($request->post('auth/tfa', [
@@ -156,7 +179,6 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
 
     public function update(string $who, string $body)
     {
-        dd($body);
         try {
             $response = json_decode($this->request->put('/user/' . $who . '/update', [
                 'headers' => [
