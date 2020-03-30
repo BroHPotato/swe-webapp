@@ -6,14 +6,16 @@
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Profilo</h1>
             </div>
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('users.edit', $user->userId)}}" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                  <i class="fas fa-user-plus"></i>
-                </span>
-                    <span class="text">Modifica</span>
-                </a>
-            </div>
+            @if($user->type<Auth::user()->type)
+                <div class="d-sm-flex mb-4 ml-sm-auto">
+                    <a href="{{route('users.edit', $user->userId)}}" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-user-plus"></i>
+                    </span>
+                        <span class="text">Modifica</span>
+                    </a>
+                </div>
+            @endif
         </div>
         <div class="row mx-auto">
             <div class="col-md-4">
