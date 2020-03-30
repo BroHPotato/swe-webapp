@@ -1,9 +1,16 @@
 <template>
     <div>
+        <select class="custom-select" @change="changePullrate($event)">
+            <option value="4000" selected>4s</option>
+            <option value="3000">3s</option>
+            <option value="2000">2s</option>
+            <option value="1000">1s</option>
+            <option value="500">0.5s</option>
+        </select>
         <apexchart
             ref="RTChart"
-            width="800"
             type="area"
+            height="400"
             :options="chartOptions"
             :series="series"
         ></apexchart>
@@ -14,11 +21,11 @@
 // let date;
 // let label;
 // let newData;
+pull = null;
 export default {
     props: {
-        user: Object,
-        device: Object,
-        sensor: Object,
+        deviceId: Number,
+        sensorId: Number,
     },
     data: function () {
         return {
@@ -38,7 +45,7 @@ export default {
             },
             series: [
                 {
-                    name: this.$props.sensor.sensorId,
+                    name: this.$props.sensorId,
                     data: [],
                 },
             ],
@@ -46,11 +53,11 @@ export default {
     },
     mounted() {
         this.fetchData();
-        this.startInterval();
+        pull = this.startInterval(4000);
     },
     methods: {
-        startInterval() {
-            setInterval(() => {
+        startInterval(timer) {
+            return setInterval(() => {
                 if (this.series[0].data.length >= 10) {
                     this.removeData();
                 }
@@ -64,21 +71,22 @@ export default {
                     ],
                     false
                 );
-            }, 5000);
+            }, timer);
+        },
+        changePullrate(timer) {
+            clearInterval(pull);
+            pull = this.startInterval(timer.target.value);
         },
         fetchData() {
             axios
                 .get(
-                    "/fetch/" +
-                        this.$props.user.id +
-                        "/" +
-                        this.$props.device.deviceId
+                    "/data/devices/" +
+                        this.$props.deviceId +
+                        "/sensors/" +
+                        this.$props.sensorId
                 )
                 .then((response) => {
-                    const r = response.data.sensorsList.find(
-                        (sensor) =>
-                            sensor.sensorId === this.$props.sensor.sensorId
-                    );
+                    const r = response.data;
                     this.newData = Number(r.value);
                     this.date = new Date(Number(r.timestamp));
                     this.label =
