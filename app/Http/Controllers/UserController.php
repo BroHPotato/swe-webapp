@@ -92,7 +92,7 @@ class UserController extends Controller
         $data = request()->validate([
             'name' => 'required|string',
             'surname' => 'required|string',
-            'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, s"isAdmin"',
+            'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
             'email' => 'required|email',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'telegramChat' => 'nullable|string|required_if:tfa,==,true',
@@ -118,7 +118,7 @@ class UserController extends Controller
                 $data['tfa'] = false;
             }
         }
-        $this->provider->update($user->getAuthIdentifier(), json_encode($data,JSON_FORCE_OBJECT));
+        $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT));
     }
 
     public function destroy($user)
