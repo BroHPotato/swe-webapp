@@ -29,10 +29,10 @@ Route::get('/users', 'UserController@index')->name('users.index');
 Route::get('/users/create', 'UserController@create')->name('users.create');//TODO
 Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
-Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
 Route::put('/users/{userId}', 'UserController@update')->name('users.update');
+Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
 Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore');
-Route::delete('/users/{userId}', 'UserController@destroy')->name('users.destroy');
+Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateway.index');//TODO

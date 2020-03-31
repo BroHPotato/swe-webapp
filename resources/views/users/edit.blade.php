@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('users.edit', $user->userId))
 @section('content')
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
@@ -46,7 +45,6 @@
                             <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputType">
                                 <option value="0" @if($user->getRole()=='Utente') selected @endif>Utente</option>
                                 <option value="1" @if($user->getRole()=='Moderatore') selected @endif>Moderatore</option>
-                                <option value="2" @if($user->getRole()=='Amministratore') selected @endif>Amministratore</option>
                             </select>
                             @error('type')
                             <span class="invalid-feedback" role="alert">

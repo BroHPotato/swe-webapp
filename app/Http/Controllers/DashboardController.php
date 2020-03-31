@@ -20,8 +20,8 @@ class DashboardController extends Controller
         $deviceProvider = new DeviceServiceProvider();
 
         $user = Auth::user();
-        $users = $userProvider->findAll();//utenti registrati
         $entities = $entityProvider->findAll();//enti presenti
+        $users = $userProvider->findAll();//utenti registrati
         $devices = $deviceProvider->findAll();//dispositivi registrati
 
         $devicesEntity = $deviceProvider->findAllFromEntity($entityProvider->findFromUser($user->getAuthIdentifier()));
@@ -34,7 +34,7 @@ class DashboardController extends Controller
             return !$u->deleted;
         });
         return view('dashboard.index', compact([
-            'user', 'users', 'entities', 'devices', 'devicesEntity', '$usersEntity', 'usersActive', 'usersActiveEntity'
+            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity'
         ]));
     }
 }
