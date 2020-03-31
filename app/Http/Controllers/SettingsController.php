@@ -51,16 +51,13 @@ class SettingsController extends Controller
 
         if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
-        } else {
-            $data['tfa'] = false;
         }
         if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
             $data['tfa'] = false;
         }
-
-        $user->fill($data);
+        $data = array_diff_assoc($data, $user->getAttributes());
         $service = new UserServiceProvider();
-        $service->update($user->getAuthIdentifier(), $user);
+        $service->update($user->getAuthIdentifier(), json_encode($data));
         return redirect('/settings/edit');
     }
 }

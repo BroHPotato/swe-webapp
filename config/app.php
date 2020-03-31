@@ -232,4 +232,5 @@ return [
 
     ],
 
+    'api' => env('API_URL'),
 ];

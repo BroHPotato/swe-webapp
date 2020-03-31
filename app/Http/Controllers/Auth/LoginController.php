@@ -45,6 +45,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        /*session()->flush();
+        session_reset();
+        Auth::logout();*/
         $this->middleware('guest')->except('logout');
     }
 
@@ -59,7 +62,6 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return redirect(RouteServiceProvider::DASHBOARD);
-            ;
         }
     }
     public function showTfaForm()

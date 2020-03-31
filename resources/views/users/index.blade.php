@@ -49,20 +49,20 @@
                         </tr>
                         </tfoot>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach($users as $u)
                             <tr>
-                                <td>{{$user->userId}}</td>
-                                <td>{{$user->name}}</td>
-                                <td>{{$user->surname}}</td>
-                                <td>{{$user->email}}</td>
-                                <td>{{$user->getRole()}}</td>
+                                <td>{{$u->userId}}</td>
+                                <td>{{$u->name}}</td>
+                                <td>{{$u->surname}}</td>
+                                <td>{{$u->email}}</td>
+                                <td>{{$u->getRole()}}</td>
                                 <td>
-                                    @if($user->deleted)
+                                    @if($u->deleted)
                                         <span class="badge badge-danger">Disattivo</span>
                                     @else
                                         <span class="badge badge-success">Attivo</span>
                                     @endif
-                                <td><a href="{{route('users.show', ['userId' => $user->userId ])}}" class="btn btn-primary btn-icon-split">
+                                <td><a href="{{route('users.show', ['userId' => $u->userId ])}}" class="btn btn-primary btn-icon-split">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-info-circle"></i>
                                             </span>
@@ -71,27 +71,27 @@
                                 </td>
                                 <td>
                                     @canany(['isAdmin', 'isMod'])
-                                        @if($user->deleted)
-                                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
-                                               onclick="event.preventDefault(); document.getElementById('restore-form').submit();">
+                                        @if($u->deleted)
+                                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $u->userId ]) }}"
+                                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$u->userId}}').submit();">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-user-check"></i>
                                             </span>
                                                 <span class="text">Ripristina</span>
                                             </a>
-                                            <form id="restore-form" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                            <form id="restore-form-{{$u->userId}}" action="{{ route('users.restore', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('PUT')
                                             </form>
                                         @else
-                                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
-                                               onclick="event.preventDefault(); document.getElementById('delete-form').submit();">
+                                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $u->userId ]) }}"
+                                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$u->userId}}').submit();">
                                             <span class="icon text-white-50">
                                               <i class="fas fa-user-times"></i>
                                             </span>
                                                 <span class="text">Elimina</span>
                                             </a>
-                                            <form id="delete-form" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                            <form id="delete-form-{{$u->userId}}" action="{{ route('users.destroy', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
