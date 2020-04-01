@@ -84,8 +84,48 @@
                                 </div>
                             </div>
                     </div>
+                </form>
+                @endcan
+            </div>
+    </div>
 
-
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+               <span class="icon text-blue-50">
+                      <span class="fas fa-plus-circle"></span>
+               </span>
+                Aggiunta sensore
+            </h6>
+        </div>
+        @can(['isAdmin'])
+            <div id="cardDispositivo" class="card-body">
+                <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
+                <form method="POST" action="#">
+                    @csrf
+                    @method('POST')
+                    <div class="form-group row">
+                        <label for="inputSensorId" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId">
+                            @error('sensorId')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputSensorType" class="col-sm-4 col-form-label"><span class="fas fa-horse-head"></span>Tipo di sensore</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
+                            @error('sensorType')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <div class="col-sm-4">
                             <button id="aggiungiSensore" type="submit" class="btn btn-success btn-icon-split">
@@ -96,22 +136,19 @@
                             </button>
                         </div>
                     </div>
-
-
-
-
-                    <div class="form-group row">
-                        <div class="col-sm-4">
-                            <button type="submit" class="btn btn-success btn-icon-split">
-                                <span class="icon text-white-50">
-                                  <i class="fas fa-plus-circle"></i>
-                                </span>
-                                <span class="text">Aggiungi</span>
-                            </button>
-                        </div>
-                    </div>
                 </form>
                 @endcan
             </div>
     </div>
+    <div class="d-sm-flex mb-4 ml-sm-auto">
+        <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-save"></span>
+                    </span>
+            <span class="text">Salva</span>
+        </a>
+    </div>
+
+
+
 @endsection
