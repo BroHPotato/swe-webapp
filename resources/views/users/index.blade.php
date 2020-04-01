@@ -19,12 +19,12 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-users-cog"></i> Lista utenti</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users-cog"></span> Lista utenti</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
