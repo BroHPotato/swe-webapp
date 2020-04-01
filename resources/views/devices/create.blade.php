@@ -19,7 +19,7 @@
             </h6>
         </div>
         @can(['isAdmin'])
-            <div class="card-body">
+            <div id="cardDispositivo" class="card-body">
                 <p>Puoi creare un nuovo dispositivo inserendo le informazioni elencate in seguito:</p>
                 <form method="POST" action="#">
                     @csrf
@@ -58,32 +58,48 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                            <label for="inputFrequency" class="col-sm-4 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
+                        <label for="inputFrequency" class="col-sm-4 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
                             <div class="col-sm-8">
                                 <div class="input-group mb-3">
-                                <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                    <option >0.5</option>
-                                    <option >1</option>
-                                    <option >1.5</option>
-                                    <option >2</option>
-                                    <option >2.5</option>
-                                    <option >3</option>
-                                    <option >3.5</option>
-                                    <option >4</option>
-                                    <option >4.5</option>
-                                    <option >5</option>
-                                </select>
-                                @error('frequency')
-                                <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                                <span class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">Secondi</span>
-                                </span>
-                            </div>
+                                    <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
+                                        <option >0.5</option>
+                                        <option >1</option>
+                                        <option >1.5</option>
+                                        <option >2</option>
+                                        <option >2.5</option>
+                                        <option >3</option>
+                                        <option >3.5</option>
+                                        <option >4</option>
+                                        <option >4.5</option>
+                                        <option >5</option>
+                                    </select>
+                                    @error('frequency')
+                                    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <span class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">Secondi</span>
+                                    </span>
+                                </div>
                             </div>
                     </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <button id="aggiungiSensore" type="submit" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-plus-circle"></i>
+                                </span>
+                                <span class="text">Aggiungi sensore</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
                     <div class="form-group row">
                         <div class="col-sm-4">
                             <button type="submit" class="btn btn-success btn-icon-split">
