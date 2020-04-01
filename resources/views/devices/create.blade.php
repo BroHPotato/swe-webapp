@@ -8,10 +8,10 @@
                 Modifica informazioni
             </h6>
         </div>
-        @can(['isAdmin'])
+        @canany(['isAdmin', 'isMod'])
             <div class="card-body">
                 <p>Puoi creare un nuovo dispositivo inserendo le informazioni elencate in seguito:</p>
-                <form method="POST" action="{{  }}">
+                <form method="POST" action="#">
                     @csrf
                     @method('POST')
                     <div class="form-group row">
@@ -37,7 +37,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputFrequency" class="col-sm-4 col-form-label"><i class="fas fa-user-tag"></i> Frequenza ricezione dati</label>
+                        <label for="inputGatewayName" class="col-sm-4 col-form-label"><i class="fas fa-user"></i> Nome gateway</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control @error('gatewayName') is-invalid @enderror" id="inputGatewayName" placeholder="Nome gateway" value="" name="gatewayName">
+                            @error('gatewayName')
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputFrequency" class="col-sm-4 col-form-label"><i class="fas fa-user-tag"></i> Frequenza ricezione dati (richieste / s)</label>
                         <div class="col-sm-8">
                             <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
                                 <option value="0">0.5</option>
@@ -70,7 +81,7 @@
                                 </span>
                                 <span class="text">Reset</span>
                             </button>
-                            <a href="{{  }}" class="btn btn-danger btn-icon-split">
+                            <a href="#" class="btn btn-danger btn-icon-split">
                                 <span class="icon text-white-50">
                                   <i class="fas fa-times"></i>
                                 </span>
@@ -79,7 +90,7 @@
                         </div>
                     </div>
                 </form>
-                @endcan
+                @endcanany
             </div>
     </div>
 @endsection
