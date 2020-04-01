@@ -34,7 +34,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function retrieveById($identifier)
     {
         try {
-            $response = json_decode($this->request->get('user/' . $identifier, [
+            $response = json_decode($this->request->get('users/' . $identifier, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]

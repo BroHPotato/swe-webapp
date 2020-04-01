@@ -22,6 +22,13 @@ class DeviceController extends Controller
         $this->provider = new DeviceServiceProvider();
     }
 
+    public function create()
+    {
+        $entityProvider = new EntityServiceProvider();
+        $entities = $entityProvider->findAll();
+        return view('devices.create', compact(['entities']));
+    }
+
     /**
      * Display a listing of the resource.
      *

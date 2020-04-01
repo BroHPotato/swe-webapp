@@ -70,7 +70,7 @@ class EntityServiceProvider extends ServiceProvider
         }
     }
 
-    public function retrieveByDevice($deviceId)
+    public function findFromDevice($deviceId)
     {
         try {
             $response = json_decode($this->request->get('entities', [
