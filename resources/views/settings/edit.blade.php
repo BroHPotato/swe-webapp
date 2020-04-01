@@ -11,7 +11,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <i class="fas fa-user-edit"></i>
+                            <span class="fas fa-user-edit"></span>
                             Modifica informazioni
                         </h6>
                     </div>
@@ -21,7 +21,7 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group row">
-                                <label for="inputEmail" class="col-sm-4 col-form-label"><i class="fas fa-envelope text-gray-500"></i> Email</label>
+                                <label for="inputEmail" class="col-sm-4 col-form-label"><span class="fas fa-envelope text-gray-500"></span> Email</label>
                                 <div class="col-sm-8">
                                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                                     @error('email')
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inputTg" class="col-sm-4 col-form-label"><i class="fab fa-telegram text-primary"></i> Username Telegram</label>
+                                <label for="inputTg" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Username Telegram</label>
                                 <div class="col-sm-8">
                                     <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                     @error('telegramName')
@@ -44,27 +44,27 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4">
-                                    <i class="fas fa-shield-alt text-info"></i>
+                                    <span class="fas fa-shield-alt text-info"></span>
                                     Sicurezza account
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa || old('tfa')) checked @endif @if(!$user->telegramChat) disabled @endif>
                                         <label class="custom-control-label" for="gridCheck">
-                                            <i>Autenticazione a due fattori con Telegram* </i>
+                                            <span>Autenticazione a due fattori con Telegram* </span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <p class="my-2 small"><i class="fas fa-info-circle text-primary"></i>
+                            <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
                                 *Per attivare l'<em>autenticazione a due fattori</em> è necessario inserire il proprio username Telegram
                                 e avviare il bot direttamente dall'applicazione, inserendo il comando <code>/start</code> in chat.
                             </p>
                             <hr>
-                            <button type="submit" class="btn btn-primary btn-icon-split">
+                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
                                 <span class="icon text-white-50">
-                                  <i class="fas fa-edit"></i>
+                                  <span class="fas fa-edit"></span>
                                 </span>
                                 <span class="text">Modifica</span>
                             </button>
@@ -76,7 +76,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <i class="fas fa-user-lock"></i>
+                            <span class="fas fa-user-lock"></span>
                             Modifica password
                         </h6>
                     </div>
@@ -87,7 +87,7 @@
                             @method('PUT')
                             <div class="form-group row">
                                 <label for="inputPA" class="col-sm-4 col-form-label">
-                                    <i class="fas fa-lock-open text-danger"></i> Password attuale</label>
+                                    <span class="fas fa-lock-open text-danger"></span> Password attuale</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
                                            placeholder="Password attuale" name="password">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="inputPN" class="col-sm-4 col-form-label">
-                                    <i class="fas fa-lock text-success"></i> Nuova password</label>
+                                    <span class="fas fa-lock text-success"></span> Nuova password</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
                                            placeholder="Nuova password" name="new password">
@@ -113,7 +113,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="inputPNR" class="col-sm-4 col-form-label">
-                                    <i class="fas fa-redo-alt text-success"></i> Ripeti nuova password</label>
+                                    <span class="fas fa-redo-alt text-success"></span> Ripeti nuova password</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
                                            placeholder="Ripeti nuova password" name="confirm password">
@@ -125,9 +125,9 @@
                                 </div>
                             </div>
                             <hr class="mt-4">
-                            <button type="submit" class="btn btn-primary btn-icon-split">
+                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
                                 <span class="icon text-white-50">
-                                  <i class="fas fa-edit"></i>
+                                  <span class="fas fa-edit"></span>
                                 </span>
                                 <span class="text">Modifica</span>
                             </button>
@@ -146,7 +146,7 @@
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark table-borderless">
                         <tr>
-                            <th width="35px"><span `class="far fa-bell"></span></th>
+                            <th width="1em"><span class="far fa-bell"></span></th>
                             <th>Status</th>
                             <th>Dispositivo</th>
                             <th>Sensore</th>
@@ -156,7 +156,7 @@
                         </thead>
                         <tfoot class="thead-dark table-borderless">
                         <tr>
-                            <th> </th>
+                            <th width="1em"><span class="far fa-bell"></span></th>
                             <th>Status</th>
                             <th>Dispositivo</th>
                             <th>Sensore</th>

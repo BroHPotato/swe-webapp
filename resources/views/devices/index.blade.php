@@ -42,14 +42,14 @@
                                 <td>{{$device->name}}</td>
                                 <td>{{count($device->getSensors())}}</td>
                                 <td>{{$device->getEntity()->getName()}}</td>
-                                <td><a href="{{route('sensors.index', ['deviceId' => $device->deviceId ])}}" class="btn btn-success btn-icon-split">
+                                <td><a href="{{route('sensors.index', ['deviceId' => $device->deviceId ])}}" class="btn btn-success btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-thermometer-half"></span>
                                         </span>
                                         <span class="text">Sensori</span>
                                     </a>
                                 </td>
-                                <td><a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split">
+                                <td><a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
