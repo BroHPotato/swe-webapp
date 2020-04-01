@@ -2,21 +2,19 @@
 @section('breadcrumbs', Breadcrumbs::render('users.index'))
 @section('content')
     <div class="container-fluid">
-        <div class="row">
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800"> Gestione utenti</h1>
             </div>
-            @canany(['isAdmin', 'isMod'])
-                <div class="d-sm-flex mb-4 ml-sm-auto">
-                    <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
+        @canany(['isAdmin', 'isMod'])
+            <div class="d-sm-flex mb-4 ml-sm-auto">
+                <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-user-plus"></i>
                     </span>
-                        <span class="text">Aggiungi</span>
-                    </a>
-                </div>
-            @endcanany
-        </div>
+                    <span class="text">Aggiungi</span>
+                </a>
+            </div>
+        @endcanany
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-users-cog"></i> Lista utenti</h6>

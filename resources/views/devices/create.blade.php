@@ -4,11 +4,13 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <i class="fas fa-user-edit"></i>
-                Modifica informazioni
+               <span class="icon text-blue-50">
+                      <span class="fas fa-plus-circle"></span>
+               </span>
+                Creazione dispositivo
             </h6>
         </div>
-        @canany(['isAdmin', 'isMod'])
+        @can(['isAdmin'])
             <div class="card-body">
                 <p>Puoi creare un nuovo dispositivo inserendo le informazioni elencate in seguito:</p>
                 <form method="POST" action="#">
@@ -75,22 +77,10 @@
                                 </span>
                                 <span class="text">Aggiungi</span>
                             </button>
-                            <button type="reset" class="btn btn-warning btn-icon-split">
-                                <span class="icon text-white-50">
-                                  <i class="fas fa-undo-alt"></i>
-                                </span>
-                                <span class="text">Reset</span>
-                            </button>
-                            <a href="#" class="btn btn-danger btn-icon-split">
-                                <span class="icon text-white-50">
-                                  <i class="fas fa-times"></i>
-                                </span>
-                                <span class="text">Annulla</span>
-                            </a>
                         </div>
                     </div>
                 </form>
-                @endcanany
+                @endcan
             </div>
     </div>
 @endsection

@@ -5,7 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Dispositivi</h1>
         </div>
-        @canany(['isAdmin', 'isMod'])
+        @can(['isAdmin'])
             <div class="d-sm-flex mb-4 ml-sm-auto">
                 <a href="{{route('devices.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
@@ -14,7 +14,7 @@
                     <span class="text">Aggiungi</span>
                 </a>
             </div>
-        @endcanany
+        @endcan
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-hdd"></i> Lista dispositivi</h6>
