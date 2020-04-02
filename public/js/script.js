@@ -1,9 +1,10 @@
 const sensorsList = document.querySelector("#sensorsList");
 const addSensor = document.querySelector("#addSensor");
+const addDevice = document.querySelector("#addDevice");
 const form = document.querySelector("#sensorForm");
 let numSensor = 1;
 
-addSensor.addEventListener("click", (e,) => {
+addSensor.addEventListener("click", (e) => {
     e.preventDefault();
     const sensorIdValue = document.querySelector("#inputSensorId").value;
     const sensorTypeValue = document.querySelector("#inputSensorType").value;
@@ -25,5 +26,17 @@ addSensor.addEventListener("click", (e,) => {
         form.reset();
     } else {
         alert("Id e tipo di sensore necessitano di un valore");
+    }
+});
+
+addDevice.addEventListener("click", (e) => {
+    const deviceIdValue = document.querySelector("#inputDeviceId").value;
+    const deviceNameValue = document.querySelector("#inputDeviceName").value;
+    if (deviceIdValue !== "" && deviceNameValue !== "") {
+        //creo oggetto dispositivo da vedere come
+        alert("Dispositivo aggiunto correttamente");
+    } else {
+        e.preventDefault();
+        alert("Id e neme del dispositivo necessitano di un valore");
     }
 });
