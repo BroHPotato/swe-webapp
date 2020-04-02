@@ -93,7 +93,7 @@ class UserController extends Controller
         unset($data['password_check']);//todo to remove
         $data['password'] = "password";
         if (!key_exists('entityId', $data)) {
-            $data['entityId'] =1; //(new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
+            $data['entityId'] = 1; //(new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;

@@ -29,7 +29,7 @@ class SensorController extends Controller
     public function index($device)
     {
         $sensors = $this->provider->findAllFromDevice($device);
-        return view('sensors.index', compact(['sensors', 'device'] ));
+        return view('sensors.index', compact(['sensors', 'device']));
     }
 
     /**

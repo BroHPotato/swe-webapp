@@ -22,11 +22,11 @@ Breadcrumbs::for('device', function ($trail, $deviceId) {
 // Sensori
 Breadcrumbs::for('sensors', function ($trail, $deviceId) {
     $trail->parent('device', $deviceId);
-    $trail->push('Sensori', route('sensors.index',  ['deviceId' => $deviceId]));
+    $trail->push('Sensori', route('sensors.index', ['deviceId' => $deviceId]));
 });
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
     $trail->parent('sensors', $deviceId);
-    $trail->push('Sensore ' . $sensorId, route('sensors.index',  ['deviceId' => $deviceId, 'sensorId'=> $sensorId]));
+    $trail->push('Sensore ' . $sensorId, route('sensors.index', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
 
