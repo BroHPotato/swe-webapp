@@ -16,7 +16,7 @@ class SensorServiceProvider extends ServiceProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => 'localhost:9999',
+            'base_uri' => 'core.host.redroundrobin.site:9999',
             'headers' => [
                 'Content-Type' => 'application/json' ,
             ]

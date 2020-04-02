@@ -17,7 +17,7 @@ Breadcrumbs::for('devices', function ($trail) {
 });
 Breadcrumbs::for('device', function ($trail, $deviceId) {
     $trail->parent('devices');
-    $trail->push('Dispositivo ' . $deviceId, route('devices.show', ['deviceId' => $deviceId]));
+    $trail->push($deviceId, route('devices.show', ['deviceId' => $deviceId]));
 });
 Breadcrumbs::for('devices.create', function ($trail) {
     $trail->parent('devices');
