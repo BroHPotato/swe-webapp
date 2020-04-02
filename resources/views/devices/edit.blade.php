@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('devices.create'))
+@section('breadcrumbs', Breadcrumbs::render('devices.edit'))
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Creazione dispositivo</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Modifica dispositivo</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
@@ -19,12 +19,12 @@
                    <span class="icon text-blue-50">
                           <span class="fas fa-plus-circle"></span>
                    </span>
-                    Creazione dispositivo
+                    Modifica dispositivo
                 </h6>
             </div>
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
-                    <p>Puoi modificare il dispositivo inserendo le informazioni elencate in seguito:</p>
+                    <p>Puoi modificare un dispositivo inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" action="#">
                         @csrf
                         @method('POST')
@@ -139,22 +139,20 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <i class="fas fa-plus-circle"></i>
-                                    </span>
-                                    <span class="text">Aggiungi sensore</span>
-                                </button>
-                            </div>
+                        <div class="form-group row float-right mx-1">
+                            <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-plus-circle"></i>
+                                </span>
+                                <span class="text">Aggiungi sensore</span>
+                            </button>
                         </div>
                     </form>
                     @endcan
                 </div>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto float-right">
-            <a href="{{route('devices.index')}}" id="addDevice" class="btn btn-success btn-icon-split">
+            <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>

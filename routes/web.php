@@ -42,6 +42,7 @@ Route::get('/gateway/{gatewayId}', 'GatewayController@show')->name('gateway.show
 Route::get('/devices', 'DeviceController@index')->name('devices.index');
 Route::get('/devices/create', 'DeviceController@create')->name('devices.create');//TODO
 Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');//TODO
+Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
 
 
 //routes per gestione sensori

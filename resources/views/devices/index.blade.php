@@ -7,6 +7,14 @@
         </div>
         @can(['isAdmin'])
             <div class="d-sm-flex mb-4 ml-sm-auto">
+                <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                    <span class="text">Torna indietro</span>
+                </a>
+            </div>
+            <div class="d-sm-flex mb-4 ml-sm-auto">
                 <a href="{{route('devices.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
@@ -31,6 +39,7 @@
                             <th>Frequenza</th>
                             <th>Status</th>
                             <th> </th>
+                            <th> </th>
                         </tr>
                         </thead>
                         <tfoot class="thead-dark">
@@ -41,6 +50,7 @@
                             <th>Numero di sensori</th>
                             <th>Frequenza</th>
                             <th>Status</th>
+                            <th> </th>
                             <th> </th>
                         </tr>
                         </tfoot>
@@ -59,6 +69,13 @@
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -74,6 +91,13 @@
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -87,6 +111,13 @@
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
+                                </a>
+                            </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
                                 </a>
                             </td>
                         </tr>
@@ -139,9 +170,10 @@
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Gateway</th>
-                            <th># Sensori</th>
+                            <th>Numero di Sensori</th>
                             <th>Frequenza</th>
                             <th>Status</th>
+                            <th> </th>
                             <th> </th>
                         </tr>
                         </thead>
@@ -150,9 +182,10 @@
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Gateway</th>
-                            <th># Sensori</th>
+                            <th>Numero di Sensori</th>
                             <th>Frequenza</th>
                             <th>Status</th>
+                            <th> </th>
                             <th> </th>
                         </tr>
                         </tfoot>
@@ -171,6 +204,13 @@
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -186,6 +226,13 @@
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -199,6 +246,13 @@
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
+                                </a>
+                            </td>
+                            <td><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                    <span class="text">Modifica</span>
                                 </a>
                             </td>
                         </tr>
