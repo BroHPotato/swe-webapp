@@ -6,6 +6,7 @@ use App\Models\Gateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\ServiceProvider;
+
 use function config;
 
 /**
