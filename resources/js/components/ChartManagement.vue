@@ -21,7 +21,7 @@
 // let date;
 // let label;
 // let newData;
-pull = null;
+let pull = null;
 export default {
     props: {
         deviceId: Number,
