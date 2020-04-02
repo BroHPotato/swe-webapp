@@ -33,7 +33,6 @@ addDevice.addEventListener("click", (e) => {
     const deviceIdValue = document.querySelector("#inputDeviceId").value;
     const deviceNameValue = document.querySelector("#inputDeviceName").value;
     if (deviceIdValue !== "" && deviceNameValue !== "") {
-        //creo oggetto dispositivo da vedere come
         alert("Dispositivo aggiunto correttamente");
     } else {
         e.preventDefault();
