@@ -24,8 +24,8 @@ Breadcrumbs::for('devices.create', function ($trail) {
     $trail->push('Creazione', route('devices.create'));
 });
 Breadcrumbs::for('devices.edit', function ($trail, $deviceId) {
-    $trail->parent('devices.index', $userId);
-    $trail->push('Modifica', route('devices.edit', ['deviceId' => $userId]));
+    $trail->parent('devices');
+    $trail->push('Modifica', route('devices.edit', ['deviceId' => $deviceId]));
 });
 
 // Sensori
