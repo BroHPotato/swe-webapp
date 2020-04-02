@@ -28,6 +28,12 @@ class DeviceController extends Controller
         return view('devices.create', compact(['entities']));
     }
 
+    public function edit($device)
+    {
+        $device = $this->provider->retrieveById($device);
+        return view('devices.edit', compact('user'));
+    }
+
     /**
      * Display a listing of the resource.
      *
