@@ -84,6 +84,9 @@
                                 </div>
                             </div>
                     </div>
+                    <div id="sensorsList">
+
+                    </div>
                 </form>
                 @endcan
             </div>
@@ -121,8 +124,8 @@
                             <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
                             @error('sensorType')
                             <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
                     </div>

@@ -56,18 +56,18 @@
             </div>
             <div class="card-body">
                 <div class="col-sm-6">
-                <div class="form-group row">
-                    <label for="SensorId" class="col-xs-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
-                    <div class="col-xs-3">
-                        <span id="SensorId">1</span>
+                    <div class="form-group row">
+                        <label for="SensorId" class="col-sm-6 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                        <div class="col-sm-6 col-form-label">
+                            <span id="SensorId">1</span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="SensorType" class="col-xs-3 col-form-label"><span class="fas fa-tape"></span> Tipo di sensore</label>
-                    <div class="col-xs-3">
-                        <span id="SensorType">Temperatura</span>
+                    <div class="form-group row">
+                        <label for="SensorType" class="col-sm-6 col-form-label"><span class="fas fa-tape"></span> Tipo di sensore</label>
+                        <div class="col-sm-6 col-form-label">
+                            <span id="SensorType">Temperatura</span>
+                        </div>
                     </div>
-                </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group row">
