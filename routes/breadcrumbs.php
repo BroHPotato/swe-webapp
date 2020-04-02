@@ -31,7 +31,7 @@ Breadcrumbs::for('sensors', function ($trail, $deviceId) {
 });
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
     $trail->parent('sensors', $deviceId);
-    $trail->push('Sensore ' . $sensorId, route('sensors.index',  ['deviceId' => $deviceId, 'sensorId'=> $sensorId]));
+    $trail->push($sensorId, route('sensors.show',  ['deviceId' => $deviceId, 'sensorId'=> $sensorId]));
 });
 
 
