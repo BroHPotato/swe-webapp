@@ -5,20 +5,34 @@ namespace App\Providers;
 use App\Models\Device;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\ServiceProvider;
 
+use function config;
+
+/**
+ * Class DeviceServiceProvider
+ * @package App\Providers
+ */
 class DeviceServiceProvider extends ServiceProvider
 {
     //si occupa di prendere i device dal database
+    /**
+     * @var Client
+     */
     private $request;
 
+    /**
+     * DeviceServiceProvider constructor.
+     */
     public function __construct()
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => 'localhost:9999',
+            'base_uri' => config('app.api') . '/devices',
             'headers' => [
-                'Content-Type' => 'application/json' ,
+                'Content-Type' => 'application/json'
             ]
         ]);
     }
@@ -27,10 +41,10 @@ class DeviceServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Device
      */
-    public function retrieveById($identifier)
+    public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get('device/' . $identifier, [
+            $response = json_decode($this->request->get($identifier, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
@@ -40,7 +54,7 @@ class DeviceServiceProvider extends ServiceProvider
             return $device;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            return null;
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 
@@ -50,11 +64,11 @@ class DeviceServiceProvider extends ServiceProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('devices', [
+            $response = json_decode($this->request->get('', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
-                    ]
-                ])->getBody());
+                ]
+            ])->getBody());
             $devices = [];
             foreach ($response as $d) {
                 $device = new Device();
@@ -68,12 +82,42 @@ class DeviceServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * @param RequestException $e
+     * @return RedirectResponse|Redirector
+     */
     private function isExpired(RequestException $e)
     {
         if ($e->getCode() == 419/*fai il controllo del token*/) {
             session()->invalidate();
             session()->flush();
             return redirect('login');
+        }
+    }
+
+    /**
+     * @param $entity
+     * @return array
+     */
+    public function findAllFromEntity($entity)
+    {
+        try {
+            $response = json_decode($this->request->get('', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . session()->get('token')
+                ],
+                'query' => 'entityId=' . $entity
+            ])->getBody());
+            $devices = [];
+            foreach ($response as $d) {
+                $device = new Device();
+                $device->fill((array)$d);
+                $devices[] = $device;
+            }
+            return $devices;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 }
