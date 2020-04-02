@@ -69,6 +69,7 @@ class DeviceServiceProvider extends ServiceProvider
         }
     }
 
+
     private function isExpired(RequestException $e)
     {
         if ($e->getCode() == 419/*fai il controllo del token*/) {
