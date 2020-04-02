@@ -27,7 +27,7 @@ class SensorServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Sensor
      */
-    public function find($deviceId ,$sensorId)
+    public function find($deviceId, $sensorId)
     {
         try {
             $response = json_decode($this->request->get('device/' . $deviceId . '/sensor/' . $sensorId, [
@@ -107,7 +107,7 @@ class SensorServiceProvider extends ServiceProvider
         }
     }
 
-    public function fetch($device ,$sensorId)
+    public function fetch($device, $sensorId)
     {
         try {
             return json_decode($this->request->get('sensor', [
