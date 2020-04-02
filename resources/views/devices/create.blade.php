@@ -139,21 +139,19 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <i class="fas fa-plus-circle"></i>
-                                    </span>
-                                    <span class="text">Aggiungi sensore</span>
-                                </button>
-                            </div>
+                        <div class="form-group row float-right mx-1">
+                            <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-plus-circle"></i>
+                                </span>
+                                <span class="text">Aggiungi sensore</span>
+                            </button>
                         </div>
                     </form>
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
+        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
             <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
