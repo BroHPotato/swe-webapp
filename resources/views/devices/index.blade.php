@@ -27,7 +27,7 @@
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Gateway</th>
-                            <th># Sensori</th>
+                            <th>Numero di sensori</th>
                             <th>Frequenza</th>
                             <th>Status</th>
                             <th> </th>
@@ -38,7 +38,7 @@
                             <th>Id</th>
                             <th>Nome</th>
                             <th>Gateway</th>
-                            <th># Sensori</th>
+                            <th>Numero di sensori</th>
                             <th>Frequenza</th>
                             <th>Status</th>
                             <th> </th>
