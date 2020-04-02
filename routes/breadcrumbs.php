@@ -17,8 +17,13 @@ Breadcrumbs::for('devices', function ($trail) {
 });
 Breadcrumbs::for('device', function ($trail, $deviceId) {
     $trail->parent('devices');
-    $trail->push('Dispositivo ' . $deviceId, route('devices.show', ['deviceId' => $deviceId]));
+    $trail->push($deviceId, route('devices.show', ['deviceId' => $deviceId]));
 });
+Breadcrumbs::for('devices.create', function ($trail) {
+    $trail->parent('devices');
+    $trail->push('Creazione', route('devices.create'));
+});
+
 // Sensori
 Breadcrumbs::for('sensors', function ($trail, $deviceId) {
     $trail->parent('device', $deviceId);
@@ -26,7 +31,7 @@ Breadcrumbs::for('sensors', function ($trail, $deviceId) {
 });
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
     $trail->parent('sensors', $deviceId);
-    $trail->push('Sensore ' . $sensorId, route('sensors.index', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
+    $trail->push($sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
 
