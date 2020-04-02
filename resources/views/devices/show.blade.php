@@ -55,7 +55,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-empty"></span> Sensore 1</h6>
             </div>
             <div class="card-body">
-                <div class="col-sm-6">
+                <div class="col-sm-6 float-left">
                     <div class="form-group row">
                         <label for="SensorId" class="col-sm-6 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
                         <div class="col-sm-6 col-form-label">
@@ -69,12 +69,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 float-right">
                     <div class="form-group row">
-                        <label for="Chart" class="col-sm-3 col-form-label"><span class="fas fa-chart-line"></span> Grafico </label>
-                        <div class="col-sm-8">
-                            {{--GRAFICO--}}
-                        </div>
+                        <label for="Chart" class="col-sm col-form-label text-center"><span class="fas fa-chart-line"></span> Grafico </label>
+                    </div>
+                    <div class="row">
+                        {{--GRAFICO--}}
+                        grafico
                     </div>
                 </div>
             </div>

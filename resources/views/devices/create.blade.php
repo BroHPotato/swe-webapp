@@ -104,7 +104,7 @@
         @can(['isAdmin'])
             <div id="cardDispositivo" class="card-body">
                 <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
-                <form method="POST" action="#">
+                <form method="POST" action="#" id="sensorForm">
                     @csrf
                     @method('POST')
                     <div class="form-group row">
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="inputSensorType" class="col-sm-4 col-form-label"><span class="fas fa-horse-head"></span>Tipo di sensore</label>
+                        <label for="inputSensorType" class="col-sm-4 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
                             @error('sensorType')
@@ -131,7 +131,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4">
-                            <button id="aggiungiSensore" type="submit" class="btn btn-success btn-icon-split">
+                            <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <i class="fas fa-plus-circle"></i>
                                 </span>
