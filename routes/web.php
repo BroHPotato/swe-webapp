@@ -35,8 +35,10 @@ Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.res
 Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
 
 //routes per gestione gateways
-Route::get('/gateways', 'GatewayController@index')->name('gateway.index');//TODO
-Route::get('/gateway/{gatewayId}', 'GatewayController@show')->name('gateway.show');//TODO
+Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO
+Route::get('/gateways/create', 'GatewayController@create')->name('gateways.create');//TODO
+Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateways.show');//TODO
+Route::get('/gateways/{gatewayId}/edit', 'GatewayController@edit')->name('gateways.edit');//TODO
 
 //routes per gestione devices
 Route::get('/devices', 'DeviceController@index')->name('devices.index');

@@ -56,3 +56,22 @@ Breadcrumbs::for('users.edit', function ($trail, $userId) {
     $trail->parent('users.show', $userId);
     $trail->push('Modifica', route('users.edit', ['userId' => $userId]));
 });
+
+// Gateway
+Breadcrumbs::for('gateways', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Gestione gateway', route('gateways.index'));
+});
+Breadcrumbs::for('gateways.show', function ($trail, $gatewayId) {
+    $trail->parent('gateways');
+    $trail->push('Gateway ' . $gatewayId, route('gateways.show', ['gatewayId' => $gatewayId]));
+});
+Breadcrumbs::for('gateways.create', function ($trail) {
+    $trail->parent('gateways');
+    $trail->push('Creazione', route('gateways.index'));
+});
+Breadcrumbs::for('gateways.edit', function ($trail, $gatewayId) {
+    $trail->parent('gateways');
+    $trail->push('Modifica '. $gatewayId, route('gateways.index', ['gatewayId' => $gatewayId]));
+});
+
