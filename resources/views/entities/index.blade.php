@@ -15,7 +15,7 @@
         </div>
         @can(['isAdmin'])
             <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{--route('entities.create')--}}" class="btn btn-primary btn-icon-split">
+                <a href="{{route('entities.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
                     </span>
@@ -24,7 +24,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-building"></span> Lista enti</h6>
+                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-city"></span> Lista enti</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -67,7 +67,7 @@
                                             <span class="text">Dettagli</span>
                                         </a>
                                     </td>
-                                    <td><a href="{{--route('entities.edit', ['entityId' => $entity->entityId ])--}}" class="btn btn-warning btn-icon-split">
+                                    <td><a href="{{route('entities.edit', ['entityName' => $entity->name])}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>

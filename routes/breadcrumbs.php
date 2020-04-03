@@ -85,14 +85,15 @@ Breadcrumbs::for('entities.show', function ($trail, $entityName) {
     $trail->parent('entities');
     $trail->push($entityName, route('entities.show', ['entityName' => $entityName]));
 });
-/*
+
 Breadcrumbs::for('entities.create', function ($trail) {
     $trail->parent('entities');
     $trail->push('Creazione', route('entities.create'));
 });
-Breadcrumbs::for('entities.edit', function ($trail, $entityId) {
+
+Breadcrumbs::for('entities.edit', function ($trail, $entityName) {
     $trail->parent('entities');
-    $trail->push('Modifica '. $entityId, route('entities.edit', ['gatewayId' => $entityId]));
+    $trail->push('Modifica '. $entityName, route('entities.edit', ['entityName' => $entityName]));
 });
-*/
+
 

@@ -22,6 +22,26 @@ class EntityController extends Controller
         $this->provider = new EntityServiceProvider();
     }
 
+    public function create()
+    {
+        $entities = $this->provider->findAll();
+        return view('entities.create', compact(['entities']));
+    }
+
+    public function edit($entity)
+    {
+        //$device = $this->provider->find($device);
+        ///FAKER
+        $entity = new Entity();
+        $arr = array_combine(
+            array('entityId', 'name', 'location', 'deleted'),
+            array("1", "CasaDiMariano", "Padova", false)
+        );
+        $entity->fill($arr);
+        //TODO remove
+        return view('entities.edit', compact('entity'));
+    }
+
     /**
      * Display a listing of the resource.
      *

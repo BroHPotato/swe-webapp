@@ -50,20 +50,17 @@ Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show')
 //Route::get('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');//TODO
 Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
 
-
 //routes per gestione sensori
 Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');//TODO
 Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
 
-
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
-//Route::get('/entities/create', 'EntityController@create')->name('entities.create');//TODO
+Route::get('/entities/create', 'EntityController@create')->name('entities.create');//TODO
 //Route::get('/entities', 'EntityController@store')->name('entities.store');//TODO
 Route::get('/entity/{entityName}', 'EntityController@show')->name('entities.show');//TODO
 //Route::get('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
-//Route::get('/entity/{entityId}/edit', 'EntityController@edit')->name('entities.edit');//TODO
-
+Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //data
 Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
