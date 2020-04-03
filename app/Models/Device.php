@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    protected $fillable = ['deviceId', 'name', 'frequency', 'gatewayId'];
+    protected $fillable = ['name', 'frequency', 'realDeviceId', 'gateway', 'deviceId'];
 
     public function getSensors()
     {

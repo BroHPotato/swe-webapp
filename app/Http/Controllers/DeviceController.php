@@ -30,16 +30,7 @@ class DeviceController extends Controller
 
     public function edit($device)
     {
-        //$device = $this->provider->find($device);
-        ///FAKER
-        $device = new Device();
-        $arr = array_combine(
-            array('deviceId', 'name', 'gateway','frequency', 'status'),
-            array("1", "dev1", "US-Gateway", 1, "attivo")
-        );
-        $device->fill($arr);
-        $devices[] = $device;
-        //TODO remove
+        $device = $this->provider->find($device);
         return view('devices.edit', compact('device'));
     }
 
@@ -50,16 +41,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        //$devices = $this->provider->findAll();
-        ///FAKER
-        $user = new Device();
-        $arr = array_combine(
-            array('deviceId', 'name', 'frequency', 'gatewayId'),
-            array("1", "dev1", 123, 1)
-        );
-        $user->fill($arr);
-        $devices[] = $user;
-        //TODO remove
+        $devices = $this->provider->findAll();
         return view('devices.index', compact('devices'));
     }
 
@@ -71,16 +53,7 @@ class DeviceController extends Controller
      */
     public function show($device)
     {
-        //$device = $this->provider->find($device);
-        ///FAKER
-        $user = new Device();
-        $arr = array_combine(
-            array('deviceId', 'name', 'frequency', 'gatewayId'),
-            array("1", "dev1", 123, 1)
-        );
-        $user->fill($arr);
-        $device = $user;
-        //TODO remove
+        $device = $this->provider->find($device);
         return view('devices.show', compact('device'));
     }
 }
