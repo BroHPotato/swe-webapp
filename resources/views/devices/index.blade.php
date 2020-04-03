@@ -5,15 +5,15 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Dispositivi</h1>
         </div>
-        @can(['isAdmin'])
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
+            <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-arrow-circle-left"></span>
                         </span>
-                    <span class="text">Torna indietro</span>
-                </a>
-            </div>
+                <span class="text">Torna indietro</span>
+            </a>
+        </div>
+        @can(['isAdmin'])
             <div class="d-sm-flex mb-4 ml-sm-auto">
                 <a href="{{route('devices.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
@@ -132,14 +132,14 @@
                                 <td>{{$device->getEntity()->getName()}}</td>
                                 <td><a href="{{route('sensors.index', ['deviceId' => $device->deviceId ])}}" class="btn btn-success btn-icon-split float-right">
                                         <span class="icon text-white-50">
-                                          <span class="fas fa-thermometer-half"></i>
+                                          <span class="fas fa-thermometer-half"></span>
                                         </span>
                                         <span class="text">Sensori</span>
                                     </a>
                                 </td>
                                 <td><a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split float-right">
                                         <span class="icon text-white-50">
-                                          <span class="fas fa-info-circle"></i>
+                                          <span class="fas fa-info-circle"></span>
                                         </span>
                                         <span class="text">Dettagli</span>
                                     </a>
@@ -267,14 +267,14 @@
                                 <td>{{$device->getEntity()->getName()}}</td>
                                 <td><a href="{{route('sensors.index', ['deviceId' => $device->deviceId ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <span class="fas fa-thermometer-half"></i>
+                                          <span class="fas fa-thermometer-half"></span>
                                         </span>
                                         <span class="text">Sensori</span>
                                     </a>
                                 </td>
                                 <td><a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <span class="fas fa-info-circle"></i>
+                                          <span class="fas fa-info-circle"></span>
                                         </span>
                                         <span class="text">Dettagli</span>
                                     </a>

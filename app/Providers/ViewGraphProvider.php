@@ -2,52 +2,42 @@
 
 namespace App\Providers;
 
-use App\Models\Device;
+use App\Models\ViewGraph;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-use function config;
-
-/**
- * Class DeviceServiceProvider
- * @package App\Providers
- */
-class DeviceServiceProvider extends BasicProvider
+class ViewGraphProvider extends BasicProvider
 {
-    //si occupa di prendere i device dal database
     /**
      * @var Client
      */
     private $request;
 
-    /**
-     * DeviceServiceProvider constructor.
-     */
     public function __construct()
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices',
+            'base_uri' => config('app.api') . '/viewsGraphs',
             'headers' => [
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
             ]
         ]);
     }
 
     /**
      * @param mixed $identifier
-     * @return Device
+     * @return ViewGraph
      */
     public function find($identifier)
     {
         try {
             $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
-            $device = new Device();
-            $device->fill((array)$response);
-            return $device;
+            $graph = new ViewGraph();
+            $graph->fill((array)$response);
+            return $graph;
         } catch (RequestException $e) {
-            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -58,39 +48,34 @@ class DeviceServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
-            $devices = [];
-            foreach ($response as $d) {
-                $device = new Device();
-                $device->fill((array)$d);
-                $devices[] = $device;
+            $graph = [];
+            foreach ($response as $g) {
+                $graph = new ViewGraph();
+                $graph->fill((array)$g);
+                $graph[] = $graph;
             }
-            return $devices;
+            return $graph;
         } catch (RequestException $e) {
-            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
-
-    /**
-     * @param $entity
-     * @return array
-     */
-    public function findAllFromEntity($entity)
+    public function findAllFromView($viewId)
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'entityId=' . $entity
+                'query' => 'viewId=' . $viewId
             ]))->getBody());
-            $devices = [];
-            foreach ($response as $d) {
-                $device = new Device();
-                $device->fill((array)$d);
-                $devices[] = $device;
+            $graphs = [];
+            foreach ($response as $g) {
+                $graph = new ViewGraph();
+                $graph->fill((array)$g);
+                $graphs[] = $graph;
             }
-            return $devices;
+            return $graphs;
         } catch (RequestException $e) {
-            $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 }

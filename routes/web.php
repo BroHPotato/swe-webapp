@@ -37,25 +37,30 @@ Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.d
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO
 Route::get('/gateways/create', 'GatewayController@create')->name('gateways.create');//TODO
+//Route::get('/gateways', 'GatewayController@store')->name('gateways.store');//TODO
 Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateways.show');//TODO
+//Route::get('/gateways/{gatewayId}', 'GatewayController@update')->name('gateways.update');//TODO
 Route::get('/gateways/{gatewayId}/edit', 'GatewayController@edit')->name('gateways.edit');//TODO
 
 //routes per gestione devices
 Route::get('/devices', 'DeviceController@index')->name('devices.index');
 Route::get('/devices/create', 'DeviceController@create')->name('devices.create');//TODO
+//Route::get('/devices', 'DeviceController@store')->name('devices.store');//TODO
 Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');//TODO
+//Route::get('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');//TODO
 Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
-
 
 //routes per gestione sensori
 Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');//TODO
 Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
 
-
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
-Route::get('/entity/{entityId}', 'EntityController@show')->name('entities.show');//TODO
-
+Route::get('/entities/create', 'EntityController@create')->name('entities.create');//TODO
+Route::post('/entities', 'EntityController@store')->name('entities.store');//TODO
+Route::get('/entity/{entityName}', 'EntityController@show')->name('entities.show');//TODO
+Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
+Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //data
 Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO

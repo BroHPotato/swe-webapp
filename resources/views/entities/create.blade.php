@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('gateways.create'))
+@section('breadcrumbs', Breadcrumbs::render('entities.create'))
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Creazione gateway</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Creazione ente</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('gateways.index')}}" class="btn btn-danger btn-icon-split">
+            <a href="{{route('entities.index')}}" class="btn btn-danger btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-arrow-circle-left"></span>
                         </span>
@@ -19,20 +19,31 @@
                    <span class="icon text-blue-50">
                           <span class="fas fa-plus-circle"></span>
                    </span>
-                    Creazione gateway
+                    Creazione ente
                 </h6>
             </div>
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
-                    <p>Puoi creare un nuovo gateway inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('gateways.store')--}}">
+                    <p>Puoi creare un nuovo ente inserendo le informazioni elencate in seguito:</p>
+                    <form method="POST" action="{{--route('entities.store')--}}">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
+                            <label for="inputEntityName" class="col-sm-4 col-form-label"><span class="fas fa-building"></span> Nome ente</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('gatewayName') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="" name="gatewayName">
-                                @error('gatewayName')
+                                <input type="text" class="form-control @error('entityName') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="" name="entityName">
+                                @error('entityName')
+                                <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEntityLocation" class="col-sm-4 col-form-label"><span class="fas fa-location-arrow"></span> Luogo </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control @error('entityLocation') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="" name="entityLocation">
+                                @error('entityLocation')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

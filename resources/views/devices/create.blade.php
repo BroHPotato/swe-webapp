@@ -114,7 +114,7 @@
             @can(['isAdmin'])
                 <div id="cardSensore" class="card-body">
                     <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="#" id="sensorForm">
+                    <form method="POST" action="{{--route('devices.store')--}}" id="sensorForm">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
@@ -139,10 +139,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row float-right mx-1">
+                        <div class="form-group row mx-1">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <i class="fas fa-plus-circle"></i>
+                                  <span class="fas fa-plus-circle"></span>
                                 </span>
                                 <span class="text">Aggiungi sensore</span>
                             </button>
@@ -151,7 +151,7 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('devices.index')}}" id="addDevice" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>

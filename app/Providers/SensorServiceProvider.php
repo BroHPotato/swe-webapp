@@ -5,15 +5,12 @@ namespace App\Providers;
 use App\Models\Sensor;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\ServiceProvider;
 
 /**
  * Class SensorServiceProvider
  * @package App\Providers
  */
-class SensorServiceProvider extends ServiceProvider
+class SensorServiceProvider extends BasicProvider
 {
     //si occupa di prendere i device dal database
     /**
@@ -42,33 +39,17 @@ class SensorServiceProvider extends ServiceProvider
     public function find($deviceId, $sensorId)
     {
         try {
-            $response = json_decode($this->request->get($deviceId . '/sensor/' . $sensorId, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
-            ])->getBody());
+            $response = json_decode($this->request->get(
+                $deviceId . '/sensor/' . $sensorId,
+                $this->setHeaders()
+            )->getBody());
             $sensor = new Sensor();
             $sensor->fill((array)$response);
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            $s = new Sensor();
-            $s->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [1, 'boh', 1, 1]));
-            return $s;//null;
-        }
-    }
-
-    /**
-     * @param RequestException $e
-     * @return RedirectResponse|Redirector
-     */
-    private function isExpired(RequestException $e)
-    {
-        if ($e->getCode() == 419/*fai il controllo del token*/) {
-            session()->invalidate();
-            session()->flush();
-            return redirect('login');
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -78,11 +59,7 @@ class SensorServiceProvider extends ServiceProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('sensors', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('sensors', $this->setHeaders())->getBody());
             $sensors = [];
             foreach ($response as $d) {
                 $sensor = new Sensor();
@@ -104,11 +81,7 @@ class SensorServiceProvider extends ServiceProvider
     public function findAllFromDevice($deviceId)
     {
         try {
-            $response = json_decode($this->request->get($deviceId . '/sensors', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get($deviceId . '/sensors', $this->setHeaders())->getBody());
             $sensors = [];
             foreach ($response as $d) {
                 $sensor = new Sensor();
@@ -118,12 +91,8 @@ class SensorServiceProvider extends ServiceProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            $s1 = new Sensor();
-            $s2 = new Sensor();
-            $s1->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [1, 'boh', 1, 1]));
-            $s2->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [2, 'buh', 2, 1]));
-            return [$s1, $s2];//null;
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -135,11 +104,7 @@ class SensorServiceProvider extends ServiceProvider
     public function fetch($device, $sensorId)
     {
         try {
-            return json_decode($this->request->get('sensor', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            return json_decode($this->request->get('sensor', $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return NAN;

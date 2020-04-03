@@ -5,22 +5,24 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Modifica dispositivo</h1>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
-                <span class="text">Torna indietro</span>
-            </a>
-        </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-trash"></span>
-                        </span>
-                <span class="text">Elimina</span>
-            </a>
-        </div>
+
+            <div class="d-sm-inline-flex mb-4 ml-sm-auto">
+                <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                              <span class="fas fa-arrow-circle-left"></span>
+                            </span>
+                    <span class="text">Torna indietro</span>
+                </a>
+            </div>
+            <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
+                <button class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-trash"></span>
+                                        </span>
+                    <span class="text">Elimina</span>
+                </button>
+            </div>
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -33,7 +35,7 @@
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
                     <p>Puoi modificare un dispositivo inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{--route('devices.update', $device->deviceId)--}}">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
@@ -146,10 +148,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row float-right mx-1">
+                        <div class="form-group row mx-1">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <i class="fas fa-plus-circle"></i>
+                                  <span class="fas fa-plus-circle"></span>
                                 </span>
                                 <span class="text">Aggiungi sensore</span>
                             </button>
@@ -158,7 +160,7 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>

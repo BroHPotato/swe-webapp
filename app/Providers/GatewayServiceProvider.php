@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Models\Gateway;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Support\ServiceProvider;
 
 use function config;
 
@@ -13,7 +12,7 @@ use function config;
  * Class GatewayServiceProvider
  * @package App\Providers
  */
-class GatewayServiceProvider extends ServiceProvider
+class GatewayServiceProvider extends BasicProvider
 {
     //si occupa di prendere i device dal database
     /**
@@ -39,14 +38,10 @@ class GatewayServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Gateway
      */
-    public function retrieveById($identifier)
+    public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
             $gateway = new Gateway();
             $gateway->fill((array)$response);
             return $gateway;
@@ -62,11 +57,7 @@ class GatewayServiceProvider extends ServiceProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
             $gateways = [];
             foreach ($response as $g) {
                 $gateway = new Gateway();

@@ -85,7 +85,7 @@
                                         'sensorId' => 1
                                     ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <i class="fas fa-chart-area"></i>
+                                          <span class="fas fa-chart-area"></span>
                                         </span>
                                     <span class="text">Mostra grafico</span>
                                 </a>
@@ -98,7 +98,7 @@
         OPPURE
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-thermometer-half"></i> Lista sensori</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -129,7 +129,7 @@
                                         'sensorId' => 1
                                     ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <i class="fas fa-chart-area"></i>
+                                          <span class="fas fa-chart-area"></span>
                                         </span>
                                         <span class="text">Mostra grafico</span>
                                     </a>

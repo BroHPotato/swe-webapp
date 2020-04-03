@@ -146,7 +146,7 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-bell"></i> Notifiche alert</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
             </div>
             <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
