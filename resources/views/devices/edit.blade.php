@@ -13,6 +13,14 @@
                 <span class="text">Torna indietro</span>
             </a>
         </div>
+        <div class="d-sm-flex mb-4 ml-sm-auto">
+            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-trash"></span>
+                        </span>
+                <span class="text">Elimina</span>
+            </a>
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -29,8 +37,8 @@
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputDeviceId" class="col-sm-4 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
-                            <div class="col-sm-8">
+                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('deviceId')??$device->deviceId}}" name="deviceid">
                                 @error('deviceId')
                                 <span class="invalid-feedback" role="alert">
@@ -40,8 +48,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputDeviceName" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
-                            <div class="col-sm-8">
+                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceName') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="{{old('deviceName')??$device->name}}" name="deviceName">
                                 @error('deviceName')
                                 <span class="invalid-feedback" role="alert">
@@ -51,8 +59,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
-                            <div class="col-sm-8">
+                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
+                            <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('gatewayName') is-invalid @enderror" name="gatewayName" id="inputgatewayName">
                                         <option @if($device->gateway=='US-Gateway') selected @endif >US-Gateway</option>
@@ -67,8 +75,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputFrequency" class="col-sm-4 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
-                            <div class="col-sm-8">
+                            <label for="inputFrequency" class="col-sm-3 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
+                            <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
                                         <option @if($device->frequency=='0.5') selected @endif >0.5</option>
@@ -117,8 +125,8 @@
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputSensorId" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
-                            <div class="col-sm-8">
+                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId">
                                 @error('sensorId')
                                 <span class="invalid-feedback" role="alert">
@@ -128,8 +136,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSensorType" class="col-sm-4 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
-                            <div class="col-sm-8">
+                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
                                 @error('sensorType')
                                 <span class="invalid-feedback" role="alert">

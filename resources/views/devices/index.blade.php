@@ -30,7 +30,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
@@ -42,7 +42,7 @@
                             <th> </th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark">
+                        <tfoot class="thead-dark table-borderless">
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
@@ -62,14 +62,14 @@
                             <td>4</td>
                             <td>0.5</td>
                             <td><span class="badge badge-success">Attivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -84,14 +84,14 @@
                             <td>2</td>
                             <td>1</td>
                             <td><span class="badge badge-success">Attivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -106,14 +106,14 @@
                             <td>1</td>
                             <td>03</td>
                             <td><span class="badge badge-success">Attivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -150,7 +150,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="#" class="btn btn-success btn-icon-split">
+                <a href="#" class="btn btn-success btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-plus-circle"></span>
                                         </span>
@@ -165,7 +165,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
@@ -177,7 +177,7 @@
                             <th> </th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark">
+                        <tfoot class="thead-dark table-borderless">
                         <tr>
                             <th>Id</th>
                             <th>Nome</th>
@@ -197,14 +197,14 @@
                             <td>4</td>
                             <td>0.5</td>
                             <td><span class="badge badge-success">Attivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 1 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -219,14 +219,14 @@
                             <td>2</td>
                             <td>1</td>
                             <td><span class="badge badge-danger">Disattivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 2 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -241,14 +241,14 @@
                             <td>1</td>
                             <td>03</td>
                             <td><span class="badge badge-success">Attivo</span></td>
-                            <td><a href="{{route('devices.show', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.show', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                     <span class="text">Dettagli</span>
                                 </a>
                             </td>
-                            <td><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
+                            <td class="text-center"><a href="{{route('devices.edit', ['deviceId' => 3 ])}}" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
@@ -285,7 +285,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="#" class="btn btn-success btn-icon-split">
+                <a href="#" class="btn btn-success btn-icon-split float-right">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-plus-circle"></span>
                                         </span>

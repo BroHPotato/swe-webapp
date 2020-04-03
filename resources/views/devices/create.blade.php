@@ -29,8 +29,8 @@
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputDeviceId" class="col-sm-4 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
-                            <div class="col-sm-8">
+                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="" name="deviceid">
                                 @error('deviceId')
                                 <span class="invalid-feedback" role="alert">
@@ -40,8 +40,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputDeviceName" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
-                            <div class="col-sm-8">
+                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceName') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="" name="deviceName">
                                 @error('deviceName')
                                 <span class="invalid-feedback" role="alert">
@@ -51,8 +51,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
-                            <div class="col-sm-8">
+                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
+                            <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('gatewayName') is-invalid @enderror" name="gatewayName" id="inputgatewayName">
                                         <option >US-Gateway</option>
@@ -67,8 +67,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputFrequency" class="col-sm-4 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
-                            <div class="col-sm-8">
+                            <label for="inputFrequency" class="col-sm-3 col-form-label"><span class="fas fa-history"></span> Frequenza ricezione dati</label>
+                            <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
                                         <option >0.5</option>
@@ -112,14 +112,14 @@
                 </h6>
             </div>
             @can(['isAdmin'])
-                <div id="cardDispositivo" class="card-body">
+                <div id="cardSensore" class="card-body">
                     <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" action="#" id="sensorForm">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputSensorId" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
-                            <div class="col-sm-8">
+                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId">
                                 @error('sensorId')
                                 <span class="invalid-feedback" role="alert">
@@ -129,8 +129,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSensorType" class="col-sm-4 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
-                            <div class="col-sm-8">
+                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
                                 @error('sensorType')
                                 <span class="invalid-feedback" role="alert">
