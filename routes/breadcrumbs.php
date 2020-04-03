@@ -80,11 +80,12 @@ Breadcrumbs::for('entities', function ($trail) {
     $trail->parent('home');
     $trail->push('Gestione enti', route('entities.index'));
 });
-/*
-Breadcrumbs::for('entities.show', function ($trail, $entityId) {
+
+Breadcrumbs::for('entities.show', function ($trail, $entityName) {
     $trail->parent('entities');
-    $trail->push('Ente ' . $entityId, route('entities.show', ['entityId' => $entityId]));
+    $trail->push($entityName, route('entities.show', ['entityName' => $entityName]));
 });
+/*
 Breadcrumbs::for('entities.create', function ($trail) {
     $trail->parent('entities');
     $trail->push('Creazione', route('entities.create'));

@@ -57,7 +57,15 @@ class EntityController extends Controller
      */
     public function show($entity)
     {
-        $entity = $this->provider->retrieveById($entity);
+        //$entity = $this->provider->retrieveById($entity);
+        //FAKER
+        $entity = new Entity();
+        $arr = array_combine(
+            array('entityId', 'name', 'location', 'deleted'),
+            array("1", "CasaDiMariano", "Padova", false)
+        );
+        $entity->fill($arr);
+        //TODO remove
         return view('entities.show', compact('entity'));
     }
 }

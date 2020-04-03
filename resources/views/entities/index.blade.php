@@ -31,32 +31,35 @@
                         <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                             <thead class="thead-dark table-borderless`">
                             <tr>
-                                <th>ID </th>
                                 <th>Nome</th>
-                                <th>Numero Dispositivi</th>
+                                <th>Luogo</th>
+                                <th>Status</th>
                                 <th> </th>
-                                <th> </th>
-                                <th>Configurazione</th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tfoot class="thead-dark table-borderless">
                             <tr>
-                                <th>ID </th>
                                 <th>Nome</th>
-                                <th>Numero Dispositivi</th>
+                                <th>Luogo</th>
+                                <th>Status</th>
                                 <th> </th>
-                                <th> </th>
-                                <th>Configurazione</th>
+                                <th></th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            @foreach($gateways as $gateway)
+                            @foreach($entities as $entity)
                                 <tr>
-                                    <td>{{$gateway->gatewayId}}</td>
-                                    <td>{{$gateway->name}}</td>
-                                    <td>2</td>  {{-- IL NUMERO DI DISPOSITIVI VA PRESO DINAMICAMENTE --}}
-                                    <td><a href="{{route('gateways.show', [
-                                                    'gatewayId' => $gateway->gatewayId
+                                    <td>{{$entity->name}}</td>
+                                    <td>{{$entity->location}}</td>
+                                    <td>@if($entity->deleted===true)
+                                            <span class="badge badge-danger">Eliminato</span>
+                                        @else
+                                            <span class="badge badge-success">Attivo</span>
+                                        @endif
+                                    </td>
+                                    <td><a href="{{route('entities.show', [
+                                                    'entityId' => $entity->entityId
                                             ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
@@ -64,18 +67,11 @@
                                             <span class="text">Dettagli</span>
                                         </a>
                                     </td>
-                                    <td><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-warning btn-icon-split">
+                                    <td><a href="{{--route('entities.edit', ['entityId' => $entity->entityId ])--}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
                                             <span class="text">Modifica</span>
-                                        </a>
-                                    </td>
-                                    <td><a href="#" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-paper-plane"></span>
-                                        </span>
-                                            <span class="text">Invia</span>
                                         </a>
                                     </td>
                                 </tr>
