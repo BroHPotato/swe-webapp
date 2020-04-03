@@ -52,8 +52,12 @@ Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->n
 
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
-Route::get('/entity/{entityId}', 'EntityController@show')->name('entities.show');//TODO
+Route::get('/entities/{entityId}', 'EntityController@show')->name('entities.show');//TODO
 
+
+//routes per gestione views
+Route::get('/views', 'ViewController@index')->name('views.index');//TODO
+Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
 
 //data
 Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
