@@ -46,6 +46,8 @@
     },
     "dependencies": {
         "apexcharts": "^3.17.1",
+        "datatables.net": "^1.10.20",
+        "datatables.net-dt": "^1.10.20",
         "vue-apexcharts": "^1.5.2"
     },
     "jest": {
