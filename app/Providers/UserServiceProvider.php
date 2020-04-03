@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Carbon\Laravel\ServiceProvider;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -18,7 +17,7 @@ use function config;
  * Class UserServiceProvider
  * @package App\Providers
  */
-class UserServiceProvider extends ServiceProvider implements UserProvider
+class UserServiceProvider extends BasicProvider implements UserProvider
 {
     //si occupa di prendere lo user dal database
     /**
@@ -47,30 +46,14 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function retrieveById($identifier)
     {
         try {
-            $response = json_decode($this->request->get('users/' . $identifier, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('users/' . $identifier, $this->setHeaders())->getBody());
             $user = new User();
             $user->fill((array)$response);
             return $user;
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-        }
-    }
-
-    /**
-     * @param RequestException $e
-     * @return RedirectResponse|Redirector
-     */
-    private function isExpired(RequestException $e)
-    {
-        if ($e->getCode() == 419/*fai il controllo del token*/) {
-            session()->invalidate();
-            session()->flush();
-            return redirect('login');
+            return null;
         }
     }
 
@@ -119,12 +102,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
      */
     private function retriveByCode(Client $request, $credentials)
     {
-        $response = json_decode($request->post('auth/tfa', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ],
+        $response = json_decode($request->post('auth/tfa', array_merge($this->setHeaders(), [
             'body' => '{"auth_code":"' . $credentials["code"] . '"}'
-        ])->getBody());
+            ]))->getBody());
         $userarray = (array)$response->user;
         $userarray['token'] = $response->jwt;
 
@@ -142,6 +122,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     private function retriveByCred(Client $request, $credentials)
     {
         $response = json_decode($request->post('auth', [
+            'headers' => [
+                'X-Forwarded-For' => request()->ip()
+            ],
             'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
         ])->getBody());
 
@@ -175,11 +158,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('users', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('users', $this->setHeaders())->getBody());
             $users = [];
             foreach ($response as $u) {
                 $user = new User();
@@ -200,12 +179,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function findAllFromEntity($entityId)
     {
         try {
-            $response = json_decode($this->request->get('users', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
+            $response = json_decode($this->request->get('users', array_merge($this->setHeaders(), [
                 'query' => 'entityId=' . $entityId
-            ])->getBody());
+            ]))->getBody());
             $users = [];
             foreach ($response as $u) {
                 $user = new User();
@@ -226,12 +202,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function update(string $who, string $body)
     {
         try {
-            $response = json_decode($this->request->put('/users/' . $who, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
+            $response = json_decode($this->request->put('/users/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
-            ])->getBody());
+            ]))->getBody());
             if (property_exists($response, 'token')) {
                 session(['token' => $response->token]);
                 Auth::user()->token = $response->token;
@@ -248,11 +221,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function destroy(string $who)
     {
         try {
-            $this->request->delete('/users/' . $who, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ]);
+            $this->request->delete('/users/' . $who, $this->setHeaders());
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
@@ -265,13 +234,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function store(string $body)
     {
         try {
-            //dd($body);
-            $this->request->post('users', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
+            $this->request->post('users', array_merge($this->setHeaders(), [
                 'body' => $body
-            ]);
+            ]));
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());

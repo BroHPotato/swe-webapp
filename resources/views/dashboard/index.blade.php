@@ -129,7 +129,7 @@
                         <li class="list-group-item"><strong>Nome e Cognome:</strong> {{$user->name}} {{$user->surname}}</li>
                         <li class="list-group-item"><strong>Indirizzo email:</strong> {{$user->email}}</li>
                         <li class="list-group-item"><strong>Ente di appartenenza:</strong> NOME ENTE</li>
-                        <li class="list-group-item"><strong>Indirizzo IP:</strong> &nbsp; <code>{{ $_SERVER['REMOTE_ADDR'] }}</code></li>
+                        <li class="list-group-item"><strong>Indirizzo IP:</strong> &nbsp; <code>{{ request()->ip() }}</code></li>
                     </ul>
                 </div>
             </div>

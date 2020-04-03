@@ -57,9 +57,9 @@ Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->n
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
 Route::get('/entities/create', 'EntityController@create')->name('entities.create');//TODO
-//Route::get('/entities', 'EntityController@store')->name('entities.store');//TODO
+Route::post('/entities', 'EntityController@store')->name('entities.store');//TODO
 Route::get('/entity/{entityName}', 'EntityController@show')->name('entities.show');//TODO
-//Route::get('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
+Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //data
