@@ -44,7 +44,8 @@ class GatewayServiceProvider extends ServiceProvider
         try {
             $response = json_decode($this->request->get($identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $gateway = new Gateway();
@@ -64,7 +65,8 @@ class GatewayServiceProvider extends ServiceProvider
         try {
             $response = json_decode($this->request->get('', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $gateways = [];

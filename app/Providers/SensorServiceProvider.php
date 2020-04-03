@@ -44,7 +44,8 @@ class SensorServiceProvider extends ServiceProvider
         try {
             $response = json_decode($this->request->get($deviceId . '/sensor/' . $sensorId, [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ],
             ])->getBody());
             $sensor = new Sensor();
@@ -52,10 +53,8 @@ class SensorServiceProvider extends ServiceProvider
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            $s = new Sensor();
-            $s->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [1, 'boh', 1, 1]));
-            return $s;//null;
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -80,7 +79,8 @@ class SensorServiceProvider extends ServiceProvider
         try {
             $response = json_decode($this->request->get('sensors', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $sensors = [];
@@ -106,7 +106,8 @@ class SensorServiceProvider extends ServiceProvider
         try {
             $response = json_decode($this->request->get($deviceId . '/sensors', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $sensors = [];
@@ -118,12 +119,8 @@ class SensorServiceProvider extends ServiceProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            $s1 = new Sensor();
-            $s2 = new Sensor();
-            $s1->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [1, 'boh', 1, 1]));
-            $s2->fill(array_combine(['sensorId', 'type', 'deviceSensorId', 'deviceId'], [2, 'buh', 2, 1]));
-            return [$s1, $s2];//null;
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -137,7 +134,8 @@ class SensorServiceProvider extends ServiceProvider
         try {
             return json_decode($this->request->get('sensor', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
         } catch (RequestException $e) {

@@ -49,7 +49,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         try {
             $response = json_decode($this->request->get('users/' . $identifier, [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $user = new User();
@@ -58,6 +59,7 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -121,7 +123,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     {
         $response = json_decode($request->post('auth/tfa', [
             'headers' => [
-                'Authorization' => 'Bearer ' . session()->get('token')
+                'Authorization' => 'Bearer ' . session()->get('token'),
+                'X-Forwarded-For' => request()->ip()
             ],
             'body' => '{"auth_code":"' . $credentials["code"] . '"}'
         ])->getBody());
@@ -142,6 +145,9 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     private function retriveByCred(Client $request, $credentials)
     {
         $response = json_decode($request->post('auth', [
+            'headers' => [
+                'X-Forwarded-For' => request()->ip()
+            ],
             'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
         ])->getBody());
 
@@ -177,7 +183,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         try {
             $response = json_decode($this->request->get('users', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ])->getBody());
             $users = [];
@@ -202,7 +209,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         try {
             $response = json_decode($this->request->get('users', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ],
                 'query' => 'entityId=' . $entityId
             ])->getBody());
@@ -228,7 +236,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         try {
             $response = json_decode($this->request->put('/users/' . $who, [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ],
                 'body' => $body
             ])->getBody());
@@ -250,7 +259,8 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
         try {
             $this->request->delete('/users/' . $who, [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ]
             ]);
         } catch (RequestException $e) {
@@ -265,10 +275,10 @@ class UserServiceProvider extends ServiceProvider implements UserProvider
     public function store(string $body)
     {
         try {
-            //dd($body);
             $this->request->post('users', [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
+                    'Authorization' => 'Bearer ' . session()->get('token'),
+                    'X-Forwarded-For' => request()->ip()
                 ],
                 'body' => $body
             ]);
