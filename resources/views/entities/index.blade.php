@@ -59,7 +59,7 @@
                                         @endif
                                     </td>
                                     <td><a href="{{route('entities.show', [
-                                                    'entityId' => $entity->entityId
+                                                    'entityName' => $entity->name
                                             ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
