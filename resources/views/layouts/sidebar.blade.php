@@ -79,9 +79,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="#"><i class="fas fa-bell"></i> Gestione Alert</a>
                 <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione Utenti</a>
-                <a class="collapse-item" href="#"><i class="far fa-building"></i> Gestione Enti</a>
+                <a class="collapse-item" href="{{ route('entities.index') }}"><i class="far fa-building"></i> Gestione Enti</a>
                 <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione Dispositivi</a>
-                <a class="collapse-item" href="{{ route('gateway.index') }}"><i class="fas fa-dungeon"></i> Gestione Gateway</a>
+                <a class="collapse-item" href="{{ route('gateways.index') }}"><i class="fas fa-dungeon"></i> Gestione Gateway</a>
             </div>
         </div>
     </li>

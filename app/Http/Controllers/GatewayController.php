@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gateway;
 use App\Providers\GatewayServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -40,7 +41,39 @@ class GatewayController extends Controller
      */
     public function show($gateway)
     {
-        $gateway = $this->provider->retrieveById($gateway);
+        //$gateway = $this->provider->retrieveById($gateway);
+        ///FAKER
+        $gateway = new Gateway();
+        $arr = array_combine(
+            array('gatewayId', 'name', 'devices'),
+            array("1", "US-Gateway", "")
+        );
+        $gateway->fill($arr);
+        //TODO remove
         return view('gateways.show', compact('gateway'));
+    }
+
+    /**
+     * @return Factory|View
+     */
+    public function create() //TODO
+    {
+        $entityProvider = new GatewayServiceProvider();
+        $entities = $entityProvider->findAll();
+        return view('gateways.create', compact(['entities']));
+    }
+
+    public function edit($gateway)
+    {
+        //$gateway = $this->provider->retrieveById($gateway);
+        ///FAKER
+        $gateway = new Gateway();
+        $arr = array_combine(
+            array('gatewayId', 'name', 'devices'),
+            array("1", "US-Gateway", "")
+        );
+        $gateway->fill($arr);
+        //TODO remove
+        return view('gateways.edit', compact('gateway'));
     }
 }

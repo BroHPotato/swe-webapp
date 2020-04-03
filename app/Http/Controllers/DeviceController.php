@@ -30,8 +30,17 @@ class DeviceController extends Controller
 
     public function edit($device)
     {
-        $device = $this->provider->retrieveById($device);
-        return view('devices.edit', compact('user'));
+        //$device = $this->provider->find($device);
+        ///FAKER
+        $device = new Device();
+        $arr = array_combine(
+            array('deviceId', 'name', 'gateway','frequency', 'status'),
+            array("1", "dev1", "US-Gateway", 1, "attivo")
+        );
+        $device->fill($arr);
+        $devices[] = $device;
+        //TODO remove
+        return view('devices.edit', compact('device'));
     }
 
     /**

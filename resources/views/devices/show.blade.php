@@ -24,12 +24,12 @@
             --}}
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Informazioni dispositivo</h4>
+                    <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span>Informazioni dispositivo</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="thead-dark">
+                            <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Id</th>
                                 <th>Nome</th>
@@ -85,7 +85,7 @@
                                         'sensorId' => 1
                                     ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <i class="fas fa-chart-area"></i>
+                                          <span class="fas fa-chart-area"></span>
                                         </span>
                                     <span class="text">Mostra grafico</span>
                                 </a>
@@ -98,12 +98,12 @@
         OPPURE
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-thermometer-half"></i> Lista sensori</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>Id sensore</th>
                             <th>Id dispositivo</th>
@@ -111,7 +111,7 @@
                             <th>Grafico</th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark">
+                        <tfoot class="thead-dark table-borderless">
                         <tr>
                             <th>Id sensore</th>
                             <th>Id dispositivo</th>
@@ -124,12 +124,12 @@
                                 <td>1</td>
                                 <td>1</td>
                                 <td>Temperatura</td>
-                                <td><a href="{{route('sensors.show', [
+                                <td class="text-center"><a href="{{route('sensors.show', [
                                         'deviceId' => 1,
                                         'sensorId' => 1
                                     ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <i class="fas fa-chart-area"></i>
+                                          <span class="fas fa-chart-area"></span>
                                         </span>
                                         <span class="text">Mostra grafico</span>
                                     </a>
