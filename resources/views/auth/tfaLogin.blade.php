@@ -9,7 +9,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Codice TFA <i class="fab fa-telegram text-primary"></i> </h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Codice TFA <span class="fab fa-telegram text-primary"></span> </h1>
                                     <p>Accedi a <strong>Telegram</strong> e inserisci il codice che ti è stato inviato entro 5 minuti.</p>
                                 </div>
                                 <form class="user" method="POST" action="{{ route('login') }}">
@@ -28,12 +28,12 @@
 
                                     <div class="form-group mb-0">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Invia codice <i class="fas fa-sign-in-alt"></i>
+                                            Invia codice <span class="fas fa-sign-in-alt"></span>
                                         </button>
                                     </div>
                                 </form>
                                 <div class="mt-4">
-                                    <i class="fas fa-arrow-circle-left"></i>
+                                    <span class="fas fa-arrow-circle-left"></span>
                                     <a href="{{ route('login') }}" class="text-secondary">Torna al login</a>
                                 </div>
                             </div>

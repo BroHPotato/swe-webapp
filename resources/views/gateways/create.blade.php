@@ -25,7 +25,7 @@
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
                     <p>Puoi creare un nuovo gateway inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{--route('gateways.store')--}}">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
@@ -43,12 +43,12 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
-                          <span class="fas fa-save"></span>
+                          <span class="fas fa-plus-circle"></span>
                         </span>
-                <span class="text">Salva</span>
+                <span class="text">Aggiungi</span>
             </a>
         </div>
     </div>

@@ -68,10 +68,30 @@ Breadcrumbs::for('gateways.show', function ($trail, $gatewayId) {
 });
 Breadcrumbs::for('gateways.create', function ($trail) {
     $trail->parent('gateways');
-    $trail->push('Creazione', route('gateways.index'));
+    $trail->push('Creazione', route('gateways.create'));
 });
 Breadcrumbs::for('gateways.edit', function ($trail, $gatewayId) {
     $trail->parent('gateways');
-    $trail->push('Modifica '. $gatewayId, route('gateways.index', ['gatewayId' => $gatewayId]));
+    $trail->push('Modifica '. $gatewayId, route('gateways.edit', ['gatewayId' => $gatewayId]));
 });
+
+// Enti
+Breadcrumbs::for('entities', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Gestione enti', route('entities.index'));
+});
+/*
+Breadcrumbs::for('entities.show', function ($trail, $entityId) {
+    $trail->parent('entities');
+    $trail->push('Ente ' . $entityId, route('entities.show', ['entityId' => $entityId]));
+});
+Breadcrumbs::for('entities.create', function ($trail) {
+    $trail->parent('entities');
+    $trail->push('Creazione', route('entities.create'));
+});
+Breadcrumbs::for('entities.edit', function ($trail, $entityId) {
+    $trail->parent('entities');
+    $trail->push('Modifica '. $entityId, route('entities.edit', ['gatewayId' => $entityId]));
+});
+*/
 

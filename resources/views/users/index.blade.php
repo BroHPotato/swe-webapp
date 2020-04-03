@@ -5,11 +5,19 @@
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800"> Gestione utenti</h1>
             </div>
+        <div class="d-sm-flex mb-4 ml-sm-auto">
+            <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                <span class="text">Torna indietro</span>
+            </a>
+        </div>
         @canany(['isAdmin', 'isMod'])
             <div class="d-sm-flex mb-4 ml-sm-auto">
                 <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
                     <span class="icon text-white-50">
-                      <i class="fas fa-user-plus"></i>
+                      <span class="fas fa-user-plus"></span>
                     </span>
                     <span class="text">Aggiungi</span>
                 </a>
@@ -62,7 +70,7 @@
                                     @endif
                                 <td><a href="{{route('users.show', ['userId' => $u->userId ])}}" class="btn btn-primary btn-icon-split">
                                             <span class="icon text-white-50">
-                                              <i class="fas fa-info-circle"></i>
+                                              <span class="fas fa-info-circle"></span>
                                             </span>
                                         <span class="text">Dettagli</span>
                                     </a>
@@ -73,7 +81,7 @@
                                             <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $u->userId ]) }}"
                                                onclick="event.preventDefault(); document.getElementById('restore-form-{{$u->userId}}').submit();">
                                             <span class="icon text-white-50">
-                                              <i class="fas fa-user-check"></i>
+                                              <span class="fas fa-user-check"></span>
                                             </span>
                                                 <span class="text">Ripristina</span>
                                             </a>
@@ -85,7 +93,7 @@
                                             <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $u->userId ]) }}"
                                                onclick="event.preventDefault(); document.getElementById('delete-form-{{$u->userId}}').submit();">
                                             <span class="icon text-white-50">
-                                              <i class="fas fa-user-times"></i>
+                                              <span class="fas fa-user-times"></span>
                                             </span>
                                                 <span class="text">Elimina</span>
                                             </a>

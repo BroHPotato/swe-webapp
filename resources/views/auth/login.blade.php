@@ -42,7 +42,7 @@
 
                                     <div class="form-group mb-0">
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Accedi <i class="fas fa-sign-in-alt"></i>
+                                            Accedi <span class="fas fa-sign-in-alt"></span>
                                         </button>
 
                                         @if (Route::has('password.request'))
@@ -54,7 +54,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center small">
-                                    <i class="fas fa-lock"></i> <strong>Password dimenticata?</strong> Contatta il supporto tecnico!
+                                    <span class="fas fa-lock"></span> <strong>Password dimenticata?</strong> Contatta il supporto tecnico!
                                 </div>
                             </div>
                         </div>
