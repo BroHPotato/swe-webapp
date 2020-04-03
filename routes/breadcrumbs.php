@@ -72,7 +72,7 @@ Breadcrumbs::for('gateways.create', function ($trail) {
 });
 Breadcrumbs::for('gateways.edit', function ($trail, $gatewayId) {
     $trail->parent('gateways');
-    $trail->push('Modifica '. $gatewayId, route('gateways.edit', ['gatewayId' => $gatewayId]));
+    $trail->push('Modifica ' . $gatewayId, route('gateways.edit', ['gatewayId' => $gatewayId]));
 });
 
 // Enti
@@ -93,7 +93,5 @@ Breadcrumbs::for('entities.create', function ($trail) {
 
 Breadcrumbs::for('entities.edit', function ($trail, $entityName) {
     $trail->parent('entities');
-    $trail->push('Modifica '. $entityName, route('entities.edit', ['entityName' => $entityName]));
+    $trail->push('Modifica ' . $entityName, route('entities.edit', ['entityName' => $entityName]));
 });
-
-
