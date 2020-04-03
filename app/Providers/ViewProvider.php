@@ -17,7 +17,7 @@ class ViewProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/views',
+            'base_uri' => config('app.api') . '/views/',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]

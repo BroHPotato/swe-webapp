@@ -58,8 +58,7 @@ class GatewayController extends Controller
      */
     public function create() //TODO
     {
-        $entityProvider = new GatewayServiceProvider();
-        $entities = $entityProvider->findAll();
+        $entities = $this->provider->findAll();
         return view('gateways.create', compact(['entities']));
     }
 

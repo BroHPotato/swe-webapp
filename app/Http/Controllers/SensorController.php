@@ -38,10 +38,10 @@ class SensorController extends Controller
      * @param $sensor
      * @return Factory|View
      */
-    public function show($device, $sensor)
+    public function show($deviceId, $sensorId)
     {
-        $sensor = $this->provider->find($device, $sensor);
-        return view('sensors.show', compact(['sensor', 'device']));
+        $sensor = $this->provider->find($deviceId, $sensorId);
+        return view('sensors.show', compact(['sensor', 'deviceId']));
     }
 
     public function fetch($device, $sensor)
