@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Providers\ViewGraphProvider;
 use App\Providers\ViewProvider;
-use Illuminate\Support\Facades\Auth;
 
 class ViewController extends Controller
 {

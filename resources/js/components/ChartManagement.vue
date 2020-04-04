@@ -53,14 +53,6 @@ export default {
                 },
                 xaxis: {
                     type: "datetime",
-                    labels: {
-                        datetimeFormatter: {
-                            year: "yyyy",
-                            month: "MMM 'yy",
-                            day: "dd MMM",
-                            hour: "HH:mm",
-                        },
-                    },
                 },
             },
             series: [
@@ -80,6 +72,7 @@ export default {
             pull: null,
             newDataSeries1: null,
             newDataSeries2: null,
+            newLabel: null,
         };
     },
     mounted() {
@@ -104,6 +97,7 @@ export default {
                         Date.now(),
                         response.data.value,
                     ];
+                    this.vars.newLabel = Date.now();
                 })
                 .catch((errors) => {
                     this.vars.newDataSeries1 = [Date.now(), NaN];
@@ -115,6 +109,7 @@ export default {
                         Date.now(),
                         response.data.value,
                     ];
+                    this.vars.newLabel = Date.now();
                 })
                 .catch((errors) => {
                     this.vars.newDataSeries2 = [Date.now(), NaN];
@@ -137,7 +132,8 @@ export default {
                 ],
                 false
             );
-            console.log(this.series[0].data);
+            // this.chartOptions.xaxis.categories.push(this.label);
+            console.log(this.chartOptions.xaxis);
         },
     },
 };
