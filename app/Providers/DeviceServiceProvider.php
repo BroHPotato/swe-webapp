@@ -41,7 +41,7 @@ class DeviceServiceProvider extends BasicProvider
     public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get("/devices/".$identifier, $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get("/devices/" . $identifier, $this->setHeaders())->getBody());
             $device = new Device();
             $device->fill((array)$response);
             return $device;
