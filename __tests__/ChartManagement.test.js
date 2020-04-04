@@ -5,11 +5,10 @@ import ChartManagement from "../resources/js/components/ChartManagement.vue";
 
 describe("ChartManagement", () => {
     test("is a Vue instance", () => {
-        const user = {};
-        const device = {};
-        const sensor = { sensorId: 1 };
+        const deviceId = 1;
+        const sensorId = 1;
         const chart = mount(ChartManagement, {
-            propsData: { user, device, sensor },
+            propsData: { deviceId, sensorId },
         });
         expect(chart.isVueInstance()).toBeTruthy();
     });

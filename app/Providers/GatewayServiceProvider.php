@@ -7,18 +7,30 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\ServiceProvider;
 
+use function config;
+
+/**
+ * Class GatewayServiceProvider
+ * @package App\Providers
+ */
 class GatewayServiceProvider extends ServiceProvider
 {
     //si occupa di prendere i device dal database
+    /**
+     * @var Client
+     */
     private $request;
 
+    /**
+     * GatewayServiceProvider constructor.
+     */
     public function __construct()
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => 'localhost:9999',
+            'base_uri' => config('app.api') . '/gateways',
             'headers' => [
-                'Content-Type' => 'application/json' ,
+                'Content-Type' => 'application/json',
             ]
         ]);
     }
@@ -30,7 +42,7 @@ class GatewayServiceProvider extends ServiceProvider
     public function retrieveById($identifier)
     {
         try {
-            $response = json_decode($this->request->get('gateways/' . $identifier, [
+            $response = json_decode($this->request->get($identifier, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]
@@ -50,7 +62,7 @@ class GatewayServiceProvider extends ServiceProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('gateways', [
+            $response = json_decode($this->request->get('', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . session()->get('token')
                 ]

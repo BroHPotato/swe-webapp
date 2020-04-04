@@ -2,14 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Entity;
+use App\Providers\EntityServiceProvider;
 use App\Providers\UserServiceProvider;
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
+    /**
+     * @var UserServiceProvider
+     */
     private $provider;
+
     /**
      * Create a new controller instance.
      *
@@ -44,66 +57,107 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
+    /**
+     * @return Factory|View
+     */
     public function create()
     {
-        return view('users.create');
+        $entityProvider = new EntityServiceProvider();
+        $entities = $entityProvider->findAll();
+        return view('users.create', compact(['entities']));
     }
 
+    /**
+     * @param $user
+     * @return Factory|View
+     */
     public function edit($user)
     {
         $user = $this->provider->retrieveById($user);
         return view('users.edit', compact('user'));
     }
 
+    /**
+     *
+     */
     public function store()
     {
         $data = request()->validate([
-
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'email' => 'required|email',
+            'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
+            'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
+            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
-        ]);
-        $user = new User();
-        $user->fill($data);
-        $request->post('/users/create', [
-            'body' => $user
-        ]);
+        unset($data['password_check']);//todo to remove
+        $data['password'] = "password";
+        if (!key_exists('entityId', $data)) {
+            $data['entityId'] = 1; //(new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
+        }
+        if (!key_exists('type', $data)) {
+            $data['type'] = 0;
+        }
+        $this->provider->store(json_encode($data));
     }
 
+    /**
+     * @param $user
+     * @return RedirectResponse|Redirector
+     */
     public function update($user)
     {
-        $data = request()->validate([
-
-        ]);
         $user = $this->provider->retrieveById($user);
-        $user->fill($data);
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
+        $data = request()->validate([
+            'name' => 'required|string',
+            'surname' => 'required|string',
+            'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
+            'email' => 'required|email',
+            'telegramName' => 'nullable|string|required_if:tfa,==,true',
+            'telegramChat' => 'nullable|string|required_if:tfa,==,true',
+            'tfa' => 'nullable|in:true',
+            'deleted' => 'nullable|in:true',
+            'password' => 'nullable|min:6',
+            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
+        unset($data['password_check']);//todo to remove
+        $data = array_diff_assoc($data, $user->getAttributes());
 
-        $request->put('/user/' . $user->getAuthIdentifier() . '/update', [
-            'body' => $user
-        ]);
+        if (key_exists('deleted', $data)) {
+            $data['deleted'] = boolval($data['deleted']);
+        }
+
+        if (key_exists('tfa', $data)) {
+            $data['tfa'] = boolval($data['tfa']);
+        }
+
+        if (key_exists('telegramName', $data)) {
+            if ($data['telegramName'] != $user->getTelegramName() || is_null($user->getChatId())) {
+                $data['tfa'] = false;
+            }
+        }
+        $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT));
+        return redirect(route('users.index'));
     }
 
-
-    public function delete($user)
+    /**
+     * @param $userId
+     * @return RedirectResponse|Redirector
+     */
+    public function destroy($userId)
     {
-        $request = new Client([
-            'base_uri' => 'localhost:9999',
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . session()->get('token')
-            ]
-        ]);
-        $request->delete('/user/' . $user);
+        $this->provider->destroy($userId);
+        return redirect(route('users.index'));
+    }
+
+    /**
+     * @param $userId
+     */
+    public function restore($userId)
+    {
+        dd($userId);//todo to remove
+        $user = $this->provider->retrieveById($userId);
+        $user->setDeleted(false);
+        $this->provider->update($user->getAuthIdentifier(), $user);
     }
 }
