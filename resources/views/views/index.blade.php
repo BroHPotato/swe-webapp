@@ -13,8 +13,16 @@
                 <span class="text">Torna indietro</span>
             </a>
         </div>
-
-
+        <ul class="nav nav-tabs nav-tabs-icon-text auto">
+            @foreach($views as $view)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('views.show', ['viewId' => $view->viewId])}}">
+                    <span class="fas fa-chart-line">
+                    </span> {{$view->name}}
+                    </a>
+                </li>
+            @endforeach
+        </ul>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -45,45 +53,6 @@
                             </span>
                         <span class="text">Aggiungi</span>
                     </button>
-                </div>
-            </div>
-        </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-project-diagram"></span> Lista views</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th>Nome view</th>
-                            <th> </th>
-                        </tr>
-                        </thead>
-                        <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <th>Nome view</th>
-                            <th> </th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        @foreach($views as $view)
-                            <tr>
-                                <td>{{$view->name}}</td>
-                                <td class="text-center"><a href="{{route('views.show', [
-                                                'viewId' => $view->viewId
-                                        ])}}" class="btn btn-success btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <span class="fas fa-chart-line"></span>
-                                    </span>
-                                        <span class="text">Mostra view</span>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
