@@ -25,6 +25,7 @@
     "rules": {
         "prettier/prettier": "error",
         "no-invalid-this": "warn",
-		"no-unused-vars": "warn"
+		"no-unused-vars": "warn",
+		"no-var": "warn"
     }
 }
