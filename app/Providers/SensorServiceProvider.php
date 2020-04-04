@@ -81,7 +81,10 @@ class SensorServiceProvider extends BasicProvider
     public function findAllFromDevice($deviceId)
     {
         try {
-            $response = json_decode($this->request->get('/devices/' . $deviceId . '/sensors', $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get(
+                '/devices/' . $deviceId . '/sensors',
+                $this->setHeaders()
+            )->getBody());
             $sensors = [];
             foreach ($response as $d) {
                 $sensor = new Sensor();
