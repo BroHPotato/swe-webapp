@@ -21,35 +21,43 @@
 // let date;
 // let label;
 // let newData;
-let pull = null;
 export default {
     props: {
         deviceId: Number,
-        sensorId: Number,
+        sensorId1: Number,
+        sensorId2: Number,
     },
-    data: function () {
+    data: function() {
         return {
             chartOptions: {
                 chart: {
-                    type: "line",
-                    zoom: {
-                        enabled: true,
-                    },
-                    animations: {
-                        enabled: false,
-                    },
+                    height: 400,
+                    type: 'area'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth'
                 },
                 xaxis: {
-                    categories: [""],
+                    type: 'datetime',
+                    categories: []
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
                 },
             },
-            series: [
-                {
-                    name: this.$props.sensorId,
-                    data: [],
-                },
-            ],
-        };
+            series: [{
+                name: this.$props.sensorId1,
+                data: [],
+            },{
+                name: this.$props.sensorId2,
+                data: [],
+            }],
+        }
     },
     mounted() {
         this.fetchData();
@@ -83,7 +91,7 @@ export default {
                     "/data/devices/" +
                         this.$props.deviceId +
                         "/sensors/" +
-                        this.$props.sensorId
+                        this.$props.sensorId1
                 )
                 .then((response) => {
                     const r = response.data;
@@ -105,5 +113,5 @@ export default {
             this.chartOptions.xaxis.categories.shift();
         },
     },
-};
+}
 </script>

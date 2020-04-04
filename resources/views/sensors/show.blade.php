@@ -1,12 +1,11 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('sensor', $device, $sensor))
+@section('breadcrumbs', Breadcrumbs::render('sensor', $device->deviceId, $sensor->sensorId))
 @section('content')
+    <div class="d-sm-flex mb-4">
+        <h1 class="h3 mb-0 text-gray-800"> Sensore {{$sensor->sensorId}} del dispositivo {{$sensor->device}} </h1>
+    </div>
     <div class="d-sm-flex mb-4 ml-sm-auto">
         <button class="btn-danger btn" onclick="window.history.back()">Torna indietro</button>
-    </div>
-
-    <div class="d-sm-flex mb-4">
-        <h1 class="h3 mb-0 text-gray-800"> Sensore {{$sensor->sensorId}} del dispositivo {{$sensor->deviceSensorId}} </h1>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -14,8 +13,9 @@
         </div>
         <div class="card-body">
             <chart-management
-                v-bind:deviceId='{{ $device }}'
-                v-bind:sensorId='{{$sensor->deviceSensorId}}'
+                v-bind:deviceId='{{$device->deviceId }}'
+                v-bind:sensorId1='{{$sensor->sensorId}}'
+                v-bind:sensorId2='{{$sensor->sensorId}}'
             ></chart-management>
         </div>
     </div>
