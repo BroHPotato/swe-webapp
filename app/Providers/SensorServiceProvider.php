@@ -25,7 +25,7 @@ class SensorServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices',
+            'base_uri' => config('app.api') . '/devices/',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -59,7 +59,7 @@ class SensorServiceProvider extends BasicProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('sensors', $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get('/sensors', $this->setHeaders())->getBody());
             $sensors = [];
             foreach ($response as $d) {
                 $sensor = new Sensor();

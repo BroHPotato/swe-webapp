@@ -27,7 +27,7 @@ class EntityServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/entities',
+            'base_uri' => config('app.api') . '/entities/',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]

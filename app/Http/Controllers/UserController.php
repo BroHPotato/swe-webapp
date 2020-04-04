@@ -64,7 +64,7 @@ class UserController extends Controller
     {
         $entityProvider = new EntityServiceProvider();
         $entities = $entityProvider->findAll();
-        return view('users.create', compact(['entities']));
+        return view('users.create', compact('entities'));
     }
 
     /**
@@ -155,9 +155,8 @@ class UserController extends Controller
      */
     public function restore($userId)
     {
-        dd($userId);//todo to remove
         $user = $this->provider->retrieveById($userId);
         $user->setDeleted(false);
-        $this->provider->update($user->getAuthIdentifier(), $user);
+        $this->provider->update($user->getAuthIdentifier(), json_encode($user->getAttributes(), JSON_FORCE_OBJECT));
     }
 }

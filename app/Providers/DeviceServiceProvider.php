@@ -27,7 +27,7 @@ class DeviceServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices',
+            'base_uri' => config('app.api') . '/devices/',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -80,6 +80,25 @@ class DeviceServiceProvider extends BasicProvider
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
                 'query' => 'entityId=' . $entity
+            ]))->getBody());
+            $devices = [];
+            foreach ($response as $d) {
+                $device = new Device();
+                $device->fill((array)$d);
+                $devices[] = $device;
+            }
+            return $devices;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    public function findAllFromGateway($gateway)
+    {
+        try {
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => 'gatewayId=' . $gateway
             ]))->getBody());
             $devices = [];
             foreach ($response as $d) {

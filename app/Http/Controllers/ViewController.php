@@ -25,7 +25,7 @@ class ViewController extends Controller
 
     public function index()
     {
-        $views = $this->viewProvider->findAllFromUser(Auth::id());
+        $views = $this->viewProvider->findAll();
         return view('views.index', compact('views'));
     }
 

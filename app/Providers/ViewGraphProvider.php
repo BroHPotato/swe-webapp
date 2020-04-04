@@ -17,7 +17,7 @@ class ViewGraphProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/viewsGraphs',
+            'base_uri' => config('app.api') . '/viewsGraphs/',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]

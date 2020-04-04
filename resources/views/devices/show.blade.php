@@ -22,35 +22,37 @@
                 ></chart-management>
             @endforeach
             --}}
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span>Informazioni dispositivo</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="thead-dark table-borderless">
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Gateway</th>
-                                <th>Numero di sensori</th>
-                                <th>Frequenza</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>{{$device->deviceId}}</td>
-                                <td>{{$device->name}}</td>
-                                <td>{{$device->gatewayId}}</td>
-                                <td>{{count($device->getSensors())}}</td>
-                                <td>{{$device->frequency}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span>Informazioni dispositivo</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead class="thead-dark table-borderless">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Gateway</th>
+                            <th>Numero di sensori</th>
+                            <th>Frequenza</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{$device->deviceId}}</td>
+                            <td>{{$device->name}}</td>
+                            <td>{{$gateway->name}}</td>
+                            <td>{{count($sensors)}}</td>
+                            <td>{{$device->frequency}}</td>
+                            <td><span class="badge badge-success">???Attivo???</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
@@ -75,14 +77,14 @@
                         </tr>
                         </tfoot>
                         <tbody>
-                        @foreach($device->getSensors() as $sensor)
+                        @foreach($sensors as $sensor)
                             <tr>
-                                <td>{{$sensor->sensorId}}</td>
+                                <td>{{$sensor->realSensorId}}</td>
                                 <td>{{$device->deviceId}}</td>
                                 <td>{{$sensor->type}}</td>
                                 <td class="text-center"><a href="{{route('sensors.show', [
                                         'deviceId' => $device->deviceId,
-                                        'sensorId' => $sensor->sensorId
+                                        'sensorId' => $sensor->realSensorId
                                     ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-chart-area"></span>

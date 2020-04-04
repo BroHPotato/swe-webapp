@@ -27,7 +27,7 @@ class GatewayServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/gateways',
+            'base_uri' => config('app.api') . '/gateways/',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]
@@ -58,6 +58,25 @@ class GatewayServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
+            $gateways = [];
+            foreach ($response as $g) {
+                $gateway = new Gateway();
+                $gateway->fill((array)$g);
+                $gateways[] = $gateway;
+            }
+            return $gateways;
+        } catch (RequestException $e) {
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
+    public function findAllFromDevice($device)
+    {
+        try {
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => 'deviceId=' . $device
+            ]))->getBody());
             $gateways = [];
             foreach ($response as $g) {
                 $gateway = new Gateway();
