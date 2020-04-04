@@ -80,7 +80,7 @@ class EntityServiceProvider extends BasicProvider
     public function findFromDevice($deviceId)
     {
         try {
-            $response = json_decode($this->request->get('entities', array_merge($this->setHeaders(), [
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
                 'query' => 'deviceId=' . $deviceId
             ]))->getBody());
             $entity = new Entity();
@@ -100,7 +100,7 @@ class EntityServiceProvider extends BasicProvider
     public function findFromUser($userId)
     {
         try {
-            $response = json_decode($this->request->get('entities', array_merge($this->setHeaders(), [
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
                 'query' => 'userId=' . $userId
             ]))->getBody());
             $entity = new Entity();

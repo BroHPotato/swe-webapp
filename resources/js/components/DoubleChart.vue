@@ -34,25 +34,10 @@ export default {
                 dataLabels: {
                     enabled: false,
                 },
-                markers: {
-                    size: 0,
-                    style: "hollow",
-                },
-                tooltip: {
-                    intersect: true,
-                    shared: false,
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.7,
-                        opacityTo: 0.9,
-                        stops: [0, 100],
-                    },
-                },
                 xaxis: {
                     type: "datetime",
+                    range: 10000,
+                    tickPlacement: 'between',
                 },
             },
             series: [

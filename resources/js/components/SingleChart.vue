@@ -9,9 +9,17 @@
         </select>
         <apexchart
             ref="RTChart"
-            height="400"
-            type="area"
+            height="300"
+            type="line"
             :options="chartOptions"
+            :series="series"
+        >
+        </apexchart>
+        <apexchart
+            ref="RTChartLine"
+            height="130"
+            type="area"
+            :options="chartOptionsLine"
             :series="series"
         >
         </apexchart>
@@ -25,8 +33,25 @@
             return {
                 chartOptions: {
                     chart: {
-                        type: "area",
+                        type: "line",
                         height: 400,
+                    },
+                    stroke: {
+                        curve: "straight",
+                    },
+                    xaxis: {
+                        type: 'datetime',
+                        range: 10000, // mantiene in memoria 10 secondi
+                        tickPlacement: 'between',
+                    },
+                    yaxis: {
+                        min: 0,
+                    },
+                },
+                chartOptionsLine: {
+                    chart: {
+                        type: "area",
+                        height: 200,
                     },
                     stroke: {
                         curve: "straight",
@@ -34,31 +59,19 @@
                     dataLabels: {
                         enabled: false,
                     },
-                    markers: {
-                        size: 0,
-                        style: "hollow",
-                    },
-                    tooltip: {
-                        intersect: true,
-                        shared: false,
-                    },
-                    fill: {
-                        type: "gradient",
-                        gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.7,
-                            opacityTo: 0.9,
-                            stops: [0, 100],
-                        },
-                    },
                     xaxis: {
-                        type: "datetime",
+                        type: 'datetime',
+                        tickPlacement: 'between',
+                    },
+                    yaxis: {
+                        min: 0,
+                        tickAmount: 3,
                     },
                 },
                 series: [
                     {
                         name: this.sensor.type,
-                        data: [[], [], [], [], [], [], [], [], [], []],
+                        data: [],
                     },
                 ],
             };
@@ -79,10 +92,6 @@
                 clearInterval(this.pull);
                 this.pull = this.startInterval(timer.target.value);
             },
-            removeData() {
-                this.series[0].data.shift();
-                // this.chartOptions.xaxis.categories.shift();
-            },
             fetchData() {
                 axios
                     .get("/data/" + this.sensor.sensorId)
@@ -91,7 +100,6 @@
                             Date.now(),
                             response.data.value,
                         ];
-                        this.vars.newLabel = Date.now();
                     })
                     .catch((errors) => {
                         this.vars.newDataSeries = [Date.now(), NaN];
@@ -101,7 +109,6 @@
                 return setInterval(() => this.plot(), timer);
             },
             plot() {
-                this.removeData();
                 this.fetchData();
                 this.$refs.RTChart.appendData(
                     [
@@ -111,8 +118,15 @@
                     ],
                     false
                 );
-                // this.chartOptions.xaxis.categories.push(this.label);
-                console.log(this.chartOptions.xaxis);
+                this.$refs.RTChartLine.appendData(
+                    [
+                        {
+                            data: [this.vars.newDataSeries],
+                        },
+                    ],
+                    false
+                );
+                console.log(this.series[0].data);
             },
         },
     };
