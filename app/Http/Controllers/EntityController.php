@@ -30,15 +30,7 @@ class EntityController extends Controller
 
     public function edit($entity)
     {
-        //$device = $this->provider->find($device);
-        ///FAKER
-        $entity = new Entity();
-        $arr = array_combine(
-            array('entityId', 'name', 'location', 'deleted'),
-            array("1", "CasaDiMariano", "Padova", false)
-        );
-        $entity->fill($arr);
-        //TODO remove
+        $entity = $this->provider->find($entity);
         return view('entities.edit', compact('entity'));
     }
 
@@ -61,15 +53,7 @@ class EntityController extends Controller
      */
     public function show($entity)
     {
-        //$entity = $this->provider->retrieveById($entity);
-        //FAKER
-        $entity = new Entity();
-        $arr = array_combine(
-            array('entityId', 'name', 'location', 'deleted'),
-            array("1", "CasaDiMariano", "Padova", false)
-        );
-        $entity->fill($arr);
-        //TODO remove
+        $entity = $this->provider->find($entity);
         return view('entities.show', compact('entity'));
     }
 }
