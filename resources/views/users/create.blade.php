@@ -94,7 +94,7 @@
                 @endcanany
             </div>
         </div>
-            <div class="d-sm-flex mb-4 ml-sm-auto">
+            <div class="d-sm-flex mb-4 ml-sm-auto float-right">
                 <button type="submit" class="btn btn-success btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-plus-circle"></span>

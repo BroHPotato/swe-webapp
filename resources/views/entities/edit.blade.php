@@ -7,21 +7,13 @@
         </div>
         <div class="d-sm-inline-flex mb-4 ml-sm-auto">
             <a href="{{route('entities.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
+                <span class="icon text-white-50">
+                    <span class="fas fa-arrow-circle-left"></span>
+                </span>
                 <span class="text">Torna indietro</span>
             </a>
         </div>
         @can(['isAdmin'])
-        <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
-            <button class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                <span class="text">Elimina</span>
-            </button>
-        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -59,17 +51,25 @@
                             </div>
                         </div>
                     </form>
-                    @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
+        <div class="d-inline-block my-1 px-0">
             <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-plus-circle"></span>
-                        </span>
-                <span class="text">Aggiungi</span>
+                <span class="icon text-white-50">
+                    <span class="fas fa-save"></span>
+                </span>
+                <span class="text">Salva</span>
             </a>
         </div>
+            <div class="d-inline-block my-1 px-0 float-right">
+                <button class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <span class="fas fa-trash"></span>
+                            </span>
+                    <span class="text">Elimina</span>
+                </button>
+            </div>
+        @endcan
     </div>
 
 
