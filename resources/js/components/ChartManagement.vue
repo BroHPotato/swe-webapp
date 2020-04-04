@@ -13,6 +13,7 @@
             type="area"
             :options="chartOptions"
             :series="series">
+
         </apexchart>
     </div>
 </template>
@@ -48,7 +49,7 @@ export default {
                         opacityFrom: 0.7,
                         opacityTo: 0.9,
                         stops: [0, 100],
-                    }
+                    },
                 },
                 xaxis: {
                     type: "datetime",
@@ -58,14 +59,14 @@ export default {
                             month: "MMM 'yy",
                             day: "dd MMM",
                             hour: "HH:mm",
-                        }
-                    }
+                        },
+                    },
                 },
             },
             series: [{
                 name: this.sensor1.type,
                 data: [[], [], [], [], [], [], [], [], [], []],
-            },{
+                },{
                 name: this.sensor2.type,
                 data: [[], [], [], [], [], [], [], [], [], []],
             }],
