@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\View;
 use App\Models\ViewGraph;
 use App\Providers\ViewGraphProvider;
 use App\Providers\ViewProvider;
@@ -25,7 +26,16 @@ class ViewController extends Controller
 
     public function index()
     {
-        $views = $this->viewProvider->findAll();
+        //$views = $this->viewProvider->findAll();
+        //FAKER
+        $view = new View();
+        $arr1 = array_combine(
+            array('name', 'userId', 'viewId', 'viewGraphId'),
+            array("Vista1", "1", "1","1")
+        );
+        $view->fill($arr1);
+        $views[] = $view;
+        //todo remove
         return view('views.index', compact('views'));
     }
 
@@ -33,7 +43,12 @@ class ViewController extends Controller
     {
         //$graphs = $this->viewGraphProvider->findAllFromView($viewId);
         //FAKER
-        $view = $this->viewProvider->find($viewId);
+        $view = new View();
+        $arr1 = array_combine(
+            array('name', 'userId', 'viewId', 'viewGraphId'),
+            array("Vista1", "1", "1","1")
+        );
+        $view->fill($arr1);
         $viewgraph = new ViewGraph();
         $arr = array_combine(
             array('viewId', 'correlation', 'sensorId1', 'sensorId2', 'viewGraphId'),
@@ -42,6 +57,6 @@ class ViewController extends Controller
         $viewgraph->fill($arr);
         $graphs[] = $viewgraph;
         //TODO remove
-        return view('views.show', compact('graphs', 'view'));
+        return view('views.show', compact(['graphs','view']));
     }
 }
