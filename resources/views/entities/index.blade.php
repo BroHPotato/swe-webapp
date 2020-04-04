@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                            <thead class="thead-dark table-borderless`">
+                            <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Nome</th>
                                 <th>Luogo</th>
@@ -58,7 +58,7 @@
                                             <span class="badge badge-success">Attivo</span>
                                         @endif
                                     </td>
-                                    <td><a href="{{route('entities.show', [
+                                    <td class="text-center"><a href="{{route('entities.show', [
                                                     'entityName' => $entity->name
                                             ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
@@ -67,7 +67,7 @@
                                             <span class="text">Dettagli</span>
                                         </a>
                                     </td>
-                                    <td><a href="{{route('entities.edit', ['entityName' => $entity->name])}}" class="btn btn-warning btn-icon-split">
+                                    <td class="text-center"><a href="{{route('entities.edit', ['entityName' => $entity->name])}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>

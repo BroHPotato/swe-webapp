@@ -9,7 +9,11 @@ const tableUsers = document.querySelector(".dataTableUsers");
 $(document).ready(function () {
     $(tableUsers).dataTable({
         "scrollX": false,
-        "pagingType": "full_numbers"
+        "pagingType": "full_numbers",
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
+            // "url": "dataTables.italian.lang"
+        }
     });
 });
 

@@ -67,8 +67,8 @@
                                     <td>{{$deviceOnGateway[2][$device->deviceId]}}</td>
                                     <td>{{$device->frequency}}</td>
                                     <td><span class="badge badge-success">Attivo</span></td>
-                                    <td>
-                                        <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split float-right">
+                                    <td class="text-center">
+                                        <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split">
                                             <span class="icon text-white-50">
                                               <span class="fas fa-info-circle"></span>
                                             </span>

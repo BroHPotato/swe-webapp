@@ -42,7 +42,7 @@
                             <th> </th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark">
+                        <tfoot class="thead-dark table-borderless">
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
@@ -68,14 +68,15 @@
                                     @else
                                         <span class="badge badge-success">Attivo</span>
                                     @endif
-                                <td><a href="{{route('users.show', ['userId' => $u->userId ])}}" class="btn btn-primary btn-icon-split">
-                                            <span class="icon text-white-50">
-                                              <span class="fas fa-info-circle"></span>
-                                            </span>
+                                <td class="text-center">
+                                    <a href="{{route('users.show', ['userId' => $u->userId ])}}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-info-circle"></span>
+                                        </span>
                                         <span class="text">Dettagli</span>
                                     </a>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @canany(['isAdmin', 'isMod'])
                                         @if($u->deleted)
                                             <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $u->userId ]) }}"

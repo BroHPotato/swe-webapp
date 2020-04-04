@@ -6,22 +6,14 @@
             <h1 class="h3 mb-0 text-gray-800"> Modifica dispositivo</h1>
         </div>
 
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto">
-                <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                              <span class="fas fa-arrow-circle-left"></span>
-                            </span>
-                    <span class="text">Torna indietro</span>
-                </a>
-            </div>
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
-                <button class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-trash"></span>
-                                        </span>
-                    <span class="text">Elimina</span>
-                </button>
-            </div>
+        <div class="d-inline-block my-2 px-0">
+            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <span class="fas fa-arrow-circle-left"></span>
+                </span>
+                <span class="text">Torna indietro</span>
+            </a>
+        </div>
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -107,6 +99,14 @@
 
                         </div>
                     </form>
+                    <div class="d-inline-block my-2 px-0 float-right">
+                        <button class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <span class="fas fa-trash"></span>
+                    </span>
+                            <span class="text">Elimina</span>
+                        </button>
+                    </div>
                     @endcan
                 </div>
         </div>
@@ -148,7 +148,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row mx-1">
+                        <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-plus-circle"></span>
@@ -160,7 +160,7 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
+        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
             <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
