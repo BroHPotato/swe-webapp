@@ -95,3 +95,11 @@ Breadcrumbs::for('entities.edit', function ($trail, $entityName) {
     $trail->parent('entities');
     $trail->push('Modifica ' . $entityName, route('entities.edit', ['entityName' => $entityName]));
 });
+
+//Views
+Breadcrumbs::for('views', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Gestione views', route('views.index'));
+});
+
+
