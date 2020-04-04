@@ -8,20 +8,6 @@
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <button class="btn-danger btn" onclick="window.history.back()">Torna indietro</button>
         </div>
-            {{--<div class="row">
-                <h2>Dispositivo #{{$device->deviceId}}</h2>
-            </div>
-            @foreach($device->sensorsList as $errorse)
-                <div class="row">
-                    <h3>Sensore #{{$errorse['sensorId']}}</h3>
-                </div>
-                <chart-management
-                    v-bind:user='{!! json_encode($user) !!}'
-                    v-bind:device='{!! json_encode($device) !!}'
-                    v-bind:sensor='{!! json_encode($errorse) !!}'
-                ></chart-management>
-            @endforeach
-            --}}
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span>Informazioni dispositivo</h4>

@@ -67,5 +67,5 @@ Route::get('/views', 'ViewController@index')->name('views.index');//TODO
 Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
 
 //data
-Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
+Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin

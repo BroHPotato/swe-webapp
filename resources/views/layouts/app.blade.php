@@ -49,7 +49,7 @@
 <!-- Scripts -->
 {{--<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer ></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
 
+{{--<script src="{{ asset('js/script.js') }}"></script>--}}
 </html>
 

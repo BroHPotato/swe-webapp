@@ -97,14 +97,19 @@ class SensorServiceProvider extends BasicProvider
     }
 
     /**
-     * @param $device
      * @param $sensorId
      * @return mixed
      */
-    public function fetch($device, $sensorId)
+    public function fetch($sensorId)
     {
         try {
-            return json_decode($this->request->get('/datsensor', $this->setHeaders())->getBody());
+            return '{
+  "time": "2020-04-04T09:43:06.316Z",
+  "gatewayName": "string",
+  "realDeviceId": 0,
+  "realSensorId": 0,
+  "value": ' . rand(0, 10) . '
+}';//todo sostituire con json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return NAN;

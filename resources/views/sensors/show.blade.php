@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('sensor', $device->deviceId, $sensor->sensorId))
+@section('breadcrumbs', Breadcrumbs::render('sensor', $device->deviceId, $sensor->realSensorId))
 @section('content')
     <div class="d-sm-flex mb-4">
-        <h1 class="h3 mb-0 text-gray-800"> Sensore {{$sensor->sensorId}} del dispositivo {{$sensor->device}} </h1>
+        <h1 class="h3 mb-0 text-gray-800"> Sensore {{$sensor->realSensorId}} del dispositivo {{$sensor->device}} </h1>
     </div>
     <div class="d-sm-flex mb-4 ml-sm-auto">
         <button class="btn-danger btn" onclick="window.history.back()">Torna indietro</button>
@@ -13,9 +13,8 @@
         </div>
         <div class="card-body">
             <chart-management
-                v-bind:deviceId='{{$device->deviceId }}'
-                v-bind:sensorId1='{{$sensor->sensorId}}'
-                v-bind:sensorId2='{{$sensor->sensorId}}'
+                :sensor1="{{json_encode($sensor)}}"
+                :sensor2="{{json_encode($sensor)}}"
             ></chart-management>
         </div>
     </div>
