@@ -12,8 +12,8 @@
             height="400"
             type="area"
             :options="chartOptions"
-            :series="series">
-
+            :series="series"
+        >
         </apexchart>
     </div>
 </template>
@@ -63,13 +63,15 @@ export default {
                     },
                 },
             },
-            series: [{
-                name: this.sensor1.type,
-                data: [[], [], [], [], [], [], [], [], [], []],
+            series: [
+                {
+                    name: this.sensor1.type,
+                    data: [[], [], [], [], [], [], [], [], [], []],
                 },{
-                name: this.sensor2.type,
-                data: [[], [], [], [], [], [], [], [], [], []],
-            }],
+                    name: this.sensor2.type,
+                    data: [[], [], [], [], [], [], [], [], [], []],
+                }
+            ],
         }
     },
     created() {
@@ -91,20 +93,20 @@ export default {
         removeData() {
             this.series[0].data.shift();
             this.series[1].data.shift();
-            //this.chartOptions.xaxis.categories.shift();
+            // this.chartOptions.xaxis.categories.shift();
         },
         fetchData() {
-            axios.get(
-                "/data/" +
-                this.sensor1.sensorId
+            axios
+                .get(
+                "/data/" + this.sensor1.sensorId
             ).then((response) => {
                 this.vars.newDataSeries1= [Date.now(), response.data.value];
             }).catch((errors) => {
                 this.vars.newDataSeries1 = [Date.now(), NaN];
             });
-            axios.get(
-                "/data/" +
-                this.sensor2.sensorId
+            axios
+                .get(
+                "/data/" + this.sensor2.sensorId
             ).then((response) => {
                 this.vars.newDataSeries2= [Date.now(), response.data.value];
             }).catch((errors) => {
