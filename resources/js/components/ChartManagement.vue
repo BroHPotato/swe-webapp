@@ -9,100 +9,131 @@
         </select>
         <apexchart
             ref="RTChart"
-            type="area"
             height="400"
+            type="area"
             :options="chartOptions"
             :series="series"
-        ></apexchart>
+        >
+        </apexchart>
     </div>
 </template>
 
 <script>
-// let date;
-// let label;
-// let newData;
-let pull = null;
 export default {
-    props: {
-        deviceId: Number,
-        sensorId: Number,
-    },
+    props: ["sensor1", "sensor2"],
     data: function () {
         return {
             chartOptions: {
                 chart: {
-                    type: "line",
-                    zoom: {
-                        enabled: true,
-                    },
-                    animations: {
-                        enabled: false,
+                    type: "area",
+                    height: 400,
+                },
+                stroke: {
+                    curve: "straight",
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                markers: {
+                    size: 0,
+                    style: "hollow",
+                },
+                tooltip: {
+                    intersect: true,
+                    shared: false,
+                },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.9,
+                        stops: [0, 100],
                     },
                 },
                 xaxis: {
-                    categories: [""],
+                    type: "datetime",
                 },
             },
             series: [
                 {
-                    name: this.$props.sensorId,
-                    data: [],
+                    name: this.sensor1.type,
+                    data: [[], [], [], [], [], [], [], [], [], []],
+                },
+                {
+                    name: this.sensor2.type,
+                    data: [[], [], [], [], [], [], [], [], [], []],
                 },
             ],
         };
     },
+    created() {
+        this.vars = {
+            pull: null,
+            newDataSeries1: null,
+            newDataSeries2: null,
+            newLabel: null,
+        };
+    },
     mounted() {
         this.fetchData();
-        pull = this.startInterval(4000);
+        this.vars.pull = this.startInterval(4000);
     },
     methods: {
-        startInterval(timer) {
-            return setInterval(() => {
-                if (this.series[0].data.length >= 10) {
-                    this.removeData();
-                }
-                this.fetchData();
-                this.chartOptions.xaxis.categories.push(this.label);
-                this.$refs.RTChart.appendData(
-                    [
-                        {
-                            data: [this.newData],
-                        },
-                    ],
-                    false
-                );
-            }, timer);
-        },
         changePullrate(timer) {
-            clearInterval(pull);
-            pull = this.startInterval(timer.target.value);
-        },
-        fetchData() {
-            axios
-                .get(
-                    "/data/devices/" +
-                        this.$props.deviceId +
-                        "/sensors/" +
-                        this.$props.sensorId
-                )
-                .then((response) => {
-                    const r = response.data;
-                    this.newData = Number(r.value);
-                    this.date = new Date(Number(r.timestamp));
-                    this.label =
-                        this.date.getHours() +
-                        " : " +
-                        this.date.getMinutes() +
-                        " : " +
-                        this.date.getSeconds();
-                })
-                .catch((errors) => {
-                    this.newData = NaN;
-                });
+            clearInterval(this.pull);
+            this.pull = this.startInterval(timer.target.value);
         },
         removeData() {
             this.series[0].data.shift();
-            this.chartOptions.xaxis.categories.shift();
+            this.series[1].data.shift();
+            // this.chartOptions.xaxis.categories.shift();
+        },
+        fetchData() {
+            axios
+                .get("/data/" + this.sensor1.sensorId)
+                .then((response) => {
+                    this.vars.newDataSeries1 = [
+                        Date.now(),
+                        response.data.value,
+                    ];
+                    this.vars.newLabel = Date.now();
+                })
+                .catch((errors) => {
+                    this.vars.newDataSeries1 = [Date.now(), NaN];
+                });
+            axios
+                .get("/data/" + this.sensor2.sensorId)
+                .then((response) => {
+                    this.vars.newDataSeries2 = [
+                        Date.now(),
+                        response.data.value,
+                    ];
+                    this.vars.newLabel = Date.now();
+                })
+                .catch((errors) => {
+                    this.vars.newDataSeries2 = [Date.now(), NaN];
+                });
+        },
+        startInterval(timer) {
+            return setInterval(() => this.plot(), timer);
+        },
+        plot() {
+            this.removeData();
+            this.fetchData();
+            this.$refs.RTChart.appendData(
+                [
+                    {
+                        data: [this.vars.newDataSeries1],
+                    },
+                    {
+                        data: [this.vars.newDataSeries2],
+                    },
+                ],
+                false
+            );
+            // this.chartOptions.xaxis.categories.push(this.label);
+            console.log(this.chartOptions.xaxis);
         },
     },
 };

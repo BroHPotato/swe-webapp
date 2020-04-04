@@ -2,32 +2,22 @@
 
 namespace App\Providers;
 
-use App\Models\Gateway;
+use App\Models\View;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-use function config;
-
-/**
- * Class GatewayServiceProvider
- * @package App\Providers
- */
-class GatewayServiceProvider extends BasicProvider
+class ViewProvider extends BasicProvider
 {
-    //si occupa di prendere i device dal database
     /**
      * @var Client
      */
     private $request;
 
-    /**
-     * GatewayServiceProvider constructor.
-     */
     public function __construct()
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/gateways/',
+            'base_uri' => config('app.api') . '/views/',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]
@@ -36,15 +26,15 @@ class GatewayServiceProvider extends BasicProvider
 
     /**
      * @param mixed $identifier
-     * @return Gateway
+     * @return View
      */
     public function find($identifier)
     {
         try {
             $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
-            $gateway = new Gateway();
-            $gateway->fill((array)$response);
-            return $gateway;
+            $view = new View();
+            $view->fill((array)$response);
+            return $view;
         } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
@@ -58,32 +48,32 @@ class GatewayServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
-            $gateways = [];
+            $views = [];
             foreach ($response as $g) {
-                $gateway = new Gateway();
-                $gateway->fill((array)$g);
-                $gateways[] = $gateway;
+                $view = new View();
+                $view->fill((array)$g);
+                $views[] = $view;
             }
-            return $gateways;
+            return $views;
         } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
 
-    public function findAllFromDevice($device)
+    public function findAllFromUser($user)
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'deviceId=' . $device
+                'query' => 'userId=' . $user
             ]))->getBody());
-            $gateways = [];
+            $views = [];
             foreach ($response as $g) {
-                $gateway = new Gateway();
-                $gateway->fill((array)$g);
-                $gateways[] = $gateway;
+                $view = new View();
+                $view->fill((array)$g);
+                $views[] = $view;
             }
-            return $gateways;
+            return $views;
         } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;

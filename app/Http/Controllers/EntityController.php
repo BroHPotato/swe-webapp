@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Entity;
 use App\Providers\EntityServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -19,6 +20,18 @@ class EntityController extends Controller
     {
         $this->middleware('auth');
         $this->provider = new EntityServiceProvider();
+    }
+
+    public function create()
+    {
+        $entities = $this->provider->findAll();
+        return view('entities.create', compact(['entities']));
+    }
+
+    public function edit($entity)
+    {
+        $entity = $this->provider->find($entity);
+        return view('entities.edit', compact('entity'));
     }
 
     /**
@@ -40,7 +53,7 @@ class EntityController extends Controller
      */
     public function show($entity)
     {
-        $entity = $this->provider->retrieveById($entity);
+        $entity = $this->provider->find($entity);
         return view('entities.show', compact('entity'));
     }
 }

@@ -6,6 +6,10 @@
 
 require("./bootstrap");
 
+require("jquery");
+
+// require("datatables.net")();
+
 window.Vue = require("vue");
 
 /**
@@ -35,6 +39,6 @@ Vue.component("apexchart", VueApexCharts);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-new Vue({
+var app = new Vue({
     el: "#app",
 });
