@@ -101,5 +101,3 @@ Breadcrumbs::for('views', function ($trail) {
     $trail->parent('home');
     $trail->push('Gestione views', route('views.index'));
 });
-
-
