@@ -76,8 +76,8 @@ export default {
         };
     },
     created() {
-        this.vars  = {
-            pull:null,
+        this.vars = {
+            pull: null,
             newDataSeries1: null,
             newDataSeries2: null,
         };
@@ -98,19 +98,33 @@ export default {
         },
         fetchData() {
             axios
-                .get("/data/" + this.sensor1.sensorId
-            ).then((response) => {
-                this.vars.newDataSeries1= [Date.now(), response.data.value];
-            }).catch((errors) => {
-                this.vars.newDataSeries1 = [Date.now(), NaN];
+                .get("/data/" + this.sensor1.sensorId)
+                .then((response) => {
+                this.vars.newDataSeries1 = [
+                    Date.now(),
+                    response.data.value
+                ];
+            })
+                .catch((errors) => {
+                this.vars.newDataSeries1 = [
+                    Date.now(),
+                    NaN
+                ];
             });
             axios
-                .get("/data/" + this.sensor2.sensorId
-            ).then((response) => {
-                this.vars.newDataSeries2= [Date.now(), response.data.value];
-            }).catch((errors) => {
-                this.vars.newDataSeries2 = [Date.now(), NaN];
-            });
+                .get("/data/" + this.sensor2.sensorId)
+                .then((response) => {
+                    this.vars.newDataSeries2 = [
+                        Date.now(),
+                        response.data.value
+                    ];
+                })
+                .catch((errors) => {
+                    this.vars.newDataSeries2 = [
+                        Date.now(),
+                        NaN
+                    ];
+                });
         },
         startInterval(timer) {
             return setInterval(() => this.plot(), timer);
