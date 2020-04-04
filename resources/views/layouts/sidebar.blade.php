@@ -40,9 +40,10 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#"><!-- route('views.index') -->
-            <i class="fas fa-fw fa-chart-bar"></i>
-            <span>Pagine view</span></a>
+        <a class="nav-link" href="{{ route('views.index') }}">
+            <i class="fas fa-fw fa-chart-bar"> </i>
+            <span>Pagine view</span>
+        </a>
     </li>
 
     @canany(['isAdmin', 'isMod'])
