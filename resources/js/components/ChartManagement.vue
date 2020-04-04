@@ -13,30 +13,30 @@
 
 <script>
     export default {
-        props: [ 'sensor1', 'sensor2'],
+        props: [ "sensor1", "sensor2"],
         data: function() {
             return {
                 chartOptions: {
                     chart: {
-                        type: 'area',
+                        type: "area",
                         height: 400,
                     },
                     stroke: {
-                        curve: 'straight'
+                        curve: "straight"
                     },
                     dataLabels: {
                         enabled: false
                     },
                     markers: {
                         size: 0,
-                        style: 'hollow',
+                        style: "hollow",
                     },
                     tooltip: {
                         intersect: true,
                         shared: false
                     },
                     fill: {
-                        type: 'gradient',
+                        type: "gradient",
                         gradient: {
                             shadeIntensity: 1,
                             opacityFrom: 0.7,
@@ -48,10 +48,10 @@
                         type: "datetime",
                         labels: {
                             datetimeFormatter: {
-                                year: 'yyyy',
-                                month: 'MMM \'yy',
-                                day: 'dd MMM',
-                                hour: 'HH:mm'
+                                year: "yyyy",
+                                month: "MMM \"yy",
+                                day: "dd MMM",
+                                hour: "HH:mm"
                             }
                         }
                     },
