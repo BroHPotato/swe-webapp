@@ -13,8 +13,8 @@
 
 <script>
 export default {
-    props: [ "sensor1", "sensor2"],
-    data: function() {
+    props: ["sensor1", "sensor2"],
+    data: function () {
         return {
             chartOptions: {
                 chart: {
@@ -22,7 +22,7 @@ export default {
                     height: 400,
                 },
                 stroke: {
-                    curve: "straight"
+                    curve: "straight",
                 },
                 dataLabels: {
                     enabled: false
