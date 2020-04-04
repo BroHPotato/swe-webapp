@@ -40,9 +40,9 @@
                 </form>
                 <div class="d-sm-flex mb-4 ml-sm-auto">
                     <button type="submit" class="btn btn-success btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-plus-circle"></span>
-                                    </span>
+                            <span class="icon text-white-50">
+                                <span class="fas fa-plus-circle"></span>
+                            </span>
                         <span class="text">Aggiungi</span>
                     </button>
                 </div>
@@ -55,7 +55,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark table-borderless`">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>Nome view</th>
                             <th> </th>
@@ -71,11 +71,11 @@
                         @foreach($views as $view)
                             <tr>
                                 <td>{{$view->name}}</td>
-                                <td><a href="{{route('views.show', [
+                                <td class="text-center"><a href="{{route('views.show', [
                                                 'viewId' => $view->viewId
                                         ])}}" class="btn btn-success btn-icon-split">
                                     <span class="icon text-white-50">
-                                      <span class="fas fa-chart-line"></span>
+                                        <span class="fas fa-chart-line"></span>
                                     </span>
                                         <span class="text">Mostra view</span>
                                     </a>
