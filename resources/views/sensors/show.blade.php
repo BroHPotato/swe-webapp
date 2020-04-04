@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('sensor', $sensor->deviceSensorId, $sensor->sensorId))
+@section('breadcrumbs', Breadcrumbs::render('sensor', $device, $sensor))
 @section('content')
     <div class="d-sm-flex mb-4 ml-sm-auto">
         <button class="btn-danger btn" onclick="window.history.back()">Torna indietro</button>

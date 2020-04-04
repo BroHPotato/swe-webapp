@@ -40,7 +40,7 @@ class SensorServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get(
-                $deviceId . '/sensor/' . $sensorId,
+                '/devices/' . $deviceId . '/sensor/' . $sensorId,
                 $this->setHeaders()
             )->getBody());
             $sensor = new Sensor();
@@ -81,7 +81,7 @@ class SensorServiceProvider extends BasicProvider
     public function findAllFromDevice($deviceId)
     {
         try {
-            $response = json_decode($this->request->get($deviceId . '/sensors', $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get('/devices/' . $deviceId . '/sensors', $this->setHeaders())->getBody());
             $sensors = [];
             foreach ($response as $d) {
                 $sensor = new Sensor();
@@ -104,7 +104,7 @@ class SensorServiceProvider extends BasicProvider
     public function fetch($device, $sensorId)
     {
         try {
-            return json_decode($this->request->get('sensor', $this->setHeaders())->getBody());
+            return json_decode($this->request->get('/datsensor', $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return NAN;

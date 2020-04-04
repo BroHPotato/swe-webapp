@@ -5,6 +5,14 @@ const form = document.querySelector("#sensorForm");
 let trashes = document.querySelectorAll(".delete");
 let numSensor = 1;
 
+const tableUsers = document.querySelector(".dataTableUsers");
+$(document).ready(function () {
+    $(tableUsers).dataTable({
+        "scrollX": false,
+        "pagingType": "full_numbers"
+    });
+});
+
 addSensor.addEventListener("click", (e) => {
     e.preventDefault();
     const sensorIdValue = document.querySelector("#inputSensorId").value;
@@ -63,6 +71,6 @@ addDevice.addEventListener("click", (e) => {
         alert("Dispositivo aggiunto correttamente");
     } else {
         e.preventDefault();
-        alert("Id e neme del dispositivo necessitano di un valore");
+        alert("Id e nome del dispositivo necessitano di un valore");
     }
 });

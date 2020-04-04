@@ -41,15 +41,7 @@ class GatewayController extends Controller
      */
     public function show($gateway)
     {
-        //$gateway = $this->provider->retrieveById($gateway);
-        ///FAKER
-        $gateway = new Gateway();
-        $arr = array_combine(
-            array('gatewayId', 'name', 'devices'),
-            array("1", "US-Gateway", "")
-        );
-        $gateway->fill($arr);
-        //TODO remove
+        $gateway = $this->provider->find($gateway);
         return view('gateways.show', compact('gateway'));
     }
 
@@ -64,15 +56,7 @@ class GatewayController extends Controller
 
     public function edit($gateway)
     {
-        //$gateway = $this->provider->retrieveById($gateway);
-        ///FAKER
-        $gateway = new Gateway();
-        $arr = array_combine(
-            array('gatewayId', 'name', 'devices'),
-            array("1", "US-Gateway", "")
-        );
-        $gateway->fill($arr);
-        //TODO remove
+        $gateway = $this->provider->find($gateway);
         return view('gateways.edit', compact('gateway'));
     }
 }
