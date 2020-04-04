@@ -76,7 +76,6 @@
                                         <option >1.5</option>
                                         <option >2</option>
                                         <option >2.5</option>
-
                                         <option >3</option>
                                         <option >3.5</option>
                                         <option >4</option>
@@ -139,7 +138,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row mx-1">
+                        <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-plus-circle"></span>
@@ -151,7 +150,7 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
+        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
             <a href="{{route('devices.index')}}" id="addDevice" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>

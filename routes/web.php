@@ -62,6 +62,10 @@ Route::get('/entity/{entityName}', 'EntityController@show')->name('entities.show
 Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
+//routes per la gestione delle views
+Route::get('/views', 'ViewController@index')->name('views.index');//TODO
+Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
+
 //data
 Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin

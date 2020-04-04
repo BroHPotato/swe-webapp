@@ -37,7 +37,9 @@ class DeviceController extends Controller
     public function edit($device)
     {
         $device = $this->deviceProvider->find($device);
-        return view('devices.edit', compact('device'));
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
+
+        return view('devices.edit', compact('device','sensors'));
     }
 
     /**

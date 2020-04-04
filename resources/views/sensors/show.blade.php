@@ -18,5 +18,4 @@
             ></chart-management>
         </div>
     </div>
-
 @endsection

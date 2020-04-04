@@ -6,22 +6,14 @@
             <h1 class="h3 mb-0 text-gray-800"> Modifica dispositivo</h1>
         </div>
 
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto">
-                <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                              <span class="fas fa-arrow-circle-left"></span>
-                            </span>
-                    <span class="text">Torna indietro</span>
-                </a>
-            </div>
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
-                <button class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-trash"></span>
-                                        </span>
-                    <span class="text">Elimina</span>
-                </button>
-            </div>
+        <div class="d-inline-block my-2 px-0">
+            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <span class="fas fa-arrow-circle-left"></span>
+                </span>
+                <span class="text">Torna indietro</span>
+            </a>
+        </div>
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -39,7 +31,7 @@
                         @csrf
                         @method('POST')
                         <div class="form-group row">
-                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
+                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span>Id dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('deviceId')??$device->deviceId}}" name="deviceid">
                                 @error('deviceId')
@@ -50,7 +42,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
+                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span>Nome dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('deviceName') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="{{old('deviceName')??$device->name}}" name="deviceName">
                                 @error('deviceName')
@@ -104,9 +96,38 @@
                             </div>
                         </div>
                         <div id="sensorsList">
-
+                            @foreach($sensors as $sensor)
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="fas fa-thermometer-half mx-1"></span>Sensore {{$sensor->realSensorId}}
+                                    </label>
+                                    <label class="col-lg-2 col-form-label">
+                                        <span class="fas fa-tag mx-1"></span>Id sensore
+                                    </label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control" placeholder="Id sensore" value="{{$sensor->sensorId}}" name="sensorId">
+                                    </div>
+                                    <label class="col-lg-2 col-form-label">
+                                        <span class="fas fa-tape mx-1"></span>Tipologia
+                                    </label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" value="{{$sensor->type}}" name="sensorType">
+                                    </div>
+                                    <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                                        <span class="fas fa-trash text-danger delete"></span>
+                                    </div>
+                                </div>
+                                @endforeach
                         </div>
                     </form>
+                    <div class="d-inline-block my-2 px-0 float-right">
+                        <button class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <span class="fas fa-trash"></span>
+                    </span>
+                            <span class="text">Elimina</span>
+                        </button>
+                    </div>
                     @endcan
                 </div>
         </div>
@@ -148,7 +169,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row mx-1">
+                        <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-plus-circle"></span>
@@ -160,7 +181,7 @@
                     @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
+        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
             <a href="{{route('devices.index')}}" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>

@@ -22,7 +22,6 @@
                             <th>Gateway</th>
                             <th>Numero di sensori</th>
                             <th>Frequenza</th>
-                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,7 +31,6 @@
                             <td>{{$gateway->name}}</td>
                             <td>{{count($sensors)}}</td>
                             <td>{{$device->frequency}}</td>
-                            <td><span class="badge badge-success">???Attivo???</span></td>
                         </tr>
                         </tbody>
                     </table>

@@ -29,7 +29,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark table-borderless`">
+                        <thead class="thead-dark table-borderless">
                         <tr>
                             <th>ID </th>
                             <th>Nome</th>
@@ -55,7 +55,7 @@
                                 <td>{{$gateway->gatewayId}}</td>
                                 <td>{{$gateway->name}}</td>
                                 <td>2</td>  {{-- IL NUMERO DI DISPOSITIVI VA PRESO DINAMICAMENTE --}}
-                                <td><a href="{{route('gateways.show', [
+                                <td class="text-center"><a href="{{route('gateways.show', [
                                                     'gatewayId' => $gateway->gatewayId
                                             ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
@@ -64,14 +64,14 @@
                                         <span class="text">Dettagli</span>
                                     </a>
                                 </td>
-                                <td><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-warning btn-icon-split">
+                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
                                         <span class="text">Modifica</span>
                                     </a>
                                 </td>
-                                <td><a href="#" class="btn btn-primary btn-icon-split">
+                                <td class="text-center"><a href="#" class="btn btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-paper-plane"></span>
                                         </span>
