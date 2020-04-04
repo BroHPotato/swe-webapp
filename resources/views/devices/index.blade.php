@@ -76,11 +76,11 @@
                                          </a>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-primary btn-icon-split">
+                                        <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
-                                          <span class="fas fa-plus-circle"></span>
+                                          <span class="fas fa-edit"></span>
                                         </span>
-                                        <span class="text">Modiica</span>
+                                        <span class="text">Modifica</span>
                                         </a>
                                     </td>
                                 </tr>
