@@ -8,7 +8,7 @@ require("./bootstrap");
 
 require("jquery");
 
-//require("datatables.net")();
+// require("datatables.net")();
 
 window.Vue = require("vue");
 
@@ -25,10 +25,10 @@ window.Vue = require("vue");
 
 Vue.component("chart-management", require("./components/ChartManagement.vue").default);
 
-import VueApexCharts from "vue-apexcharts"
-Vue.use(VueApexCharts)
+import VueApexCharts from "vue-apexcharts";
+Vue.use(VueApexCharts);
 
-Vue.component("apexchart", VueApexCharts)
+Vue.component("apexchart", VueApexCharts);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,6 +36,6 @@ Vue.component("apexchart", VueApexCharts)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
+let app = new Vue({
     el: "#app",
 });
