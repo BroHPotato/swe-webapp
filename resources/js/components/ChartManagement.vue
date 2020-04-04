@@ -70,12 +70,12 @@ export default {
                 },{
                     name: this.sensor2.type,
                     data: [[], [], [], [], [], [], [], [], [], []],
-                }
+                },
             ],
-        }
+        };
     },
     created() {
-        this.vars = {
+        this.vars  = {
             pull:null,
             newDataSeries1: null,
             newDataSeries2: null,
@@ -97,16 +97,14 @@ export default {
         },
         fetchData() {
             axios
-                .get(
-                "/data/" + this.sensor1.sensorId
+                .get("/data/" + this.sensor1.sensorId
             ).then((response) => {
                 this.vars.newDataSeries1= [Date.now(), response.data.value];
             }).catch((errors) => {
                 this.vars.newDataSeries1 = [Date.now(), NaN];
             });
             axios
-                .get(
-                "/data/" + this.sensor2.sensorId
+                .get("/data/" + this.sensor2.sensorId
             ).then((response) => {
                 this.vars.newDataSeries2= [Date.now(), response.data.value];
             }).catch((errors) => {
