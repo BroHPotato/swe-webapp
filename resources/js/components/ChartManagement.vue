@@ -7,111 +7,120 @@
             <option value="1000">1s</option>
             <option value="500">0.5s</option>
         </select>
-        <apexchart
-            ref="RTChart"
-            type="area"
-            height="400"
-            :options="chartOptions"
-            :series="series"
-        ></apexchart>
+        <apexchart ref="RTChart" height="400" type="area" :options="chartOptions" :series="series"></apexchart>
     </div>
 </template>
 
 <script>
-// let date;
-// let label;
-// let newData;
-export default {
-    props: {
-        deviceId: Number,
-        sensorId1: Number,
-        sensorId2: Number,
-    },
-    data: function() {
-        return {
-            chartOptions: {
-                chart: {
-                    height: 400,
-                    type: 'area'
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    curve: 'smooth'
-                },
-                xaxis: {
-                    type: 'datetime',
-                    categories: []
-                },
-                tooltip: {
-                    x: {
-                        format: 'dd/MM/yy HH:mm'
+    export default {
+        props: [ 'sensor1', 'sensor2'],
+        data: function() {
+            return {
+                chartOptions: {
+                    chart: {
+                        type: 'area',
+                        height: 400,
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    markers: {
+                        size: 0,
+                        style: 'hollow',
+                    },
+                    tooltip: {
+                        intersect: true,
+                        shared: false
+                    },
+                    fill: {
+                        type: 'gradient',
+                        gradient: {
+                            shadeIntensity: 1,
+                            opacityFrom: 0.7,
+                            opacityTo: 0.9,
+                            stops: [0, 100]
+                        }
+                    },
+                    xaxis: {
+                        type: "datetime",
+                        labels: {
+                            datetimeFormatter: {
+                                year: 'yyyy',
+                                month: 'MMM \'yy',
+                                day: 'dd MMM',
+                                hour: 'HH:mm'
+                            }
+                        }
                     },
                 },
+                series: [{
+                    name: this.sensor1.type,
+                    data: [[],[],[],[],[],[],[],[],[],[]]
+                },{
+                    name: this.sensor2.type,
+                    data: [[],[],[],[],[],[],[],[],[],[]]
+                }],
+            }
+        },
+        created() {
+            this.vars = {
+                pull:null,
+                newDataSeries1: null,
+                newDataSeries2: null,
+            };
+        },
+        mounted() {
+            this.fetchData();
+            this.vars.pull = this.startInterval(4000);
+        },
+        methods: {
+            changePullrate(timer) {
+                clearInterval(this.pull);
+                this.pull = this.startInterval(timer.target.value);
             },
-            series: [{
-                name: this.$props.sensorId1,
-                data: [],
-            },{
-                name: this.$props.sensorId2,
-                data: [],
-            }],
-        }
-    },
-    mounted() {
-        this.fetchData();
-        pull = this.startInterval(4000);
-    },
-    methods: {
-        startInterval(timer) {
-            return setInterval(() => {
-                if (this.series[0].data.length >= 10) {
-                    this.removeData();
-                }
+            removeData() {
+                this.series[0].data.shift();
+                this.series[1].data.shift();
+                //this.chartOptions.xaxis.categories.shift();
+            },
+            fetchData() {
+                axios.get(
+                    "/data/" +
+                    this.sensor1.sensorId
+                ).then((response) => {
+                    this.vars.newDataSeries1= [Date.now(), response.data.value];
+                }).catch((errors) => {
+                    this.vars.newDataSeries1 = [Date.now(), NaN];
+                });
+                axios.get(
+                    "/data/" +
+                    this.sensor2.sensorId
+                ).then((response) => {
+                    this.vars.newDataSeries2= [Date.now(), response.data.value];
+                }).catch((errors) => {
+                    this.vars.newDataSeries2 = [Date.now(), NaN];
+                });
+            },
+            startInterval(timer) {
+                return setInterval(() => this.plot(), timer);
+            },
+            plot(){
+                this.removeData();
                 this.fetchData();
-                this.chartOptions.xaxis.categories.push(this.label);
                 this.$refs.RTChart.appendData(
-                    [
-                        {
-                            data: [this.newData],
-                        },
-                    ],
+                    [{
+                        data: [this.vars.newDataSeries1],
+                    }, {
+                        data: [this.vars.newDataSeries2],
+                    }],
                     false
                 );
-            }, timer);
+                console.log(this.series[0].data)
+            }
+
         },
-        changePullrate(timer) {
-            clearInterval(pull);
-            pull = this.startInterval(timer.target.value);
-        },
-        fetchData() {
-            axios
-                .get(
-                    "/data/devices/" +
-                        this.$props.deviceId +
-                        "/sensors/" +
-                        this.$props.sensorId1
-                )
-                .then((response) => {
-                    const r = response.data;
-                    this.newData = Number(r.value);
-                    this.date = new Date(Number(r.timestamp));
-                    this.label =
-                        this.date.getHours() +
-                        " : " +
-                        this.date.getMinutes() +
-                        " : " +
-                        this.date.getSeconds();
-                })
-                .catch((errors) => {
-                    this.newData = NaN;
-                });
-        },
-        removeData() {
-            this.series[0].data.shift();
-            this.chartOptions.xaxis.categories.shift();
-        },
-    },
-}
+    }
 </script>

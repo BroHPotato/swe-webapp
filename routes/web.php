@@ -63,5 +63,5 @@ Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.upda
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //data
-Route::get('/data/devices/{deviceId}/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
+Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin

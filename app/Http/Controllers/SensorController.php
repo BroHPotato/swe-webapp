@@ -48,8 +48,8 @@ class SensorController extends Controller
         return view('sensors.show', compact(['sensor', 'device']));
     }
 
-    public function fetch($device, $sensor)
+    public function fetch($sensorId)
     {
-        return $this->sensorProvider->fetch($device, $sensor);
+        return $this->sensorProvider->fetch($sensorId);
     }
 }
