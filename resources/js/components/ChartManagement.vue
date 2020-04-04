@@ -100,36 +100,30 @@ export default {
             axios
                 .get("/data/" + this.sensor1.sensorId)
                 .then((response) => {
-                this.vars.newDataSeries1 = [
-                    Date.now(),
-                    response.data.value
-                ];
-            })
+                    this.vars.newDataSeries1 = [
+                        Date.now(),
+                        response.data.value,
+                    ];
+                })
                 .catch((errors) => {
-                this.vars.newDataSeries1 = [
-                    Date.now(),
-                    NaN
-                ];
+                    this.vars.newDataSeries1 = [Date.now(), NaN];
             });
             axios
                 .get("/data/" + this.sensor2.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries2 = [
                         Date.now(),
-                        response.data.value
+                        response.data.value,
                     ];
                 })
                 .catch((errors) => {
-                    this.vars.newDataSeries2 = [
-                        Date.now(),
-                        NaN
-                    ];
+                    this.vars.newDataSeries2 = [Date.now(), NaN];
                 });
         },
         startInterval(timer) {
             return setInterval(() => this.plot(), timer);
         },
-        plot () {
+        plot() {
             this.removeData();
             this.fetchData();
             this.$refs.RTChart.appendData([
