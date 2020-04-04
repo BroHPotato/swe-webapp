@@ -55,49 +55,6 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Sensore 1</h6>
-                </div>
-                <div class="card-body">
-                    <div class="col-sm-6 float-left">
-                        <div class="form-group row">
-                            <label for="SensorId" class="col-sm-6 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
-                            <div class="col-sm-6 col-form-label">
-                                <span id="SensorId">1</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="DeviceId" class="col-sm-6 col-form-label"><span class="fas fa-tag"></span> Id dispositivo</label>
-                            <div class="col-sm-6 col-form-label">
-                                <span id="DeviceId">1</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="SensorType" class="col-sm-6 col-form-label"><span class="fas fa-tape"></span> Tipologia </label>
-                            <div class="col-sm-6 col-form-label">
-                                <span id="SensorType">Temperatura</span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 col-form-label">
-                                <a href="{{route('sensors.show', [
-                                        'deviceId' => 1,
-                                        'sensorId' => 1
-                                    ])}}" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-chart-area"></span>
-                                        </span>
-                                    <span class="text">Mostra grafico</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        OPPURE
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
             </div>
             <div class="card-body">
@@ -136,6 +93,7 @@
                                     </a>
                                 </td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
