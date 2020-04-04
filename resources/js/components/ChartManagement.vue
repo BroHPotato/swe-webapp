@@ -67,7 +67,8 @@ export default {
                 {
                     name: this.sensor1.type,
                     data: [[], [], [], [], [], [], [], [], [], []],
-                },{
+                },
+                {
                     name: this.sensor2.type,
                     data: [[], [], [], [], [], [], [], [], [], []],
                 },
@@ -114,20 +115,21 @@ export default {
         startInterval(timer) {
             return setInterval(() => this.plot(), timer);
         },
-        plot(){
+        plot () {
             this.removeData();
             this.fetchData();
-            this.$refs.RTChart.appendData(
-                [{
+            this.$refs.RTChart.appendData([
+                {
                     data: [this.vars.newDataSeries1],
-                }, {
+                },
+                {
                     data: [this.vars.newDataSeries2],
-                }],
+                },
+            ],
                 false
             );
-            console.log(this.series[0].data)
-        }
-
+            console.log(this.series[0].data);
+        },
     },
-}
+};
 </script>
