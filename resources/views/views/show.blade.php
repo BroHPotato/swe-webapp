@@ -78,7 +78,7 @@
                         <div class="col-sm-9">
                             <div class="input-group mb-3">
                                 <select class="form-control @error('correlation') is-invalid @enderror" name="correlation" id="inputCorrelation">
-                                    <option value="" selected disabled hidden>Choose here</option>
+                                    <option value="" selected="selected" disabled="disabled" hidden="hidden">Choose here</option>
                                     <option value="1">Covarianza</option>
                                     <option value="2">Correlazione di Pearson</option>
                                     <option value="3">Correlazione di Spearman</option>
@@ -104,24 +104,26 @@
         </div>
 
         @foreach($graphs as $graph)
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dati real-time</h6>
-                </div>
-                <div class="card-body">
-                    <chart-management
-                        v-bind:deviceId='{{$view->deviceId }}'
-                        v-bind:sensorId1='{{$graph->sensorId1}}'
-                        v-bind:sensorId2='{{$graph->sensorId2}}'
-                    ></chart-management>
-                </div>
-                <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
-                    <button class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                        <span class="text">Elimina</span>
-                    </button>
+            <div class="col-lg-2 col-md-3 col-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dati real-time</h6>
+                    </div>
+                    <div class="card-body">
+                        <chart-management
+                            v-bind:deviceId='{{$view->deviceId }}'
+                            v-bind:sensorId1='{{$graph->sensorId1}}'
+                            v-bind:sensorId2='{{$graph->sensorId2}}'
+                        ></chart-management>
+                    </div>
+                    <div class="d-sm-inline-flex mb-4 ml-sm-auto float-right">
+                        <button class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-trash"></span>
+                                        </span>
+                            <span class="text">Elimina</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         @endforeach
