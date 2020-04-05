@@ -15,14 +15,6 @@
             :series="series"
         >
         </apexchart>
-        <apexchart
-            ref="RTChartLine"
-            height="130"
-            type="area"
-            :options="chartOptionsLine"
-            :series="series"
-        >
-        </apexchart>
     </div>
 </template>
 
@@ -36,36 +28,41 @@
                         type: "line",
                         height: 400,
                     },
+                    toolbar: {
+                        show: false
+                    },
+                    markers: {
+                        size: 1
+                    },
                     stroke: {
                         curve: "straight",
                     },
                     xaxis: {
                         type: 'datetime',
-                        range: 10000, // mantiene in memoria 10 secondi
+                        range: 60000, // mantiene in memoria 10 secondi
                         tickPlacement: 'between',
+                        labels: {
+                            format: 'dd/MM/yy - HH:mm:ss',
+                        },
+                        title: {
+                            text: 'Tempo'
+                        },
                     },
                     yaxis: {
                         min: 0,
+                        title: {
+                            text: 'Valore'
+                        },
                     },
-                },
-                chartOptionsLine: {
-                    chart: {
-                        type: "area",
-                        height: 200,
-                    },
-                    stroke: {
-                        curve: "straight",
+                    legend: {
+                        position: 'top',
+                        horizontalAlign: 'right',
+                        floating: true,
+                        offsetY: -25,
+                        offsetX: -5,
                     },
                     dataLabels: {
                         enabled: false,
-                    },
-                    xaxis: {
-                        type: 'datetime',
-                        tickPlacement: 'between',
-                    },
-                    yaxis: {
-                        min: 0,
-                        tickAmount: 3,
                     },
                 },
                 series: [
@@ -79,8 +76,7 @@
         created() {
             this.vars = {
                 pull: null,
-                newDataSeries: null,
-                newLabel: null,
+                newDataSeries: [],
             };
         },
         mounted() {
@@ -96,37 +92,22 @@
                 axios
                     .get("/data/" + this.sensor.sensorId)
                     .then((response) => {
-                        this.vars.newDataSeries = [
-                            Date.now(),
+                        this.vars.newDataSeries.push([
+                            response.data.time,
                             response.data.value,
-                        ];
+                        ]);
                     })
                     .catch((errors) => {
-                        this.vars.newDataSeries = [Date.now(), NaN];
+                        this.vars.newDataSeries.push([new Date.now(), NaN]);
                     });
             },
             startInterval(timer) {
-                return setInterval(() => this.plot(), timer);
-            },
-            plot() {
-                this.fetchData();
-                this.$refs.RTChart.appendData(
-                    [
-                        {
-                            data: [this.vars.newDataSeries],
-                        },
-                    ],
-                    false
-                );
-                this.$refs.RTChartLine.appendData(
-                    [
-                        {
-                            data: [this.vars.newDataSeries],
-                        },
-                    ],
-                    false
-                );
-                console.log(this.series[0].data);
+                return setInterval(() => {
+                    this.fetchData();
+                    this.series = [{
+                        data: this.vars.newDataSeries
+                    }];
+                }, timer);
             },
         },
     };
