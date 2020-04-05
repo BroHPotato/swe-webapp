@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\View;
 use App\Models\ViewGraph;
-use App\Providers\ViewGraphProvider;
-use App\Providers\ViewProvider;
+use App\Providers\ViewGraphServiceProvider;
+use App\Providers\ViewServiceProvider;
 
 class ViewController extends Controller
 {
@@ -20,8 +20,8 @@ class ViewController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->viewProvider = new ViewProvider();
-        $this->viewGraphProvider = new ViewGraphProvider();
+        $this->viewProvider = new ViewServiceProvider();
+        $this->viewGraphProvider = new ViewGraphServiceProvider();
     }
 
     public function index()

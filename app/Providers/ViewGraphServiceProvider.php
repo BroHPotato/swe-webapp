@@ -6,7 +6,7 @@ use App\Models\ViewGraph;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class ViewGraphProvider extends BasicProvider
+class ViewGraphServiceProvider extends BasicProvider
 {
     /**
      * @var Client
