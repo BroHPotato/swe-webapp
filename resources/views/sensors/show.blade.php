@@ -12,9 +12,10 @@
             <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dati real-time</h6>
         </div>
         <div class="card-body">
-            <single-chart
-                :sensor="{{json_encode($sensor)}}"
-            ></single-chart>
+            <double-chart
+                :sensor1="{{json_encode($sensor)}}"
+                :sensor2="{{json_encode($sensor)}}"
+            ></double-chart>
         </div>
     </div>
 @endsection
