@@ -35,7 +35,7 @@ Breadcrumbs::for('sensors', function ($trail, $deviceId) {
 });
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
     $trail->parent('sensors', $deviceId);
-    $trail->push($sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
+    $trail->push('#'.$sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
 
@@ -46,7 +46,7 @@ Breadcrumbs::for('users.index', function ($trail) {
 });
 Breadcrumbs::for('users.show', function ($trail, $userId) {
     $trail->parent('users.index');
-    $trail->push('Utente ' . $userId, route('users.show', ['userId' => $userId]));
+    $trail->push('Utente #' . $userId, route('users.show', ['userId' => $userId]));
 });
 Breadcrumbs::for('users.create', function ($trail) {
     $trail->parent('users.index');
