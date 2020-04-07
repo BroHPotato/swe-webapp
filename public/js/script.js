@@ -5,25 +5,40 @@ const form = document.querySelector("#sensorForm");
 let trashes = document.querySelectorAll(".delete");
 let numSensor = 1;
 
-const tableUsers = document.querySelector(".dataTableUsers");
-$(document).ready(function () {
-    $(tableUsers).dataTable({
-        "scrollX": false,
-        "pagingType": "full_numbers",
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
-            // "url": "dataTables.italian.lang"
-        }
-    });
-});
+const tables = document.querySelectorAll(".table");
 
-addSensor.addEventListener("click", (e) => {
-    e.preventDefault();
-    const sensorIdValue = document.querySelector("#inputSensorId").value;
-    const sensorTypeValue = document.querySelector("#inputSensorType").value;
-    // aggiunta sensore al dispositivo
-    if (sensorIdValue !== "" && sensorTypeValue !== "") {
-        sensorsList.innerHTML += `
+if (tables !== undefined) {
+    tables.forEach((table) => {
+        $(document).ready(function () {
+            $(table).dataTable({
+                scrollX: false,
+                autoWidth: false,
+                pagingType: "simple_numbers",
+                language: {
+                    url:
+                        "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json",
+                    // "url": "dataTables.italian.lang"
+                },
+            });
+        });
+    });
+    // non capisco perchè torna null DC
+    // const dataTableFilter = document.querySelector(".dataTables_filter");
+    // console.log(dataTableFilter);
+    // pagination.addClass("float-right");
+}
+
+
+// document.querySelector("#dataTable_paginate").classList.add("float-right");
+
+if (addSensor !== null) {
+    addSensor.addEventListener("click", (e) => {
+        e.preventDefault();
+        const sensorIdValue = document.querySelector("#inputSensorId").value;
+        const sensorTypeValue = document.querySelector("#inputSensorType").value;
+        // aggiunta sensore al dispositivo
+        if (sensorIdValue !== "" && sensorTypeValue !== "") {
+            sensorsList.innerHTML += `
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label">
                     <span class="fas fa-thermometer-half mx-1"></span>Sensore ${numSensor}
@@ -49,32 +64,33 @@ addSensor.addEventListener("click", (e) => {
                         <span class="text">Elimina sensore</span>
                     </button>
                 </div>
-
             </div>
         `
-        trashes = document.querySelectorAll(".delete");
-        // eliminazione sensore aggiunto
-        trashes.forEach((trash) => {
-            trash.addEventListener("click", (e) => {
-                e.preventDefault();
-                trash.parentElement.parentElement.remove();
+            trashes = document.querySelectorAll(".delete");
+            // eliminazione sensore aggiunto
+            trashes.forEach((trash) => {
+                trash.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    trash.parentElement.parentElement.remove();
+                });
             });
-        });
-        numSensor++;
-        form.reset();
-    } else {
-        alert("Id e tipo di sensore necessitano di un valore");
-    }
-});
-
+            numSensor++;
+            form.reset();
+        } else {
+            alert("Id e tipo di sensore necessitano di un valore");
+        }
+    });
+}
 // aggiunta dispositivo
-addDevice.addEventListener("click", (e) => {
-    const deviceIdValue = document.querySelector("#inputDeviceId").value;
-    const deviceNameValue = document.querySelector("#inputDeviceName").value;
-    if (deviceIdValue !== "" && deviceNameValue !== "") {
-        alert("Dispositivo aggiunto correttamente");
-    } else {
-        e.preventDefault();
-        alert("Id e nome del dispositivo necessitano di un valore");
-    }
-});
+if (addDevice !== null) {
+    addDevice.addEventListener("click", (e) => {
+        const deviceIdValue = document.querySelector("#inputDeviceId").value;
+        const deviceNameValue = document.querySelector("#inputDeviceName").value;
+        if (deviceIdValue !== "" && deviceNameValue !== "") {
+            alert("Dispositivo aggiunto correttamente");
+        } else {
+            e.preventDefault();
+            alert("Id e nome del dispositivo necessitano di un valore");
+        }
+    });
+}
