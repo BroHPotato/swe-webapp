@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
 use App\Providers\DeviceServiceProvider;
 use App\Providers\GatewayServiceProvider;
 use App\Providers\SensorServiceProvider;
