@@ -105,12 +105,6 @@
                             :sensor2='{{json_encode($sensor2)}}'
                             :variance = {{$graph->correlation}}
                         ></double-chart>
-                
-                    <!-- <chart-management
-                        v-bind:deviceId='{{$view->deviceId }}'
-                        v-bind:sensorId1='{{$graph->sensorId1}}'
-                        v-bind:sensorId2='{{$graph->sensorId2}}'
-                    ></chart-management> -->
                 </div>
             </div>
         </div>

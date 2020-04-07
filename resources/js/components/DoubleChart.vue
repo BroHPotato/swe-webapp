@@ -20,9 +20,12 @@
 
 <script>
 import covariance from '@elstats/covariance';
+import pearson from 'correlation-rank';
+import spearman from 'spearman-rho';
 export default {
     props: ["sensor1", "sensor2", "variance"],
     data: function () {
+        let variance = ['Covarianza', 'Correlazione di Pearson', 'Correlazione di Spearman'];
         return {
             chartOptions: {
                 chart: {
@@ -68,7 +71,7 @@ export default {
                     name: this.sensor2.type,
                     data: [],
                 },{
-                    name: this.variance,
+                    name: variance[this.variance],
                     data: [],
                 },
             ],
@@ -83,7 +86,6 @@ export default {
             data1:[],
             data2:[],
             date:null,
-            variance: ['Covarianza', 'Correlazione di Pearson', 'Correlazione di Spearman']
         };
     },
     mounted() {
@@ -136,7 +138,19 @@ export default {
             }, timer);
         },
         calculateVariance(){
-            this.vars.newDataVariance.push([this.vars.date, covariance(this.vars.data1, this.vars.data2)]);
+            switch (this.variance) {
+                case 0:
+                    this.vars.newDataVariance.push([this.vars.date, covariance(this.vars.data1, this.vars.data2)]);
+                    break;
+                case 1:
+                    this.vars.newDataVariance.push([this.vars.date, pearson.rank(this.vars.data1, this.vars.data2)]);
+                    break;
+                case 2:
+                    (new spearman(this.vars.data1, this.vars.data2)).calc().then(value => {
+                        this.vars.newDataVariance.push([this.vars.date, value]);
+                    });
+                    break;
+            }
         }
     },
 };

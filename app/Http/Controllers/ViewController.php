@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sensor;
 use App\Models\View;
 use App\Models\ViewGraph;
 use App\Providers\SensorServiceProvider;
@@ -37,8 +38,17 @@ class ViewController extends Controller
     {
         $graphs = $this->viewGraphProvider->findAllFromView($viewId);
         $view = $this->viewProvider->find($viewId);
-        $sensor1 = $this->sensorProvider->find(1,1);
-        $sensor2 = $this->sensorProvider->find(1,2);
+        $sensors = $this->sensorProvider->findAll();
+        $sensor1 = null;
+        $sensor2 = null;
+        foreach ($graphs as $graph){
+            foreach ($sensors as $sensor) {
+                if ($sensor->realSensorId == $graph->sensor1)
+                    $sensor1 = $sensor;
+                if ($sensor->realSensorId == $graph->sensor2)
+                    $sensor2 = $sensor;
+            }
+        }
         return view('views.show', compact(['graphs','view', 'sensor1', 'sensor2']));
     }
 }
