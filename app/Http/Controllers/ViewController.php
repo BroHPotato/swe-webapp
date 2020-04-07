@@ -41,12 +41,14 @@ class ViewController extends Controller
         $sensors = $this->sensorProvider->findAll();
         $sensor1 = null;
         $sensor2 = null;
-        foreach ($graphs as $graph){
+        foreach ($graphs as $graph) {
             foreach ($sensors as $sensor) {
-                if ($sensor->realSensorId == $graph->sensor1)
+                if ($sensor->realSensorId == $graph->sensor1) {
                     $sensor1 = $sensor;
-                if ($sensor->realSensorId == $graph->sensor2)
+                }
+                if ($sensor->realSensorId == $graph->sensor2) {
                     $sensor2 = $sensor;
+                }
             }
         }
         return view('views.show', compact(['graphs','view', 'sensor1', 'sensor2']));
