@@ -103,5 +103,5 @@ Breadcrumbs::for('views', function ($trail) {
 });
 Breadcrumbs::for('views.show', function ($trail, $viewId) {
     $trail->parent('views');
-    $trail->push('view' . $viewId, route('views.show', ['viewId' => $viewId]));
+    $trail->push('#' . $viewId, route('views.show', ['viewId' => $viewId]));
 });

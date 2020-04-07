@@ -6,7 +6,7 @@
         <h1 class="h3 mb-0 text-gray-800"> Pagine view </h1>
     </div>
     <div class="d-sm-flex mb-4 ml-sm-auto">
-        <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
+        <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
             <span class="icon text-white-50">
               <span class="fas fa-arrow-circle-left"></span>
             </span>
@@ -58,7 +58,7 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <p>Attraverso le pagine view è possibile aggiungere dei grafici personalizzati eseguendo il
+                    <p>Attraverso le pagine view è possibile aggiungere dei <strong>grafici personalizzati</strong> eseguendo il
                         tracciamento dati di due sensori differenti. È possibile selezionare anche un'eventuale correlazione dei due dati tracciati, tra cui:</p>
                     <ul>
                         <li>Covarianza</li>
