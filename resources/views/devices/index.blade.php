@@ -28,44 +28,47 @@
 
         @foreach($devicesOnGateways as $deviceOnGateway)
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
+                <a href="#collapseByGateway_{{$deviceOnGateway[0]->id}}" class="d-block card-header py-3"
+                   data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseByGateway_{{$deviceOnGateway[0]->id}}">
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi {{ $deviceOnGateway[0]->name}}</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive-lg">
-                        <table class="table table-striped table-bordered border-secondary">
-                            <thead class="thead-dark table-borderless">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nome</th>
-                                    <th>Status</th>
-                                    <th>Gateway</th>
-                                    <th>Sensori</th>
-                                    <th>Frequenza</th>
-                                    <th class="bg-secondary"> </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($deviceOnGateway[1] as $device)
-                                <tr>
-                                    <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->deviceId}}</a></td>
-                                    <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
-                                    <td><span class="badge badge-success">Attivo</span></td>
-                                    <td class="small">{{$deviceOnGateway[0]->name}}</td>
-                                    <td>{{$deviceOnGateway[2][$device->deviceId]}}</td>
-                                    <td>{{$device->frequency}}s</td>
-                                    <td class="text-center">
-                                        <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-sm btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-edit"></span>
-                                        </span>
-                                        <span class="text">Modifica</span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                </a>
+                <div class="collapse show" id="collapseByGateway_{{$deviceOnGateway[0]->id}}">
+                    <div class="card-body">
+                        <div class="table-responsive-lg">
+                            <table class="table table-striped table-bordered border-secondary">
+                                <thead class="thead-dark table-borderless">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Nome</th>
+                                        <th>Status</th>
+                                        <th>Gateway</th>
+                                        <th>Sensori</th>
+                                        <th>Frequenza</th>
+                                        <th class="bg-secondary"> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($deviceOnGateway[1] as $device)
+                                    <tr>
+                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->deviceId}}</a></td>
+                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
+                                        <td><span class="badge badge-success">Attivo</span></td>
+                                        <td class="small">{{$deviceOnGateway[0]->name}}</td>
+                                        <td>{{$deviceOnGateway[2][$device->deviceId]}}</td>
+                                        <td>{{$device->frequency}}s</td>
+                                        <td class="text-center">
+                                            <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-sm btn-warning btn-icon-split">
+                                            <span class="icon text-white-50">
+                                              <span class="fas fa-edit"></span>
+                                            </span>
+                                            <span class="text">Modifica</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
