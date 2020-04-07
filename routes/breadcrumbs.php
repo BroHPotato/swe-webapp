@@ -101,3 +101,7 @@ Breadcrumbs::for('views', function ($trail) {
     $trail->parent('home');
     $trail->push('Gestione views', route('views.index'));
 });
+Breadcrumbs::for('views.show', function ($trail, $viewId) {
+    $trail->parent('views');
+    $trail->push('view' . $viewId, route('views.show', ['viewId' => $viewId]));
+});

@@ -106,13 +106,13 @@ class SensorServiceProvider extends BasicProvider
     public function fetch($sensorId)
     {
         try {
-            return '{
-  "time": "2020-04-04T09:43:06.316Z",
-  "gatewayName": "string",
-  "realDeviceId": 0,
-  "realSensorId": 0,
-  "value": ' . rand(0, 10) . '
-}';//todo sostituire con json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
+            return json_encode(array(
+                'time' => date("d/m/Y H:i:s"),
+                'value' => rand(0, 10) ,
+                'gatewayName' => 'string',
+                'realDeviceId' => 0,
+                'realSensorId' => 0,
+            ));//todo sostituire con json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return NAN;

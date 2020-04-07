@@ -4,11 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+// window.$ = require("jquery");
+
 require("./bootstrap");
 
-require("jquery");
-
-// require("datatables.net")();
+require("datatables.net");
+require("datatables.net-bs4");
 
 window.Vue = require("vue");
 
@@ -24,8 +25,12 @@ window.Vue = require("vue");
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component(
-    "chart-management",
-    require("./components/ChartManagement.vue").default
+    "double-chart",
+    require("./components/DoubleChart.vue").default
+);
+Vue.component(
+    "single-chart",
+    require("./components/SingleChart.vue").default
 );
 
 import VueApexCharts from "vue-apexcharts";

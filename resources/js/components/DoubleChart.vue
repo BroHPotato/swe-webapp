@@ -10,7 +10,7 @@
         <apexchart
             ref="RTChart"
             height="400"
-            type="area"
+            type="line"
             :options="chartOptions"
             :series="series"
         >
@@ -25,44 +25,47 @@ export default {
         return {
             chartOptions: {
                 chart: {
-                    type: "area",
+                    type: "line",
                     height: 400,
+                },
+                toolbar: {
+                    show: false
+                },
+                markers: {
+                    size: 1
                 },
                 stroke: {
                     curve: "straight",
                 },
-                dataLabels: {
-                    enabled: false,
-                },
-                markers: {
-                    size: 0,
-                    style: "hollow",
-                },
-                tooltip: {
-                    intersect: true,
-                    shared: false,
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        shadeIntensity: 1,
-                        opacityFrom: 0.7,
-                        opacityTo: 0.9,
-                        stops: [0, 100],
+                xaxis: {
+                    type: 'datetime',
+                    range: 60000, // mantiene in memoria 10 secondi
+                    tickPlacement: 'between',
+                    labels: {
+                        format: 'dd/MM/yy - HH:mm:ss',
+                    },
+                    title: {
+                        text: 'Tempo'
                     },
                 },
-                xaxis: {
-                    type: "datetime",
+                yaxis: {
+                    min: 0,
+                    title: {
+                        text: 'Valore'
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
                 },
             },
             series: [
                 {
                     name: this.sensor1.type,
-                    data: [[], [], [], [], [], [], [], [], [], []],
+                    data: [],
                 },
                 {
                     name: this.sensor2.type,
-                    data: [[], [], [], [], [], [], [], [], [], []],
+                    data: [],
                 },
             ],
         };
@@ -70,9 +73,8 @@ export default {
     created() {
         this.vars = {
             pull: null,
-            newDataSeries1: null,
-            newDataSeries2: null,
-            newLabel: null,
+            newDataSeries1: [],
+            newDataSeries2: [],
         };
     },
     mounted() {
@@ -84,20 +86,14 @@ export default {
             clearInterval(this.pull);
             this.pull = this.startInterval(timer.target.value);
         },
-        removeData() {
-            this.series[0].data.shift();
-            this.series[1].data.shift();
-            // this.chartOptions.xaxis.categories.shift();
-        },
         fetchData() {
             axios
                 .get("/data/" + this.sensor1.sensorId)
                 .then((response) => {
-                    this.vars.newDataSeries1 = [
-                        Date.now(),
+                    this.vars.newDataSeries1.push([
+                        response.data.time,
                         response.data.value,
-                    ];
-                    this.vars.newLabel = Date.now();
+                    ]);
                 })
                 .catch((errors) => {
                     this.vars.newDataSeries1 = [Date.now(), NaN];
@@ -105,35 +101,24 @@ export default {
             axios
                 .get("/data/" + this.sensor2.sensorId)
                 .then((response) => {
-                    this.vars.newDataSeries2 = [
-                        Date.now(),
+                    this.vars.newDataSeries2.push([
+                        response.data.time,
                         response.data.value,
-                    ];
-                    this.vars.newLabel = Date.now();
+                    ]);
                 })
                 .catch((errors) => {
                     this.vars.newDataSeries2 = [Date.now(), NaN];
                 });
         },
         startInterval(timer) {
-            return setInterval(() => this.plot(), timer);
-        },
-        plot() {
-            this.removeData();
-            this.fetchData();
-            this.$refs.RTChart.appendData(
-                [
-                    {
-                        data: [this.vars.newDataSeries1],
-                    },
-                    {
-                        data: [this.vars.newDataSeries2],
-                    },
-                ],
-                false
-            );
-            // this.chartOptions.xaxis.categories.push(this.label);
-            console.log(this.chartOptions.xaxis);
+            return setInterval(() => {
+                this.fetchData();
+                this.series = [{
+                    data: this.vars.newDataSeries1
+                }, {
+                    data: this.vars.newDataSeries2,
+                }];
+            }, timer);
         },
     },
 };
