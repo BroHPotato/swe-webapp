@@ -151,7 +151,7 @@
             <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-striped" id="dataTable">
                         <thead class="thead-dark table-borderless">
                         <tr>
                             <th width="1em"><span class="far fa-bell"></span></th>
