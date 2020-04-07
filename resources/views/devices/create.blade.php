@@ -24,7 +24,7 @@
             </div>
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
-                    <p>Puoi modificare il dispositivo inserendo le informazioni elencate in seguito:</p>
+                    <p>Puoi modificare il dispositivo inserendo le informazioni elencate di seguito:</p>
                     <form method="POST" action="#">
                         @csrf
                         @method('POST')
@@ -71,16 +71,16 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option >0.5</option>
-                                        <option >1</option>
-                                        <option >1.5</option>
-                                        <option >2</option>
-                                        <option >2.5</option>
-                                        <option >3</option>
-                                        <option >3.5</option>
-                                        <option >4</option>
-                                        <option >4.5</option>
-                                        <option >5</option>
+                                        <option>0.5</option>
+                                        <option>1</option>
+                                        <option>1.5</option>
+                                        <option>2</option>
+                                        <option>2.5</option>
+                                        <option>3</option>
+                                        <option>3.5</option>
+                                        <option>4</option>
+                                        <option>4.5</option>
+                                        <option>5</option>
                                     </select>
                                     @error('frequency')
                                     <span class="invalid-feedback" role="alert">

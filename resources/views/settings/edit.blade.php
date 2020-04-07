@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800">Impostazioni account</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-arrow-circle-left"></span>
                         </span>
@@ -151,10 +151,10 @@
             <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
                 <div class="table-responsive-sm">
-                    <table class="table table-bordered table-striped" id="dataTable">
+                    <table class="table table-bordered table-striped border-secondary">
                         <thead class="thead-dark table-borderless">
                             <tr>
-                                <th width="1em"><span class="far fa-bell"></span></th>
+                                <th width="1em" class="bg-secondary"><span class="far fa-bell"></span></th>
                                 <th>Dispositivo</th>
                                 <th>Sensore</th>
                                 <th>Soglia</th>
@@ -162,16 +162,6 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tfoot class="thead-dark table-borderless">
-                            <tr>
-                                <th width="1em"><span class="far fa-bell"></span></th>
-                                <th>Dispositivo</th>
-                                <th>Sensore</th>
-                                <th>Soglia</th>
-                                <th>Valore</th>
-                                <th>Status</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <tr>
                                 <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
