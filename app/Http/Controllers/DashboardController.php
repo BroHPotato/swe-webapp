@@ -24,8 +24,10 @@ class DashboardController extends Controller
         $users = $userProvider->findAll();//utenti registrati
         $devices = $deviceProvider->findAll();//dispositivi registrati
 
-        $devicesEntity = $deviceProvider->findAllFromEntity($entityProvider->findFromUser($user->getAuthIdentifier()));
-        $usersEntity = $userProvider->findAllFromEntity($entityProvider->findFromUser($user->getAuthIdentifier()));
+        $entity = $entityProvider->findFromUser($user->getAuthIdentifier());
+
+        $devicesEntity = $deviceProvider->findAllFromEntity($entity->entityId);
+        $usersEntity = $userProvider->findAllFromEntity($entity->entityId);
 
         $usersActive = array_filter($users, function ($u) {
             return !$u->deleted;

@@ -6,7 +6,7 @@ use App\Models\View;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-class ViewProvider extends BasicProvider
+class ViewServiceProvider extends BasicProvider
 {
     /**
      * @var Client
