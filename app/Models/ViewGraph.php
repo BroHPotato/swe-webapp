@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ViewGraph extends Model
 {
-    protected $fillable = ['viewId', 'correlation', 'sensorId1', 'sensorId2', 'viewGraphId'];
+    protected $fillable = ['view', 'correlation', 'sensor1', 'sensor2', 'viewGraphId'];
 }

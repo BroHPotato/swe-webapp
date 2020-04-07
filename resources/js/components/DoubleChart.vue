@@ -19,8 +19,9 @@
 </template>
 
 <script>
+import covariance from '@elstats/covariance';
 export default {
-    props: ["sensor1", "sensor2"],
+    props: ["sensor1", "sensor2", "variance"],
     data: function () {
         return {
             chartOptions: {
@@ -49,10 +50,10 @@ export default {
                     },
                 },
                 yaxis: {
-                    min: 0,
                     title: {
                         text: 'Valore'
                     },
+                    forceNiceScale: true,
                 },
                 dataLabels: {
                     enabled: false,
@@ -66,6 +67,9 @@ export default {
                 {
                     name: this.sensor2.type,
                     data: [],
+                },{
+                    name: this.variance,
+                    data: [],
                 },
             ],
         };
@@ -75,6 +79,11 @@ export default {
             pull: null,
             newDataSeries1: [],
             newDataSeries2: [],
+            newDataVariance: [],
+            data1:[],
+            data2:[],
+            date:null,
+            variance: ['Covarianza', 'Correlazione di Pearson', 'Correlazione di Spearman']
         };
     },
     mounted() {
@@ -91,35 +100,44 @@ export default {
                 .get("/data/" + this.sensor1.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries1.push([
-                        response.data.time,
+                        new Date(response.data.time).toISOString(),
                         response.data.value,
                     ]);
+                    this.vars.data1.push(response.data.value);
                 })
                 .catch((errors) => {
-                    this.vars.newDataSeries1 = [Date.now(), NaN];
+                    this.vars.newDataSeries1 = [new Date(Date.now()).toISOString(), NaN];
                 });
             axios
                 .get("/data/" + this.sensor2.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries2.push([
-                        response.data.time,
+                        new Date(response.data.time).toISOString(),
                         response.data.value,
                     ]);
+                    this.vars.data2.push(response.data.value);
+                    this.vars.date=new Date(response.data.time).toISOString();
                 })
                 .catch((errors) => {
-                    this.vars.newDataSeries2 = [Date.now(), NaN];
+                    this.vars.newDataSeries2 = [new Date(Date.now()).toISOString(), NaN];
                 });
         },
         startInterval(timer) {
             return setInterval(() => {
                 this.fetchData();
+                this.calculateVariance();
                 this.series = [{
                     data: this.vars.newDataSeries1
                 }, {
                     data: this.vars.newDataSeries2,
+                },{
+                    data: this.vars.newDataVariance,
                 }];
             }, timer);
         },
+        calculateVariance(){
+            this.vars.newDataVariance.push([this.vars.date, covariance(this.vars.data1, this.vars.data2)]);
+        }
     },
 };
 </script>

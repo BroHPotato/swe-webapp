@@ -45,6 +45,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@elstats/covariance": "^1.1.0",
         "apexcharts": "^3.18.1",
         "datatables.net": "^1.10.20",
         "datatables.net-bs4": "^1.10.20",

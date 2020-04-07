@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\RouteServiceProvider;
 use App\Providers\UserServiceProvider;
-use GuzzleHttp\Client;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
@@ -20,21 +17,11 @@ class SettingsController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        return view('settings.index', compact('user'));
-    }
-
     public function edit()
     {
         $user = Auth::user();
-        return view('settings.edit', compact('user'));
+        $alerts = [];//todo faker alert
+        return view('settings.edit', compact(['user','alerts']));
     }
 
     public function update()
