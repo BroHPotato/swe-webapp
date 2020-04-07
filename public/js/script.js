@@ -12,10 +12,11 @@ if (tables !== undefined) {
         $(document).ready(function () {
             $(table).dataTable({
                 scrollX: false,
-                autoWidth: true,
+                autoWidth: false,
                 pagingType: "simple_numbers",
                 language: {
-                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
+                    url:
+                        "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json",
                     // "url": "dataTables.italian.lang"
                 },
             });
@@ -26,6 +27,8 @@ if (tables !== undefined) {
     // console.log(dataTableFilter);
     // pagination.addClass("float-right");
 }
+
+
 // document.querySelector("#dataTable_paginate").classList.add("float-right");
 
 if (addSensor !== null) {

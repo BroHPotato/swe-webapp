@@ -99,7 +99,7 @@ Breadcrumbs::for('entities.edit', function ($trail, $entityName) {
 //Views
 Breadcrumbs::for('views', function ($trail) {
     $trail->parent('home');
-    $trail->push('Gestione views', route('views.index'));
+    $trail->push('Pagine view', route('views.index'));
 });
 Breadcrumbs::for('views.show', function ($trail, $viewId) {
     $trail->parent('views');
