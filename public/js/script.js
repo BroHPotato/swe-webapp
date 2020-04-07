@@ -6,6 +6,7 @@ let trashes = document.querySelectorAll(".delete");
 let numSensor = 1;
 
 const tables = document.querySelectorAll(".table");
+
 if (tables !== undefined) {
     tables.forEach((table) => {
         $(document).ready(function () {
@@ -14,19 +15,18 @@ if (tables !== undefined) {
                 autoWidth: true,
                 pagingType: "simple_numbers",
                 language: {
-                    url:
-                        "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json"
                     // "url": "dataTables.italian.lang"
-                }
+                },
             });
         });
     });
-    // non capisco perche torna null DC
-    // const pagination = document.querySelector("#dataTable_paginate");
+    // non capisco perchè torna null DC
     // const dataTableFilter = document.querySelector(".dataTables_filter");
     // console.log(dataTableFilter);
     // pagination.addClass("float-right");
 }
+// document.querySelector("#dataTable_paginate").classList.add("float-right");
 
 if (addSensor !== null) {
     addSensor.addEventListener("click", (e) => {
@@ -61,7 +61,6 @@ if (addSensor !== null) {
                         <span class="text">Elimina sensore</span>
                     </button>
                 </div>
-
             </div>
         `
             trashes = document.querySelectorAll(".delete");
