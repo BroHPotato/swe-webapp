@@ -150,101 +150,101 @@
             </div>
             <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive-sm">
                     <table class="table table-bordered table-striped" id="dataTable">
                         <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th width="1em"><span class="far fa-bell"></span></th>
-                            <th>Dispositivo</th>
-                            <th>Sensore</th>
-                            <th>Soglia</th>
-                            <th>Valore</th>
-                            <th>Status</th>
-                        </tr>
+                            <tr>
+                                <th width="1em"><span class="far fa-bell"></span></th>
+                                <th>Dispositivo</th>
+                                <th>Sensore</th>
+                                <th>Soglia</th>
+                                <th>Valore</th>
+                                <th>Status</th>
+                            </tr>
                         </thead>
                         <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <th width="1em"><span class="far fa-bell"></span></th>
-                            <th>Dispositivo</th>
-                            <th>Sensore</th>
-                            <th>Soglia</th>
-                            <th>Valore</th>
-                            <th>Status</th>
-                        </tr>
+                            <tr>
+                                <th width="1em"><span class="far fa-bell"></span></th>
+                                <th>Dispositivo</th>
+                                <th>Sensore</th>
+                                <th>Soglia</th>
+                                <th>Valore</th>
+                                <th>Status</th>
+                            </tr>
                         </tfoot>
                         <tbody>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                        </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
+                                <td>Disp1</td>
+                                <td>Sens1</td>
+                                <td>maggiore di</td>
+                                <td>10</td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
