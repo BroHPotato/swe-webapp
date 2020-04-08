@@ -17,7 +17,7 @@ class ViewServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/views/',
+            'base_uri' => config('app.api') . '/views',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]
@@ -31,12 +31,12 @@ class ViewServiceProvider extends BasicProvider
     public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get('/views/' . $identifier, $this->setHeaders())->getBody());
             $view = new View();
             $view->fill((array)$response);
             return $view;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -56,7 +56,7 @@ class ViewServiceProvider extends BasicProvider
             }
             return $views;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -75,8 +75,35 @@ class ViewServiceProvider extends BasicProvider
             }
             return $views;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
+        }
+    }
+    /**
+     * @param string $who
+     */
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/views/' . $who, $this->setHeaders());
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    /**
+     * @param string $body
+     */
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
 }

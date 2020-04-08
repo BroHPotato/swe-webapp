@@ -17,7 +17,7 @@ class ViewGraphServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/viewGraphs/',
+            'base_uri' => config('app.api') . '/viewGraphs',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]
@@ -31,12 +31,12 @@ class ViewGraphServiceProvider extends BasicProvider
     public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get('/viewGraphs/' . $identifier, $this->setHeaders())->getBody());
             $graph = new ViewGraph();
             $graph->fill((array)$response);
             return $graph;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -56,7 +56,7 @@ class ViewGraphServiceProvider extends BasicProvider
             }
             return $graphs;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -64,7 +64,7 @@ class ViewGraphServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'viewId=' . $viewId
+                'query' => 'view=' . $viewId
             ]))->getBody());
             $graphs = [];
             foreach ($response as $g) {
@@ -74,8 +74,39 @@ class ViewGraphServiceProvider extends BasicProvider
             }
             return $graphs;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/viewGraphs/' . $who, $this->setHeaders());
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+    /*    public function update(string $who, string $body)
+        {
+            try {
+                $this->request->put('/viewGraphs/' . $who, array_merge($this->setHeaders(), [
+                    'body' => $body
+                ]));
+            } catch (RequestException $e) {
+                $this->isExpired($e);
+                abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            }
+        }*/
 }

@@ -25,7 +25,7 @@ import spearman from 'spearman-rho';
 export default {
     props: ["sensor1", "sensor2", "variance"],
     data: function () {
-        let variance = ['Covarianza', 'Correlazione di Pearson', 'Correlazione di Spearman'];
+        let variance = ['Nessuna','Covarianza', 'Correlazione di Pearson', 'Correlazione di Spearman'];
         return {
             chartOptions: {
                 chart: {
@@ -53,6 +53,7 @@ export default {
                     },
                 },
                 yaxis: {
+                    //logarithmic: true,
                     title: {
                         text: 'Valore'
                     },
@@ -138,18 +139,25 @@ export default {
             }, timer);
         },
         calculateVariance(){
+            let calc = NaN;
             switch (this.variance) {
-                case 0:
-                    this.vars.newDataVariance.push([this.vars.date, covariance(this.vars.data1, this.vars.data2)]);
-                    break;
                 case 1:
-                    this.vars.newDataVariance.push([this.vars.date, pearson.rank(this.vars.data1, this.vars.data2)]);
+                    calc = this.vars.date, covariance(this.vars.data1, this.vars.data2);
                     break;
                 case 2:
+                    calc = pearson.rank(this.vars.data1, this.vars.data2);
+                    break;
+                case 3:
                     (new spearman(this.vars.data1, this.vars.data2)).calc().then(value => {
-                        this.vars.newDataVariance.push([this.vars.date, value]);
+                        calc=value;
                     });
                     break;
+                default:
+                    calc=NaN;
+                    break;
+            }
+            if (!isNaN(calc)){
+                this.vars.newDataVariance.push([this.vars.date, calc.toFixed(3)]);
             }
         }
     },
