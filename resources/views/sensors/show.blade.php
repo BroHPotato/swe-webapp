@@ -24,10 +24,9 @@
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dato sensore real-time</h6>
                 </div>
                 <div class="card-body">
-                    <double-chart
-                        :sensor1="{{json_encode($sensor)}}"
-                        :sensor2="{{json_encode($sensor)}}"
-                    ></double-chart>
+                    <single-chart
+                    :sensor="{{json_encode($sensor)}}"
+                    ></single-chart>
                 </div>
             </div>
          </div>

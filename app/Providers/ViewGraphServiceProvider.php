@@ -17,7 +17,7 @@ class ViewGraphServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/viewsGraphs/',
+            'base_uri' => config('app.api') . '/viewGraphs/',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]
@@ -48,13 +48,13 @@ class ViewGraphServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
-            $graph = [];
+            $graphs = [];
             foreach ($response as $g) {
                 $graph = new ViewGraph();
                 $graph->fill((array)$g);
-                $graph[] = $graph;
+                $graphs[] = $graph;
             }
-            return $graph;
+            return $graphs;
         } catch (RequestException $e) {
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;

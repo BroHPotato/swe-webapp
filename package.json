@@ -45,9 +45,12 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@elstats/covariance": "^1.1.0",
         "apexcharts": "^3.18.1",
+        "correlation-rank": "^0.2.0",
         "datatables.net": "^1.10.20",
         "datatables.net-bs4": "^1.10.20",
+        "spearman-rho": "^1.0.6",
         "vue-apexcharts": "^1.5.3"
     },
     "jest": {
