@@ -20,6 +20,6 @@
 ### Installazione e primo avvio
 
 1. composer update
-2. npm update
+2. npm install
 3. npm run dev
 4. php artisan serve
