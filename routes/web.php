@@ -22,6 +22,7 @@ Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
 //routes per gestione profilo
 Route::get('/settings/edit', 'SettingsController@edit')->name('settings.edit');
+Route::post('/settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
 Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user

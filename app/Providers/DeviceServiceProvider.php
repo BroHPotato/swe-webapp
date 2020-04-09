@@ -27,7 +27,7 @@ class DeviceServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices/',
+            'base_uri' => config('app.api') . '/devices',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -79,7 +79,7 @@ class DeviceServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'entityId=' . $entity
+                'query' => ['entityId' => $entity]
             ]))->getBody());
             $devices = [];
             foreach ($response as $d) {
@@ -98,7 +98,7 @@ class DeviceServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'gatewayId=' . $gateway
+                'query' => ['gatewayId' => $gateway]
             ]))->getBody());
             $devices = [];
             foreach ($response as $d) {
