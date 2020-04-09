@@ -52,7 +52,7 @@ class DeviceController extends Controller
         $devicesOnGateways = [];
         foreach ($gateways as $g) {
             $sensors = [];
-            $devices = $this->deviceProvider->findAll();//todo sostituire con findAllFromGateway($g->gatewayId);
+            $devices = $this->deviceProvider->findAllFromGateway($g->gatewayId);
             foreach ($devices as $d) {
                 $sensors[$d->deviceId] = count($this->sensorProvider->findAllFromDevice($d->deviceId));
             }

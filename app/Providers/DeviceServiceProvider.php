@@ -27,7 +27,7 @@ class DeviceServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices/',
+            'base_uri' => config('app.api') . '/devices',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
