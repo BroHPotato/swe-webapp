@@ -98,14 +98,13 @@
                     <a href="#link-bello-per-cancellare-singola-view" class="text-danger">
                         <span class="fas fa-times mr-1"></span>Elimina
                     </a>
-
                 </div>
                 <div class="card-body">
-                    <!-- <chart-management
-                        v-bind:deviceId='{{$view->deviceId }}'
-                        v-bind:sensorId1='{{$graph->sensorId1}}'
-                        v-bind:sensorId2='{{$graph->sensorId2}}'
-                    ></chart-management> -->
+                        <double-chart
+                            :sensor1='{{json_encode($sensor1)}}'
+                            :sensor2='{{json_encode($sensor2)}}'
+                            :variance = {{$graph->correlation}}
+                        ></double-chart>
                 </div>
             </div>
         </div>

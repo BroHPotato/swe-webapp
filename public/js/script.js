@@ -11,9 +11,15 @@ if (tables !== undefined) {
     tables.forEach((table) => {
         $(document).ready(function () {
             $(table).dataTable({
+                sDom:
+                    '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12 mb-0 mt-2"p>>',
                 scrollX: false,
-                autoWidth: false,
+                autoWidth: true,
+                pageLength: 15,
+                ordering: false,
+                lengthChange: false,
                 pagingType: "simple_numbers",
+                searching: false,
                 language: {
                     url:
                         "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json",

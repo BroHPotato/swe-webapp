@@ -68,4 +68,8 @@ Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
 
 //data
 Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
+
+//data
+Route::get('/logs', 'LogsController@index')->name('logs.index');//TODO
+Route::get('/logs/{logId}', 'LogsController@show')->name('logs.show');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin

@@ -17,7 +17,7 @@ Breadcrumbs::for('devices', function ($trail) {
 });
 Breadcrumbs::for('device', function ($trail, $deviceId) {
     $trail->parent('devices');
-    $trail->push($deviceId, route('devices.show', ['deviceId' => $deviceId]));
+    $trail->push('#' . $deviceId, route('devices.show', ['deviceId' => $deviceId]));
 });
 Breadcrumbs::for('devices.create', function ($trail) {
     $trail->parent('devices');
@@ -29,13 +29,9 @@ Breadcrumbs::for('devices.edit', function ($trail, $deviceId) {
 });
 
 // Sensori
-Breadcrumbs::for('sensors', function ($trail, $deviceId) {
-    $trail->parent('device', $deviceId);
-    $trail->push('Sensori', route('sensors.index', ['deviceId' => $deviceId]));
-});
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
-    $trail->parent('sensors', $deviceId);
-    $trail->push($sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
+    $trail->parent('device', $deviceId);
+    $trail->push('Sensore #' . $sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
 
@@ -46,7 +42,7 @@ Breadcrumbs::for('users.index', function ($trail) {
 });
 Breadcrumbs::for('users.show', function ($trail, $userId) {
     $trail->parent('users.index');
-    $trail->push('Utente ' . $userId, route('users.show', ['userId' => $userId]));
+    $trail->push('Utente #' . $userId, route('users.show', ['userId' => $userId]));
 });
 Breadcrumbs::for('users.create', function ($trail) {
     $trail->parent('users.index');
