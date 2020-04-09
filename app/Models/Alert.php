@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alert extends Model
 {
     protected $fillable = ['threshold', 'type', 'deleted', 'entity', 'sensor', 'lastSent', 'alertId'];
-    private $relType = ['minore di', 'maggiore di'];
+    private $relType = ['minore di', 'maggiore di', 'uguale a'];
 
 
     public function getType()
