@@ -23,7 +23,7 @@
             </div>
                 <div class="card-body">
                     <p>Puoi modificare le informazioni dell'account cambiando i campi contenuti di seguito.</p>
-                    <form method="POST" action="{{route('users.store')}}">
+                    <form method="POST" action="{{route('users.store')}}" id="create">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
@@ -95,7 +95,7 @@
             </div>
         </div>
             <div class="d-sm-flex mb-4 ml-sm-auto float-right">
-                <button type="submit" class="btn btn-success btn-icon-split">
+                <button type="submit" form="create" class="btn btn-success btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-plus-circle"></span>
                                     </span>

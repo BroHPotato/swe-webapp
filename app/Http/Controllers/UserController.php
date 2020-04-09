@@ -88,17 +88,17 @@ class UserController extends Controller
             'email' => 'required|email',
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
-            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
         unset($data['password_check']);//todo to remove
         $data['password'] = "password";
         if (!key_exists('entityId', $data)) {
-            $data['entityId'] = 1; //(new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
+            $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        $this->provider->store(json_encode($data));
+        return $this->provider->store(json_encode($data)) ? redirect(route('users.index')) :
+            redirect(route('users.index'))->withErrors(['createError' => 'Operazione non andata a buon fine']);
     }
 
     /**
