@@ -49,7 +49,6 @@ class ViewController extends Controller
         foreach ($graphs as $g) {
             $found = [0 => false,1 => false];
             foreach ($devices as $d) {
-                $sensors[$d->deviceId] = $this->sensorProvider->findAllFromDevice($d->deviceId);
                 foreach ($sensors[$d->deviceId] as $s) {
                     if ($g->sensor1 == $s->sensorId) {
                         $sensorsOnGraphs[$g->viewGraphId][0] = $s;

@@ -113,11 +113,11 @@
                     </form>
                 </div>
                 <div class="card-body">
-                        <double-chart
-                            :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
-                            :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
-                            :variance = {{$graph->correlation}}
-                        ></double-chart>
+                    <double-chart
+                        :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
+                        :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
+                        :variance = {{$graph->correlation}}
+                    ></double-chart>
                 </div>
             </div>
         </div>
