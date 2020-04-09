@@ -112,7 +112,8 @@ class SensorServiceProvider extends BasicProvider
                 'gatewayName' => 'string',
                 'realDeviceId' => 0,
                 'realSensorId' => 0,
-            ));//todo sostituire con json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
+            ));//todo sostituire con
+            // json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return NAN;

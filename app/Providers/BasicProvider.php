@@ -18,7 +18,7 @@ class BasicProvider extends ServiceProvider
         if ($e->getCode() == 419/*fai il controllo del token*/) {
             session()->invalidate();
             session()->flush();
-            return redirect('login');
+            return redirect(route('login'));
         }
     }
 
