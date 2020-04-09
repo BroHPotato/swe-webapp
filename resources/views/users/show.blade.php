@@ -3,55 +3,44 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Profilo</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Profilo di {{$user->name . ' ' . $user->surname}}</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('users.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
+            <a href="{{route('users.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                  <span class="fas fa-arrow-circle-left"></span>
+                </span>
                 <span class="text">Torna indietro</span>
             </a>
         </div>
-        @if($user->type<Auth::user()->type)
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('users.edit', $user->userId)}}" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                  <span class="fas fa-user-plus"></span>
-                </span>
-                    <span class="text">Modifica</span>
-                </a>
-            </div>
-        @endif
-        <div class="row mx-auto">
+        <div class="row">
             <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <span class="fas fa-info"></span>
+                            <span class="fas fa-info-circle"></span>
                             Dettagli
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p class="font-weight-bold"><span class="fas fa-hashtag"></span> ID : <span class="font-weight-normal">{{$user->userId}}</span></p>
-                        <p class="font-weight-bold"><span class="fas fa-user"></span> Nome e cognome : <span class="font-weight-normal">{{$user->name . ' ' . $user->surname}}</span></p>
-                        <p class="font-weight-bold"><span class="fas fa-user-tag"></span> Ruolo : <span class="font-weight-normal">{{$user->getRole()}}</span></p>
+                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> {{$user->userId}}</p>
+                        <p><span class="fas fa-signature"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
+                        <p><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                <span class="fas fa-address-book"></span>
-                                Contatti
-                            </h6>
-                        </div>
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <span class="fas fa-address-book"></span>
+                            Contatti
+                        </h6>
+                    </div>
                     <div class="card-body">
-                            <p class="font-weight-bold"><span class="fas fa-envelope text-gray-500"></span> Email : <span class="font-weight-normal">{{$user->email}}</span></p>
-                            <p class="font-weight-bold"><span class="fab fa-telegram text-primary"></span> Username Telegram : <span class="font-weight-normal">{{$user->telegramName?? 'NA'}}</span></p>
-                            <p class="font-weight-bold"><span class="fas fa-comment-dots text-primary"></span> Chat Telegram : <span class="font-weight-normal">{{$user->telegramChat?? 'NA'}}</span></p>
-                        </div>
+                        <p><span class="fas fa-envelope text-gray-500"></span> <strong>Email:</strong> {{$user->email}}</p>
+                        <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName?? 'N/D'}}</p>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -63,18 +52,75 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p class="font-weight-bold"><span class="fas fa-shield-alt text-info"></span> Sicurezza account :
+                        <p><span class="fas fa-shield-alt text-info"></span> <strong>Sicurezza account:</strong>
                             @if($user->tfa)
                                 <span class="badge badge-success">Attivo</span>
                             @else
                                 <span class="badge badge-danger">Disattivo</span>
                             @endif</p>
-                        <p class="font-weight-bold"><span class="fas fa-user-lock"></span> Stato :
+                        <p><span class="fas fa-user-lock"></span> <strong>Stato:</strong>
                             @if($user->deleted)
                                 <span class="badge badge-danger">Disattivo</span>
                             @else
                                 <span class="badge badge-success">Attivo</span>
                             @endif </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-secondary">
+                            <span class="fas fa-user-edit"></span>
+                            Opzioni
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        @if($user->type < Auth::user()->type)
+                            <a href="{{route('users.edit', $user->userId)}}" class="btn btn-primary btn-icon-split">
+                                <span class="icon text-white-50">
+                                  <span class="fas fa-user-plus"></span>
+                                </span>
+                                <span class="text">Modifica</span>
+                            </a>
+                        @endif
+                        @if($user->type < Auth::user()->type)
+                            @can(['isAdmin'])
+                                <!-- TODO - aggiungere il link per il reset password oppure usiamo cambio password in impostazioni -->
+                                <a href="#link-bello-reset-password" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-lock"></span>
+                                    </span>
+                                    <span class="text">Reset password</span>
+                                </a>
+                            @endcan
+                        @endif
+                        @if($user->deleted)
+                            <!-- TODO - non previsto dal AdR, ma se c'è anche nelle API manteniamolo e lo aggiungiamo a mano -->
+                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
+                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
+                                <span class="icon text-white-50">
+                                  <span class="fas fa-user-check"></span>
+                                </span>
+                                <span class="text">Ripristina</span>
+                            </a>
+                            <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('PUT')
+                            </form>
+                        @else
+                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
+                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
+                                <span class="icon text-white-50">
+                                  <span class="fas fa-user-times"></span>
+                                </span>
+                                <span class="text">Disattiva utente</span>
+                            </a>
+                            <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        @endif
                     </div>
                 </div>
             </div>

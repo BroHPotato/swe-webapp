@@ -6,11 +6,11 @@
             <h1 class="h3 mb-0 text-gray-800"> Modifica profilo</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('users.index')}}" class="btn btn-danger btn-icon-split">
+            <a href="{{route('users.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                 <span class="icon text-white-50">
                     <span class="fas fa-arrow-circle-left"></span>
                 </span>
-                <span class="text">Torna indietro</span>
+                <span class="text">Torna alla lista utenti</span>
             </a>
         </div>
         <div class="card shadow mb-4">
@@ -102,9 +102,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-4 col-form-label"><span class="fas fa-lock text-success"></span> Password</label>
+                            <label for="inputPassword" class="col-sm-4 col-form-label"><span class="fas fa-lock text-success"></span> Cambio Password (o lascia vuoto)</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Password" name="password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Nuova password o lascia vuoto" name="password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -145,25 +145,19 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
-                            *Per attivare l'<em>autenticazione a due fattori</em> è necessario inserire lo username Telegram
-                            e avviare il bot direttamente dall'applicazione, inserendo il comando <code>/start</code> in chat.
-                        </p>
                     @endcan
+                        <hr>
+                    <button type="submit" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <span class="fas fa-edit"></span>
+                        </span>
+                        <span class="text">Modifica</span>
+                    </button>
                 </form>
                 @else
-                    <p>Non puoi modificare un'utente con il tuo stesso ruolo!</p>
+                    <div class="alert alert-danger">Non puoi modificare un'utente con il tuo stesso ruolo!</div>
                 @endif
             </div>
-        </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <button type="submit" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <span class="fas fa-edit"></span>
-                </span>
-                <span class="text">Modifica</span>
-            </button>
         </div>
     </div>
 @endsection
