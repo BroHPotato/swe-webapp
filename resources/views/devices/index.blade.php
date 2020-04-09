@@ -17,9 +17,9 @@
             @can(['isAdmin'])
                 <div class="col-auto mb-4">
                     <a href="{{route('devices.create')}}" class="btn btn-sm btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                      <span class="fas fa-plus-circle"></span>
-                    </span>s
+                        <span class="icon text-white-50">
+                          <span class="fas fa-plus-circle"></span>
+                        </span>
                         <span class="text">Aggiungi dispositivo</span>
                     </a>
                 </div>
@@ -31,9 +31,9 @@
             <div class="card shadow mb-4">
                 <a href="#collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}" class="d-block card-header py-3"
                    data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi <code>{{ $deviceOnGateway[0]->name}}</code></h6>
+                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi <code>({{ $deviceOnGateway[0]->name}})</code></h6>
                 </a>
-                <div class="collapse show" id="collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}">
+                <div class="collapse collapsed" id="collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}">
                     <div class="card-body">
                         <div class="table-responsive-lg">
                             <table class="table table-striped table-bordered border-secondary">

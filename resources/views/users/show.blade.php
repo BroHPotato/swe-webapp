@@ -1,30 +1,30 @@
 @extends('layouts.app')
 @section('breadcrumbs', Breadcrumbs::render('users.show', $user->userId))
 @section('content')
-    <div class="container-fluid" xmlns="http://www.w3.org/1999/html">
+    <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Profilo</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Profilo di {{$user->name . ' ' . $user->surname}}</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('users.index')}}" class="btn btn-small btn-danger btn-icon-split">
+            <a href="{{route('users.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                 <span class="icon text-white-50">
                   <span class="fas fa-arrow-circle-left"></span>
                 </span>
                 <span class="text">Torna indietro</span>
             </a>
         </div>
-        <div class="row mx-auto">
+        <div class="row">
             <div class="col-md-4">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <span class="fas fa-info"></span>
+                            <span class="fas fa-info-circle"></span>
                             Dettagli
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p><span class="fas fa-hashtag"></span> <strong">ID:</strong> {{$user->userId}}</p>
-                        <p><span class="fas fa-user"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
+                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> {{$user->userId}}</p>
+                        <p><span class="fas fa-signature"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
                         <p><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</p>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-secondary">
@@ -86,7 +86,7 @@
                         @endif
                         @if($user->type < Auth::user()->type)
                             @can(['isAdmin'])
-                                <!-- TODO - aggiungere il link per il reset password -->
+                                <!-- TODO - aggiungere il link per il reset password oppure usiamo cambio password in impostazioni -->
                                 <a href="#link-bello-reset-password" class="btn btn-primary btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-lock"></span>
@@ -95,28 +95,28 @@
                                 </a>
                             @endcan
                         @endif
-                        @if($u->deleted)
+                        @if($user->deleted)
                             <!-- TODO - non previsto dal AdR, ma se c'è anche nelle API manteniamolo e lo aggiungiamo a mano -->
-                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $u->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$u->userId}}').submit();">
+                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
+                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-check"></span>
                                 </span>
                                 <span class="text">Ripristina</span>
                             </a>
-                            <form id="restore-form-{{$u->userId}}" action="{{ route('users.restore', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
+                            <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('PUT')
                             </form>
                         @else
-                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $u->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$u->userId}}').submit();">
+                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
+                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-times"></span>
                                 </span>
-                                <span class="text">Elimina</span>
+                                <span class="text">Disattiva utente</span>
                             </a>
-                            <form id="delete-form-{{$u->userId}}" action="{{ route('users.destroy', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
+                            <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
