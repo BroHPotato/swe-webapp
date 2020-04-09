@@ -1,9 +1,8 @@
-import SingleChart from "../resources/js/components/SingleChart";
-
 window.axios = require("axios");
 
 import { mount } from "@vue/test-utils";
 import DoubleChart from "../resources/js/components/DoubleChart.vue";
+import SingleChart from "../resources/js/components/SingleChart";
 
 describe("DoubleChart", () => {
     test("is a Vue instance", () => {
@@ -17,8 +16,6 @@ describe("DoubleChart", () => {
         expect(chart.isVueInstance()).toBeTruthy();
     });
 });
-
-import SingleChartChart from "../resources/js/components/SingleChart";
 
 describe("SingleChart", () => {
     test("is a Vue instance", () => {

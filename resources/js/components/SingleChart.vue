@@ -19,96 +19,98 @@
 </template>
 
 <script>
-    export default {
-        props: ["sensor"],
-        data: function () {
-            return {
-                chartOptions: {
-                    chart: {
-                        type: "line",
-                        height: 400,
+export default {
+    props: ["sensor"],
+    data: function () {
+        return {
+            chartOptions: {
+                chart: {
+                    type: "line",
+                    height: 400,
+                },
+                toolbar: {
+                    show: false,
+                },
+                markers: {
+                    size: 1,
+                },
+                stroke: {
+                    curve: "straight",
+                },
+                xaxis: {
+                    type: "datetime",
+                    range: 60000, // mantiene in memoria 10 secondi
+                    tickPlacement: "between",
+                    labels: {
+                        format: "dd/MM/yy - HH:mm:ss",
                     },
-                    toolbar: {
-                        show: false
-                    },
-                    markers: {
-                        size: 1
-                    },
-                    stroke: {
-                        curve: "straight",
-                    },
-                    xaxis: {
-                        type: 'datetime',
-                        range: 60000, // mantiene in memoria 10 secondi
-                        tickPlacement: 'between',
-                        labels: {
-                            format: 'dd/MM/yy - HH:mm:ss',
-                        },
-                        title: {
-                            text: 'Tempo'
-                        },
-                    },
-                    yaxis: {
-                        min: 0,
-                        title: {
-                            text: 'Valore'
-                        },
-                    },
-                    legend: {
-                        position: 'top',
-                        horizontalAlign: 'right',
-                        floating: true,
-                        offsetY: -25,
-                        offsetX: -5,
-                    },
-                    dataLabels: {
-                        enabled: false,
+                    title: {
+                        text: "Tempo",
                     },
                 },
-                series: [
-                    {
-                        name: this.sensor.type,
-                        data: [],
+                yaxis: {
+                    min: 0,
+                    title: {
+                        text: "Valore",
                     },
-                ],
-            };
-        },
-        created() {
-            this.vars = {
-                pull: null,
-                newDataSeries: [],
-            };
-        },
-        mounted() {
-            this.fetchData();
-            this.vars.pull = this.startInterval(4000);
-        },
-        methods: {
-            changePullrate(timer) {
-                clearInterval(this.pull);
-                this.pull = this.startInterval(timer.target.value);
+                },
+                legend: {
+                    position: "top",
+                    horizontalAlign: "right",
+                    floating: true,
+                    offsetY: -25,
+                    offsetX: -5,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
             },
-            fetchData() {
-                axios
-                    .get("/data/" + this.sensor.sensorId)
-                    .then((response) => {
-                        this.vars.newDataSeries.push([
-                            response.data.time,
-                            response.data.value,
-                        ]);
-                    })
-                    .catch((errors) => {
-                        this.vars.newDataSeries.push([new Date.now(), NaN]);
-                    });
-            },
-            startInterval(timer) {
-                return setInterval(() => {
-                    this.fetchData();
-                    this.series = [{
-                        data: this.vars.newDataSeries
-                    }];
-                }, timer);
-            },
+            series: [
+                {
+                    name: this.sensor.type,
+                    data: [],
+                },
+            ],
+        };
+    },
+    created() {
+        this.vars = {
+            pull: null,
+            newDataSeries: [],
+        };
+    },
+    mounted() {
+        this.fetchData();
+        this.vars.pull = this.startInterval(4000);
+    },
+    methods: {
+        changePullrate(timer) {
+            clearInterval(this.pull);
+            this.pull = this.startInterval(timer.target.value);
         },
-    };
+        fetchData() {
+            axios
+                .get("/data/" + this.sensor.sensorId)
+                .then((response) => {
+                    this.vars.newDataSeries.push([
+                        response.data.time,
+                        response.data.value,
+                    ]);
+                })
+                .catch((errors) => {
+                    this.vars.newDataSeries.push([Date.now(), NaN]);
+                });
+        },
+        startInterval(timer) {
+            return setInterval(() => {
+                this.fetchData();
+                this.series = [
+                    {
+                        data: this.vars.newDataSeries,
+                    },
+                ];
+            }, timer);
+        },
+    },
+};
 </script>

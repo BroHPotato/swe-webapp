@@ -23,7 +23,7 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{--route('views.store')--}}">
+                    <form method="POST" action="{{route('views.store')}}">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
@@ -37,7 +37,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </form>
+
                     <div class="d-sm-flex mb-4 ml-sm-auto">
                         <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
@@ -46,6 +46,7 @@
                             <span class="text">Aggiungi</span>
                         </button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

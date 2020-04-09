@@ -65,11 +65,15 @@ Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities
 //routes per la gestione delle views
 Route::get('/views', 'ViewController@index')->name('views.index');//TODO
 Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
-
+Route::post('/views', 'ViewController@store')->name('views.store');
+Route::delete('/views/{viewId}', 'ViewController@destroy')->name('views.destroy');
 //data
 Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
 
-//data
+//logs
 Route::get('/logs', 'LogsController@index')->name('logs.index');//TODO
 Route::get('/logs/{logId}', 'LogsController@show')->name('logs.show');//TODO
 /*->middleware('can:isAdmin')*/// limita users agli admin
+Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
+Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
+/*Route::put('/viewGraphs/{viewId}', 'GraphsController@update')->name('graphs.update');*/

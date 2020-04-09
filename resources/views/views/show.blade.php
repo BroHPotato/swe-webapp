@@ -22,7 +22,7 @@
                 </a>
                 <div class="collapse show" id="collapseAddView"> <!-- TODO rimuovere show una volta implementato il backend -->
                     <div class="card-body">
-                        <form method="POST" action="{{--route('views.store')--}}">
+                        <form method="POST" action="{{route('graphs.store', ['viewId'=>$view->viewId])}}">
                             @csrf
                             @method('POST')
                             <div class="form-group row">
@@ -30,7 +30,11 @@
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <select class="form-control @error('sensore1') is-invalid @enderror" name="sensor1" id="inputSensor1">
-                                            <option value="id">Nome dispositivo - Nome sensore</option>  {{-- Lista con tutti i dispositivi dell'ente o di tutti quelli disponibili per l'admin --}}
+                                            @foreach($devices as $d)
+                                                @foreach($sensors[$d->deviceId] as $s)
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - ' . $s->type}}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                         @error('sensor1')
                                         <span class="invalid-feedback" role="alert">
@@ -44,8 +48,12 @@
                                 <label for="inputSensor12" class="col-sm-3 col-form-label"><span class="fas fa-thermometer-three-quarters"></span> Sensore 2</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensore2') is-invalid @enderror" name="sensor2" id="inputSensor2">
-                                            <option value="id">Nome dispositivo - Nome sensore</option>  {{-- Lista con tutti i dispositivi dell'ente o di tutti quelli disponibili per l'admin --}}
+                                        <select class="form-control @error('sensor2') is-invalid @enderror" name="sensor2" id="inputSensor2">
+                                            @foreach($devices as $d)
+                                                @foreach($sensors[$d->deviceId] as $s)
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - ' . $s->type}}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                         @error('sensor2')
                                         <span class="invalid-feedback" role="alert">
@@ -73,15 +81,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="d-sm-flex mb-4 ml-sm-auto">
-                            <button type="submit" class="btn btn-success btn-icon-split">
+                            <div class="d-sm-flex mb-4 ml-sm-auto">
+                                <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-plus-circle"></span>
                                 </span>
-                                <span class="text">Aggiungi</span>
-                            </button>
-                        </div>
+                                    <span class="text">Aggiungi</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -95,16 +103,21 @@
                 <div class="card-header py-3 d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dati real-time
                         </h6>
-                    <a href="#link-bello-per-cancellare-singola-view" class="text-danger">
+                    <a class="text-danger" href="{{ route('graphs.destroy', ['viewGraphId'=>$graph->viewGraphId]) }}"
+                       onclick="event.preventDefault(); document.getElementById('destroy{{$graph->viewGraphId}}').submit();">
                         <span class="fas fa-times mr-1"></span>Elimina
                     </a>
+                    <form id="destroy{{$graph->viewGraphId}}" action="{{ route('graphs.destroy', ['viewGraphId'=>$graph->viewGraphId]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
                 </div>
                 <div class="card-body">
-                        <double-chart
-                            :sensor1='{{json_encode($sensor1)}}'
-                            :sensor2='{{json_encode($sensor2)}}'
-                            :variance = {{$graph->correlation}}
-                        ></double-chart>
+                    <double-chart
+                        :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
+                        :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
+                        :variance = {{$graph->correlation}}
+                    ></double-chart>
                 </div>
             </div>
         </div>
