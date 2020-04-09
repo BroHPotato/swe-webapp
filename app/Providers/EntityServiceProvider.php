@@ -27,7 +27,7 @@ class EntityServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/entities/',
+            'base_uri' => config('app.api') . '/entities',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -41,7 +41,7 @@ class EntityServiceProvider extends BasicProvider
     public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
+            $response = json_decode($this->request->get('/entities/' . $identifier, $this->setHeaders())->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);
             return $entity;
@@ -77,11 +77,11 @@ class EntityServiceProvider extends BasicProvider
      * @param $deviceId
      * @return Entity|null
      */
-    public function findFromDevice($deviceId)
+    public function findFromSensor($sensorId)
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'deviceId=' . $deviceId
+                'query' => 'sensor=' . $sensorId
             ]))->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);

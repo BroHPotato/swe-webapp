@@ -11,6 +11,17 @@
         </span>
         <span class="text">Torna indietro</span>
     </a>
+    <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}"
+       onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
+        <span class="icon text-white-50">
+          <span class="fas fa-times"></span>
+        </span>
+        <span class="text">Elimina View</span>
+    </a>
+    <form id="destroy-view" action="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}" method="POST" style="display: none;">
+        @csrf
+        @method('DELETE')
+    </form>
     <div class="row mt-2">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
@@ -20,7 +31,7 @@
                         Aggiungi grafico pagina view
                     </h6>
                 </a>
-                <div class="collapse show" id="collapseAddView"> <!-- TODO rimuovere show una volta implementato il backend -->
+                <div class="collapse" id="collapseAddView">
                     <div class="card-body">
                         <form method="POST" action="{{route('graphs.store', ['viewId'=>$view->viewId])}}">
                             @csrf
