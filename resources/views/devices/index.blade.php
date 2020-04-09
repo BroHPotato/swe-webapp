@@ -19,20 +19,21 @@
                     <a href="{{route('devices.create')}}" class="btn btn-sm btn-success btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
-                    </span>
+                    </span>s
                         <span class="text">Aggiungi dispositivo</span>
                     </a>
                 </div>
             @endcan
         </div>
 
+    @can(["isAdmin"])
         @foreach($devicesOnGateways as $deviceOnGateway)
             <div class="card shadow mb-4">
-                <a href="#collapseByGateway_{{$deviceOnGateway[0]->id}}" class="d-block card-header py-3"
-                   data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseByGateway_{{$deviceOnGateway[0]->id}}">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi {{ $deviceOnGateway[0]->name}}</h6>
+                <a href="#collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}" class="d-block card-header py-3"
+                   data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}">
+                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi <code>{{ $deviceOnGateway[0]->name}}</code></h6>
                 </a>
-                <div class="collapse show" id="collapseByGateway_{{$deviceOnGateway[0]->id}}">
+                <div class="collapse show" id="collapseByGateway_{{$deviceOnGateway[0]->gatewayId}}">
                     <div class="card-body">
                         <div class="table-responsive-lg">
                             <table class="table table-striped table-bordered border-secondary">
@@ -73,5 +74,45 @@
                 </div>
             </div>
         @endforeach
+    @endcan
+
+    @cannot(["isAdmin"])
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi</h6>
+            </a>
+            <div class="card-body">
+                <div class="table-responsive-lg">
+                    <table class="table table-striped table-bordered border-secondary">
+                        <thead class="thead-dark table-borderless">
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>Gateway</th>
+                            <th>Sensori</th>
+                            <th>Frequenza</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($devicesOnGateways as $deviceOnGateway)
+                            @foreach($deviceOnGateway[1] as $device)
+                            <tr>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->deviceId}}</a></td>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
+                                <td><span class="badge badge-success">Attivo</span></td>
+                                <td class="small">{{$deviceOnGateway[0]->name}}</td>
+                                <td>{{$deviceOnGateway[2][$device->deviceId]}}</td>
+                                <td>{{$device->frequency}}s</td>
+                            </tr>
+                            @endforeach
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    @endcannot
+
     </div>
 @endsection
