@@ -103,7 +103,6 @@ class UserController extends Controller
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
         ]);
-        unset($data['password_check']);//todo to remove
         $data['password'] = "password";
         if (!key_exists('entityId', $data)) {
             $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
@@ -131,9 +130,7 @@ class UserController extends Controller
             'tfa' => 'nullable|in:true',
             'deleted' => 'nullable|in:true',
             'password' => 'nullable|min:6',
-            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
-        unset($data['password_check']);//todo to remove
         $data = array_diff_assoc($data, $user->getAttributes());
 
         if (key_exists('deleted', $data)) {
@@ -145,7 +142,7 @@ class UserController extends Controller
         }
 
         if (key_exists('telegramName', $data)) {
-            if ($data['telegramName'] != $user->getTelegramName() || is_null($user->getChatId())) {
+            if ($data['telegramName'] != $user->getTelegramName()) {
                 $data['tfa'] = false;
             }
         }

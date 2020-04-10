@@ -52,8 +52,8 @@ Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.upda
 Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
 
 //routes per gestione sensori
-Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');//TODO
-Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
+Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
+Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
 
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
@@ -64,17 +64,16 @@ Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.upda
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //routes per la gestione delle views
-Route::get('/views', 'ViewController@index')->name('views.index');//TODO
-Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
+Route::get('/views', 'ViewController@index')->name('views.index');
+Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');
 Route::post('/views', 'ViewController@store')->name('views.store');
 Route::delete('/views/{viewId}', 'ViewController@destroy')->name('views.destroy');
 //data
-Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
+Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
 //logs
 Route::get('/logs', 'LogsController@index')->name('logs.index');//TODO
 Route::get('/logs/{logId}', 'LogsController@show')->name('logs.show');//TODO
-/*->middleware('can:isAdmin')*/// limita users agli admin
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
 /*Route::put('/viewGraphs/{viewId}', 'GraphsController@update')->name('graphs.update');*/
