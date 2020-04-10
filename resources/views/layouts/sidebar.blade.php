@@ -1,6 +1,6 @@
 <!-- Sidebar -->
 <!-- Classe toggled to set the closed sidebar -->
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
@@ -19,14 +19,16 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>Dashboard</span>
+        </a>
     </li>
 
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('settings.edit') }}"><!-- route('settings.index') -->
+        <a class="nav-link" href="{{ route('settings.edit') }}">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Impostazioni</span></a>
+            <span>Impostazioni</span>
+        </a>
     </li>
     <hr class="sidebar-divider">
 
@@ -37,7 +39,8 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('devices.index') }}">
             <i class="fas fa-fw fa-microchip"></i>
-            <span>Dispositivi e sensori</span></a>
+            <span>Dispositivi e sensori</span>
+        </a>
     </li>
 
     <li class="nav-item">
@@ -54,7 +57,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="true" aria-controls="collapseMod">
+        <a href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod" class="nav-link collapsed">
             <i class="fas fa-fw fa-user-tie"></i>
             <span>Moderazione</span>
         </a>
@@ -78,7 +81,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin">
             <i class="fas fa-fw fa-user-secret"></i>
             <span>Amministrazione</span>
         </a>
