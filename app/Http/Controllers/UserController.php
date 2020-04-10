@@ -42,7 +42,21 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->provider->findAll();
-        return view('users.index', compact('users'));
+        $entities = (new EntityServiceProvider())->findAll();
+        $nullOrNot = function ($u) use (&$entities) {
+            $entity = array_filter($entities, function ($e) use (&$u) {
+                return $u->entity == $e->entityId;
+            });
+            if (empty($entity)) {
+                return null;
+            }
+            return array_pop($entity);
+        };
+
+        foreach ($users as $u) {
+            $usersWithEntity[] = ['user' => $u, 'entity' => $nullOrNot($u)];
+        }
+        return view('users.index', compact('usersWithEntity'));
     }
 
     /**
