@@ -20,7 +20,7 @@ class LogsServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/logs/',
+            'base_uri' => config('app.api') . '/logs',
             'headers' => [
                 'Content-Type' => 'application/json',
             ]

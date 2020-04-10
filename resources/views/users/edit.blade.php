@@ -91,17 +91,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputTelegramChat" class="col-sm-4 col-form-label"><span class="fas fa-comment-dots text-primary"></span> Chat Telegram</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control @error('telegramChat') is-invalid @enderror" id="inputTelegramChat" placeholder="Chat Telegram" value="{{old('telegramChat')??$user->telegramChat}}" name="telegramChat">
-                                @error('telegramChat')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="inputPassword" class="col-sm-4 col-form-label"><span class="fas fa-lock text-success"></span> Cambio Password (o lascia vuoto)</label>
                             <div class="col-sm-8">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Nuova password o lascia vuoto" name="password">

@@ -38,41 +38,47 @@
                                 <th>Stato</th>
                                 <th>Email</th>
                                 <th>Ruolo</th>
+                                @can('isAdmin')
+                                    <th>Ente</th>
+                                @endcan
                                 <th class="bg-secondary"> </th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($usersWithEntity as $u)
-                            <tr>
-                                <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->userId}}</a></td>
-                                <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->name}} {{$u['user']->surname}}</a></td>
-                                <td>
-                                    @if($u['user']->deleted)
-                                        <span class="badge badge-danger">Disattivo</span>
-                                    @else
-                                        <span class="badge badge-success">Attivo</span>
-                                    @endif
-                                </td>
-                                <td>{{$u['user']->email}}</td>
-                                <td>
-                                    <span class="text-info">{{$u['user']->getRole()}}</span>
-                                </td>
-                                <td class="text-center">
-                                    @canany(['isAdmin', 'isMod'])
-                                    @if($u['user']->type < Auth::user()->type)
-                                        <div class="d-sm-flex mb-4 ml-sm-auto">
-                                            <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
-                                                <span class="icon text-white-50">
-                                                  <span class="fas fa-user-edit"></span>
-                                                </span>
-                                                <span class="text">Modifica</span>
-                                            </a>
-                                        </div>
-                                    @endif
-                                    @endcanany
-                                </td>
-                            </tr>
-                        @endforeach
+                            @canany(['isAdmin', 'isMod'])
+                                @foreach($usersWithEntity as $u)
+                                    <tr>
+                                        <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->userId}}</a></td>
+                                        <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->name}} {{$u['user']->surname}}</a></td>
+                                        <td>
+                                            @if($u['user']->deleted)
+                                                <span class="badge badge-danger">Disattivo</span>
+                                            @else
+                                                <span class="badge badge-success">Attivo</span>
+                                            @endif
+                                        </td>
+                                        <td>{{$u['user']->email}}</td>
+                                        <td>
+                                            <span class="text-info">{{$u['user']->getRole()}}</span>
+                                        </td>
+                                        @can('isAdmin')
+                                            <th>{{$u['entity']?$u['entity']->name:''}}</th>
+                                        @endcan
+                                        <td class="text-center">
+                                            @if($u['user']->type < Auth::user()->type)
+                                                <div class="d-sm-flex mb-4 ml-sm-auto">
+                                                    <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                          <span class="fas fa-user-edit"></span>
+                                                        </span>
+                                                        <span class="text">Modifica</span>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endcanany
                         </tbody>
                     </table>
                 </div>

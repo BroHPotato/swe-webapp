@@ -26,14 +26,14 @@ Route::post('/settings', 'SettingsController@updateAlerts')->name('settings.upda
 Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user
-Route::get('/users', 'UserController@index')->name('users.index');
-Route::get('/users/create', 'UserController@create')->name('users.create');
-Route::post('/users', 'UserController@store')->name('users.store');
-Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
-Route::put('/users/{userId}', 'UserController@update')->name('users.update');
-Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
-Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore');
-Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
+Route::get('/users', 'UserController@index')->name('users.index')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::get('/users/create', 'UserController@create')->name('users.create')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::post('/users', 'UserController@store')->name('users.store')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::get('/users/{userId}', 'UserController@show')->name('users.show')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::put('/users/{userId}', 'UserController@update')->name('users.update')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore')->middleware(['can:isAdmin' || 'can:isMod']);
+Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy')->middleware(['can:isAdmin' || 'can:isMod']);
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO
@@ -52,8 +52,8 @@ Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.upda
 Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
 
 //routes per gestione sensori
-Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');//TODO
-Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');//TODO
+Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
+Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
 
 //routes per gestione entity
 Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
@@ -64,17 +64,16 @@ Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.upda
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //routes per la gestione delle views
-Route::get('/views', 'ViewController@index')->name('views.index');//TODO
-Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');//TODO
+Route::get('/views', 'ViewController@index')->name('views.index');
+Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');
 Route::post('/views', 'ViewController@store')->name('views.store');
 Route::delete('/views/{viewId}', 'ViewController@destroy')->name('views.destroy');
 //data
-Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');//TODO
+Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
 //logs
 Route::get('/logs', 'LogsController@index')->name('logs.index');//TODO
 Route::get('/logs/{logId}', 'LogsController@show')->name('logs.show');//TODO
-/*->middleware('can:isAdmin')*/// limita users agli admin
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
 /*Route::put('/viewGraphs/{viewId}', 'GraphsController@update')->name('graphs.update');*/
