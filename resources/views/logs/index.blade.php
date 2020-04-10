@@ -35,13 +35,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="small">10 aprile 2015 - ore 26:00</td>
-                                    <td>massimo</td>
-                                    <td>aDmIn</td>
-                                    <td class="small"><code>faccio cose ciao</code></td>
-                                    <td><code> il mio ip </code></td>
-                                </tr>
+                                @foreach($logs as $l)
+                                    <tr>
+                                        <td class="small">{{$l["log"]->time}}</td>
+                                        <td>{{$l['user']->name. ' ' .$l['user']->surname}}</td>
+                                        <td>{{$l['user']->getRole()}}</td>
+                                        <td class="small"><code>{{$l["log"]->operation}}</code></td>
+                                        <td><code>{{$l["log"]->ipAddr}}</code></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -50,3 +52,4 @@
         </div>
     </div>
 </div>
+@endsection

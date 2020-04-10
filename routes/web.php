@@ -72,9 +72,7 @@ Route::delete('/views/{viewId}', 'ViewController@destroy')->name('views.destroy'
 Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
 //logs
-Route::get('/logs', 'LogsController@index')->name('logs.index')->middleware(['can:isAdmin' || 'can:isMod']);;//TODO
-Route::get('/logs/{logId}', 'LogsController@show')->name('logs.show');//TODO
-
+Route::get('/logs', 'LogsController@index')->name('logs.index')->middleware(['can:isAdmin' || 'can:isMod']);
 
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');

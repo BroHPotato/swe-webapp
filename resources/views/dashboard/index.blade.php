@@ -128,7 +128,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Nome e Cognome:</strong> {{$user->name}} {{$user->surname}}</li>
                         <li class="list-group-item"><strong>Indirizzo email:</strong> {{$user->email}}</li>
-                        <li class="list-group-item"><strong>Ente di appartenenza:</strong> {{$entity->name}}</li>
+                        <li class="list-group-item"><strong>Ente di appartenenza:</strong> {{$entity->name??"N/A"}}</li>
                         <li class="list-group-item"><strong>Indirizzo IP:</strong> &nbsp; <code>{{ request()->ip() }}</code></li>
                     </ul>
                 </div>
