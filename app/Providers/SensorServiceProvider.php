@@ -136,4 +136,21 @@ class SensorServiceProvider extends BasicProvider
             return NAN;
         }
     }
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    /**
+     * @return Sensor
+     */
+    public static function GetASensor()
+    {
+        $sensor = new Sensor();
+        $arr = array_combine(
+            array('sensorId', 'type', 'realSensorId', 'device'),
+            array("0", "Tipo", "0", '0')
+        );
+        $sensor->fill($arr);
+        return $sensor;
+    }
 }

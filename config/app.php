@@ -178,6 +178,12 @@ return [
         App\Providers\UserServiceProvider::class,
         App\Providers\GatewayServiceProvider::class,
         App\Providers\SensorServiceProvider::class,
+        App\Providers\AlertServiceProvider::class,
+        App\Providers\BasicProvider::class,
+        App\Providers\LogsServiceProvider::class,
+        App\Providers\ViewGraphServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
+
 
     ],
 
