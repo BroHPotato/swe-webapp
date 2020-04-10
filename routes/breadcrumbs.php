@@ -101,3 +101,9 @@ Breadcrumbs::for('views.show', function ($trail, $viewId) {
     $trail->parent('views');
     $trail->push('#' . $viewId, route('views.show', ['viewId' => $viewId]));
 });
+
+//Logs
+Breadcrumbs::for('logs', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Logs', route('views.index'));
+});

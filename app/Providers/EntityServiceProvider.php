@@ -101,10 +101,10 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'userId=' . $userId
+                'query' => 'user=' . $userId
             ]))->getBody());
             $entity = new Entity();
-            $entity->fill((array)$response);
+            $entity->fill((array)$response[0]);
             return $entity;
         } catch (RequestException $e) {
             $this->isExpired($e);

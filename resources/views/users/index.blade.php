@@ -21,7 +21,9 @@
             </a>
             @endcanany
         </div>
-
+        @error('createError')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
@@ -40,27 +42,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $u)
+                        @foreach($usersWithEntity as $u)
                             <tr>
-                                <td><a href="{{route('users.show', ['userId' => $u->userId ])}}">{{$u->userId}}</a></td>
-                                <td><a href="{{route('users.show', ['userId' => $u->userId ])}}">{{$u->name}} {{$u->surname}}</a></td>
+                                <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->userId}}</a></td>
+                                <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->name}} {{$u['user']->surname}}</a></td>
                                 <td>
-                                    @if($u->deleted)
+                                    @if($u['user']->deleted)
                                         <span class="badge badge-danger">Disattivo</span>
                                     @else
                                         <span class="badge badge-success">Attivo</span>
                                     @endif
                                 </td>
+                                <td>{{$u['user']->email}}</td>
                                 <td>
-                                    <span class="text-info">{{$u->getRole()}}</span>
+                                    <span class="text-info">{{$u['user']->getRole()}}</span>
                                 </td>
-                                <td>{{$u->email}}</td>
-
                                 <td class="text-center">
                                     @canany(['isAdmin', 'isMod'])
-                                    @if($u->type < Auth::user()->type)
+                                    @if($u['user']->type < Auth::user()->type)
                                         <div class="d-sm-flex mb-4 ml-sm-auto">
-                                            <a href="{{route('users.edit', $u->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                            <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
                                                 <span class="icon text-white-50">
                                                   <span class="fas fa-user-edit"></span>
                                                 </span>
