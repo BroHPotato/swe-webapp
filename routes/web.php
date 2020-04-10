@@ -27,7 +27,7 @@ Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user
 Route::get('/users', 'UserController@index')->name('users.index');
-Route::get('/users/create', 'UserController@create')->name('users.create');//TODO
+Route::get('/users/create', 'UserController@create')->name('users.create');
 Route::post('/users', 'UserController@store')->name('users.store');
 Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
 Route::put('/users/{userId}', 'UserController@update')->name('users.update');

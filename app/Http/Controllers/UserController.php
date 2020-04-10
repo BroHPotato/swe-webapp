@@ -42,7 +42,21 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->provider->findAll();
-        return view('users.index', compact('users'));
+        $entities = (new EntityServiceProvider())->findAll();
+        $nullOrNot = function ($u) use (&$entities) {
+            $entity = array_filter($entities, function ($e) use (&$u) {
+                return $u->entity == $e->entityId;
+            });
+            if (empty($entity)) {
+                return null;
+            }
+            return array_pop($entity);
+        };
+
+        foreach ($users as $u) {
+            $usersWithEntity[] = ['user' => $u, 'entity' => $nullOrNot($u)];
+        }
+        return view('users.index', compact('usersWithEntity'));
     }
 
     /**
@@ -88,17 +102,17 @@ class UserController extends Controller
             'email' => 'required|email',
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
-            'password_check' => 'required|in:' . Auth::user()->getAuthPassword(),
         ]);
         unset($data['password_check']);//todo to remove
         $data['password'] = "password";
         if (!key_exists('entityId', $data)) {
-            $data['entityId'] = 1; //(new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
+            $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        $this->provider->store(json_encode($data));
+        return $this->provider->store(json_encode($data)) ? redirect(route('users.index')) :
+            redirect(route('users.index'))->withErrors(['createError' => 'Operazione non andata a buon fine']);
     }
 
     /**
