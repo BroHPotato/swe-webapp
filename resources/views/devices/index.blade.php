@@ -39,7 +39,7 @@
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                     <tr>
-                                        <th>#</th>
+                                        <th><span class="fas fa-list-ul"></span></th>
                                         <th>Nome</th>
                                         <th>Status</th>
                                         <th>Gateway</th>
@@ -51,7 +51,7 @@
                                 <tbody>
                                 @foreach($deviceOnGateway[1] as $device)
                                     <tr>
-                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->deviceId}}</a></td>
+                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="logic-id">{{$device->deviceId}}</a></td>
                                         <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
                                         <td><span class="badge badge-success">Attivo</span></td>
                                         <td class="small">{{$deviceOnGateway[0]->name}}</td>
@@ -86,7 +86,7 @@
                     <table class="table table-striped table-bordered border-secondary">
                         <thead class="thead-dark table-borderless">
                         <tr>
-                            <th>#</th>
+                            <th><span class="fas fa-list-ul"></span></th>
                             <th>Nome</th>
                             <th>Status</th>
                             <th>Gateway</th>
@@ -98,7 +98,7 @@
                         @foreach($devicesOnGateways as $deviceOnGateway)
                             @foreach($deviceOnGateway[1] as $device)
                             <tr>
-                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->deviceId}}</a></td>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="logic-id">{{$device->deviceId}}</a></td>
                                 <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
                                 <td><span class="badge badge-success">Attivo</span></td>
                                 <td class="small">{{$deviceOnGateway[0]->name}}</td>

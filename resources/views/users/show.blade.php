@@ -77,9 +77,9 @@
                     </div>
                     <div class="card-body">
                         @if($user->type < Auth::user()->type)
-                            <a href="{{route('users.edit', $user->userId)}}" class="btn btn-primary btn-icon-split">
+                            <a href="{{route('users.edit', $user->userId)}}" class="btn btn-warning btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <span class="fas fa-user-plus"></span>
+                                  <span class="fas fa-user-edit"></span>
                                 </span>
                                 <span class="text">Modifica</span>
                             </a>

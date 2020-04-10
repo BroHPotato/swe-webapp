@@ -170,7 +170,7 @@
                                         <tr>
                                             <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
                                             <td>{{$list['device']->name}}</td>
-                                            <td>{{$list['alert']->sensor}}</td>
+                                            <td><span class="real-id">{{$list['alert']->sensor}}</span></td>
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
                                             @if($status == "enable")
