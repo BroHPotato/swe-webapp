@@ -27,6 +27,27 @@ class UserTest extends TestCase
     public function testGetRole()
     {
         $user = UserServiceProvider::GetAUser();
-        $this->assertEquals("Amministratore", $user->getAuthIdentifier());
+        $this->assertEquals("Amministratore", $user->getRole());
+    }
+    public function testGetPassword()
+    {
+        $user = UserServiceProvider::GetAUser();
+        $this->assertEquals("password", $user->getAuthPassword());
+    }
+    public function testGetTelegramName()
+    {
+        $user = UserServiceProvider::GetAUser();
+        $this->assertEquals("pippo", $user->getTelegramName());
+    }
+    public function testGetChatId()
+    {
+        $user = UserServiceProvider::GetAUser();
+        $this->assertEquals("00000", $user->getChatId());
+    }
+    public function testDelete()
+    {
+        $user = UserServiceProvider::GetAUser();
+        $user->setDeleted(true);
+        $this->assertEquals(true, $user->getDeleted());
     }
 }

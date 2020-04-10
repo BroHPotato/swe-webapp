@@ -53,4 +53,8 @@ class User extends Authenticatable
     {
         $this->deleted = $b;
     }
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 }
