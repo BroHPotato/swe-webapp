@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Providers\AlertServiceProvider;
+use App\Providers\DeviceServiceProvider;
+use App\Providers\SensorServiceProvider;
 use App\Providers\UserServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,19 +15,34 @@ class SettingsController extends Controller
      *
      * @return void
      */
-    private $provider;
+    private $alertsProvider;
+    private $devicesProvider;
+    private $sensorsProvider;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->provider = new AlertServiceProvider();
+        $this->alertsProvider = new AlertServiceProvider();
+        $this->devicesProvider = new DeviceServiceProvider();
+        $this->sensorsProvider = new SensorServiceProvider();
     }
 
     public function edit()
     {
         $user = Auth::user();
-        $alerts = $this->provider->findAll();//todo da recuperare il device ed il sensore
-        return view('settings.edit', compact(['user','alerts']));
+        $alerts = $this->alertsProvider->findAll();
+        $alertsWithSensors = [];
+        foreach ($alerts as $state => $alertsList) {
+            foreach ($alertsList as $alert) {
+                $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                $alertsWithSensors[$state][] = [
+                    'alert' => $alert,
+                    'sensor' => $sensor,
+                    'device' => $this->devicesProvider->find($sensor->device)
+                ];
+            }
+        }
+        return view('settings.edit', compact(['user','alertsWithSensors']));
     }
 
     public function update()
@@ -54,7 +71,7 @@ class SettingsController extends Controller
 
     public function updateAlerts()
     {
-        $alerts = $this->provider->findAll();
+        $alerts = $this->alertsProvider->findAll();
         $data = request()->validate([
             'alerts.*' => 'required|numeric'
         ])['alerts'];
@@ -69,10 +86,10 @@ class SettingsController extends Controller
         $toEnable = array_diff($data, $enable);
         $toDisable = array_diff($enable, $data);
         foreach ($toEnable as $e) {
-            $this->provider->enable($e);
+            $this->alertsProvider->enable($e);
         }
         foreach ($toDisable as $d) {
-            $this->provider->disable($d);
+            $this->alertsProvider->disable($d);
         }
         return redirect('/settings/edit');
     }

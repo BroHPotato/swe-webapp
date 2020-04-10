@@ -53,6 +53,23 @@ class SensorServiceProvider extends BasicProvider
         }
     }
 
+    public function findFromLogicalId($sensorId)
+    {
+        try {
+            $response = json_decode($this->request->get(
+                '/sensors/' . $sensorId,
+                $this->setHeaders()
+            )->getBody());
+            $sensor = new Sensor();
+            $sensor->fill((array)$response);
+            return $sensor;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
     /**
      * @return array|null
      */
