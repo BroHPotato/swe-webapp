@@ -48,20 +48,19 @@
     </li>
 
     @can('isMod')
-
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Moderazione
+        Mod
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="true" aria-controls="collapseMod">
             <i class="fas fa-fw fa-user-tie"></i>
             <span>Moderazione</span>
         </a>
         <div id="collapseMod" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i>Gestione utenti</a>
+                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
                 <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
                 <a class="collapse-item" href="#"><i class="fas fa-bell"></i> Gestione alerts</a>
             </div>
@@ -74,11 +73,11 @@
 
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Amministrazione
+        Admin
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
             <i class="fas fa-fw fa-user-secret"></i>
             <span>Amministrazione</span>
         </a>
