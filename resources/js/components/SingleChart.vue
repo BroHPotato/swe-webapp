@@ -20,7 +20,9 @@
 
 <script>
 export default {
-    props: ["sensor"],
+    props: {
+        sensor: { type: Object, default: null },
+    },
     data: function () {
         return {
             chartOptions: {

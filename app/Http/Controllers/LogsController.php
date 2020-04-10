@@ -21,15 +21,15 @@ class LogsController extends Controller
     {
         $list = $this->logsProvider->findAll();
         $users = [];
-        foreach ($list as $l){
+        foreach ($list as $l) {
             $l->time = date("d F Y - H:i", strtotime($l->time));
-            if (key_exists($l->userId, $users)){
+            if (key_exists($l->userId, $users)) {
                 $u = $users[$l->userId];
-            }else{
+            } else {
                 $users[$l->userId] = $this->userProvider->retrieveById($l->userId);
                 $u = $users[$l->userId];
             }
-            $logs[] = ["user"=>$u, "log" =>$l];
+            $logs[] = ["user" => $u, "log" => $l];
         }
         return view('logs.index', compact('logs'));
     }

@@ -11,29 +11,36 @@
 |
 */
 
-Route::redirect('/', '/dashboard');
+Route::redirect('/', 'dashboard');
 
 Auth::routes(['register' => false, 'reset' => false]);
 
 //le Route DEVONO essere ordinate secondo logica di matching "if"
 
-Route::get('/login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+Route::get('login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
+Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
 //routes per gestione profilo
-Route::get('/settings/edit', 'SettingsController@edit')->name('settings.edit');
-Route::post('/settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
-Route::put('/settings', 'SettingsController@update')->name('settings.update');
+Route::get('settings/edit', 'SettingsController@edit')->name('settings.edit');
+Route::post('settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
+Route::put('settings', 'SettingsController@update')->name('settings.update');
 
-//routes per gestione user
-Route::get('/users', 'UserController@index')->name('users.index')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::get('/users/create', 'UserController@create')->name('users.create')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::post('/users', 'UserController@store')->name('users.store')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::get('/users/{userId}', 'UserController@show')->name('users.show')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::put('/users/{userId}', 'UserController@update')->name('users.update')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore')->middleware(['can:isAdmin' || 'can:isMod']);
-Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy')->middleware(['can:isAdmin' || 'can:isMod']);
+//routes protette solo per admin e mod
+Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
+    //routes per gestione user
+    Route::get('users', 'UserController@index')->name('users.index');
+    Route::get('users/create', 'UserController@create')->name('users.create');
+    Route::post('users', 'UserController@store')->name('users.store');
+    Route::get('users/{userId}', 'UserController@show')->name('users.show');
+    Route::put('users/{userId}', 'UserController@update')->name('users.update');
+    Route::get('users/{userId}/edit', 'UserController@edit')->name('users.edit');
+    Route::put('users/{userId}/restore', 'UserController@restore')->name('users.restore');
+    Route::delete('users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
+
+    //logs
+    Route::get('logs', 'LogsController@index')->name('logs.index');
+});
+
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO
@@ -64,15 +71,14 @@ Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.upda
 Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
 
 //routes per la gestione delle views
-Route::get('/views', 'ViewController@index')->name('views.index');
-Route::get('/views/{viewId}', 'ViewController@show')->name('views.show');
-Route::post('/views', 'ViewController@store')->name('views.store');
-Route::delete('/views/{viewId}', 'ViewController@destroy')->name('views.destroy');
+Route::get('views', 'ViewController@index')->name('views.index');
+Route::get('views/{viewId}', 'ViewController@show')->name('views.show');
+Route::post('views', 'ViewController@store')->name('views.store');
+Route::delete('views/{viewId}', 'ViewController@destroy')->name('views.destroy');
 //data
-Route::get('/data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
+Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
-//logs
-Route::get('/logs', 'LogsController@index')->name('logs.index')->middleware(['can:isAdmin' || 'can:isMod']);
+
 
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
