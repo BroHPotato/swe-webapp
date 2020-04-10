@@ -163,7 +163,7 @@ class UserController extends Controller
     /**
      * @param $userId
      */
-    public function restore($userId)
+    public function restore($userId)//todo rivedere sta cosa
     {
         $user = $this->provider->retrieveById($userId);
         $user->setDeleted(false);
