@@ -26,14 +26,14 @@ Route::post('/settings', 'SettingsController@updateAlerts')->name('settings.upda
 Route::put('/settings', 'SettingsController@update')->name('settings.update');
 
 //routes per gestione user
-Route::get('/users', 'UserController@index')->name('users.index');
-Route::get('/users/create', 'UserController@create')->name('users.create');
-Route::post('/users', 'UserController@store')->name('users.store');
-Route::get('/users/{userId}', 'UserController@show')->name('users.show');//TODO
-Route::put('/users/{userId}', 'UserController@update')->name('users.update');
-Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit');//TODO
-Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore');
-Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
+Route::get('/users', 'UserController@index')->name('users.index')->middleware('can:isAdmin,isMod');
+Route::get('/users/create', 'UserController@create')->name('users.create')->middleware('can:isAdmin,isMod');
+Route::post('/users', 'UserController@store')->name('users.store')->middleware('can:isAdmin,isMod');
+Route::get('/users/{userId}', 'UserController@show')->name('users.show')->middleware('can:isAdmin,isMod');
+Route::put('/users/{userId}', 'UserController@update')->name('users.update')->middleware('can:isAdmin,isMod');
+Route::get('/users/{userId}/edit', 'UserController@edit')->name('users.edit')->middleware('can:isAdmin,isMod');
+Route::put('/users/{userId}/restore', 'UserController@restore')->name('users.restore')->middleware('can:isAdmin,isMod');
+Route::delete('/users/{userId}/delete', 'UserController@destroy')->name('users.destroy')->middleware('can:isAdmin,isMod');
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO

@@ -11,10 +11,4 @@ class LogsController extends Controller
         $logs = ["stringa1", "stringa2"];
         view('logs.index', compact('logs'));
     }
-
-    public function show($logId)
-    {
-        $log = "stringa?";
-        view('logs.show', compact('log'));
-    }
 }
