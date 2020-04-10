@@ -202,7 +202,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     public function update(string $who, string $body)
     {
         try {
-            $response = json_decode($this->request->put('/users/' . $who, array_merge($this->setHeaders(), [
+            $response = json_decode($this->request->put('users/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
             ]))->getBody());
             if (property_exists($response, 'token')) {
@@ -221,7 +221,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     public function destroy(string $who)
     {
         try {
-            $this->request->delete('/users/' . $who, $this->setHeaders());
+            $this->request->delete('users/' . $who, $this->setHeaders());
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
@@ -237,9 +237,10 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             $this->request->post('users', array_merge($this->setHeaders(), [
                 'body' => $body
             ]));
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
