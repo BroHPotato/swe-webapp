@@ -158,8 +158,7 @@ export default {
             let calc = NaN;
             switch (this.variance) {
                 case 1:
-                    (calc = this.vars.date),
-                        covariance(this.vars.data1, this.vars.data2);
+                    calc = covariance(this.vars.data1, this.vars.data2);
                     break;
                 case 2:
                     calc = Pearson.rank(this.vars.data1, this.vars.data2);

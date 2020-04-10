@@ -112,4 +112,22 @@ class DeviceServiceProvider extends BasicProvider
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
     }
+
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    /**
+     * @return Device
+     */
+    public static function GetADevice()
+    {
+        $device = new Device();
+        $arr = array_combine(
+            array('deviceId', 'name', 'frequency', 'realDeviceId'),
+            array("0", "Potato", "5", "007")
+        );
+        $device->fill($arr);
+        return $device;
+    }
 }
