@@ -162,11 +162,12 @@ class UserController extends Controller
 
     /**
      * @param $userId
+     * @return RedirectResponse|Redirector
      */
-    public function restore($userId)//todo rivedere sta cosa
+    public function restore($userId)
     {
         $user = $this->provider->retrieveById($userId);
-        $user->setDeleted(false);
-        $this->provider->update($user->getAuthIdentifier(), json_encode($user->getAttributes(), JSON_FORCE_OBJECT));
+        $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}');
+        return redirect(route('users.index'));
     }
 }
