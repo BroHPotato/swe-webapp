@@ -24,7 +24,7 @@ class SettingsController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $alerts = $this->provider->findAll();
+        $alerts = $this->provider->findAll();//todo da recuperare il device ed il sensore
         return view('settings.edit', compact(['user','alerts']));
     }
 
