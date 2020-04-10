@@ -6,7 +6,7 @@
             <h1 class="h3 mb-0 text-gray-800"> Creazione dispositivo</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('devices.index')}}" class="btn btn-danger btn-icon-split">
+            <a href="{{route('devices.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-arrow-circle-left"></span>
                         </span>
