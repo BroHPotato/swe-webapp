@@ -98,5 +98,4 @@ class AlertServiceProvider extends BasicProvider
         $sensor->fill($arr);
         return $sensor;
     }
-
 }

@@ -17,7 +17,8 @@ class AlertTest extends TestCase
         $this->assertEquals($response, $alert->getAttributes());
     }
 
-    public function testGetType(){
+    public function testGetType()
+    {
         $alert = AlertServiceProvider::GetAnAlert();
         $this->assertEquals('minore di', $alert->getType());
     }

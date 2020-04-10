@@ -13,3 +13,5 @@ composer.lock
 package-lock.json
 
 .php_cs.cache
+
+fix.sh
