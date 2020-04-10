@@ -9,6 +9,6 @@ class LogsController extends Controller
     public function index()
     {
         $logs = ["stringa1", "stringa2"];
-        view('logs.index', compact('logs'));
+        return view('logs.index', compact('logs'));
     }
 }

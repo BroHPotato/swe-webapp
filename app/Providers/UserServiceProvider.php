@@ -125,7 +125,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             'headers' => [
                 'X-Forwarded-For' => request()->ip()
             ],
-            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]/*todo sha512*/ . '"}'
         ])->getBody());
 
         if (property_exists($response, 'tfa')) {
