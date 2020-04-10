@@ -128,7 +128,6 @@ class UserController extends Controller
             'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
             'email' => 'required|email',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
-            'telegramChat' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
             'deleted' => 'nullable|in:true',
             'password' => 'nullable|min:6',

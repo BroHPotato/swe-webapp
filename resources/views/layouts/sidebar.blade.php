@@ -47,10 +47,10 @@
     </li>
 
     @canany(['isAdmin', 'isMod'])
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Centro di Controllo
-    </div>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">
+            Centro di Controllo
+        </div>
     @endcanany
 
     @can('isMod')
