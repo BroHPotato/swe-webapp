@@ -80,4 +80,23 @@ class AlertServiceProvider extends BasicProvider
             'query' => ['userId' => Auth::id(), 'enable' => true]
         ]));
     }
+
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    /**
+     * @return Alert
+     */
+    public static function GetAnAlert()
+    {
+        $sensor = new Alert();
+        $arr = array_combine(
+            array('threshold', 'type', 'deleted', 'entity', 'sensor', 'lastSent', 'alertId'),
+            array("10", "0", "0", '0', '0', '20-02-2020', '0')
+        );
+        $sensor->fill($arr);
+        return $sensor;
+    }
+
 }
