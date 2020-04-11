@@ -61,8 +61,10 @@ class SettingsController extends Controller
         if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
         }
-        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
-            $data['tfa'] = false;
+        if (key_exists('telegramName', $data)){
+            if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
+                $data['tfa'] = false;
+            }
         }
         $data = array_diff_assoc($data, $user->getAttributes());
         $service = new UserServiceProvider();
