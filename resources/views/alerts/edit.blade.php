@@ -7,13 +7,23 @@
         <h1 class="h3 mb-0 text-gray-800"> Modifica alerts</h1>
     </div>
     <div class="d-flex justify-content-between">
-            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+        <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3">
+        <span class="icon text-white-50">
+          <span class="fas fa-arrow-circle-left"></span>
+        </span>
+            <span class="text">Torna indietro</span>
+        </a>
+        <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$view->viewId]) }}"
+           onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
             <span class="icon text-white-50">
-              <span class="fas fa-arrow-circle-left"></span>
+              <span class="fas fa-trash-alt"></span>
             </span>
-                <span class="text">Torna indietro</span>
-            </a>
-        </div>
+            <span class="text">Elimina alerts</span>
+        </a>
+        <form id="destroy-view" action="{{ route('alerts.destroy', ['viewId'=>$view->viewId]) }}" method="POST" style="display: none;">
+            @csrf
+            @method('DELETE')
+        </form>
     </div>
 
     <div class="row">
