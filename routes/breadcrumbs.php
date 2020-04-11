@@ -31,9 +31,15 @@ Breadcrumbs::for('devices.edit', function ($trail, $deviceId) {
 // Sensori
 Breadcrumbs::for('sensor', function ($trail, $deviceId, $sensorId) {
     $trail->parent('device', $deviceId);
-    $trail->push('Sensore ' . $sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
+    $trail->push('Sensore @' . $sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
+
+// Sensori
+Breadcrumbs::for('alerts', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Alerts', route('alerts.index'));
+});
 
 // Utenti
 Breadcrumbs::for('users.index', function ($trail) {

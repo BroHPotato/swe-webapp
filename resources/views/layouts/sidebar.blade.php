@@ -18,7 +18,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-tachometer-alt text-info"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -26,7 +26,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('settings.edit') }}">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-cog text-info"></i>
             <span>Impostazioni</span>
         </a>
     </li>
@@ -50,6 +50,13 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('alerts.index') }}">
+            <i class="fas fa-fw fa-bell"> </i>
+            <span>Alerts</span>
+        </a>
+    </li>
+
     @can('isMod')
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
@@ -58,14 +65,12 @@
 
     <li class="nav-item">
         <a href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod" class="nav-link collapsed">
-            <i class="fas fa-fw fa-user-tie"></i>
+            <i class="fas fa-fw fa-user-tie text-success"></i>
             <span>Moderazione</span>
         </a>
         <div id="collapseMod" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
-                <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
-                <a class="collapse-item" href="{{ route('alerts.index') }}"><i class="fas fa-bell"></i> Gestione alerts</a>
                 <a class="collapse-item" href="{{ route('logs.index') }}"><i class="fas fa-receipt"></i> Logs</a>
             </div>
         </div>
@@ -82,13 +87,11 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin">
-            <i class="fas fa-fw fa-user-secret"></i>
+            <i class="fas fa-fw fa-user-tie text-danger"></i>
             <span>Amministrazione</span>
         </a>
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('alerts.index') }}"><i class="fas fa-bell"></i> Gestione alerts</a>
-                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
                 <a class="collapse-item" href="{{ route('entities.index') }}"><i class="far fa-building"></i> Gestione enti</a>
                 <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
                 <a class="collapse-item" href="{{ route('gateways.index') }}"><i class="fas fa-dungeon"></i> Gestione gateways</a>
