@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\DeviceServiceProvider;
 use App\Providers\SensorServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class SensorController extends Controller
 {
-    private $provider;
+    private $sensorProvider;
+    private $deviceProvider;
 
     /**
      * Create a new controller instance.
@@ -18,7 +20,8 @@ class SensorController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->provider = new SensorServiceProvider();
+        $this->sensorProvider = new SensorServiceProvider();
+        $this->deviceProvider = new DeviceServiceProvider();
     }
 
     /**
@@ -28,7 +31,7 @@ class SensorController extends Controller
      */
     public function index($device)
     {
-        $sensors = $this->provider->findAllFromDevice($device);
+        $sensors = $this->sensorProvider->findAllFromDevice($device);
         return view('sensors.index', compact(['sensors', 'device']));
     }
 
@@ -38,14 +41,15 @@ class SensorController extends Controller
      * @param $sensor
      * @return Factory|View
      */
-    public function show($device, $sensor)
+    public function show($deviceId, $sensorId)
     {
-        $sensor = $this->provider->find($device, $sensor);
+        $sensor = $this->sensorProvider->find($deviceId, $sensorId);
+        $device = $this->deviceProvider->find($deviceId);
         return view('sensors.show', compact(['sensor', 'device']));
     }
 
-    public function fetch($device, $sensor)
+    public function fetch($sensorId)
     {
-        return $this->provider->fetch($device, $sensor);
+        return $this->sensorProvider->fetch($sensorId);
     }
 }

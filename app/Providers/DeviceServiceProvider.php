@@ -5,9 +5,6 @@ namespace App\Providers;
 use App\Models\Device;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\ServiceProvider;
 
 use function config;
 
@@ -15,7 +12,7 @@ use function config;
  * Class DeviceServiceProvider
  * @package App\Providers
  */
-class DeviceServiceProvider extends ServiceProvider
+class DeviceServiceProvider extends BasicProvider
 {
     //si occupa di prendere i device dal database
     /**
@@ -44,11 +41,7 @@ class DeviceServiceProvider extends ServiceProvider
     public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get("/devices/" . $identifier, $this->setHeaders())->getBody());
             $device = new Device();
             $device->fill((array)$response);
             return $device;
@@ -64,11 +57,7 @@ class DeviceServiceProvider extends ServiceProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
             $devices = [];
             foreach ($response as $d) {
                 $device = new Device();
@@ -79,19 +68,6 @@ class DeviceServiceProvider extends ServiceProvider
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-        }
-    }
-
-    /**
-     * @param RequestException $e
-     * @return RedirectResponse|Redirector
-     */
-    private function isExpired(RequestException $e)
-    {
-        if ($e->getCode() == 419/*fai il controllo del token*/) {
-            session()->invalidate();
-            session()->flush();
-            return redirect('login');
         }
     }
 
@@ -102,12 +78,9 @@ class DeviceServiceProvider extends ServiceProvider
     public function findAllFromEntity($entity)
     {
         try {
-            $response = json_decode($this->request->get('', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
-                'query' => 'entityId=' . $entity
-            ])->getBody());
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => ['entityId' => $entity]
+            ]))->getBody());
             $devices = [];
             foreach ($response as $d) {
                 $device = new Device();
@@ -119,5 +92,42 @@ class DeviceServiceProvider extends ServiceProvider
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
         }
+    }
+
+    public function findAllFromGateway($gateway)
+    {
+        try {
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => ['gatewayId' => $gateway]
+            ]))->getBody());
+            $devices = [];
+            foreach ($response as $d) {
+                $device = new Device();
+                $device->fill((array)$d);
+                $devices[] = $device;
+            }
+            return $devices;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    /**
+     * @return Device
+     */
+    public static function GetADevice()
+    {
+        $device = new Device();
+        $arr = array_combine(
+            array('deviceId', 'name', 'frequency', 'realDeviceId'),
+            array("0", "Potato", "5", "007")
+        );
+        $device->fill($arr);
+        return $device;
     }
 }

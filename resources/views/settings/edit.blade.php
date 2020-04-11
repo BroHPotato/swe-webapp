@@ -5,6 +5,14 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800">Impostazioni account</h1>
         </div>
+        <div class="d-sm-flex mb-4 ml-sm-auto">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                <span class="text">Torna indietro</span>
+            </a>
+        </div>
 
         <div class="row">
             <div class="col-lg-6 mb-4">
@@ -138,107 +146,51 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-bell"></i> Notifiche alert</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
             </div>
-            <!-- TODO implementare la paginazione in JS una volta realizzate le pagine sensori e dispositivi -->
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th width="1em"><span class="far fa-bell"></span></th>
-                            <th>Status</th>
-                            <th>Dispositivo</th>
-                            <th>Sensore</th>
-                            <th>Soglia</th>
-                            <th>Valore</th>
-                        </tr>
-                        </thead>
-                        <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <th width="1em"><span class="far fa-bell"></span></th>
-                            <th>Status</th>
-                            <th>Dispositivo</th>
-                            <th>Sensore</th>
-                            <th>Soglia</th>
-                            <th>Valore</th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <td><input type="checkbox" checked name="alerts[]" value="id_sensore_db"></td>
-                            <td><span class="badge badge-success">Attivo</span></td>
-                            <td>Disp1</td>
-                            <td>Sens1</td>
-                            <td>maggiore di</td>
-                            <td>10</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="table-responsive-sm">
+                    <form action="{{route('settings.updateAlerts')}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <table class="table table-bordered table-striped border-secondary">
+                            <thead class="thead-dark table-borderless">
+                                <tr>
+                                    <th width="1em" class="bg-secondary"><span class="far fa-bell"></span></th>
+                                    <th>Dispositivo</th>
+                                    <th>Sensore</th>
+                                    <th>Soglia</th>
+                                    <th>Valore</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($alertsWithSensors as $status => $a)
+                                    @foreach($a as $list)
+                                        <tr>
+                                            <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
+                                            <td><a href="{{route('devices.show', ['deviceId' => $list['device']->deviceId])}}">{{$list['device']->name}}</a></td>
+                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}"><span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
+                                            <td>{{$list['alert']->getType()}}</td>
+                                            <td>{{$list['alert']->threshold}}</td>
+                                            @if($status == "enable")
+                                                <td><span class="badge badge-success">Attivo</span></td>
+                                            @else
+                                                <td><span class="badge badge-danger">Disattivo</span></td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                            <span class="icon text-white-50">
+                                  <span class="fas fa-check-circle"></span>
+                            </span>
+                            <span class="text">Salva</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

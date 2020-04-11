@@ -10,7 +10,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token',
+        'userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
         'password'
     ];
     private $role = ['Utente', 'Moderatore', 'Amministratore'];
@@ -52,5 +52,9 @@ class User extends Authenticatable
     public function setDeleted(bool $b)
     {
         $this->deleted = $b;
+    }
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

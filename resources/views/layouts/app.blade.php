@@ -16,8 +16,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
-    <!-- Style datatables -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 </head>
 <body id="page-top" @guest class="bg-gradient-secondary" @endguest>
@@ -50,7 +48,6 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-
+<script src="{{ asset('js/script.js') }}"></script> <!-- TODO: move into resources/js -->
 </html>
 

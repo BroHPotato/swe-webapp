@@ -5,99 +5,80 @@
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800"> Gestione utenti</h1>
             </div>
-        @canany(['isAdmin', 'isMod'])
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('users.create')}}" class="btn btn-primary btn-icon-split">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-4">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                <span class="text">Torna indietro</span>
+            </a>
+            @canany(['isAdmin', 'isMod'])
+            <a href="{{route('users.create')}}" class="btn btn-sm btn-success btn-icon-split">
                     <span class="icon text-white-50">
-                      <i class="fas fa-user-plus"></i>
+                      <span class="fas fa-user-plus"></span>
                     </span>
-                    <span class="text">Aggiungi</span>
-                </a>
-            </div>
-        @endcanany
+                <span class="text">Crea nuovo utente</span>
+            </a>
+            @endcanany
+        </div>
+        @error('createError')
+        <p class="text-danger">{{$message}}</p>
+        @enderror
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users-cog"></span> Lista utenti</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                <div class="table-responsive-lg">
+                    <table class="table border-secondary table-bordered table-striped dataTableUsers">
                         <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Email</th>
-                            <th>Ruolo</th>
-                            <th>Stato</th>
-                            <th> </th>
-                            <th> </th>
-                        </tr>
-                        </thead>
-                        <tfoot class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Email</th>
-                            <th>Ruolo</th>
-                            <th>Stato</th>
-                            <th> </th>
-                            <th> </th>
-                        </tr>
-                        </tfoot>
-                        <tbody>
-                        @foreach($users as $u)
                             <tr>
-                                <td>{{$u->userId}}</td>
-                                <td>{{$u->name}}</td>
-                                <td>{{$u->surname}}</td>
-                                <td>{{$u->email}}</td>
-                                <td>{{$u->getRole()}}</td>
-                                <td>
-                                    @if($u->deleted)
-                                        <span class="badge badge-danger">Disattivo</span>
-                                    @else
-                                        <span class="badge badge-success">Attivo</span>
-                                    @endif
-                                <td><a href="{{route('users.show', ['userId' => $u->userId ])}}" class="btn btn-primary btn-icon-split">
-                                            <span class="icon text-white-50">
-                                              <i class="fas fa-info-circle"></i>
-                                            </span>
-                                        <span class="text">Dettagli</span>
-                                    </a>
-                                </td>
-                                <td>
-                                    @canany(['isAdmin', 'isMod'])
-                                        @if($u->deleted)
-                                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $u->userId ]) }}"
-                                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$u->userId}}').submit();">
-                                            <span class="icon text-white-50">
-                                              <i class="fas fa-user-check"></i>
-                                            </span>
-                                                <span class="text">Ripristina</span>
-                                            </a>
-                                            <form id="restore-form-{{$u->userId}}" action="{{ route('users.restore', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
-                                                @csrf
-                                                @method('PUT')
-                                            </form>
-                                        @else
-                                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $u->userId ]) }}"
-                                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$u->userId}}').submit();">
-                                            <span class="icon text-white-50">
-                                              <i class="fas fa-user-times"></i>
-                                            </span>
-                                                <span class="text">Elimina</span>
-                                            </a>
-                                            <form id="delete-form-{{$u->userId}}" action="{{ route('users.destroy', ['userId' => $u->userId ]) }}" method="POST" style="display: none;">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                        @endif
-                                    @endcanany
-                                </td>
+                                <th>ID</th>
+                                <th>Nome e cognome</th>
+                                <th>Stato</th>
+                                <th>Email</th>
+                                <th>Ruolo</th>
+                                @can('isAdmin')
+                                    <th>Ente</th>
+                                @endcan
+                                <th class="bg-secondary"> </th>
                             </tr>
-                        @endforeach
+                        </thead>
+                        <tbody>
+                            @canany(['isAdmin', 'isMod'])
+                                @foreach($usersWithEntity as $u)
+                                    <tr>
+                                        <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->userId}}</a></td>
+                                        <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->name}} {{$u['user']->surname}}</a></td>
+                                        <td>
+                                            @if($u['user']->deleted)
+                                                <span class="badge badge-danger">Disattivo</span>
+                                            @else
+                                                <span class="badge badge-success">Attivo</span>
+                                            @endif
+                                        </td>
+                                        <td>{{$u['user']->email}}</td>
+                                        <td>
+                                            <span class="text-info">{{$u['user']->getRole()}}</span>
+                                        </td>
+                                        @can('isAdmin')
+                                            <th>{{$u['entity']?$u['entity']->name:''}}</th>
+                                        @endcan
+                                        <td class="text-center">
+                                            @if($u['user']->type < Auth::user()->type)
+                                                <div class="d-sm-flex mb-4 ml-sm-auto">
+                                                    <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                          <span class="fas fa-user-edit"></span>
+                                                        </span>
+                                                        <span class="text">Modifica</span>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endcanany
                         </tbody>
                     </table>
                 </div>

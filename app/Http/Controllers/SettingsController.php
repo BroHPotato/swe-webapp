@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\RouteServiceProvider;
+use App\Providers\AlertServiceProvider;
+use App\Providers\DeviceServiceProvider;
+use App\Providers\SensorServiceProvider;
 use App\Providers\UserServiceProvider;
-use GuzzleHttp\Client;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
@@ -15,26 +15,34 @@ class SettingsController extends Controller
      *
      * @return void
      */
+    private $alertsProvider;
+    private $devicesProvider;
+    private $sensorsProvider;
+
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
-     */
-    public function index()
-    {
-        $user = Auth::user();
-        return view('settings.index', compact('user'));
+        $this->alertsProvider = new AlertServiceProvider();
+        $this->devicesProvider = new DeviceServiceProvider();
+        $this->sensorsProvider = new SensorServiceProvider();
     }
 
     public function edit()
     {
         $user = Auth::user();
-        return view('settings.edit', compact('user'));
+        $alerts = $this->alertsProvider->findAll();
+        $alertsWithSensors = [];
+        foreach ($alerts as $state => $alertsList) {
+            foreach ($alertsList as $alert) {
+                $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                $alertsWithSensors[$state][] = [
+                    'alert' => $alert,
+                    'sensor' => $sensor,
+                    'device' => $this->devicesProvider->find($sensor->device)
+                ];
+            }
+        }
+        return view('settings.edit', compact(['user','alertsWithSensors']));
     }
 
     public function update()
@@ -58,6 +66,31 @@ class SettingsController extends Controller
         $data = array_diff_assoc($data, $user->getAttributes());
         $service = new UserServiceProvider();
         $service->update($user->getAuthIdentifier(), json_encode($data));
+        return redirect('/settings/edit');
+    }
+
+    public function updateAlerts()
+    {
+        $alerts = $this->alertsProvider->findAll();
+        $data = request()->validate([
+            'alerts.*' => 'required|numeric'
+        ])['alerts'];
+        $enable = [];
+        $disable = [];
+        foreach ($alerts['enable'] as $a) {
+            $enable[] = $a->alertId;
+        }
+        foreach ($alerts['disable'] as $a) {
+            $disable[] = $a->alertId;
+        }
+        $toEnable = array_diff($data, $enable);
+        $toDisable = array_diff($enable, $data);
+        foreach ($toEnable as $e) {
+            $this->alertsProvider->enable($e);
+        }
+        foreach ($toDisable as $d) {
+            $this->alertsProvider->disable($d);
+        }
         return redirect('/settings/edit');
     }
 }

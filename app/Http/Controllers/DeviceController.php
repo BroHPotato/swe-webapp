@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Device;
+use App\Models\Gateway;
 use App\Providers\DeviceServiceProvider;
+use App\Providers\GatewayServiceProvider;
+use App\Providers\SensorServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
 class DeviceController extends Controller
 {
-    private $provider;
+    private $gatewayProvider;
+    private $deviceProvider;
+    private $sensorProvider;
 
     /**
      * Create a new controller instance.
@@ -19,19 +23,23 @@ class DeviceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->provider = new DeviceServiceProvider();
+        $this->gatewayProvider = new GatewayServiceProvider();
+        $this->deviceProvider = new DeviceServiceProvider();
+        $this->sensorProvider = new SensorServiceProvider();
     }
 
     public function create()
     {
-        $entities = $this->provider->findAll();
-        return view('devices.create', compact(['entities']));
+        $entities = $this->deviceProvider->findAll();
+        return view('devices.create', compact('entities'));
     }
 
     public function edit($device)
     {
-        $device = $this->provider->retrieveById($device);
-        return view('devices.edit', compact('user'));
+        $device = $this->deviceProvider->find($device);
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
+
+        return view('devices.edit', compact('device', 'sensors'));
     }
 
     /**
@@ -41,17 +49,20 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        //$devices = $this->provider->findAll();
-        ///FAKER
-        $user = new Device();
-        $arr = array_combine(
-            array('deviceId', 'name', 'frequency', 'gatewayId'),
-            array("1", "dev1", 123, 1)
-        );
-        $user->fill($arr);
-        $devices[] = $user;
-        //TODO remove
-        return view('devices.index', compact('devices'));
+        $gateways = $this->gatewayProvider->findAll();
+        $devicesOnGateways = [];
+        foreach ($gateways as $g) {
+            $sensors = [];
+            $devices = $this->deviceProvider->findAllFromGateway($g->gatewayId);
+            foreach ($devices as $d) {
+                $sensors[$d->deviceId] = count($this->sensorProvider->findAllFromDevice($d->deviceId));
+            }
+            $devicesOnGateways[$g->gatewayId] = [0 => $g,
+                                                1 => $devices,
+                                                2 => $sensors
+            ];
+        }
+        return view('devices.index', compact('devicesOnGateways'));
     }
 
     /**
@@ -62,16 +73,9 @@ class DeviceController extends Controller
      */
     public function show($device)
     {
-        //$device = $this->provider->find($device);
-        ///FAKER
-        $user = new Device();
-        $arr = array_combine(
-            array('deviceId', 'name', 'frequency', 'gatewayId'),
-            array("1", "dev1", 123, 1)
-        );
-        $user->fill($arr);
-        $device = $user;
-        //TODO remove
-        return view('devices.show', compact('device'));
+        $device = $this->deviceProvider->find($device);
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
+        $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0];
+        return view('devices.show', compact(['device', 'sensors', 'gateway']));
     }
 }

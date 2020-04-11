@@ -14,3 +14,23 @@
 .breadcrumb{
     background-color: transparent !important;
 }
+
+/*
+    DataTable with centered pagination
+ */
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    float: none !important;
+    text-align: center !important;
+}
+
+.logic-id::before {
+    content: '\0023';
+    color: #7bb0ff;
+}
+
+.real-id::before {
+    content: '\0040';
+    color: #ff8362;
+}

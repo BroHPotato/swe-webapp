@@ -5,9 +5,6 @@ namespace App\Providers;
 use App\Models\Entity;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\ServiceProvider;
 
 use function config;
 
@@ -15,7 +12,7 @@ use function config;
  * Class EntityServiceProvider
  * @package App\Providers
  */
-class EntityServiceProvider extends ServiceProvider
+class EntityServiceProvider extends BasicProvider
 {
     //si occupa di prendere i device dal database
     /**
@@ -41,14 +38,10 @@ class EntityServiceProvider extends ServiceProvider
      * @param mixed $identifier
      * @return Entity
      */
-    public function retrieveById($identifier)
+    public function find($identifier)
     {
         try {
-            $response = json_decode($this->request->get($identifier, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('/entities/' . $identifier, $this->setHeaders())->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);
             return $entity;
@@ -60,29 +53,12 @@ class EntityServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param RequestException $e
-     * @return RedirectResponse|Redirector
-     */
-    private function isExpired(RequestException $e)
-    {
-        if ($e->getCode() == 419/*fai il controllo del token*/) {
-            session()->invalidate();
-            session()->flush();
-            return redirect('login');
-        }
-    }
-
-    /**
      * @return array|null
      */
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ]
-            ])->getBody());
+            $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
             $entities = [];
             foreach ($response as $e) {
                 $entity = new Entity();
@@ -101,15 +77,12 @@ class EntityServiceProvider extends ServiceProvider
      * @param $deviceId
      * @return Entity|null
      */
-    public function findFromDevice($deviceId)
+    public function findFromSensor($sensorId)
     {
         try {
-            $response = json_decode($this->request->get('entities', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
-                'query' => 'deviceId=' . $deviceId
-            ])->getBody());
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => 'sensor=' . $sensorId
+            ]))->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);
             return $entity;
@@ -127,14 +100,11 @@ class EntityServiceProvider extends ServiceProvider
     public function findFromUser($userId)
     {
         try {
-            $response = json_decode($this->request->get('entities', [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . session()->get('token')
-                ],
-                'query' => 'userId=' . $userId
-            ])->getBody());
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => 'user=' . $userId
+            ]))->getBody());
             $entity = new Entity();
-            $entity->fill((array)$response);
+            $entity->fill((array)$response[0]);
             return $entity;
         } catch (RequestException $e) {
             $this->isExpired($e);

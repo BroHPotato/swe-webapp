@@ -23,18 +23,25 @@ class DashboardController extends Controller
         $entities = $entityProvider->findAll();//enti presenti
         $users = $userProvider->findAll();//utenti registrati
         $devices = $deviceProvider->findAll();//dispositivi registrati
+        $entity = null;
+        $devicesEntity = [];
+        $usersEntity = [];
+        $usersActiveEntity = [];
 
-        $devicesEntity = $deviceProvider->findAllFromEntity($entityProvider->findFromUser($user->getAuthIdentifier()));
-        $usersEntity = $userProvider->findAllFromEntity($entityProvider->findFromUser($user->getAuthIdentifier()));
+        if ($user->getRole() != 'Amministratore') {
+            $entity = $entityProvider->findFromUser($user->getAuthIdentifier());
+            $devicesEntity = $deviceProvider->findAllFromEntity($entity->entityId);
+            $usersEntity = $userProvider->findAllFromEntity($entity->entityId);
+            $usersActiveEntity = array_filter($usersEntity, function ($u) {
+                return !$u->deleted;
+            });
+        }
 
         $usersActive = array_filter($users, function ($u) {
             return !$u->deleted;
         });
-        $usersActiveEntity = array_filter($usersEntity, function ($u) {
-            return !$u->deleted;
-        });
         return view('dashboard.index', compact([
-            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity'
+            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity', 'entity'
         ]));
     }
 }

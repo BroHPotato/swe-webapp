@@ -45,9 +45,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        /*session()->flush();
-        session_reset();
-        Auth::logout();*/
         $this->middleware('guest')->except('logout');
     }
 
@@ -126,7 +123,7 @@ class LoginController extends Controller
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|void
+     * @return Response
      *
      * @throws \Illuminate\Validation\ValidationException
      */

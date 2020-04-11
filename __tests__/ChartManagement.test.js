@@ -1,14 +1,28 @@
 window.axios = require("axios");
 
 import { mount } from "@vue/test-utils";
-import ChartManagement from "../resources/js/components/ChartManagement.vue";
+import DoubleChart from "../resources/js/components/DoubleChart.vue";
+import SingleChart from "../resources/js/components/SingleChart";
 
-describe("ChartManagement", () => {
+describe("DoubleChart", () => {
     test("is a Vue instance", () => {
-        const deviceId = 1;
-        const sensorId = 1;
-        const chart = mount(ChartManagement, {
-            propsData: { deviceId, sensorId },
+        const sensor2 =
+            '{"type":"stick","realSensorId":1,"device":1,"sensorId":1}';
+        const sensor1 =
+            '{"type":"stick","realSensorId":1,"device":1,"sensorId":1}';
+        const chart = mount(DoubleChart, {
+            propsData: { sensor2, sensor1 },
+        });
+        expect(chart.isVueInstance()).toBeTruthy();
+    });
+});
+
+describe("SingleChart", () => {
+    test("is a Vue instance", () => {
+        const sensor =
+            '{"type":"stick","realSensorId":1,"device":1,"sensorId":1}';
+        const chart = mount(SingleChart, {
+            propsData: { sensor },
         });
         expect(chart.isVueInstance()).toBeTruthy();
     });
