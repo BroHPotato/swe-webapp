@@ -92,6 +92,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             }
         } catch (RequestException $e) {
             $this->isExpired($e);
+            dd($e);
             return null;
         }
     }
@@ -104,12 +105,12 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     private function retriveByCode(Client $request, $credentials)
     {
         $response = json_decode($request->post('auth/tfa', array_merge($this->setHeaders(), [
-            'body' => '{"auth_code":"' . $credentials["code"] . '"}'
+            'body' => '{"authCode":"' . $credentials["code"] . '"}'
             ]))->getBody());
         $userarray = (array)$response->user;
-        $userarray['token'] = $response->jwt;
+        $userarray['token'] = $response->token;
 
-        session(['token' => $response->jwt]);
+        session(['token' => $response->token]);
         $user = new User();
         $user->fill($userarray);
         return $user;
