@@ -50,8 +50,8 @@ Route::middleware('can:isMod')->group(function () {
 
     // Modifica, aggiunta, edit alerts
     Route::post('alerts', 'AlertsController@store')->name('alerts.store');
-    Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
     Route::get('alerts/create', 'AlertsController@create')->name('alerts.create');
+    Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
     Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
     Route::put('alerts/{alertId}', 'AlertsController@update')->name('alerts.update');
 });
