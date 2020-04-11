@@ -2,45 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Providers\DeviceServiceProvider;
 use App\Providers\EntityServiceProvider;
-use App\Providers\UserServiceProvider;
+use App\Providers\StatsServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    private $statsProvider;
+    private $entityProvider;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->statsProvider = new StatsServiceProvider();
+        $this->entityProvider = new EntityServiceProvider();
     }
     public function index()
     {
-        $userProvider = new UserServiceProvider();
-        $entityProvider = new EntityServiceProvider();
-        $deviceProvider = new DeviceServiceProvider();
         $user = Auth::user();
-        $entities = $entityProvider->findAll();//enti presenti
-        $users = $userProvider->findAll();//utenti registrati
-        $devices = $deviceProvider->findAll();//dispositivi registrati
+        $stats = $this->statsProvider->stats();
         $entity = null;
-        $devicesEntity = [];
-        $usersEntity = [];
-        $usersActiveEntity = [];
-
         if ($user->getRole() != 'Amministratore') {
-            $entity = $entityProvider->findFromUser($user->getAuthIdentifier());
-            $devicesEntity = $deviceProvider->findAllFromEntity($entity->entityId);
-            $usersEntity = $userProvider->findAllFromEntity($entity->entityId);
-            $usersActiveEntity = array_filter($usersEntity, function ($u) {
-                return !$u->deleted;
-            });
+            $entity = $this->entityProvider->findFromUser($user->getAuthIdentifier());
         }
-
-        $usersActive = array_filter($users, function ($u) {
-            return !$u->deleted;
-        });
         return view('dashboard.index', compact([
-            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity', 'entity'
+            'user', 'entity', 'stats'
         ]));
     }
 }

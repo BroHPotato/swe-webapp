@@ -14,7 +14,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Utenti attivi</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($usersActive)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->activeMembers}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-users fa-2x text-gray-500"></span>
@@ -29,7 +29,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">utenti attivi nel tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($usersActiveEntity)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityActiveMembers}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-user-friends fa-2x text-gray-500"></span>
@@ -44,7 +44,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">utenti registrati</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($users)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->registeredUsers}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-user-plus fa-2x text-gray-500"></span>
@@ -59,7 +59,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">utenti registrati nel tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($usersEntity)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredUsers}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-user-tag fa-2x text-gray-500"></span>
@@ -76,7 +76,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">dispositivi registrati</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($devices)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->registeredDevices}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-shapes fa-2x text-gray-500"></span>
@@ -91,7 +91,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">dispositivi del tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($devicesEntity)}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredDevices}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-microchip fa-2x text-gray-500"></span>
@@ -107,7 +107,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">enti presenti</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($entities)}}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entitiesNumber}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <span class="far fa-building fa-2x text-gray-500"></span>

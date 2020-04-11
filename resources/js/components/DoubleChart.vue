@@ -151,6 +151,10 @@ export default {
                         .calc()
                         .then((value) => {
                             calc = value;
+                            this.$refs.variance.innerHTML =
+                                variance[this.variance] +
+                                " : " +
+                                calc.toFixed(3);
                         });
                     break;
                 default:

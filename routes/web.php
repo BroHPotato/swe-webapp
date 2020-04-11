@@ -42,9 +42,8 @@ Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
 
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
-
+    //delete alert per admin
     Route::delete('alerts/{alertId}', 'AlertsController@destroy')->name('alerts.destroy');
-
 });
 
 Route::middleware('can:isMod')->group(function () {
