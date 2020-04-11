@@ -27,22 +27,6 @@ class LogsServiceProvider extends BasicProvider
         ]);
     }
 
-
-    /**
-     * @param mixed $identifier
-     * @return Gateway
-     */
-    public function find($identifier)
-    {
-        try {
-            $response = json_decode($this->request->get($identifier, $this->setHeaders())->getBody());
-            return $response;
-        } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            return null;
-        }
-    }
-
     /**
      * @return array|null
      */

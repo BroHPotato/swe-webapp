@@ -39,6 +39,8 @@ Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
 
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
+    //alert
+    Route::get('alerts', 'AlertsController@index')->name('alerts.index');
 });
 
 
