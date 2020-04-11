@@ -64,7 +64,7 @@ if (addSensor !== null) {
                     </button>
                 </div>
             </div>
-        `
+        `;
             trashes = document.querySelectorAll(".delete");
             // eliminazione sensore aggiunto
             trashes.forEach((trash) => {

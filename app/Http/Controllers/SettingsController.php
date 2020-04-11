@@ -32,9 +32,10 @@ class SettingsController extends Controller
         $user = Auth::user();
         $alerts = $this->alertsProvider->findAll();
         $alertsWithSensors = [];
+        $sensorsCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
-                $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] : $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,
@@ -60,10 +61,15 @@ class SettingsController extends Controller
         if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
         }
-        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
-            $data['tfa'] = false;
+        if (key_exists('telegramName', $data)){
+            if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
+                $data['tfa'] = false;
+            }
         }
         $data = array_diff_assoc($data, $user->getAttributes());
+        if (key_exists('new_password', $data)) {
+            $data['password'] = $data['new_password'];
+        }
         $service = new UserServiceProvider();
         $service->update($user->getAuthIdentifier(), json_encode($data));
         return redirect('/settings/edit');

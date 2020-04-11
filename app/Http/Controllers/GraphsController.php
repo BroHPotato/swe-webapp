@@ -27,8 +27,8 @@ class GraphsController extends Controller
         if ($this->viewProvider->find($viewId)) {
             $data = request()->validate([
                 'correlation' => 'required|string|in:0,1,2,3',
-                'sensor1' => 'required|string',
-                'sensor2' => 'required|string'
+                'sensor1' => 'required|string|different:sensor2',
+                'sensor2' => 'required|string|different:sensor1'
             ]);
             $data['view'] = $viewId;
             $data = array_map(function ($value) {
@@ -43,20 +43,4 @@ class GraphsController extends Controller
         $this->viewGraphProvider->destroy($viewGraphId);
         return redirect(route('views.index'));
     }
-
-    /*    public function update($viewId){
-            if($this->viewProvider->find($viewId)){
-                $data = request()->validate([
-                    'correlation' => 'required|string|in:0,1,2,3',
-                    'sensor1' => 'required|string',
-                    'sensor2' => 'required|string'
-                ]);
-                $data['view'] = $viewId;
-                $data = array_map(function ($value) {
-                    return (int)$value;
-                }, $data);
-                $this->viewGraphProvider->update($viewId, json_encode($data));
-                return redirect(route('views.show', ['viewId' => $viewId]));
-            }
-        }*/
 }

@@ -93,7 +93,7 @@
                     </form>
                 @endcanany
                 <hr>
-                <button type="submit" class="btn btn-primary btn-icon-split">
+                <button type="submit" class="btn btn-primary btn-icon-split" form="create">
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
                     </span>

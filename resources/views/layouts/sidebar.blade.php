@@ -5,7 +5,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-home"></i>
+            <i class="fas fa-project-diagram"></i>
         </div>
         <div class="sidebar-brand-text mx-3">ThiReMa</div>
     </a>

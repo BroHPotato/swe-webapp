@@ -81,6 +81,49 @@ class AlertServiceProvider extends BasicProvider
         ]));
     }
 
+    public function update(string $who, string $body)
+    {
+        try {
+            $this->request->put('/alerts/' . $who, array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    /**
+     * @param string $who
+     */
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/alerts/' . $who, $this->setHeaders());
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
+    /**
+     * @param string $body
+     * @return bool
+     */
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
+        }
+    }
+
     // ===================================================
     // Mockup per un utente
     // Funzione da rimuovere in production

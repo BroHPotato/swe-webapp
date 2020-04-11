@@ -1,12 +1,5 @@
 <template>
     <div>
-        <select class="custom-select" @change="changePullrate($event)">
-            <option value="4000" selected>4s</option>
-            <option value="3000">3s</option>
-            <option value="2000">2s</option>
-            <option value="1000">1s</option>
-            <option value="500">0.5s</option>
-        </select>
         <apexchart
             ref="RTChart"
             height="300"
@@ -77,19 +70,14 @@ export default {
     },
     created() {
         this.vars = {
-            pull: null,
             newDataSeries: [],
         };
     },
     mounted() {
         this.fetchData();
-        this.vars.pull = this.startInterval(4000);
+        this.startInterval(3000);
     },
     methods: {
-        changePullrate(timer) {
-            clearInterval(this.pull);
-            this.pull = this.startInterval(timer.target.value);
-        },
         fetchData() {
             axios
                 .get("/data/" + this.sensor.sensorId)
