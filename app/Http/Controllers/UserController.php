@@ -135,6 +135,8 @@ class UserController extends Controller
 
         if (key_exists('deleted', $data)) {
             $data['deleted'] = boolval($data['deleted']);
+        }else{
+            $data['deleted'] = false;
         }
 
         if (key_exists('tfa', $data)) {
@@ -146,6 +148,7 @@ class UserController extends Controller
                 $data['tfa'] = false;
             }
         }
+
         $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT));
         return redirect(route('users.index'));
     }
