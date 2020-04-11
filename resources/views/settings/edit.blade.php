@@ -169,8 +169,8 @@
                                     @foreach($a as $list)
                                         <tr>
                                             <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
-                                            <td>{{$list['device']->name}}</td>
-                                            <td><span class="real-id">{{$list['alert']->sensor}}</span></td>
+                                            <td><a href="{{route('devices.show', ['deviceId' => $list['device']->deviceId])}}">{{$list['device']->name}}</a></td>
+                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}"><span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
                                             @if($status == "enable")
@@ -183,7 +183,8 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-sm btn-success btn-icon-split">
+                        <hr>
+                        <button type="submit" class="btn btn-primary btn-icon-split float-right">
                             <span class="icon text-white-50">
                                   <span class="fas fa-check-circle"></span>
                             </span>
