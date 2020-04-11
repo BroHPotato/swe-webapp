@@ -67,6 +67,9 @@ class SettingsController extends Controller
             }
         }
         $data = array_diff_assoc($data, $user->getAttributes());
+        if (key_exists('new_password', $data)) {
+            $data['password'] = $data['new_password'];
+        }
         $service = new UserServiceProvider();
         $service->update($user->getAuthIdentifier(), json_encode($data));
         return redirect('/settings/edit');

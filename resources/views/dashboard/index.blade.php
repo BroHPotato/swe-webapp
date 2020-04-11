@@ -29,7 +29,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">utenti attivi nel tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityActiveMembers}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityActiveMembers??"N/A"}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-user-friends fa-2x text-gray-500"></span>
@@ -59,7 +59,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">utenti registrati nel tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredUsers}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredUsers??"N/A"}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-user-tag fa-2x text-gray-500"></span>
@@ -91,7 +91,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">dispositivi del tuo ente</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredDevices}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$stats->entityRegisteredDevices??"N/A"}}</div>
                             </div>
                             <div class="col-auto">
                                 <span class="fas fa-microchip fa-2x text-gray-500"></span>
