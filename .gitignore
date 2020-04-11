@@ -9,7 +9,7 @@ public/js
 public/webfonts
 public/mix-manifest.json
 
-composer.lock
-package-lock.json
-
 .php_cs.cache
+
+fix.sh
+.DS_Store

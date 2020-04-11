@@ -41,7 +41,7 @@ class DashboardController extends Controller
             return !$u->deleted;
         });
         return view('dashboard.index', compact([
-            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity'
+            'user', 'users', 'entities', 'devices', 'devicesEntity', 'usersEntity', 'usersActive', 'usersActiveEntity', 'entity'
         ]));
     }
 }

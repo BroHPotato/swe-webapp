@@ -165,14 +165,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($alerts as $status => $a)
-                                    @foreach($a as $alert)
+                                @foreach($alertsWithSensors as $status => $a)
+                                    @foreach($a as $list)
                                         <tr>
-                                            <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$alert->alertId}}"></td>
-                                            <td>Disp1</td>
-                                            <td>{{$alert->sensor}}</td>
-                                            <td>{{$alert->getType()}}</td>
-                                            <td>{{$alert->threshold}}</td>
+                                            <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
+                                            <td>{{$list['device']->name}}</td>
+                                            <td><span class="real-id">{{$list['alert']->sensor}}</span></td>
+                                            <td>{{$list['alert']->getType()}}</td>
+                                            <td>{{$list['alert']->threshold}}</td>
                                             @if($status == "enable")
                                                 <td><span class="badge badge-success">Attivo</span></td>
                                             @else

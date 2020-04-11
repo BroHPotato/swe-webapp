@@ -23,7 +23,8 @@
                 </div>
                 <div class="card-body">
                     <ul>
-                        <li><strong>ID dispositivo:</strong> {{$device->deviceId}}</li>
+                        <li><strong>ID logico dispositivo:</strong> <span class="logic-id">{{$device->deviceId}}</span></li>
+                        <li><strong>ID reale dispositivo:</strong> <span class="real-id">{{$device->realDeviceId}}</span></li>
                         <li><strong>Nome dispositivo:</strong> {{$device->name}}</li>
                         <li><strong>Gateway di appartenenza:</strong> {{$gateway->name}}</li>
                         <li><strong>Numero di sensori:</strong> {{count($sensors)}}</li>
@@ -46,15 +47,15 @@
                         <table class="table border-secondary table-bordered table-striped">
                             <thead class="thead-dark table-borderless">
                                 <tr>
-                                    <th>ID sensore</th>
-                                    <th>Tipologia</th>
+                                    <th>ID reale sensore</th>
+                                    <th>Tipo di dato</th>
                                     <th class="bg-secondary"> </th>
                                 </tr>
                             </thead>
                             <tbody>
                             @foreach($sensors as $sensor)
                                 <tr>
-                                    <td>{{$sensor->realSensorId}}</td>
+                                    <td><span class="real-id">{{$sensor->realSensorId}}</span></td>
                                     <td>{{$sensor->type}}</td>
                                     <td class="text-center"><a href="{{route('sensors.show', [
                                             'deviceId' => $device->deviceId,

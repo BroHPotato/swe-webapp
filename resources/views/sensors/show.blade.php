@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex mb-4">
-        <h1 class="h4 mb-0 text-gray-800"> Sensore #{{$sensor->realSensorId}} del dispositivo #{{$sensor->device}} </h1>
+        <h1 class="h4 mb-0 text-gray-800"> Sensore <span class="real-id">{{$sensor->realSensorId}}</span> del dispositivo <span class="logic-id">{{$sensor->device}}</span> </h1>
     </div>
 
     <!-- TODO: realSensorId da cambiare con l'ID logico -->

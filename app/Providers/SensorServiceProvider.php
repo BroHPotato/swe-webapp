@@ -25,7 +25,7 @@ class SensorServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices/',
+            'base_uri' => config('app.api') . '/devices',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -40,7 +40,24 @@ class SensorServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get(
-                '/devices/' . $deviceId . '/sensor/' . $sensorId,
+                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                $this->setHeaders()
+            )->getBody());
+            $sensor = new Sensor();
+            $sensor->fill((array)$response);
+            return $sensor;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
+
+    public function findFromLogicalId($sensorId)
+    {
+        try {
+            $response = json_decode($this->request->get(
+                '/sensors/' . $sensorId,
                 $this->setHeaders()
             )->getBody());
             $sensor = new Sensor();
@@ -118,5 +135,22 @@ class SensorServiceProvider extends BasicProvider
             $this->isExpired($e);
             return NAN;
         }
+    }
+    // ===================================================
+    // Mockup per un utente
+    // Funzione da rimuovere in production
+
+    /**
+     * @return Sensor
+     */
+    public static function GetASensor()
+    {
+        $sensor = new Sensor();
+        $arr = array_combine(
+            array('sensorId', 'type', 'realSensorId', 'device'),
+            array("0", "Tipo", "0", '0')
+        );
+        $sensor->fill($arr);
+        return $sensor;
     }
 }

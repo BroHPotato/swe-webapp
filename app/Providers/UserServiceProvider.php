@@ -125,7 +125,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             'headers' => [
                 'X-Forwarded-For' => request()->ip()
             ],
-            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"] . '"}'
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]/*todo sha512*/ . '"}'
         ])->getBody());
 
         if (property_exists($response, 'tfa')) {
@@ -252,13 +252,13 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     /**
      * @return User
      */
-    public function imJustAGuyDontBotherMe()
+    public static function GetAUser()
     {
         $user = new User();
         $arr = array_combine(
-            array('userId', 'name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa',
-                'token'),
-            array("1", "sys", "admin", "sys@admin.it", "0", "pippo", "123", "0", "0", "456")
+            array('userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
+                'password'),
+            array("0", "Simion", "admin", "sys@admin.it", "0", "pippo", "00000", "0", "0", "xXxtOkEnxXx", "null", 'password')
         );
         $user->fill($arr);
         return $user;

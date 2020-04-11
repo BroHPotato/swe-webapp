@@ -54,7 +54,7 @@ class GatewayController extends Controller
         return view('gateways.create', compact(['entities']));
     }
 
-    public function edit($gateway)
+    public function edit($gateway) //TODO
     {
         $gateway = $this->provider->find($gateway);
         return view('gateways.edit', compact('gateway'));

@@ -23,7 +23,11 @@ import covariance from "@elstats/covariance";
 import Pearson from "correlation-rank";
 import Spearman from "spearman-rho";
 export default {
-    props: { sensor1: Object, sensor2: Object, variance: Number },
+    props: {
+        sensor1: { type: Object, default: null },
+        sensor2: { type: Object, default: null },
+        variance: { type: Number, default: 0 },
+    },
     data: function () {
         const variance = [
             "Nessuna",
@@ -158,8 +162,7 @@ export default {
             let calc = NaN;
             switch (this.variance) {
                 case 1:
-                    (calc = this.vars.date),
-                        covariance(this.vars.data1, this.vars.data2);
+                    calc = covariance(this.vars.data1, this.vars.data2);
                     break;
                 case 2:
                     calc = Pearson.rank(this.vars.data1, this.vars.data2);
