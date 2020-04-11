@@ -135,7 +135,7 @@ class UserController extends Controller
 
         if (key_exists('deleted', $data)) {
             $data['deleted'] = boolval($data['deleted']);
-        }else{
+        } else {
             $data['deleted'] = false;
         }
 
