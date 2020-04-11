@@ -15,6 +15,7 @@ class User extends Authenticatable
     ];
     private $role = ['Utente', 'Moderatore', 'Amministratore'];
 
+
     public function getAuthIdentifierName(): string
     {
         return 'userId';

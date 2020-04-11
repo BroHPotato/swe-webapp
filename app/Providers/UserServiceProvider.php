@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Redirect;
 use function config;
 
 /**
@@ -125,12 +126,13 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             'headers' => [
                 'X-Forwarded-For' => request()->ip()
             ],
-            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]/*todo sha512*/ . '"}'
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]
+                /*todo sha512*/ . '"}'
         ])->getBody());
 
         if (property_exists($response, 'tfa')) {
             session(['token' => $response->token]);
-            return redirect('/login/tfa');
+            Redirect::away('/login/tfa')->send();
         } else {
             $userarray = (array)$response->user;
             $userarray['token'] = $response->token;
@@ -256,9 +258,11 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         $user = new User();
         $arr = array_combine(
-            array('userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
+            array('userId','name', 'surname', 'email', 'type',
+                'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
                 'password'),
-            array("0", "Simion", "admin", "sys@admin.it", "0", "pippo", "00000", "0", "0", "xXxtOkEnxXx", "null", 'password')
+            array("0", "Simion", "admin", "sys@admin.it", "0",
+                "pippo", "00000", "0", "0", "xXxtOkEnxXx", "null", 'password')
         );
         $user->fill($arr);
         return $user;

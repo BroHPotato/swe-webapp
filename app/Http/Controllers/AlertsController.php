@@ -32,7 +32,8 @@ class AlertsController extends Controller
         $sensorsCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
-                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] : $sensor = $this->sensorProvider->findFromLogicalId($alert->sensor);
+                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] :
+                    $sensor = $this->sensorProvider->findFromLogicalId($alert->sensor);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,
