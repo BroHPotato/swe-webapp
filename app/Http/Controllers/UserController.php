@@ -97,9 +97,9 @@ class UserController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'email' => 'required|email',
+            'name' => 'required|string|max:32',
+            'surname' => 'required|string|max:32',
+            'email' => 'required|email|max:32',
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
         ]);
@@ -122,10 +122,10 @@ class UserController extends Controller
     {
         $user = $this->provider->retrieveById($user);
         $data = request()->validate([
-            'name' => 'required|string',
-            'surname' => 'required|string',
+            'name' => 'required|string|max:32',
+            'surname' => 'required|string|max:32',
             'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
-            'email' => 'required|email',
+            'email' => 'required|email|max:32',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
             'deleted' => 'nullable|in:true',
