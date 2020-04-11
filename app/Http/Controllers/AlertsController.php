@@ -8,34 +8,35 @@ use App\Providers\SensorServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AlertsController extends Controller
 {
-    private $alertsProvider;
-    private $devicesProvider;
-    private $sensorsProvider;
+    private $alertProvider;
+    private $deviceProvider;
+    private $sensorProvider;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->alertsProvider = new AlertServiceProvider();
-        $this->devicesProvider = new DeviceServiceProvider();
-        $this->sensorsProvider = new SensorServiceProvider();
+        $this->alertProvider = new AlertServiceProvider();
+        $this->deviceProvider = new DeviceServiceProvider();
+        $this->sensorProvider = new SensorServiceProvider();
     }
 
     public function index()
     {
-        $alerts = $this->alertsProvider->findAll();
+        $alerts = $this->alertProvider->findAll();
         $alertsWithSensors = [];
         $sensorsCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
-                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] : $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] : $sensor = $this->sensorProvider->findFromLogicalId($alert->sensor);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,
-                    'device' => $this->devicesProvider->find($sensor->device)
+                    'device' => $this->deviceProvider->find($sensor->device)
                 ];
             }
         }
@@ -43,16 +44,25 @@ class AlertsController extends Controller
     }
     public function create()
     {
-        return view('alerts.create', compact(''));
+        $devices = $this->deviceProvider->findAll();
+        foreach ($devices as $d) {
+            $sensors[$d->deviceId] = $this->sensorProvider->findAllFromDevice($d->deviceId);
+        }
+        return view('alerts.create', compact(['devices', 'sensors']));
     }
 
     /**
-     * @param $alert
+     * @param $alertId
      * @return Factory|View
      */
-    public function edit($alert)
+    public function edit($alertId)
     {
-        return view('alerts.edit', compact('alert'));
+        $alert = $this->alertProvider->find($alertId);
+        $devices = $this->deviceProvider->findAll();
+        foreach ($devices as $d) {
+            $sensors[$d->deviceId] = $this->sensorProvider->findAllFromDevice($d->deviceId);
+        }
+        return view('alerts.edit', compact(['alert', 'devices', 'sensors']));
     }
 
     /**
@@ -61,8 +71,15 @@ class AlertsController extends Controller
     public function store()
     {
         $data = request()->validate([
+            "sensor" => 'required|numeric',
+            "threshold" => 'required|numeric',
+            "type" => 'required|in:0,1,2'
         ]);
-        $this->alertsProvider->store(json_encode($data));
+        $data["sensor"] = intval($data["sensor"]);
+        $data["threshold"] = doubleval($data["threshold"]);
+        $data["type"] = intval($data["type"]);
+        $data["entity"] = Auth::user()->entity;
+        $this->alertProvider->store(json_encode($data));
         return redirect(route('alerts.index'));
     }
 
@@ -73,8 +90,14 @@ class AlertsController extends Controller
     public function update($alertId)
     {
         $data = request()->validate([
+            "sensor" => 'required|numeric',
+            "threshold" => 'required|numeric',
+            "type" => 'required|in:0,1,2'
         ]);
-        $this->alertsProvider->update($alertId, json_encode($data, JSON_FORCE_OBJECT));
+        $data["sensor"] = intval($data["sensor"]);
+        $data["threshold"] = doubleval($data["threshold"]);
+        $data["type"] = intval($data["type"]);
+        $this->alertProvider->update($alertId, json_encode($data, JSON_FORCE_OBJECT));
         return redirect(route('alerts.index'));
     }
 
@@ -84,7 +107,7 @@ class AlertsController extends Controller
      */
     public function destroy($alertId)
     {
-        $this->alertsProvider->destroy($alertId);
+        $this->alertProvider->destroy($alertId);
         return redirect(route('alerts.index'));
     }
 }

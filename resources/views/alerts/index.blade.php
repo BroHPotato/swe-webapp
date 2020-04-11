@@ -25,9 +25,6 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
-                        <form action="{{route('settings.updateAlerts')}}" method="POST">
-                            @csrf
-                            @method('POST')
                             <table class="table table-bordered table-striped border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>
@@ -54,7 +51,7 @@
                                             <td>{{$list['alert']->lastSent??'-'}}</td>
                                             @canany(['isMod', 'isAdmin'])
                                             <td>
-                                                <a href="{{route('alerts.edit', $list['alert']->alertId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                                     <span class="icon text-white-50">
                                                       <span class="fas fa-edit"></span>
                                                     </span>
@@ -67,7 +64,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </form>
                     </div>
                 </div>
             </div>

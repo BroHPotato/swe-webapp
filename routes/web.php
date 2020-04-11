@@ -26,7 +26,7 @@ Route::post('settings', 'SettingsController@updateAlerts')->name('settings.updat
 Route::put('settings', 'SettingsController@update')->name('settings.update');
 
 //alert
-Route::get('alerts', 'AlertsController@index')->name('alerts.index');
+Route::get('/alerts', 'AlertsController@index')->name('alerts.index');
 
 //routes protette solo per admin e mod
 Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
@@ -43,10 +43,19 @@ Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
 
-    // Modifica, aggiunta, edit alerts
-    Route::get('alerts/{alertId}', 'AlertsController@index')->name('alerts.edit');
+    Route::delete('alerts/{alertId}', 'AlertsController@destroy')->name('alerts.destroy');
+
 });
 
+Route::middleware('can:isMod')->group(function () {
+
+    // Modifica, aggiunta, edit alerts
+    Route::post('alerts', 'AlertsController@store')->name('alerts.store');
+    Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
+    Route::get('alerts/create', 'AlertsController@create')->name('alerts.create');
+    Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
+    Route::put('alerts/{alertId}', 'AlertsController@update')->name('alerts.update');
+});
 
 //routes per gestione gateways
 Route::get('/gateways', 'GatewayController@index')->name('gateways.index');//TODO
@@ -83,8 +92,6 @@ Route::post('views', 'ViewController@store')->name('views.store');
 Route::delete('views/{viewId}', 'ViewController@destroy')->name('views.destroy');
 //data
 Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
-
-
 
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
