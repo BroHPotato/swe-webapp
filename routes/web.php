@@ -25,6 +25,9 @@ Route::get('settings/edit', 'SettingsController@edit')->name('settings.edit');
 Route::post('settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
 Route::put('settings', 'SettingsController@update')->name('settings.update');
 
+//alert
+Route::get('alerts', 'AlertsController@index')->name('alerts.index');
+
 //routes protette solo per admin e mod
 Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
     //routes per gestione user
@@ -39,8 +42,9 @@ Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
 
     //logs
     Route::get('logs', 'LogsController@index')->name('logs.index');
-    //alert
-    Route::get('alerts', 'AlertsController@index')->name('alerts.index');
+
+    // Modifica, aggiunta, edit alerts
+    Route::get('alerts/{alertId}', 'AlertsController@index')->name('alerts.edit');
 });
 
 

@@ -80,7 +80,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi</h6>
-            </a>
+            </div>
             <div class="card-body">
                 <div class="table-responsive-lg">
                     <table class="table table-striped table-bordered border-secondary">

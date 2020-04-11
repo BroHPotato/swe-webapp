@@ -5,28 +5,30 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$view->name}}</h1>
     </div>
-    <a href="{{route('views.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3">
-        <span class="icon text-white-50">
-          <span class="fas fa-arrow-circle-left"></span>
-        </span>
-        <span class="text">Torna indietro</span>
-    </a>
-    <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}"
-       onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
-        <span class="icon text-white-50">
-          <span class="fas fa-times"></span>
-        </span>
-        <span class="text">Elimina View</span>
-    </a>
-    <form id="destroy-view" action="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}" method="POST" style="display: none;">
-        @csrf
-        @method('DELETE')
-    </form>
+    <div class="d-flex justify-content-between">
+        <a href="{{route('views.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3 mr-4">
+            <span class="icon text-white-50">
+              <span class="fas fa-arrow-circle-left"></span>
+            </span>
+            <span class="text">Torna indietro</span>
+        </a>
+        <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}"
+           onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
+            <span class="icon text-white-50">
+              <span class="fas fa-times"></span>
+            </span>
+            <span class="text">Elimina View</span>
+        </a>
+        <form id="destroy-view" action="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}" method="POST" style="display: none;">
+            @csrf
+            @method('DELETE')
+        </form>
+    </div>
     <div class="row mt-2">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <a href="#collapseAddView" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseAddView">
-                    <h6 class="m-0 font-weight-bold text-primary">
+                    <h6 class="m-0 font-weight-bold text-success">
                         <span class="fas fa-plus-square"></span>
                         Aggiungi grafico pagina view
                     </h6>
@@ -43,7 +45,7 @@
                                         <select class="form-control @error('sensore1') is-invalid @enderror" name="sensor1" id="inputSensor1">
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
-                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - ' . $s->type}}</option>
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -62,7 +64,7 @@
                                         <select class="form-control @error('sensor2') is-invalid @enderror" name="sensor2" id="inputSensor2">
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
-                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - ' . $s->type}}</option>
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -92,14 +94,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-sm-flex mb-4 ml-sm-auto">
-                                <button type="submit" class="btn btn-success btn-icon-split">
-                                <span class="icon text-white-50">
-                                  <span class="fas fa-plus-circle"></span>
-                                </span>
-                                    <span class="text">Aggiungi</span>
-                                </button>
-                            </div>
+                            <hr>
+                            <button type="submit" class="btn btn-success btn-icon-split float-right mb-3">
+                            <span class="icon text-white-50">
+                              <span class="fas fa-plus-circle"></span>
+                            </span>
+                                <span class="text">Aggiungi</span>
+                            </button>
                         </form>
                     </div>
                 </div>

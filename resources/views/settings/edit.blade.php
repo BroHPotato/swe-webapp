@@ -182,19 +182,17 @@
                                             </tr>
                                         @endforeach
                                     @endforeach
-                                </tbody>
-                            </table>
-                            <button type="submit" class="btn btn-sm btn-success btn-icon-split">
-                                <span class="icon text-white-50">
-                                      <span class="fas fa-check-circle"></span>
-                                </span>
-                                <span class="text">Salva</span>
-                            </button>
-                        </form>
-                    </div>
-                @elsecanany('isAdmin')
-                    <p>Non hai alerts</p>
-                @endcanany
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-sm btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                  <span class="fas fa-check-circle"></span>
+                            </span>
+                            <span class="text">Salva</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
