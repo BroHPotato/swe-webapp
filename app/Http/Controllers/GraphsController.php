@@ -27,8 +27,8 @@ class GraphsController extends Controller
         if ($this->viewProvider->find($viewId)) {
             $data = request()->validate([
                 'correlation' => 'required|string|in:0,1,2,3',
-                'sensor1' => 'required|string',
-                'sensor2' => 'required|string'
+                'sensor1' => 'required|string|different:sensor2',
+                'sensor2' => 'required|string|different:sensor1'
             ]);
             $data['view'] = $viewId;
             $data = array_map(function ($value) {
