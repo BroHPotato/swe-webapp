@@ -61,6 +61,7 @@ class AlertServiceProvider extends BasicProvider
                 $alert->fill((array)$e);
                 $alerts['disable'][] = $alert;
             }
+            dd($alerts);
             return $alerts;
         } catch (RequestException $e) {
             $this->isExpired($e);

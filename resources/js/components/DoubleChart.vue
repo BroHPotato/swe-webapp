@@ -1,12 +1,5 @@
 <template>
     <div>
-        <select class="custom-select" @change="changePullrate($event)">
-            <option value="4000" selected>4s</option>
-            <option value="3000">3s</option>
-            <option value="2000">2s</option>
-            <option value="1000">1s</option>
-            <option value="500">0.5s</option>
-        </select>
         <apexchart
             ref="RTChart"
             height="400"
@@ -15,6 +8,7 @@
             :series="series"
         >
         </apexchart>
+        <div ref="variance"></div>
     </div>
 </template>
 
@@ -29,12 +23,6 @@ export default {
         variance: { type: Number, default: 0 },
     },
     data: function () {
-        const variance = [
-            "Nessuna",
-            "Covarianza",
-            "Correlazione di Pearson",
-            "Correlazione di Spearman",
-        ];
         return {
             chartOptions: {
                 chart: {
@@ -81,33 +69,22 @@ export default {
                     name: this.sensor2.type,
                     data: [],
                 },
-                {
-                    name: variance[this.variance],
-                    data: [],
-                },
             ],
         };
     },
     created() {
         this.vars = {
-            pull: null,
             newDataSeries1: [],
             newDataSeries2: [],
-            newDataVariance: [],
             data1: [],
             data2: [],
-            date: null,
         };
     },
     mounted() {
         this.fetchData();
-        this.vars.pull = this.startInterval(4000);
+        this.startInterval(3000);
     },
     methods: {
-        changePullrate(timer) {
-            clearInterval(this.pull);
-            this.pull = this.startInterval(timer.target.value);
-        },
         fetchData() {
             axios
                 .get("/data/" + this.sensor1.sensorId)
@@ -132,7 +109,6 @@ export default {
                         response.data.value,
                     ]);
                     this.vars.data2.push(response.data.value);
-                    this.vars.date = new Date(response.data.time).toISOString();
                 })
                 .catch((errors) => {
                     this.vars.newDataSeries2 = [
@@ -152,13 +128,16 @@ export default {
                     {
                         data: this.vars.newDataSeries2,
                     },
-                    {
-                        data: this.vars.newDataVariance,
-                    },
                 ];
             }, timer);
         },
         calculateVariance() {
+            const variance = [
+                "Nessuna",
+                "Covarianza",
+                "Correlazione di Pearson",
+                "Correlazione di Spearman",
+            ];
             let calc = NaN;
             switch (this.variance) {
                 case 1:
@@ -179,10 +158,8 @@ export default {
                     break;
             }
             if (!isNaN(calc)) {
-                this.vars.newDataVariance.push([
-                    this.vars.date,
-                    calc.toFixed(3),
-                ]);
+                this.$refs.variance.innerHTML =
+                    variance[this.variance] + " : " + calc.toFixed(3);
             }
         },
     },
