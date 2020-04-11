@@ -28,14 +28,7 @@ if (tables !== undefined) {
             });
         });
     });
-    // non capisco perchè torna null DC
-    // const dataTableFilter = document.querySelector(".dataTables_filter");
-    // console.log(dataTableFilter);
-    // pagination.addClass("float-right");
 }
-
-
-// document.querySelector("#dataTable_paginate").classList.add("float-right");
 
 if (addSensor !== null) {
     addSensor.addEventListener("click", (e) => {
