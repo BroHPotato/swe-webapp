@@ -84,4 +84,3 @@ Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
-/*Route::put('/viewGraphs/{viewId}', 'GraphsController@update')->name('graphs.update');*/
