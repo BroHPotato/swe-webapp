@@ -6,21 +6,23 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800"> Alerts</h1>
     </div>
-    <div class="col-auto mb-4 ">
-        <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-3">
-        <span class="icon text-white-50">
-          <span class="fas fa-arrow-circle-left"></span>
-        </span>
-            <span class="text">Torna indietro</span>
-        </a>
-        @can('isMod')
-            <a href="{{route('alerts.create')}}" class="btn btn-sm btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                  <span class="fas fa-plus-circle"></span>
-                </span>
-                <span class="text">Aggiungi alert</span>
+    <div class="row">
+        <div class="col-auto mb-4 ">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-3">
+            <span class="icon text-white-50">
+              <span class="fas fa-arrow-circle-left"></span>
+            </span>
+                <span class="text">Torna indietro</span>
             </a>
-        @endcan
+            @can('isMod')
+                <a href="{{route('alerts.create')}}" class="btn btn-sm btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-plus-circle"></span>
+                    </span>
+                    <span class="text">Aggiungi alert</span>
+                </a>
+            @endcan
+        </div>
     </div>
 
     <div class="row">

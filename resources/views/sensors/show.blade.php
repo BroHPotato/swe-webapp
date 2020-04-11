@@ -9,7 +9,7 @@
     <!-- TODO: realSensorId da cambiare con l'ID logico -->
 
     <div class="d-inline-block mt-2 mb-4 px-0">
-        <a href="{{route('devices.show', $sensor->realSensorId)}}" class="btn btn-sm btn-danger btn-icon-split">
+        <a href="{{route('devices.show', $sensor->device)}}" class="btn btn-sm btn-danger btn-icon-split">
                 <span class="icon text-white-50">
                     <span class="fas fa-arrow-circle-left"></span>
                 </span>
