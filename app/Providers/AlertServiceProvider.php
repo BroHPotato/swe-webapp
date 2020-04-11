@@ -61,7 +61,6 @@ class AlertServiceProvider extends BasicProvider
                 $alert->fill((array)$e);
                 $alerts['disable'][] = $alert;
             }
-            dd($alerts);
             return $alerts;
         } catch (RequestException $e) {
             $this->isExpired($e);
@@ -85,13 +84,9 @@ class AlertServiceProvider extends BasicProvider
     public function update(string $who, string $body)
     {
         try {
-            $response = json_decode($this->request->put('/alerts/' . $who, array_merge($this->setHeaders(), [
+            $this->request->put('/alerts/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
-            ]))->getBody());
-            if (property_exists($response, 'token')) {
-                session(['token' => $response->token]);
-                Auth::user()->token = $response->token;
-            }
+            ]));
         } catch (RequestException $e) {
             $this->isExpired($e);
             abort($e->getCode(), $e->getResponse()->getReasonPhrase());
@@ -124,6 +119,7 @@ class AlertServiceProvider extends BasicProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return false;
         }
     }
