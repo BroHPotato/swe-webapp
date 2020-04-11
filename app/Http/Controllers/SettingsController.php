@@ -32,9 +32,10 @@ class SettingsController extends Controller
         $user = Auth::user();
         $alerts = $this->alertsProvider->findAll();
         $alertsWithSensors = [];
+        $sensorsCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
-                $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor] : $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,

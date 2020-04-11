@@ -18,7 +18,6 @@ class DashboardController extends Controller
         $userProvider = new UserServiceProvider();
         $entityProvider = new EntityServiceProvider();
         $deviceProvider = new DeviceServiceProvider();
-
         $user = Auth::user();
         $entities = $entityProvider->findAll();//enti presenti
         $users = $userProvider->findAll();//utenti registrati

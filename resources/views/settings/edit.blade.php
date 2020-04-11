@@ -149,48 +149,52 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
-                    <form action="{{route('settings.updateAlerts')}}" method="POST">
-                        @csrf
-                        @method('POST')
-                        <table class="table table-bordered table-striped border-secondary">
-                            <thead class="thead-dark table-borderless">
-                                <tr>
-                                    <th width="1em" class="bg-secondary"><span class="far fa-bell"></span></th>
-                                    <th>Dispositivo</th>
-                                    <th>Sensore</th>
-                                    <th>Soglia</th>
-                                    <th>Valore</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($alertsWithSensors as $status => $a)
-                                    @foreach($a as $list)
-                                        <tr>
-                                            <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
-                                            <td>{{$list['device']->name}}</td>
-                                            <td><span class="real-id">{{$list['alert']->sensor}}</span></td>
-                                            <td>{{$list['alert']->getType()}}</td>
-                                            <td>{{$list['alert']->threshold}}</td>
-                                            @if($status == "enable")
-                                                <td><span class="badge badge-success">Attivo</span></td>
-                                            @else
-                                                <td><span class="badge badge-danger">Disattivo</span></td>
-                                            @endif
-                                        </tr>
+                @canany(['isUser', 'isMod'])
+                    <div class="table-responsive-sm">
+                        <form action="{{route('settings.updateAlerts')}}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <table class="table table-bordered table-striped border-secondary">
+                                <thead class="thead-dark table-borderless">
+                                    <tr>
+                                        <th width="1em" class="bg-secondary"><span class="far fa-bell"></span></th>
+                                        <th>Dispositivo</th>
+                                        <th>Sensore</th>
+                                        <th>Soglia</th>
+                                        <th>Valore</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($alertsWithSensors as $status => $a)
+                                        @foreach($a as $list)
+                                            <tr>
+                                                <td><input type="checkbox" @if($status == "enable") checked @endif name="alerts[]" value="{{$list['alert']->alertId}}"></td>
+                                                <td>{{$list['device']->name}}</td>
+                                                <td><span class="real-id">{{$list['alert']->sensor}}</span></td>
+                                                <td>{{$list['alert']->getType()}}</td>
+                                                <td>{{$list['alert']->threshold}}</td>
+                                                @if($status == "enable")
+                                                    <td><span class="badge badge-success">Attivo</span></td>
+                                                @else
+                                                    <td><span class="badge badge-danger">Disattivo</span></td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-sm btn-success btn-icon-split">
-                            <span class="icon text-white-50">
-                                  <span class="fas fa-check-circle"></span>
-                            </span>
-                            <span class="text">Salva</span>
-                        </button>
-                    </form>
-                </div>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-sm btn-success btn-icon-split">
+                                <span class="icon text-white-50">
+                                      <span class="fas fa-check-circle"></span>
+                                </span>
+                                <span class="text">Salva</span>
+                            </button>
+                        </form>
+                    </div>
+                @elsecanany('isAdmin')
+                    <p>Non hai alerts</p>
+                @endcanany
             </div>
         </div>
     </div>
