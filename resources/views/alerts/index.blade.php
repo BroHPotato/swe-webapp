@@ -6,26 +6,25 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800"> Alerts</h1>
     </div>
-    <div class="d-flex justify-content-between">
+    <div class="row">
         <div class="col-auto mb-4 ">
-            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-3">
             <span class="icon text-white-50">
               <span class="fas fa-arrow-circle-left"></span>
             </span>
                 <span class="text">Torna indietro</span>
             </a>
-        </div>
-        @can('isMod')
-            <div class="col-auto mb-4 ">
+            @can('isMod')
                 <a href="{{route('alerts.create')}}" class="btn btn-sm btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                  <span class="fas fa-plus-circle"></span>
-                </span>
-                    <span class="text">Aggiungi Alert</span>
+                    <span class="icon text-white-50">
+                      <span class="fas fa-plus-circle"></span>
+                    </span>
+                    <span class="text">Aggiungi alert</span>
                 </a>
-            </div>
-        @endcan
+            @endcan
+        </div>
     </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
@@ -37,7 +36,7 @@
                             <table class="table table-bordered table-striped border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>
-                                    <th class="text-center"><span class="fas fa-list-ul"></span></th>
+                                    <th><span class="fas fa-list-ul"></span></th>
                                     <th>Dispositivo</th>
                                     <th>Sensore</th>
                                     <th>Soglia</th>
