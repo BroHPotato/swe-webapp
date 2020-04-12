@@ -21,13 +21,13 @@ class UserTest extends TestCase
     public function testGetAuthIdentifier()
     {
         $user = UserServiceProvider::getAUser();
-        $this->assertEquals("0", $user->getAuthIdentifier());
+        $this->assertEquals(null, $user->getAuthIdentifier());
     }
 
     public function testGetRole()
     {
         $user = UserServiceProvider::getAUser();
-        $this->assertEquals("Amministratore", $user->getRole());
+        $this->assertEquals('Utente', $user->getRole());
     }
     public function testGetPassword()
     {
