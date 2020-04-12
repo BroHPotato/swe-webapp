@@ -81,7 +81,7 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => ['sensor' =>$sensorId]
+                'query' => ['sensor' => $sensorId]
             ]))->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);

@@ -126,12 +126,12 @@ class UserController extends Controller
         $data = request()->validate([
             'name' => 'required|string|max:32',
             'surname' => 'required|string|max:32',
-            'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
+            'type' => 'in:0,1,2|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
             'email' => 'required|email|max:32',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
             'deleted' => 'nullable|in:true',
-            'password' => 'nullable|min:6',
+            'password' => 'nullable',
         ]);
         $data = array_diff_assoc($data, $user->getAttributes());
 
@@ -151,10 +151,16 @@ class UserController extends Controller
             }
         }
 
+        $change = "";
+        if (key_exists('password', $data)) {
+            $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
+            $change = ' e con nuova password : ' . $data['password'];
+        }
+
         return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
-            redirect(route('users.index'))->withErrors(['GoodUpdate' => 'Utente aggiornato con successo']) :
+            redirect(route('users.index'))
+                ->withErrors(['GoodUpdate' => 'Utente aggiornato con successo' . $change]) :
             redirect(route('users.index'))->withErrors(['NotUpdate' => 'Utente non aggiornato']);
-        ;
     }
 
     /**
