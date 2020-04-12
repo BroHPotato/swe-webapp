@@ -92,7 +92,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             }
         } catch (RequestException $e) {
             $this->isExpired($e);
-            dd($e);
             return null;
         }
     }
@@ -212,9 +211,10 @@ class UserServiceProvider extends BasicProvider implements UserProvider
                 session(['token' => $response->token]);
                 Auth::user()->token = $response->token;
             }
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
@@ -225,9 +225,10 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         try {
             $this->request->delete('users/' . $who, $this->setHeaders());
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return true;
         }
     }
 

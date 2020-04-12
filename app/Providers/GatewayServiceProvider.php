@@ -46,7 +46,7 @@ class GatewayServiceProvider extends BasicProvider
             $gateway->fill((array)$response);
             return $gateway;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -66,7 +66,7 @@ class GatewayServiceProvider extends BasicProvider
             }
             return $gateways;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }
@@ -85,7 +85,7 @@ class GatewayServiceProvider extends BasicProvider
             }
             return $gateways;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }

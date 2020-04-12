@@ -70,15 +70,28 @@ class AlertServiceProvider extends BasicProvider
     }
     public function disable($identifier)
     {
-        $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
-            'query' => ['userId' => Auth::id(), 'enable' => false]
-        ]));
+        try {
+            $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
+                'query' => ['userId' => Auth::id(), 'enable' => false]
+            ]));
+            return true;
+        }catch (RequestException $e){
+            $this->isExpired($e);
+            return false;
+        }
+
     }
     public function enable($identifier)
     {
-        $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
-            'query' => ['userId' => Auth::id(), 'enable' => true]
-        ]));
+        try {
+            $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
+                'query' => ['userId' => Auth::id(), 'enable' => true]
+            ]));
+            return true;
+        }catch (RequestException $e){
+            $this->isExpired($e);
+            return false;
+        }
     }
 
     public function update(string $who, string $body)
@@ -87,9 +100,10 @@ class AlertServiceProvider extends BasicProvider
             $this->request->put('/alerts/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
             ]));
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
@@ -100,9 +114,10 @@ class AlertServiceProvider extends BasicProvider
     {
         try {
             $this->request->delete('/alerts/' . $who, $this->setHeaders());
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
@@ -119,7 +134,6 @@ class AlertServiceProvider extends BasicProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return false;
         }
     }

@@ -48,7 +48,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -65,7 +64,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -86,7 +84,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -111,7 +108,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }

@@ -5,6 +5,7 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800"> Pagine view </h1>
     </div>
+    @include('layouts.error')
     <div class="d-sm-flex mb-4 ml-sm-auto">
         <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
             <span class="icon text-white-50">

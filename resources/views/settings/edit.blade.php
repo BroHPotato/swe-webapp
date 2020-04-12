@@ -5,6 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800">Impostazioni account</h1>
         </div>
+        @include('layouts.error')
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                         <span class="icon text-white-50">
@@ -13,7 +14,6 @@
                 <span class="text">Torna indietro</span>
             </a>
         </div>
-
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <div class="card shadow mb-4">

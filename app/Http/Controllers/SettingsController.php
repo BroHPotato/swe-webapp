@@ -72,8 +72,9 @@ class SettingsController extends Controller
             $data['password'] = $data['new_password'];
         }
         $service = new UserServiceProvider();
-        $service->update($user->getAuthIdentifier(), json_encode($data));
-        return redirect('/settings/edit');
+        return $service->update($user->getAuthIdentifier(), json_encode($data))?
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']):
+            redirect('/settings/edit')->withErrors(['BadUpdate' => 'Impostazioni non aggiornate']);
     }
 
     public function updateAlerts()
@@ -92,12 +93,15 @@ class SettingsController extends Controller
         }
         $toEnable = array_diff($data, $enable);
         $toDisable = array_diff($enable, $data);
+        $check = true;
         foreach ($toEnable as $e) {
-            $this->alertsProvider->enable($e);
+            !$this->alertsProvider->enable($e) ? $check = false: "";
         }
         foreach ($toDisable as $d) {
-            $this->alertsProvider->disable($d);
+            !$this->alertsProvider->disable($d) ? $check = false: "";
         }
-        return redirect('/settings/edit');
+        return $check ?
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Alerts aggiornate con successo']):
+            redirect('/settings/edit')->withErrors(['BadUpdate' => 'Alerts non aggiornate']);
     }
 }
