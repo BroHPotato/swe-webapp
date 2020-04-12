@@ -16,12 +16,12 @@ class UserTest extends TestCase
     public function testGetWrongAuthIdentifier()
     {
         $user = UserServiceProvider::getAUser();
-        $this->assertEquals(null, $user->getAuthIdentifier());
+        $this->assertNotEquals(null, $user->getAuthIdentifier());
     }
     public function testGetAuthIdentifier()
     {
         $user = UserServiceProvider::getAUser();
-        $this->assertEquals(null, $user->getAuthIdentifier());
+        $this->assertEquals('0', $user->getAuthIdentifier());
     }
 
     public function testGetRole()

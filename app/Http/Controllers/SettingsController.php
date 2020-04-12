@@ -74,7 +74,7 @@ class SettingsController extends Controller
         $service = new UserServiceProvider();
         return $service->update($user->getAuthIdentifier(), json_encode($data)) ?
             redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
-            redirect('/settings/edit')->withErrors(['BadUpdate' => 'Impostazioni non aggiornate']);
+            redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
     }
 
     public function updateAlerts()
@@ -105,6 +105,6 @@ class SettingsController extends Controller
         }
         return $check ?
             redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Alerts aggiornate con successo']) :
-            redirect('/settings/edit')->withErrors(['BadUpdate' => 'Alerts non aggiornate']);
+            redirect('/settings/edit')->withErrors(['NotUpdate' => 'Alerts non aggiornate']);
     }
 }

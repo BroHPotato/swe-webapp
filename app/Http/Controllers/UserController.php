@@ -103,7 +103,7 @@ class UserController extends Controller
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
         ]);
-        $data['password'] = "password";
+        $data['password'] = substr(md5(microtime()), rand(0, 26), 6);
         if (!key_exists('entityId', $data)) {
             $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
@@ -111,8 +111,8 @@ class UserController extends Controller
             $data['type'] = 0;
         }
         return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))
-            ->withErrors(['GoodCreate' => 'Utente creato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadCreate' => 'Utente non creato']);
+            ->withErrors(['GoodCreate' => 'Utente creato con successo con password: ' . $data['password']]) :
+            redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
 
     /**
@@ -152,7 +152,7 @@ class UserController extends Controller
 
         return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
             redirect(route('users.index'))->withErrors(['GoodUpdate' => 'Utente aggiornato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadUpdate' => 'Utente non aggiornato']);
+            redirect(route('users.index'))->withErrors(['NotUpdate' => 'Utente non aggiornato']);
         ;
     }
 
@@ -164,7 +164,7 @@ class UserController extends Controller
     {
         return $this->provider->destroy($userId) ?
             redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadDestroy' => 'Utente non eliminato']);
+            redirect(route('users.index'))->withErrors(['NotDestroy' => 'Utente non eliminato']);
         ;
     }
 
@@ -177,7 +177,7 @@ class UserController extends Controller
         $user = $this->provider->retrieveById($userId);
         return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
             redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadRestore' => 'Utente non ripristinato']);
+            redirect(route('users.index'))->withErrors(['NotRestore' => 'Utente non ripristinato']);
         ;
     }
 }

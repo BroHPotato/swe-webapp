@@ -113,7 +113,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="deleteCheck" name="deleted" value=true @if($user->deleted || old('deleted')) checked @endif>
                                     <label class="custom-control-label" for="deleteCheck">
-                                        <i>L'account non verra eliminato dal database</span>
+                                        <i>L'account non verra eliminato dal database</i>
                                     </label>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value=true @if($user->tfa || old('tfa')) checked @endif>
                                     <label class="custom-control-label" for="gridCheck">
-                                        <i>Autenticazione a due fattori con Telegram* </span>
+                                        <i>Autenticazione a due fattori con Telegram* </i>
                                     </label>
                                 </div>
                             </div>
