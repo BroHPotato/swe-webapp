@@ -68,7 +68,8 @@ class UserController extends Controller
     public function show($user)
     {
         $user = $this->provider->retrieveById($user);
-        return view('users.show', compact('user'));
+        $entity = (new EntityServiceProvider())->findFromUser($user);
+        return view('users.show', compact(['user', 'entity']));
     }
 
     /**

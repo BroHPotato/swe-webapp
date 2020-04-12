@@ -81,7 +81,7 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'sensor=' . $sensorId
+                'query' => ['sensor' =>$sensorId]
             ]))->getBody());
             $entity = new Entity();
             $entity->fill((array)$response);
@@ -101,14 +101,13 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'user=' . $userId
+                'query' => ['user' => $userId]
             ]))->getBody());
             $entity = new Entity();
             $entity->fill((array)$response[0]);
             return $entity;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
