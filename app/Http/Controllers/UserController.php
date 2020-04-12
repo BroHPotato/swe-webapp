@@ -110,8 +110,8 @@ class UserController extends Controller
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        return $this->provider->store(json_encode($data)) ? redirect(route('users.index')) :
-            redirect(route('users.index'))->withErrors(['createError' => 'Operazione non andata a buon fine']);
+        return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))->withErrors(['GoodCreate' => 'Utente creato con successo']) :
+            redirect(route('users.index'))->withErrors(['BadCreate' => 'Utente non creato']);
     }
 
     /**
@@ -149,8 +149,9 @@ class UserController extends Controller
             }
         }
 
-        $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT));
-        return redirect(route('users.index'));
+        return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
+            redirect(route('users.index'))->withErrors(['GoodUpdate' => 'Utente aggiornato con successo']) :
+            redirect(route('users.index'))->withErrors(['BadUpdate' => 'Utente non aggiornato']);;
     }
 
     /**
@@ -159,8 +160,9 @@ class UserController extends Controller
      */
     public function destroy($userId)
     {
-        $this->provider->destroy($userId);
-        return redirect(route('users.index'));
+        return $this->provider->destroy($userId) ?
+            redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
+            redirect(route('users.index'))->withErrors(['BadDestroy' => 'Utente non eliminato']);;
     }
 
     /**
@@ -170,7 +172,8 @@ class UserController extends Controller
     public function restore($userId)
     {
         $user = $this->provider->retrieveById($userId);
-        $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}');
-        return redirect(route('users.index'));
+        return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
+            redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
+            redirect(route('users.index'))->withErrors(['BadRestore' => 'Utente non ripristinato']);;
     }
 }

@@ -5,6 +5,7 @@
             <div class="d-sm-flex mb-4">
                 <h1 class="h3 mb-0 text-gray-800"> Gestione utenti</h1>
             </div>
+        @include('layouts.error')
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-4">
                         <span class="icon text-white-50">
@@ -21,9 +22,6 @@
             </a>
             @endcanany
         </div>
-        @error('createError')
-        <p class="text-danger">{{$message}}</p>
-        @enderror
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
