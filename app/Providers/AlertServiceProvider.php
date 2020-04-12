@@ -144,7 +144,7 @@ class AlertServiceProvider extends BasicProvider
     /**
      * @return Alert
      */
-    public static function GetAnAlert()
+    public static function getAnAlert()
     {
         $sensor = new Alert();
         $arr = array_combine(

@@ -110,7 +110,8 @@ class UserController extends Controller
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))->withErrors(['GoodCreate' => 'Utente creato con successo']) :
+        return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))
+            ->withErrors(['GoodCreate' => 'Utente creato con successo']) :
             redirect(route('users.index'))->withErrors(['BadCreate' => 'Utente non creato']);
     }
 

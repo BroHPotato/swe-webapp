@@ -9,7 +9,7 @@ class DeviceTest extends TestCase
 {
     public function testDeviceAttribute()
     {
-        $device = DeviceServiceProvider::GetADevice();
+        $device = DeviceServiceProvider::getADevice();
         $response = array_combine(
             array('deviceId', 'name', 'frequency', 'realDeviceId'),
             array("0", "Potato", "5", "007")

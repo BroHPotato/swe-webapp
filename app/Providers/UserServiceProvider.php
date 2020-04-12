@@ -256,7 +256,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     /**
      * @return User
      */
-    public static function GetAUser()
+    public static function getAUser()
     {
         $user = new User();
         $arr = array_combine(

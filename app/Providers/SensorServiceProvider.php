@@ -139,7 +139,7 @@ class SensorServiceProvider extends BasicProvider
     /**
      * @return Sensor
      */
-    public static function GetASensor()
+    public static function setASensor()
     {
         $sensor = new Sensor();
         $arr = array_combine(

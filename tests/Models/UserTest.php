@@ -9,44 +9,44 @@ class UserTest extends TestCase
 {
     public function testGetAuthIdentifierName()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals('userId', $user->getAuthIdentifierName());
     }
 
     public function testGetWrongAuthIdentifier()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals(null, $user->getAuthIdentifier());
     }
     public function testGetAuthIdentifier()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals("0", $user->getAuthIdentifier());
     }
 
     public function testGetRole()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals("Amministratore", $user->getRole());
     }
     public function testGetPassword()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals("password", $user->getAuthPassword());
     }
     public function testGetTelegramName()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals("pippo", $user->getTelegramName());
     }
     public function testGetChatId()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $this->assertEquals("00000", $user->getChatId());
     }
     public function testDelete()
     {
-        $user = UserServiceProvider::GetAUser();
+        $user = UserServiceProvider::getAUser();
         $user->setDeleted(true);
         $this->assertEquals(true, $user->getDeleted());
     }
