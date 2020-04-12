@@ -151,7 +151,8 @@ class UserController extends Controller
 
         return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
             redirect(route('users.index'))->withErrors(['GoodUpdate' => 'Utente aggiornato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadUpdate' => 'Utente non aggiornato']);;
+            redirect(route('users.index'))->withErrors(['BadUpdate' => 'Utente non aggiornato']);
+        ;
     }
 
     /**
@@ -162,7 +163,8 @@ class UserController extends Controller
     {
         return $this->provider->destroy($userId) ?
             redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadDestroy' => 'Utente non eliminato']);;
+            redirect(route('users.index'))->withErrors(['BadDestroy' => 'Utente non eliminato']);
+        ;
     }
 
     /**
@@ -174,6 +176,7 @@ class UserController extends Controller
         $user = $this->provider->retrieveById($userId);
         return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
             redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
-            redirect(route('users.index'))->withErrors(['BadRestore' => 'Utente non ripristinato']);;
+            redirect(route('users.index'))->withErrors(['BadRestore' => 'Utente non ripristinato']);
+        ;
     }
 }

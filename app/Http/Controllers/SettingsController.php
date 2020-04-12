@@ -72,8 +72,8 @@ class SettingsController extends Controller
             $data['password'] = $data['new_password'];
         }
         $service = new UserServiceProvider();
-        return $service->update($user->getAuthIdentifier(), json_encode($data))?
-            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']):
+        return $service->update($user->getAuthIdentifier(), json_encode($data)) ?
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
             redirect('/settings/edit')->withErrors(['BadUpdate' => 'Impostazioni non aggiornate']);
     }
 
@@ -82,7 +82,10 @@ class SettingsController extends Controller
         $alerts = $this->alertsProvider->findAll();
         $data = request()->validate([
             'alerts.*' => 'required|numeric'
-        ])['alerts'];
+        ]);
+        if (key_exists('alerts', $data)) {
+            $data = $data['alerts'];
+        }
         $enable = [];
         $disable = [];
         foreach ($alerts['enable'] as $a) {
@@ -95,13 +98,13 @@ class SettingsController extends Controller
         $toDisable = array_diff($enable, $data);
         $check = true;
         foreach ($toEnable as $e) {
-            !$this->alertsProvider->enable($e) ? $check = false: "";
+            !$this->alertsProvider->enable($e) ? $check = false : "";
         }
         foreach ($toDisable as $d) {
-            !$this->alertsProvider->disable($d) ? $check = false: "";
+            !$this->alertsProvider->disable($d) ? $check = false : "";
         }
         return $check ?
-            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Alerts aggiornate con successo']):
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Alerts aggiornate con successo']) :
             redirect('/settings/edit')->withErrors(['BadUpdate' => 'Alerts non aggiornate']);
     }
 }

@@ -75,11 +75,10 @@ class AlertServiceProvider extends BasicProvider
                 'query' => ['userId' => Auth::id(), 'enable' => false]
             ]));
             return true;
-        }catch (RequestException $e){
+        } catch (RequestException $e) {
             $this->isExpired($e);
             return false;
         }
-
     }
     public function enable($identifier)
     {
@@ -88,7 +87,7 @@ class AlertServiceProvider extends BasicProvider
                 'query' => ['userId' => Auth::id(), 'enable' => true]
             ]));
             return true;
-        }catch (RequestException $e){
+        } catch (RequestException $e) {
             $this->isExpired($e);
             return false;
         }

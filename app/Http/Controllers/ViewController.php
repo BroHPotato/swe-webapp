@@ -73,8 +73,8 @@ class ViewController extends Controller
     public function destroy($userId)
     {
         return $this->viewProvider->destroy($userId) ?
-            redirect(route('views.index'))->withErrors(['GoodDestroy'=> 'View eliminata con successo']):
-            redirect(route('views.index'))->withErrors(['NotDestroy'=> 'View non eliminata']);
+            redirect(route('views.index'))->withErrors(['GoodDestroy' => 'View eliminata con successo']) :
+            redirect(route('views.index'))->withErrors(['NotDestroy' => 'View non eliminata']);
     }
 
     public function store()
@@ -83,7 +83,7 @@ class ViewController extends Controller
             'viewName' => 'required|string',
         ]);
         return $this->viewProvider->store(json_encode(['name' => $data['viewName']])) ?
-            redirect(route('views.index'))->withErrors(['GoodCreate'=>'View creata con successo']) :
-            redirect(route('views.index'))->withErrors(['NotCreate'=>'Creazione non avvenuta']);
+            redirect(route('views.index'))->withErrors(['GoodCreate' => 'View creata con successo']) :
+            redirect(route('views.index'))->withErrors(['NotCreate' => 'Creazione non avvenuta']);
     }
 }
