@@ -1,6 +1,6 @@
 @error('Not*')
-<p class="text-danger">{{ $messege }}</p>
+<div class="alert alert-danger"><span class="far fa-times-circle"></span> {{ $messege }}</div>
 @enderror
 @error('Good*')
-<p class="text-success">{{ $message }}</p>
+<div class="alert alert-success"><span class="far fa-check-circle"></span> {{ $message }}</div>
 @enderror
