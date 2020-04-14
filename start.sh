@@ -1,12 +1,8 @@
 #!/bin/sh
 
-npm update --dev
+composer install
 
 npm install
-
-composer update
-
-composer install
 
 npm run dev
 
