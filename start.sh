@@ -8,6 +8,6 @@ npm install
 
 npm run dev
 
-php artisan serve
+php artisan serve --host=core.host.redroundrobin.site --port=8000
 
 
