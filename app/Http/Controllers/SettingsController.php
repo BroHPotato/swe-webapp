@@ -33,14 +33,18 @@ class SettingsController extends Controller
         $alerts = $this->alertsProvider->findAll();
         $alertsWithSensors = [];
         $sensorsCache = [];
+        $devicesCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
                 key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor]
                     : $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+
+                key_exists($sensor->device, $devicesCache) ? $device = $devicesCache[$sensor->device]
+                    : $device = $this->devicesProvider->find($sensor->device);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,
-                    'device' => $this->devicesProvider->find($sensor->device)
+                    'device' => $device
                 ];
             }
         }

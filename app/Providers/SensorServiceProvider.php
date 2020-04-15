@@ -120,7 +120,7 @@ class SensorServiceProvider extends BasicProvider
     {
         try {
             return json_encode(array(
-                'time' => date("d/m/Y H:i:s"),
+                'time' => date("c"),
                 'value' => rand(0, 10) ,
                 'gatewayName' => 'string',
                 'realDeviceId' => 0,

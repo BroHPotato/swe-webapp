@@ -83,7 +83,7 @@ export default {
                 .get("/data/" + this.sensor.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries.push([
-                        response.data.time,
+                        new Date(response.data.time).toISOString(),
                         response.data.value,
                     ]);
                 })
