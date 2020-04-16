@@ -62,8 +62,8 @@
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
-                                            <option value="0" @if($alert->type == 0) selected @endif>minore di</option>
-                                            <option value="1" @if($alert->type == 1) selected @endif>maggiore di</option>
+                                            <option value="0" @if($alert->type == 0) selected @endif>maggiore di</option>
+                                            <option value="1" @if($alert->type == 1) selected @endif>minore di</option>
                                             <option value="2" @if($alert->type == 2) selected @endif>uguale a</option>
                                         </select>
                                         @error('type')
