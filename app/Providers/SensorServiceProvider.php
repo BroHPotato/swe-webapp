@@ -119,6 +119,7 @@ class SensorServiceProvider extends BasicProvider
     public function fetch($sensorId)
     {
         try {
+            $limit = request()->query('limit');
             return json_encode(array(
                 'time' => date("c"),
                 'value' => rand(0, 10) ,
