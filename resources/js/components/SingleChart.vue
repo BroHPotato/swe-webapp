@@ -69,8 +69,16 @@ export default {
         };
     },
     created() {
+        let now = Date.now();
+        let temp = [];
+        for (let i=0;i<20;i++){
+            temp.push([
+                new Date(now-(20-i)*3000).toISOString(),
+                Math.floor(Math.random() * 11)
+            ]);
+        }
         this.vars = {
-            newDataSeries: [],
+            newDataSeries: temp,
         };
     },
     mounted() {

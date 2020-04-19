@@ -54,8 +54,8 @@
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
-                                            <option value="0" selected>minore di</option>
-                                            <option value="1">maggiore di</option>
+                                            <option value="0" selected>maggiore di</option>
+                                            <option value="1">minore di</option>
                                             <option value="2">uguale a</option>
                                         </select>
                                         @error('type')
