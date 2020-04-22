@@ -21,7 +21,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt text-info"></i>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -29,7 +29,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('settings.edit') }}">
-            <i class="fas fa-fw fa-cog text-info"></i>
+            <i class="fas fa-fw fa-cog"></i>
             <span>Impostazioni</span>
         </a>
     </li>
@@ -41,21 +41,21 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('devices.index') }}">
-            <i class="fas fa-fw fa-microchip"></i>
+            <i class="fas fa-fw fa-microchip text-light"></i>
             <span>Dispositivi e sensori</span>
         </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('views.index') }}">
-            <i class="fas fa-fw fa-chart-bar"> </i>
+            <i class="fas fa-fw fa-chart-bar text-warning"> </i>
             <span>Pagine view</span>
         </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('alerts.index') }}">
-            <i class="fas fa-fw fa-bell"> </i>
+            <i class="fas fa-fw fa-bell text-light"> </i>
             <span>Alerts</span>
         </a>
     </li>

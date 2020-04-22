@@ -1,3 +1,7 @@
+/*
+    Webapp theme edit from Bootstrap
+    Project ThiReMa
+ */
 
 @font-face {
     font-family: 'airstrip';
@@ -7,10 +11,10 @@
 }
 
 .bg-login-image{
-    background-image: url("https://www.redroundrobin.site/images/favicon.png");
-    background-size: 250px;
+    background-image: url("../images/logo.png");
+    background-size: 330px;
     background-repeat: no-repeat;
-    background-color: #C7C6D7;
+    background-color: #4c4e59;
 }
 
 .form-codice-tfa{
@@ -40,6 +44,16 @@
 .real-id::before {
     content: '\0040';
     color: #ff8362;
+}
+
+
+/*
+    ThiReMa logo CSS
+ */
+
+.thirema-logo-icon{
+    font-size: 1.5em;
+    margin-right: 0.1em;
 }
 
 .thirema-logo-special-font{

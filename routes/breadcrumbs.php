@@ -1,7 +1,7 @@
 <?php
 
 // Home
-Breadcrumbs::for('home', function ($trail) {
+Breadcrumbs::for('dashboard.index', function ($trail) {
     $trail->push('Home', route('dashboard.index'));
 });
 
