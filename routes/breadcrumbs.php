@@ -1,6 +1,5 @@
 <?php
 
-
 // Auth
 Breadcrumbs::for('login', function ($trail) {
     $trail->push('Accesso', route('login'));
@@ -45,7 +44,6 @@ Breadcrumbs::for('sensors.show', function ($trail, $deviceId, $sensorId) {
     $trail->push('Sensore @' . $sensorId, route('sensors.show', ['deviceId' => $deviceId, 'sensorId' => $sensorId]));
 });
 
-
 // Alerts
 Breadcrumbs::for('alerts.index', function ($trail) {
     $trail->parent('dashboard.index');
@@ -59,7 +57,6 @@ Breadcrumbs::for('alerts.edit', function ($trail, $alertId) {
     $trail->parent('alerts.index');
     $trail->push('Modifica alert #', route('alerts.edit', ['alertId' => $alertId]));
 });
-
 
 // Utenti
 Breadcrumbs::for('users.index', function ($trail) {
