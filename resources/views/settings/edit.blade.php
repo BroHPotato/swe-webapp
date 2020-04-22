@@ -67,7 +67,7 @@
                             <hr>
                             <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
                                 *Per attivare l'<em>autenticazione a due fattori</em> è necessario inserire il proprio username Telegram
-                                e avviare il bot direttamente dall'applicazione, inserendo il comando <code>/start</code> in chat.
+                                e, dopo aver avviato il bot direttamente dall'applicazione tramite il comando <code>/start</code>, inserire il comando <code>/login</code>.
                             </p>
                             <hr>
                             <button type="submit" class="btn btn-primary btn-icon-split float-right">
@@ -151,7 +151,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <form action="{{route('settings.updateAlerts')}}" method="POST">
                         @csrf
                         @method('POST')

@@ -13,7 +13,7 @@
                 <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Informazioni Gateway</h4>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive-sm">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark table-borderless">
                         <tr>
@@ -39,7 +39,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista dispositivi</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive-sm">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark table-borderless">
                         <tr>
@@ -48,13 +48,6 @@
                             <th>Numero di sensori</th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <<th>Id</th>
-                            <th>Nome</th>
-                            <th>Numero di sensori</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         <tr>
                             <td>1</td>
