@@ -5,9 +5,12 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-project-diagram"></i>
+            <i class="fas fa-project-diagram thirema-logo-color-light"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">ThiReMa</div>
+        <div class="sidebar-brand-text mx-3">
+            <span class="thirema-logo-special-font thirema-logo-color-blue">r</span>
+            <span class="thirema-logo-special-font thirema-logo-color-light">iot</span>
+        </div>
     </a>
 
     <hr class="sidebar-divider">
