@@ -32,11 +32,29 @@
 
 ### Comandi per il code style JS :fire:
 
+- Check:
+`npm run prettier-eslint-check`
+`npm run prettier-eslint-test-check`
+- Autofix:
 `npm run prettier-eslint`
 `npm run prettier-eslint-test`
 
 
+### Comandi per i test JS :fire:
+
+`npm test`
+
+
 ### Comandi per il code style PHP :fire:
 
+- Check:
+`vendor/bin/phpcs -s`
+`vendor/bin/php-cs-fixer fix --config=.php_cs.php --dry-run -vvv`
+- Autofix: 
 `vendor/bin/phpcbf -n`
 `vendor/bin/php-cs-fixer fix --config=.php_cs.php --diff -vvv`
+
+
+### Comandi per i test PHP
+
+`vendor/bin/phpunit -c phpunit.xml`
