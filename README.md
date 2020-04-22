@@ -2,7 +2,7 @@
 
 # Web application - ThiReMa
 
-:fire: Versione componente: `v0.2.0-dev` 
+:fire: Versione componente: `v0.3.0-rc` 
 
 :pushpin: Main repo: [swe-thirema](https://github.com/RedRoundRobin/swe-thirema)
 
@@ -29,13 +29,15 @@
 
 `npm install --package-lock`
 
-
 ### Comandi per il code style JS :fire:
 
 - Check:
+
 `npm run prettier-eslint-check`
 `npm run prettier-eslint-test-check`
+
 - Autofix:
+
 `npm run prettier-eslint`
 `npm run prettier-eslint-test`
 
@@ -48,9 +50,12 @@
 ### Comandi per il code style PHP :fire:
 
 - Check:
+
 `vendor/bin/phpcs -s`
 `vendor/bin/php-cs-fixer fix --config=.php_cs.php --dry-run -vvv`
+
 - Autofix: 
+
 `vendor/bin/phpcbf -n`
 `vendor/bin/php-cs-fixer fix --config=.php_cs.php --diff -vvv`
 
@@ -58,3 +63,4 @@
 ### Comandi per i test PHP
 
 `vendor/bin/phpunit -c phpunit.xml`
+
