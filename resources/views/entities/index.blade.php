@@ -27,8 +27,8 @@
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-city"></span> Lista enti</h6>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <div class="table-responsive-lg">
+                        <table class="table table-bordered table-striped"  id="dataTable" >
                             <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Nome</th>
@@ -38,15 +38,6 @@
                                 <th></th>
                             </tr>
                             </thead>
-                            <tfoot class="thead-dark table-borderless">
-                            <tr>
-                                <th>Nome</th>
-                                <th>Luogo</th>
-                                <th>Status</th>
-                                <th> </th>
-                                <th></th>
-                            </tr>
-                            </tfoot>
                             <tbody>
                             @foreach($entities as $entity)
                                 <tr>

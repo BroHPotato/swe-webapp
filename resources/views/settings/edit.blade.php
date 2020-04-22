@@ -151,7 +151,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <form action="{{route('settings.updateAlerts')}}" method="POST">
                         @csrf
                         @method('POST')

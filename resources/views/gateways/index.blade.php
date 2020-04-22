@@ -27,7 +27,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-dungeon"></span> Lista gateway</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive-xl">
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark table-borderless">
                         <tr>
@@ -39,21 +39,11 @@
                             <th>Configurazione</th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <th>ID </th>
-                            <th>Nome</th>
-                            <th>Numero Dispositivi</th>
-                            <th> </th>
-                            <th> </th>
-                            <th>Configurazione</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                         @foreach($gateways as $gateway)
                             <tr>
                                 <td>{{$gateway->gatewayId}}</td>
-                                <td>{{$gateway->name}}</td>
+                                <td><span class="text-gray-800">{{substr($gateway->name, 0, 3)}}</span>{{substr($gateway->name, 3)}}</td>
                                 <td>2</td>  {{-- IL NUMERO DI DISPOSITIVI VA PRESO DINAMICAMENTE --}}
                                 <td class="text-center"><a href="{{route('gateways.show', [
                                                     'gatewayId' => $gateway->gatewayId
