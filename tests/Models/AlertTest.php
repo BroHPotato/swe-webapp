@@ -5,7 +5,7 @@ namespace Tests\Models;
 use App\Providers\AlertServiceProvider;
 use PHPUnit\Framework\TestCase;
 
-class fAlertTest extends TestCase
+class AlertTest extends TestCase
 {
     public function testSensorAttribute()
     {
