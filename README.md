@@ -2,7 +2,7 @@
 
 # Web application - ThiReMa
 
-:fire: Versione componente: `v0.2.0-dev` 
+:fire: Versione componente: `v0.3.0-rc` 
 
 :pushpin: Main repo: [swe-thirema](https://github.com/RedRoundRobin/swe-thirema)
 
