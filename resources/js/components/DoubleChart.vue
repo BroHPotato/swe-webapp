@@ -63,8 +63,7 @@ export default {
             series: [
                 {
                     name: this.sensor1.type,
-                    data: [
-                    ],
+                    data: [],
                 },
                 {
                     name: this.sensor2.type,
@@ -74,23 +73,23 @@ export default {
         };
     },
     created() {
-        let temp1 = [];
-        let temp2 = [];
-        let s1 = [];
-        let s2 = [];
-        let now = Date.now();
-        for (let i=0;i<20;i++){
+        const temp1 = [];
+        const temp2 = [];
+        const s1 = [];
+        const s2 = [];
+        const now = Date.now();
+        for (let i = 0; i < 20; i++) {
             s1.push(Math.floor(Math.random() * 11));
             temp1.push([
-                new Date(now-(20-i)*3000).toISOString(),
-                s1[s1.length-1]
+                new Date(now - (20 - i) * 3000).toISOString(),
+                s1[s1.length - 1],
             ]);
         }
-        for (let i=0;i<20;i++){
+        for (let i = 0; i < 20; i++) {
             s2.push(Math.floor(Math.random() * 11));
             temp2.push([
-                new Date(now-(20-i)*3000).toISOString(),
-                s2[s2.length-1]
+                new Date(now - (20 - i) * 3000).toISOString(),
+                s2[s2.length - 1],
             ]);
         }
         this.vars = {
