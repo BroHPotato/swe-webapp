@@ -28,3 +28,15 @@
 ### In caso di corruzione JS :fire:
 
 `npm install --package-lock`
+
+
+### Comandi per il code style JS :fire:
+
+`npm run prettier-eslint`
+`npm run prettier-eslint-test`
+
+
+### Comandi per il code style PHP :fire:
+
+`vendor/bin/phpcbf -n`
+`vendor/bin/php-cs-fixer fix --config=.php_cs.php --diff -vvv`
