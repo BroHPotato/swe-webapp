@@ -36,7 +36,7 @@ class LogsServiceProvider extends BasicProvider
             $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
             return $response;
         } catch (RequestException $e) {
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            $this->isExpired($e);
             return null;
         }
     }

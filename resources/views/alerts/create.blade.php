@@ -8,7 +8,7 @@
     </div>
     <div class="row">
         <div class="col-auto mb-4 ">
-            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+            <a href="{{route('alerts.index')}}" class="btn btn-sm btn-danger btn-icon-split">
             <span class="icon text-white-50">
               <span class="fas fa-arrow-circle-left"></span>
             </span>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
-                        <form action="{{route('settings.updateAlerts')}}" method="POST">
+                        <form action="{{route('alerts.store')}}" method="POST">
                             @csrf
                             @method('POST')
 
@@ -33,8 +33,12 @@
                                 <label for="inputSensore" class="col-sm-3 col-form-label"><span class="fas fa-temperature-high"></span> Sensore</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensor') is-invalid @enderror" name="sensorId" id="inputSensor">
-                                            <option value="idlogicosensore">Nome dispositivo - id reale sensore (vedi pagina view)</option>
+                                        <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
+                                            @foreach($devices as $d)
+                                                @foreach($sensors[$d->deviceId] as $s)
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                         @error('sensor')
                                         <span class="invalid-feedback" role="alert">
@@ -49,10 +53,12 @@
                                 <label for="inputSoglia" class="col-sm-3 col-form-label"><span class="fas fa-radiation"></span> Soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensor') is-invalid @enderror" name="threshold" id="inputSoglia">
-                                            <option value="tiponumerosoglia">maggiore di o minore di o uguale a</option>
+                                        <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
+                                            <option value="0" selected>maggiore di</option>
+                                            <option value="1">minore di</option>
+                                            <option value="2">uguale a</option>
                                         </select>
-                                        @error('sensor')
+                                        @error('type')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -65,9 +71,9 @@
                                 <label for="inputValue" class="col-sm-3 col-form-label"><span class="fas fa-radiation-alt"></span> Valore di soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control @error('sensor') is-invalid @enderror" name="thresholdvalue" id="inputValue"
+                                        <input type="number" step="0.1" class="form-control @error('threshold') is-invalid @enderror" name="threshold" id="inputValue"
                                                placeholder="Inserisci un valore di soglia" value="valorenumerico">
-                                        @error('sensor')
+                                        @error('threshold')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -75,7 +81,12 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <button type="submit" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-plus-circle"></span>
+                    </span>
+                                <span class="text">Crea</span>
+                            </button>
                         </form>
                     </div>
                 </div>

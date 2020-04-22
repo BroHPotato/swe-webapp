@@ -5,7 +5,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-home"></i>
+            <i class="fas fa-project-diagram"></i>
         </div>
         <div class="sidebar-brand-text mx-3">ThiReMa</div>
     </a>
@@ -92,6 +92,7 @@
         </a>
         <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
                 <a class="collapse-item" href="{{ route('entities.index') }}"><i class="far fa-building"></i> Gestione enti</a>
                 <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
                 <a class="collapse-item" href="{{ route('gateways.index') }}"><i class="fas fa-dungeon"></i> Gestione gateways</a>

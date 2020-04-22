@@ -48,7 +48,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -65,7 +64,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensor;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -86,7 +84,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -111,7 +108,6 @@ class SensorServiceProvider extends BasicProvider
             return $sensors;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -123,8 +119,9 @@ class SensorServiceProvider extends BasicProvider
     public function fetch($sensorId)
     {
         try {
+            $limit = request()->query('limit');
             return json_encode(array(
-                'time' => date("d/m/Y H:i:s"),
+                'time' => date("c"),
                 'value' => rand(0, 10) ,
                 'gatewayName' => 'string',
                 'realDeviceId' => 0,
@@ -143,7 +140,7 @@ class SensorServiceProvider extends BasicProvider
     /**
      * @return Sensor
      */
-    public static function GetASensor()
+    public static function setASensor()
     {
         $sensor = new Sensor();
         $arr = array_combine(

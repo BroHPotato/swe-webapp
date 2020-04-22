@@ -91,14 +91,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-4 col-form-label"><span class="fas fa-lock text-success"></span> Cambio Password (o lascia vuoto)</label>
+                            <div class="col-sm-4">
+                                <span class="fas fa-lock text-success"></span>
+                                Reset Password
+                            </div>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPassword" placeholder="Nuova password o lascia vuoto" name="password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="inputPassword" name="password" value=true>
+                                    <label class="custom-control-label" for="inputPassword">
+                                        <i>La password verrà rigenerata in maniera automatica</i>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     @endcan
@@ -113,7 +116,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="deleteCheck" name="deleted" value=true @if($user->deleted || old('deleted')) checked @endif>
                                     <label class="custom-control-label" for="deleteCheck">
-                                        <i>L'account non verra eliminato dal database</span>
+                                        <i>L'account non verra eliminato dal database</i>
                                     </label>
                                 </div>
                             </div>
@@ -129,7 +132,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value=true @if($user->tfa || old('tfa')) checked @endif>
                                     <label class="custom-control-label" for="gridCheck">
-                                        <i>Autenticazione a due fattori con Telegram* </span>
+                                        <i>Autenticazione a due fattori con Telegram* </i>
                                     </label>
                                 </div>
                             </div>

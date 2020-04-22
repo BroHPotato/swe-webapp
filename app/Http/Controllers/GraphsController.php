@@ -27,36 +27,27 @@ class GraphsController extends Controller
         if ($this->viewProvider->find($viewId)) {
             $data = request()->validate([
                 'correlation' => 'required|string|in:0,1,2,3',
-                'sensor1' => 'required|string',
-                'sensor2' => 'required|string'
+                'sensor1' => 'required|string|different:sensor2',
+                'sensor2' => 'required|string|different:sensor1'
             ]);
             $data['view'] = $viewId;
             $data = array_map(function ($value) {
                 return (int)$value;
             }, $data);
             $this->viewGraphProvider->store(json_encode($data));
-            return redirect(route('views.show', ['viewId' => $viewId]));
+            return redirect(route('views.show', ['viewId' => $viewId]))
+                ->withErrors(['GoodCreate' => 'Grafico creato con successo']);
         }
+        return redirect(route('views.show', ['viewId' => $viewId]))
+            ->withErrors(['NotCreate' => 'Grafico non creato']);
     }
     public function destroy($viewGraphId)
     {
-        $this->viewGraphProvider->destroy($viewGraphId);
-        return redirect(route('views.index'));
+        $viewgraph = $this->viewGraphProvider->find($viewGraphId);
+        return $this->viewGraphProvider->destroy($viewGraphId) ?
+            redirect(route('views.show', ['viewId' => $viewgraph->view]))
+                ->withErrors(['GoodDestroy' => 'Grafico eliminato con successo']) :
+            redirect(route('views.show', ['viewId' => $viewgraph->view]))
+                ->withErrors(['NotDestroy' => 'Eliminazione non avvenuta']);
     }
-
-    /*    public function update($viewId){
-            if($this->viewProvider->find($viewId)){
-                $data = request()->validate([
-                    'correlation' => 'required|string|in:0,1,2,3',
-                    'sensor1' => 'required|string',
-                    'sensor2' => 'required|string'
-                ]);
-                $data['view'] = $viewId;
-                $data = array_map(function ($value) {
-                    return (int)$value;
-                }, $data);
-                $this->viewGraphProvider->update($viewId, json_encode($data));
-                return redirect(route('views.show', ['viewId' => $viewId]));
-            }
-        }*/
 }

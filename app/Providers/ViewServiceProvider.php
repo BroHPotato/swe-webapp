@@ -86,9 +86,10 @@ class ViewServiceProvider extends BasicProvider
     {
         try {
             $this->request->delete('/views/' . $who, $this->setHeaders());
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
@@ -101,9 +102,10 @@ class ViewServiceProvider extends BasicProvider
             $this->request->post('', array_merge($this->setHeaders(), [
                 'body' => $body
             ]));
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 }

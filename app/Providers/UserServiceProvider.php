@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 use function config;
 
@@ -103,12 +104,12 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     private function retriveByCode(Client $request, $credentials)
     {
         $response = json_decode($request->post('auth/tfa', array_merge($this->setHeaders(), [
-            'body' => '{"auth_code":"' . $credentials["code"] . '"}'
+            'body' => '{"authCode":"' . $credentials["code"] . '"}'
             ]))->getBody());
         $userarray = (array)$response->user;
-        $userarray['token'] = $response->jwt;
+        $userarray['token'] = $response->token;
 
-        session(['token' => $response->jwt]);
+        session(['token' => $response->token]);
         $user = new User();
         $user->fill($userarray);
         return $user;
@@ -125,12 +126,13 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             'headers' => [
                 'X-Forwarded-For' => request()->ip()
             ],
-            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]/*todo sha512*/ . '"}'
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]
+                /*todo sha512*/ . '"}'
         ])->getBody());
 
         if (property_exists($response, 'tfa')) {
             session(['token' => $response->token]);
-            return redirect('/login/tfa');
+            Redirect::away('/login/tfa')->send();
         } else {
             $userarray = (array)$response->user;
             $userarray['token'] = $response->token;
@@ -209,9 +211,10 @@ class UserServiceProvider extends BasicProvider implements UserProvider
                 session(['token' => $response->token]);
                 Auth::user()->token = $response->token;
             }
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
 
@@ -222,9 +225,10 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         try {
             $this->request->delete('users/' . $who, $this->setHeaders());
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return true;
         }
     }
 
@@ -252,13 +256,15 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     /**
      * @return User
      */
-    public static function GetAUser()
+    public static function getAUser()
     {
         $user = new User();
         $arr = array_combine(
-            array('userId','name', 'surname', 'email', 'type', 'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
+            array('userId','name', 'surname', 'email', 'type',
+                'telegramName', 'telegramChat', 'deleted', 'tfa', 'token','entity',
                 'password'),
-            array("0", "Simion", "admin", "sys@admin.it", "0", "pippo", "00000", "0", "0", "xXxtOkEnxXx", "null", 'password')
+            array("0", "Simion", "admin", "sys@admin.it", "0",
+                "pippo", "00000", "0", "0", "xXxtOkEnxXx", "null", 'password')
         );
         $user->fill($arr);
         return $user;

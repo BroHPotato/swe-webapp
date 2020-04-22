@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gateway;
 use App\Providers\DeviceServiceProvider;
 use App\Providers\GatewayServiceProvider;
 use App\Providers\SensorServiceProvider;
@@ -71,9 +70,9 @@ class DeviceController extends Controller
      * @param $device
      * @return Factory|View
      */
-    public function show($device)
+    public function show($deviceId)
     {
-        $device = $this->deviceProvider->find($device);
+        $device = $this->deviceProvider->find($deviceId);
         $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
         $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0];
         return view('devices.show', compact(['device', 'sensors', 'gateway']));

@@ -5,6 +5,7 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$view->name}}</h1>
     </div>
+    @include('layouts.error')
     <div class="d-flex justify-content-between">
         <a href="{{route('views.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3 mr-4">
             <span class="icon text-white-50">

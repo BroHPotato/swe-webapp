@@ -7,20 +7,20 @@
         <h1 class="h3 mb-0 text-gray-800"> Modifica alerts</h1>
     </div>
     <div class="d-flex justify-content-between">
-        <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3">
+        <a href="{{route('alerts.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3">
         <span class="icon text-white-50">
           <span class="fas fa-arrow-circle-left"></span>
         </span>
             <span class="text">Torna indietro</span>
         </a>
-        <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$view->viewId]) }}"
+        <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$alert->alertId]) }}"
            onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
             <span class="icon text-white-50">
               <span class="fas fa-trash-alt"></span>
             </span>
             <span class="text">Elimina alerts</span>
         </a>
-        <form id="destroy-view" action="{{ route('alerts.destroy', ['viewId'=>$view->viewId]) }}" method="POST" style="display: none;">
+        <form id="destroy-view" action="{{ route('alerts.destroy', ['alertId'=>$alert->alertId]) }}" method="POST" style="display: none;">
             @csrf
             @method('DELETE')
         </form>
@@ -34,16 +34,19 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
-                        <form action="{{route('settings.updateAlerts')}}" method="POST">
+                        <form action="{{route('alerts.update', ['alertId'=>$alert->alertId])}}" method="POST">
                             @csrf
                             @method('PUT')
-
                             <div class="form-group row">
                                 <label for="inputSensore" class="col-sm-3 col-form-label"><span class="fas fa-temperature-high"></span> Sensore</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensor') is-invalid @enderror" name="sensorId" id="inputSensor">
-                                            <option value="idlogicosensore">Nome dispositivo - id reale sensore (vedi pagina view)</option>
+                                        <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
+                                            @foreach($devices as $d)
+                                                @foreach($sensors[$d->deviceId] as $s)
+                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                         @error('sensor')
                                         <span class="invalid-feedback" role="alert">
@@ -58,10 +61,12 @@
                                 <label for="inputSoglia" class="col-sm-3 col-form-label"><span class="fas fa-radiation"></span> Soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensor') is-invalid @enderror" name="threshold" id="inputSoglia">
-                                            <option value="tiponumerosoglia">maggiore di o minore di o uguale a</option>
+                                        <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
+                                            <option value="0" @if($alert->type == 0) selected @endif>maggiore di</option>
+                                            <option value="1" @if($alert->type == 1) selected @endif>minore di</option>
+                                            <option value="2" @if($alert->type == 2) selected @endif>uguale a</option>
                                         </select>
-                                        @error('sensor')
+                                        @error('type')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -74,9 +79,9 @@
                                 <label for="inputValue" class="col-sm-3 col-form-label"><span class="fas fa-radiation-alt"></span> Valore di soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <input type="number" class="form-control @error('sensor') is-invalid @enderror" name="thresholdvalue" id="inputValue"
-                                               placeholder="Inserisci un valore di soglia" value="valorenumerico">
-                                        @error('sensor')
+                                        <input type="number" step="0.1" class="form-control @error('threshold') is-invalid @enderror" name="threshold" id="inputValue"
+                                               placeholder="Inserisci un valore di soglia" value="{{$alert->threshold}}">
+                                        @error('threshold')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -84,7 +89,12 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <button type="submit" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-check-circle"></span>
+                    </span>
+                                <span class="text">Modifica</span>
+                            </button>
                         </form>
                     </div>
                 </div>

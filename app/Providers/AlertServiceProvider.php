@@ -70,15 +70,71 @@ class AlertServiceProvider extends BasicProvider
     }
     public function disable($identifier)
     {
-        $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
-            'query' => ['userId' => Auth::id(), 'enable' => false]
-        ]));
+        try {
+            $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
+                'query' => ['userId' => Auth::id(), 'enable' => false]
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
     }
     public function enable($identifier)
     {
-        $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
-            'query' => ['userId' => Auth::id(), 'enable' => true]
-        ]));
+        try {
+            $this->request->post('/alerts/' . $identifier, array_merge($this->setHeaders(), [
+                'query' => ['userId' => Auth::id(), 'enable' => true]
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    public function update(string $who, string $body)
+    {
+        try {
+            $this->request->put('/alerts/' . $who, array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    /**
+     * @param string $who
+     */
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/alerts/' . $who, $this->setHeaders());
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    /**
+     * @param string $body
+     * @return bool
+     */
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
     }
 
     // ===================================================
@@ -88,7 +144,7 @@ class AlertServiceProvider extends BasicProvider
     /**
      * @return Alert
      */
-    public static function GetAnAlert()
+    public static function getAnAlert()
     {
         $sensor = new Alert();
         $arr = array_combine(

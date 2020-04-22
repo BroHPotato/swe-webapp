@@ -8,12 +8,20 @@
     </div>
     <div class="row">
         <div class="col-auto mb-4 ">
-            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+            <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-3">
             <span class="icon text-white-50">
               <span class="fas fa-arrow-circle-left"></span>
             </span>
                 <span class="text">Torna indietro</span>
             </a>
+            @can('isMod')
+                <a href="{{route('alerts.create')}}" class="btn btn-sm btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-plus-circle"></span>
+                    </span>
+                    <span class="text">Aggiungi alert</span>
+                </a>
+            @endcan
         </div>
     </div>
 
@@ -25,13 +33,10 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-sm">
-                        <form action="{{route('settings.updateAlerts')}}" method="POST">
-                            @csrf
-                            @method('POST')
                             <table class="table table-bordered table-striped border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>
-                                    <th class="text-center"><span class="fas fa-list-ul"></span></th>
+                                    <th><span class="fas fa-list-ul"></span></th>
                                     <th>Dispositivo</th>
                                     <th>Sensore</th>
                                     <th>Soglia</th>
@@ -54,7 +59,7 @@
                                             <td>{{$list['alert']->lastSent??'-'}}</td>
                                             @canany(['isMod', 'isAdmin'])
                                             <td>
-                                                <a href="{{route('alerts.edit', $list['alert']->alertId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                                     <span class="icon text-white-50">
                                                       <span class="fas fa-edit"></span>
                                                     </span>
@@ -67,7 +72,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                        </form>
                     </div>
                 </div>
             </div>

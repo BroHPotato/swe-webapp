@@ -32,13 +32,19 @@ class SettingsController extends Controller
         $user = Auth::user();
         $alerts = $this->alertsProvider->findAll();
         $alertsWithSensors = [];
+        $sensorsCache = [];
+        $devicesCache = [];
         foreach ($alerts as $state => $alertsList) {
             foreach ($alertsList as $alert) {
-                $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+                key_exists($alert->sensor, $sensorsCache) ? $sensor = $sensorsCache[$alert->sensor]
+                    : $sensor = $this->sensorsProvider->findFromLogicalId($alert->sensor);
+
+                key_exists($sensor->device, $devicesCache) ? $device = $devicesCache[$sensor->device]
+                    : $device = $this->devicesProvider->find($sensor->device);
                 $alertsWithSensors[$state][] = [
                     'alert' => $alert,
                     'sensor' => $sensor,
-                    'device' => $this->devicesProvider->find($sensor->device)
+                    'device' => $device
                 ];
             }
         }
@@ -60,13 +66,19 @@ class SettingsController extends Controller
         if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
         }
-        if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
-            $data['tfa'] = false;
+        if (key_exists('telegramName', $data)) {
+            if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
+                $data['tfa'] = false;
+            }
         }
         $data = array_diff_assoc($data, $user->getAttributes());
+        if (key_exists('new_password', $data)) {
+            $data['password'] = $data['new_password'];
+        }
         $service = new UserServiceProvider();
-        $service->update($user->getAuthIdentifier(), json_encode($data));
-        return redirect('/settings/edit');
+        return $service->update($user->getAuthIdentifier(), json_encode($data)) ?
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
+            redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
     }
 
     public function updateAlerts()
@@ -74,7 +86,10 @@ class SettingsController extends Controller
         $alerts = $this->alertsProvider->findAll();
         $data = request()->validate([
             'alerts.*' => 'required|numeric'
-        ])['alerts'];
+        ]);
+        if (key_exists('alerts', $data)) {
+            $data = $data['alerts'];
+        }
         $enable = [];
         $disable = [];
         foreach ($alerts['enable'] as $a) {
@@ -85,12 +100,15 @@ class SettingsController extends Controller
         }
         $toEnable = array_diff($data, $enable);
         $toDisable = array_diff($enable, $data);
+        $check = true;
         foreach ($toEnable as $e) {
-            $this->alertsProvider->enable($e);
+            !$this->alertsProvider->enable($e) ? $check = false : "";
         }
         foreach ($toDisable as $d) {
-            $this->alertsProvider->disable($d);
+            !$this->alertsProvider->disable($d) ? $check = false : "";
         }
-        return redirect('/settings/edit');
+        return $check ?
+            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Alerts aggiornate con successo']) :
+            redirect('/settings/edit')->withErrors(['NotUpdate' => 'Alerts non aggiornate']);
     }
 }

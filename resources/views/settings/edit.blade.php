@@ -5,6 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800">Impostazioni account</h1>
         </div>
+        @include('layouts.error')
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                         <span class="icon text-white-50">
@@ -13,7 +14,6 @@
                 <span class="text">Torna indietro</span>
             </a>
         </div>
-
         <div class="row">
             <div class="col-lg-6 mb-4">
                 <div class="card shadow mb-4">
@@ -144,6 +144,8 @@
                 </div>
             </div>
         </div>
+
+        @canany(['isUser', 'isMod'])
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Notifiche alert</h6>
@@ -181,10 +183,10 @@
                                         </tr>
                                     @endforeach
                                 @endforeach
-                            </tbody>
+                        </tbody>
                         </table>
                         <hr>
-                        <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                        <button type="submit" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                                   <span class="fas fa-check-circle"></span>
                             </span>
@@ -195,4 +197,5 @@
             </div>
         </div>
     </div>
+    @endcan
 @endsection

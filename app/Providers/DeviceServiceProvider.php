@@ -120,7 +120,7 @@ class DeviceServiceProvider extends BasicProvider
     /**
      * @return Device
      */
-    public static function GetADevice()
+    public static function getADevice()
     {
         $device = new Device();
         $arr = array_combine(

@@ -17,7 +17,7 @@
                                     <div class="form-group">
                                         <input id="code" type="text"
                                                class="form-control form-control-user form-codice-tfa @error('code') is-invalid @enderror"
-                                               name="code" placeholder="Inserisci il codice">
+                                               name="code" placeholder="Inserisci il codice" autocomplete="off">
 
                                         @error('code')
                                         <span class="invalid-feedback" role="alert">

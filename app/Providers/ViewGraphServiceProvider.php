@@ -84,18 +84,20 @@ class ViewGraphServiceProvider extends BasicProvider
             $this->request->post('', array_merge($this->setHeaders(), [
                 'body' => $body
             ]));
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
     public function destroy(string $who)
     {
         try {
             $this->request->delete('/viewGraphs/' . $who, $this->setHeaders());
+            return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return false;
         }
     }
     /*    public function update(string $who, string $body)

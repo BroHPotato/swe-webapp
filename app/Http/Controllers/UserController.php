@@ -68,7 +68,8 @@ class UserController extends Controller
     public function show($user)
     {
         $user = $this->provider->retrieveById($user);
-        return view('users.show', compact('user'));
+        $entity = (new EntityServiceProvider())->findFromUser($user);
+        return view('users.show', compact(['user', 'entity']));
     }
 
     /**
@@ -97,21 +98,22 @@ class UserController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'email' => 'required|email',
+            'name' => 'required|string|max:32',
+            'surname' => 'required|string|max:32',
+            'email' => 'required|email|max:32',
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
         ]);
-        $data['password'] = "password";
+        $data['password'] = substr(md5(microtime()), rand(0, 26), 6);
         if (!key_exists('entityId', $data)) {
             $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        return $this->provider->store(json_encode($data)) ? redirect(route('users.index')) :
-            redirect(route('users.index'))->withErrors(['createError' => 'Operazione non andata a buon fine']);
+        return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))
+            ->withErrors(['GoodCreate' => 'Utente creato con successo con password: ' . $data['password']]) :
+            redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
 
     /**
@@ -122,19 +124,21 @@ class UserController extends Controller
     {
         $user = $this->provider->retrieveById($user);
         $data = request()->validate([
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'type' => 'in:1,2,3|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
-            'email' => 'required|email',
+            'name' => 'required|string|max:32',
+            'surname' => 'required|string|max:32',
+            'type' => 'in:0,1,2|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
+            'email' => 'required|email|max:32',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
             'deleted' => 'nullable|in:true',
-            'password' => 'nullable|min:6',
+            'password' => 'nullable',
         ]);
         $data = array_diff_assoc($data, $user->getAttributes());
 
         if (key_exists('deleted', $data)) {
             $data['deleted'] = boolval($data['deleted']);
+        } else {
+            $data['deleted'] = false;
         }
 
         if (key_exists('tfa', $data)) {
@@ -146,8 +150,17 @@ class UserController extends Controller
                 $data['tfa'] = false;
             }
         }
-        $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT));
-        return redirect(route('users.index'));
+
+        $change = "";
+        if (key_exists('password', $data)) {
+            $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
+            $change = ' e con nuova password : ' . $data['password'];
+        }
+
+        return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
+            redirect(route('users.index'))
+                ->withErrors(['GoodUpdate' => 'Utente aggiornato con successo' . $change]) :
+            redirect(route('users.index'))->withErrors(['NotUpdate' => 'Utente non aggiornato']);
     }
 
     /**
@@ -156,8 +169,10 @@ class UserController extends Controller
      */
     public function destroy($userId)
     {
-        $this->provider->destroy($userId);
-        return redirect(route('users.index'));
+        return $this->provider->destroy($userId) ?
+            redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
+            redirect(route('users.index'))->withErrors(['NotDestroy' => 'Utente non eliminato']);
+        ;
     }
 
     /**
@@ -167,7 +182,9 @@ class UserController extends Controller
     public function restore($userId)
     {
         $user = $this->provider->retrieveById($userId);
-        $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}');
-        return redirect(route('users.index'));
+        return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
+            redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
+            redirect(route('users.index'))->withErrors(['NotRestore' => 'Utente non ripristinato']);
+        ;
     }
 }
