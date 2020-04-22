@@ -5,7 +5,7 @@ namespace Tests\Models;
 use App\Providers\AlertServiceProvider;
 use PHPUnit\Framework\TestCase;
 
-class AlertTest extends TestCase
+class fAlertTest extends TestCase
 {
     public function testSensorAttribute()
     {
@@ -20,6 +20,6 @@ class AlertTest extends TestCase
     public function testGetType()
     {
         $alert = AlertServiceProvider::getAnAlert();
-        $this->assertEquals('minore di', $alert->getType());
+        $this->assertEquals("maggiore di", $alert->getType());
     }
 }
