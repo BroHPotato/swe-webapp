@@ -20,6 +20,6 @@ class AlertTest extends TestCase
     public function testGetType()
     {
         $alert = AlertServiceProvider::getAnAlert();
-        $this->assertEquals('minore di', $alert->getType());
+        $this->assertEquals("maggiore di", $alert->getType());
     }
 }

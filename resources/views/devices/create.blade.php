@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Creazione dispositivo</h1>
+            <h1 class="h3 mb-0 text-gray-800"> Aggiunta dispositivo</h1>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('devices.index')}}" class="btn btn-sm btn-danger btn-icon-split">
@@ -19,7 +19,7 @@
                    <span class="icon text-blue-50">
                           <span class="fas fa-plus-circle"></span>
                    </span>
-                    Creazione dispositivo
+                    Aggiunta dispositivo
                 </h6>
             </div>
             @can(['isAdmin'])

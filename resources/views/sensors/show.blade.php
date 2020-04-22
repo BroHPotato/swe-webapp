@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('sensor', $device->deviceId, $sensor->realSensorId))
+@section('breadcrumbs', Breadcrumbs::render('sensors.show', $device->deviceId, $sensor->realSensorId))
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex mb-4">

@@ -21,4 +21,5 @@ mix.js(["resources/js/app.js", "resources/js/sb-admin-2.js"], "public/js")
         ],
         "public/css/theme.css"
     )
+    .copyDirectory("resources/images", "public/images")
     .copyDirectory("resources/webfonts", "public/webfonts");

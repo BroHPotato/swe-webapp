@@ -5,9 +5,12 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard.index') }}">
         <div class="sidebar-brand-icon">
-            <i class="fas fa-project-diagram"></i>
+            <i class="fas fa-project-diagram thirema-logo-color-light"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">ThiReMa</div>
+        <div class="sidebar-brand-text mx-3">
+            <span class="thirema-logo-special-font thirema-logo-color-blue">r</span>
+            <span class="thirema-logo-special-font thirema-logo-color-light">iot</span>
+        </div>
     </a>
 
     <hr class="sidebar-divider">
@@ -18,7 +21,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('dashboard.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt text-info"></i>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
     </li>
@@ -26,7 +29,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('settings.edit') }}">
-            <i class="fas fa-fw fa-cog text-info"></i>
+            <i class="fas fa-fw fa-cog"></i>
             <span>Impostazioni</span>
         </a>
     </li>
@@ -38,21 +41,21 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('devices.index') }}">
-            <i class="fas fa-fw fa-microchip"></i>
+            <i class="fas fa-fw fa-microchip text-light"></i>
             <span>Dispositivi e sensori</span>
         </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('views.index') }}">
-            <i class="fas fa-fw fa-chart-bar"> </i>
+            <i class="fas fa-fw fa-chart-bar text-warning"> </i>
             <span>Pagine view</span>
         </a>
     </li>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('alerts.index') }}">
-            <i class="fas fa-fw fa-bell"> </i>
+            <i class="fas fa-fw fa-bell text-light"> </i>
             <span>Alerts</span>
         </a>
     </li>

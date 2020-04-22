@@ -10,6 +10,11 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
+                                    <div class="mb-3 d-lg-none">
+                                        <span class="fas fa-project-diagram thirema-logo-icon"></span>
+                                        <span class="thirema-logo-special-font thirema-logo-color-blue">r</span>
+                                        <span class="thirema-logo-special-font">iot</span>
+                                    </div>
                                     <h1 class="h4 text-gray-900 mb-4">Accesso Webapp</h1>
                                 </div>
                                 <form class="user" method="POST" action="{{ route('login') }}">
