@@ -2,12 +2,14 @@
 
 echo "Web application starting..."
 
-composer install
+if [ ! -d "vendor/" ]; then
+	composer install
+fi
 
-npm install
+if [ ! -d "node_modules/" ]; then
+	npm install
+fi
 
 npm run dev
 
 php artisan serve --host=0.0.0.0 --port=8000
-
-
