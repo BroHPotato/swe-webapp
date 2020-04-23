@@ -25,14 +25,14 @@
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
                     <p>Puoi creare un nuovo gateway inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('gateways.store')--}}">
+                    <form method="POST" action="{{route('gateways.store')}}" id="create">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
                             <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('gatewayName') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="" name="gatewayName">
-                                @error('gatewayName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -44,12 +44,12 @@
                 </div>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
+            <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="create">
                         <span class="icon text-white-50">
                           <span class="fas fa-plus-circle"></span>
                         </span>
                 <span class="text">Aggiungi</span>
-            </a>
+            </button>
         </div>
     </div>
 
