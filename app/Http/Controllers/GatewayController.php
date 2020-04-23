@@ -58,7 +58,7 @@ class GatewayController extends Controller
         $devicesWithSensors = [];
         foreach ($devices as $d) {
             $devicesWithSensors[$d->deviceId]['device'] = $d;
-            $devicesWithSensors[$d->deviceId]['sensors'] = $this->sensorProvider->findAllFromDevice($d->deviceId);
+            $devicesWithSensors[$d->deviceId]['sensors'] = $this->sensorProvider->findAllFromDevice($d->deviceId) ?? [];
         }
         return view('gateways.show', compact(['gateway', 'devicesWithSensors']));
     }
@@ -103,6 +103,5 @@ class GatewayController extends Controller
         return $this->gatewayProvider->destroy($gatewayId) ?
             redirect(route('gateways.index'))->withErrors(['GoodDestroy' => 'Gateway eliminato con successo']) :
             redirect(route('gateways.index'))->withErrors(['NotDestroy' => 'Gateway non eliminato']);
-        ;
     }
 }

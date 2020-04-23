@@ -25,14 +25,14 @@
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
                     <p>Puoi creare un nuovo ente inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('entities.store')--}}">
+                    <form method="POST" action="{{route('entities.store')}}" id="create">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
                             <label for="inputEntityName" class="col-sm-4 col-form-label"><span class="fas fa-building"></span> Nome ente</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('entityName') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="" name="entityName">
-                                @error('entityName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,8 +42,8 @@
                         <div class="form-group row">
                             <label for="inputEntityLocation" class="col-sm-4 col-form-label"><span class="fas fa-location-arrow"></span> Luogo </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('entityLocation') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="" name="entityLocation">
-                                @error('entityLocation')
+                                <input type="text" class="form-control @error('location') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="" name="location">
+                                @error('location')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -55,12 +55,12 @@
                 </div>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
+            <button type="submit" class="btn btn-success btn-icon-split" form="create">
                         <span class="icon text-white-50">
-                          <span class="fas fa-plus-circle"></span>
+                          <span class="fas fa-save"></span>
                         </span>
-                <span class="text">Aggiungi</span>
-            </a>
+                <span class="text">Salva</span>
+            </button>
         </div>
     </div>
 

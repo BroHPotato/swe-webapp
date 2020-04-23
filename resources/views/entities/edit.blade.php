@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('entities.edit', $entity->name))
+@section('breadcrumbs', Breadcrumbs::render('entities.edit', $entity->entityId))
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
@@ -25,14 +25,14 @@
             </div>
                 <div id="cardGateway" class="card-body">
                     <p>Puoi creare un nuovo ente inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('entities.store')--}}">
+                    <form method="POST" action="{{route('entities.update', $entity->entityId)}}" id="update">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="inputEntityName" class="col-sm-4 col-form-label"><span class="fas fa-building"></span> Nome ente</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('entityName') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="{{old('entityName')??$entity->name}}" name="entityName">
-                                @error('entityName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="{{old('name')??$entity->name}}" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,8 +42,8 @@
                         <div class="form-group row">
                             <label for="inputEntityLocation" class="col-sm-4 col-form-label"><span class="fas fa-location-arrow"></span> Luogo </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('entityLocation') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="{{old('entityLocation')??$entity->location}}" name="entityLocation">
-                                @error('entityLocation')
+                                <input type="text" class="form-control @error('location') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="{{old('location')??$entity->location}}" name="location">
+                                @error('location')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -54,20 +54,24 @@
                 </div>
         </div>
         <div class="d-inline-block my-1 px-0">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <span class="fas fa-save"></span>
-                </span>
+            <button type="submit" class="btn btn-success btn-icon-split" form="update">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-save"></span>
+                        </span>
                 <span class="text">Salva</span>
-            </a>
+            </button>
         </div>
             <div class="d-inline-block my-1 px-0 float-right">
-                <button class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                                <span class="fas fa-trash"></span>
-                            </span>
+                <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-trash"></span>
+                                    </span>
                     <span class="text">Elimina</span>
-                </button>
+                </a>
+                <form id="delete" action="{{ route('entities.destroy', ['entityId' => $entity->entityId]) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </div>
         @endcan
     </div>

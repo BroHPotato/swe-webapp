@@ -36,7 +36,7 @@ class DeviceController extends Controller
     public function edit($device)
     {
         $device = $this->deviceProvider->find($device);
-        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId) ?? [];
 
         return view('devices.edit', compact('device', 'sensors'));
     }
@@ -54,7 +54,7 @@ class DeviceController extends Controller
             $sensors = [];
             $devices = $this->deviceProvider->findAllFromGateway($g->gatewayId);
             foreach ($devices as $d) {
-                $sensors[$d->deviceId] = count($this->sensorProvider->findAllFromDevice($d->deviceId));
+                $sensors[$d->deviceId] = count($this->sensorProvider->findAllFromDevice($d->deviceId) ?? []);
             }
             $devicesOnGateways[$g->gatewayId] = [0 => $g,
                                                 1 => $devices,
@@ -72,9 +72,9 @@ class DeviceController extends Controller
      */
     public function show($deviceId)
     {
-        $device = $this->deviceProvider->find($deviceId);
-        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
-        $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0];
+        $device = $this->deviceProvider->find($deviceId) ?? [];
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId) ?? [];
+        $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0] ?? [];
         return view('devices.show', compact(['device', 'sensors', 'gateway']));
     }
 }

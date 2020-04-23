@@ -45,7 +45,7 @@ Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
     //delete alert per admin
     Route::delete('alerts/{alertId}', 'AlertsController@destroy')->name('alerts.destroy');
 });
-
+//routes protette solo per mod
 Route::middleware('can:isMod')->group(function () {
 
     // Modifica, aggiunta, edit alerts
@@ -55,18 +55,26 @@ Route::middleware('can:isMod')->group(function () {
     Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
     Route::put('alerts/{alertId}', 'AlertsController@update')->name('alerts.update');
 });
-
-
+//routes protette solo per admin
 Route::middleware('can:isAdmin')->group(function () {
 
     //routes per gestione gateways
     Route::get('/gateways', 'GatewayController@index')->name('gateways.index');
-    Route::get('/gateways/create', 'GatewayController@create')->name('gateways.create');
     Route::post('/gateways', 'GatewayController@store')->name('gateways.store');
-    Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateways.show');
+    Route::get('/gateways/create', 'GatewayController@create')->name('gateways.create');
     Route::get('/gateways/{gatewayId}/edit', 'GatewayController@edit')->name('gateways.edit');
+    Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateways.show');
     Route::put('/gateways/{gatewayId}', 'GatewayController@update')->name('gateways.update');
     Route::delete('/gateways/{gatewayId}', 'GatewayController@destroy')->name('gateways.destroy');
+
+    //routes per gestione entity
+    Route::get('/entities', 'EntityController@index')->name('entities.index');
+    Route::post('/entities', 'EntityController@store')->name('entities.store');
+    Route::get('/entities/create', 'EntityController@create')->name('entities.create');
+    Route::get('/entities/{entityId}/edit', 'EntityController@edit')->name('entities.edit');
+    Route::get('/entities/{entityId}', 'EntityController@show')->name('entities.show');
+    Route::put('/entities/{entityId}', 'EntityController@update')->name('entities.update');
+    Route::delete('/entities/{entityId}', 'EntityController@destroy')->name('entities.destroy');
 });
 
 //routes per gestione devices
@@ -81,13 +89,8 @@ Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.e
 Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
 Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
 
-//routes per gestione entity
-Route::get('/entities', 'EntityController@index')->name('entities.index');//TODO
-Route::get('/entities/create', 'EntityController@create')->name('entities.create');//TODO
-Route::post('/entities', 'EntityController@store')->name('entities.store');//TODO
-Route::get('/entity/{entityName}', 'EntityController@show')->name('entities.show');//TODO
-Route::put('/entity/{entityId}', 'EntityController@update')->name('entities.update');//TODO
-Route::get('/entity/{entityName}/edit', 'EntityController@edit')->name('entities.edit');//TODO
+
+
 
 //routes per la gestione delle views
 Route::get('views', 'ViewController@index')->name('views.index');
