@@ -183,7 +183,7 @@
                                         </tr>
                                     @endforeach
                                 @endforeach
-                        </tbody>
+                            </tbody>
                         </table>
                         <hr>
                         <button type="submit" class="btn btn-success btn-icon-split">

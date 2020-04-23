@@ -75,15 +75,19 @@ Route::middleware('can:isAdmin')->group(function () {
     Route::get('/entities/{entityId}', 'EntityController@show')->name('entities.show');
     Route::put('/entities/{entityId}', 'EntityController@update')->name('entities.update');
     Route::delete('/entities/{entityId}', 'EntityController@destroy')->name('entities.destroy');
+
+    //routes per gestione devices
+    Route::post('/devices', 'DeviceController@store')->name('devices.store');//TODO
+    Route::get('/devices/create', 'DeviceController@create')->name('devices.create');//TODO
+    Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
+    Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');//TODO
+    Route::delete('/devices/{deviceId}', 'DeviceController@destroy')->name('devices.destroy');//TODO
 });
+
 
 //routes per gestione devices
 Route::get('/devices', 'DeviceController@index')->name('devices.index');
-Route::get('/devices/create', 'DeviceController@create')->name('devices.create');//TODO
-Route::post('/devices', 'DeviceController@store')->name('devices.store');//TODO
-Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');//TODO
-Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');//TODO
-Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
+Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');
 
 //routes per gestione sensori
 Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
@@ -97,8 +101,10 @@ Route::get('views', 'ViewController@index')->name('views.index');
 Route::get('views/{viewId}', 'ViewController@show')->name('views.show');
 Route::post('views', 'ViewController@store')->name('views.store');
 Route::delete('views/{viewId}', 'ViewController@destroy')->name('views.destroy');
-//data
-Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
 
+//routes per la gestione dei graphs
 Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
 Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
+
+//data
+Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
