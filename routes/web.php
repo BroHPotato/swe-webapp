@@ -18,15 +18,42 @@ Auth::routes(['register' => false, 'reset' => false]);
 //le Route DEVONO essere ordinate secondo logica di matching "if"
 
 Route::get('login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
-Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
-//routes per gestione profilo
-Route::get('settings/edit', 'SettingsController@edit')->name('settings.edit');
-Route::post('settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
-Route::put('settings', 'SettingsController@update')->name('settings.update');
+//routes protette dai guests
+Route::middleware('auth')->group(function () {
+    //routes per gestione devices
+    Route::get('/devices', 'DeviceController@index')->name('devices.index');
+    Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');
 
-//alert
-Route::get('/alerts', 'AlertsController@index')->name('alerts.index');
+    //routes per gestione sensori
+    Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
+    Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
+
+
+    //routes per la gestione delle views
+    Route::get('views', 'ViewController@index')->name('views.index');
+    Route::get('views/{viewId}', 'ViewController@show')->name('views.show');
+    Route::post('views', 'ViewController@store')->name('views.store');
+    Route::delete('views/{viewId}', 'ViewController@destroy')->name('views.destroy');
+
+    //routes per la gestione dei graphs
+    Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
+    Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
+
+    //data
+    Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
+    //dashboard
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+
+    //routes per gestione profilo
+    Route::get('settings/edit', 'SettingsController@edit')->name('settings.edit');
+    Route::post('settings', 'SettingsController@updateAlerts')->name('settings.updateAlerts');
+    Route::put('settings', 'SettingsController@update')->name('settings.update');
+
+    //alert
+    Route::get('/alerts', 'AlertsController@index')->name('alerts.index');
+});
+
 
 //routes protette solo per admin e mod
 Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
@@ -84,27 +111,3 @@ Route::middleware('can:isAdmin')->group(function () {
     Route::delete('/devices/{deviceId}', 'DeviceController@destroy')->name('devices.destroy');//TODO
 });
 
-
-//routes per gestione devices
-Route::get('/devices', 'DeviceController@index')->name('devices.index');
-Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');
-
-//routes per gestione sensori
-Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
-Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
-
-
-
-
-//routes per la gestione delle views
-Route::get('views', 'ViewController@index')->name('views.index');
-Route::get('views/{viewId}', 'ViewController@show')->name('views.show');
-Route::post('views', 'ViewController@store')->name('views.store');
-Route::delete('views/{viewId}', 'ViewController@destroy')->name('views.destroy');
-
-//routes per la gestione dei graphs
-Route::post('/viewGraphs/{viewId}', 'GraphsController@store')->name('graphs.store');
-Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
-
-//data
-Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
