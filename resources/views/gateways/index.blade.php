@@ -5,23 +5,25 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Gateway </h1>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
-                <span class="text">Torna indietro</span>
-            </a>
-        </div>
-        @can(['isAdmin'])
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('gateways.create')}}" class="btn btn-primary btn-icon-split">
-                    <span class="icon text-white-50">
-                      <span class="fas fa-plus-circle"></span>
-                    </span>
-                    <span class="text">Aggiungi</span>
+        <div class="row">
+            <div class="col-auto mb-4">
+                <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                              <span class="fas fa-arrow-circle-left"></span>
+                            </span>
+                    <span class="text">Torna indietro</span>
                 </a>
             </div>
+            @can(['isAdmin'])
+                <div class="col-auto mb-4">
+                    <a href="{{route('gateways.create')}}" class="btn btn-sm btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-plus-circle"></span>
+                        </span>
+                        <span class="text">Aggiungi gateway</span>
+                    </a>
+                </div>
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-dungeon"></span> Lista gateway</h6>
@@ -47,21 +49,21 @@
                                 <td>2</td>  {{-- IL NUMERO DI DISPOSITIVI VA PRESO DINAMICAMENTE --}}
                                 <td class="text-center"><a href="{{route('gateways.show', [
                                                     'gatewayId' => $gateway->gatewayId
-                                            ])}}" class="btn btn-success btn-icon-split">
+                                            ])}}" class="btn btn-sm btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                         <span class="text">Dettagli</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-warning btn-icon-split">
+                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-sm btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>
                                         <span class="text">Modifica</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><a href="#" class="btn btn-primary btn-icon-split">
+                                <td class="text-center"><a href="#" class="btn btn-sm btn-primary btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-paper-plane"></span>
                                         </span>

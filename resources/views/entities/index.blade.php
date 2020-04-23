@@ -5,23 +5,25 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Enti </h1>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('dashboard.index')}}" class="btn btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
-                <span class="text">Torna indietro</span>
-            </a>
-        </div>
-        @can(['isAdmin'])
-            <div class="d-sm-flex mb-4 ml-sm-auto">
-                <a href="{{route('entities.create')}}" class="btn btn-primary btn-icon-split">
-                    <span class="icon text-white-50">
-                      <span class="fas fa-plus-circle"></span>
-                    </span>
-                    <span class="text">Aggiungi</span>
+        <div class="row">
+            <div class="col-auto mb-4">
+                <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                              <span class="fas fa-arrow-circle-left"></span>
+                            </span>
+                    <span class="text">Torna indietro</span>
                 </a>
             </div>
+            @can(['isAdmin'])
+                <div class="col-auto mb-4">
+                    <a href="{{route('entities.create')}}" class="btn btn-sm btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-plus-circle"></span>
+                        </span>
+                        <span class="text">Aggiungi ente</span>
+                    </a>
+                </div>
+        </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-city"></span> Lista enti</h6>
@@ -50,15 +52,15 @@
                                         @endif
                                     </td>
                                     <td class="text-center"><a href="{{route('entities.show', [
-                                                    'entityName' => $entity->name
-                                            ])}}" class="btn btn-success btn-icon-split">
+                                                    'entityName' => $entity->entityId
+                                            ])}}" class="btn btn-sm btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                             <span class="text">Dettagli</span>
                                         </a>
                                     </td>
-                                    <td class="text-center"><a href="{{route('entities.edit', ['entityName' => $entity->name])}}" class="btn btn-warning btn-icon-split">
+                                    <td class="text-center"><a href="{{route('entities.edit', ['entityName' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>

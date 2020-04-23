@@ -5,8 +5,15 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Informazioni Gateway</h1>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <button class="btn-danger btn" onclick="window.history.back()">Torna indietro</button>
+        <div class="row">
+            <div class="col-auto mb-4 ">
+                <a href="{{route('gateways.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                    <span class="text">Torna indietro</span>
+                </a>
+            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -26,7 +33,7 @@
                         <tr>
                             <td>{{$gateway->gatewayId}}</td>
                             <td>{{$gateway->name}}</td>
-                            <td>3</td> {{--NUMERO DI DISPOSITIVI DA PRENDERE DINAMICAMENTE--}}
+                            <td>{{3}}</td> {{--NUMERO DI DISPOSITIVI DA PRENDERE DINAMICAMENTE--}}
                         </tr>
                         </tbody>
                     </table>

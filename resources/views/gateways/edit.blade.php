@@ -5,16 +5,16 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Modifica gateway</h1>
         </div>
-
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto">
-                <a href="{{route('gateways.index')}}" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                              <span class="fas fa-arrow-circle-left"></span>
-                            </span>
+        <div class="row">
+            <div class="col-auto mb-4 ">
+                <a href="{{route('gateways.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
                     <span class="text">Torna indietro</span>
                 </a>
             </div>
-
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -46,20 +46,20 @@
                 </div>
         </div>
         <div class="d-inline-block my-1">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-save"></span>
-                        </span>
-                <span class="text">Salva</span>
-            </a>
-        </div>
-        <div class="d-inline-block my-1 float-right">
             <button class="btn btn-danger btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-trash"></span>
                                     </span>
                 <span class="text">Elimina</span>
             </button>
+        </div>
+        <div class="d-inline-block my-1 float-right">
+            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-save"></span>
+                        </span>
+                <span class="text">Salva</span>
+            </a>
         </div>
         @endcan
     </div>
