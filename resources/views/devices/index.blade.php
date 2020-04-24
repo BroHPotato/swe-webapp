@@ -27,7 +27,7 @@
             @endcan
         </div>
 
-    @can(['can:isUser' || 'can:isMod'])
+    @can(['isAdmin'])
         @foreach($devicesOnGateways as $deviceOnGateway)
             <div class="card shadow mb-4">
                 <a href="#collapseByGateway_{{$deviceOnGateway['gateway']->gatewayId}}" class="d-block card-header py-3"
@@ -77,7 +77,7 @@
         @endforeach
     @endcan
 
-    @canany(["isAdmin"])
+    @canany(['isUser', 'isMod'])
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi</h6>
