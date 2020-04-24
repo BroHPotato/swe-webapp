@@ -2,6 +2,7 @@ const sensorsList = document.querySelector("#sensorsList");
 const addSensor = document.querySelector("#addSensor");
 const addDevice = document.querySelector("#addDevice");
 const form = document.querySelector("#sensorForm");
+const save = document.querySelector("#save");
 let trashes = document.querySelectorAll(".delete");
 let numSensor = 1;
 
@@ -34,7 +35,8 @@ if (addSensor !== null) {
     addSensor.addEventListener("click", (e) => {
         e.preventDefault();
         const sensorIdValue = document.querySelector("#inputSensorId").value;
-        const sensorTypeValue = document.querySelector("#inputSensorType").value;
+        const sensorTypeValue = document.querySelector("#inputSensorType")
+            .value;
         // aggiunta sensore al dispositivo
         if (sensorIdValue !== "" && sensorTypeValue !== "") {
             sensorsList.innerHTML += `
@@ -46,13 +48,13 @@ if (addSensor !== null) {
                     <span class="fas fa-tag mx-1"></span>Id sensore
                 </label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" placeholder="Id sensore" name="sensorId[]" value="{{['sensorId']->${sensorIdValue}}}>
+                    <input type="text" class="form-control" placeholder="Id sensore" name="sensorId[]" value="${sensorIdValue}">
                 </div>
                 <label class="col-lg-2 col-form-label">
                     <span class="fas fa-tape mx-1"></span>Tipologia
                 </label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" placeholder="Tipo di sensore" name="sensorType[]" value="{{['sensorType']->${sensorTypeValue}}}>
+                    <input type="text" class="form-control" placeholder="Tipo di sensore" name="sensorType[]" value="${sensorTypeValue}">
                 </div>
                 <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
                     <span class="fas fa-trash text-danger delete"></span>
@@ -84,7 +86,8 @@ if (addSensor !== null) {
 if (addDevice !== null) {
     addDevice.addEventListener("click", (e) => {
         const deviceIdValue = document.querySelector("#inputDeviceId").value;
-        const deviceNameValue = document.querySelector("#inputDeviceName").value;
+        const deviceNameValue = document.querySelector("#inputDeviceName")
+            .value;
         if (deviceIdValue !== "" && deviceNameValue !== "") {
             alert("Dispositivo aggiunto correttamente");
         } else {
@@ -93,3 +96,13 @@ if (addDevice !== null) {
         }
     });
 }
+// salva dispositivo
+// if (save !== null) {
+//     save.addEventListener("click", (e) => {
+//         e.preventDefault();
+//         const sensorIdValue = document.querySelectorAll("#inputSensorId");
+//         const sensorTypeValue = document.querySelectorAll("#inputSensorType");
+//         console.log(sensorIdValue, sensorTypeValue);
+//
+//     });
+// }
