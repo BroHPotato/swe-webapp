@@ -43,8 +43,10 @@ class SensorController extends Controller
      */
     public function show($deviceId, $sensorId)
     {
-        $sensor = $this->sensorProvider->find($deviceId, $sensorId);
-        $device = $this->deviceProvider->find($deviceId);
+        $sensor = $this->sensorProvider->find($deviceId, $sensorId) ?? abort(404);
+        ;
+        $device = $this->deviceProvider->find($deviceId) ?? abort(404);
+        ;
         return view('sensors.show', compact(['sensor', 'device']));
     }
 

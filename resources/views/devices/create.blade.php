@@ -25,14 +25,14 @@
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
                     <p>Puoi modificare il dispositivo inserendo le informazioni elencate di seguito:</p>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{route('devices.store')}}" id="create">
                         @csrf
                         @method('POST')
                         <div class="form-group row">
                             <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('deviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="" name="deviceid">
-                                @error('deviceId')
+                                <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="" name="realDeviceId">
+                                @error('realDeviceId')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,8 +42,8 @@
                         <div class="form-group row">
                             <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('deviceName') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="" name="deviceName">
-                                @error('deviceName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -54,11 +54,12 @@
                             <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <select class="form-control @error('gatewayName') is-invalid @enderror" name="gatewayName" id="inputgatewayName">
-                                        <option >US-Gateway</option>
-                                        <option >DE-Gateway</option>
+                                    <select class="form-control @error('gatewayId') is-invalid @enderror" name="gatewayId" id="inputGatewayName">
+                                        @foreach($gateways as $gateway)
+                                            <option value="{{$gateway->gatewayId}}">{{$gateway->name}}</option>
+                                        @endforeach
                                     </select>
-                                    @error('gatewayName')
+                                    @error('gatewayId')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                         </span>
@@ -71,16 +72,16 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option>0.5</option>
-                                        <option>1</option>
-                                        <option>1.5</option>
-                                        <option>2</option>
-                                        <option>2.5</option>
-                                        <option>3</option>
-                                        <option>3.5</option>
-                                        <option>4</option>
-                                        <option>4.5</option>
-                                        <option>5</option>
+                                        <option value="0.5">0.5</option>
+                                        <option value="1">1</option>
+                                        <option value="1.5">1.5</option>
+                                        <option value="2">2</option>
+                                        <option value="2.5">2.5</option>
+                                        <option value="3">3</option>
+                                        <option value="3.5">3.5</option>
+                                        <option value="4">4</option>
+                                        <option value="4.5">4.5</option>
+                                        <option value="5">5</option>
                                     </select>
                                     @error('frequency')
                                     <span class="invalid-feedback" role="alert">
@@ -151,12 +152,12 @@
                 </div>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto float-right">
-            <a href="{{route('devices.index')}}" id="addDevice" class="btn btn-success btn-icon-split">
+            <button type="submit" class="btn btn-success btn-icon-split" form="create">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
                 <span class="text">Salva</span>
-            </a>
+            </button>
         </div>
     </div>
 

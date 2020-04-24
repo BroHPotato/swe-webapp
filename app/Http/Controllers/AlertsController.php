@@ -27,7 +27,7 @@ class AlertsController extends Controller
 
     public function index()
     {
-        $alerts = $this->alertProvider->findAll();
+        $alerts = $this->alertProvider->findAll() ?? [];
         $alertsWithSensors = [];
         $sensorsCache = [];
         foreach ($alerts as $state => $alertsList) {

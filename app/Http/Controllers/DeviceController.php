@@ -79,15 +79,51 @@ class DeviceController extends Controller
 
     public function store()
     {
-        dd(request()->all());
         $data = request()->validate([
             'realDeviceId' => 'required|numeric',
             'name' => 'required|string',
             'gatewayId' => 'required|numeric',
-            'frequency' => 'required|numeric|in:0.5,1,1.5,2,2.5,3,3.5,4,4.5,5'
+            'frequency' => 'required|numeric|in:0.5,1,1.5,2,2.5,3,3.5,4,4.5,5',
+            'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
+            'sensorType.*' => 'nullable|string|required_with:sensorId.*'
         ]);
-        return $this->gatewayProvider->store(json_encode($data)) ?
-            redirect(route('gateways.index'))->withErrors(['GoodCreate' => 'Gateway creato con successo']) :
-            redirect(route('gateways.index'))->withErrors(['NotCreate' => 'Gateway non creato']);
+        $createdDevice = $this->deviceProvider->store(json_encode([
+            'realDeviceId' => $data['realDeviceId'],
+            'name' => $data['name'],
+            'gatewayId' => $data['gatewayId'],
+            'frequency' => $data['frequency']
+        ]));
+        if (!$createdDevice) {
+            return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo e Sensori non creati']);
+        } elseif ($data['sensorId']) {
+            $createdSensor = false;
+            if ($data['sensorId'] === $data['sensorType']) {
+                foreach ($data['sensorId'] as $key => $value) {
+                    $createdSensor = $this->sensorProvider->store(json_encode([
+                        'realDeviceId' => $data['realDeviceId'],
+                        'realSensorId' => $value,
+                        'type' => $data['sensorType'][$key]
+                    ]));
+                    if (!$createdSensor) {
+                        break;
+                    }
+                }
+            }
+            if (!$createdSensor) {
+                return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo creato e Sensori non creati']);
+            } else {
+                return redirect(route('devices.index'))->withErrors(['GoodCreate' => 'Dispositivo e Sensori creati con succerro']);
+            }
+        } else {
+            return
+                redirect(route('devices.index'))->withErrors(['GoodCreate' => 'Dispositivo creato con successo']);
+        }
+    }
+
+    public function destroy($deviceId)
+    {
+        return $this->deviceProvider->destroy($deviceId) ?
+            redirect(route('devices.index'))->withErrors(['GoodDestroy' => 'Dispositivo eliminato con successo']) :
+            redirect(route('devices.index'))->withErrors(['NotDestroy' => 'Dispositivo non eliminato']);
     }
 }

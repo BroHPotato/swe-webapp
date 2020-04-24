@@ -133,6 +133,20 @@ class SensorServiceProvider extends BasicProvider
             return NAN;
         }
     }
+
+
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('/sensors', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
     // ===================================================
     // Mockup per un utente
     // Funzione da rimuovere in production
