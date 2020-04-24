@@ -135,12 +135,41 @@ class SensorServiceProvider extends BasicProvider
     }
 
 
-    public function store(string $body)
+    public function store(string $deviceId, string $body)
     {
         try {
-            $this->request->post('/sensors', array_merge($this->setHeaders(), [
+            $this->request->post('/devices/' . $deviceId . '/sensors', array_merge($this->setHeaders(), [
                 'body' => $body
             ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    public function update(string $deviceId, string $sensorId, string $body)
+    {
+        try {
+            $this->request->put(
+                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                array_merge($this->setHeaders(), [
+                'body' => $body
+                ])
+            );
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+    public function destroy(string $deviceId, string $sensorId)
+    {
+        try {
+            $this->request->delete(
+                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                $this->setHeaders()
+            );
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);

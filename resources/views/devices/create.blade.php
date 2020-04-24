@@ -114,9 +114,7 @@
             @can(['isAdmin'])
                 <div id="cardSensore" class="card-body">
                     <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('devices.store')--}}" id="sensorForm">
-                        @csrf
-                        @method('POST')
+                    <form method="POST"id="sensorForm">
                         <div class="form-group row">
                             <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
                             <div class="col-sm-9">

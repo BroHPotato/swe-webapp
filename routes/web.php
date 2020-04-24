@@ -98,8 +98,8 @@ Route::middleware('auth')->group(function () {
         //routes per gestione devices
         Route::post('/devices', 'DeviceController@store')->name('devices.store');
         Route::get('/devices/create', 'DeviceController@create')->name('devices.create');
-        Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');//TODO
-        Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');//TODO
+        Route::get('/devices/{deviceId}/edit', 'DeviceController@edit')->name('devices.edit');
+        Route::put('/devices/{deviceId}', 'DeviceController@update')->name('devices.update');
         Route::delete('/devices/{deviceId}', 'DeviceController@destroy')->name('devices.destroy');
     });
 

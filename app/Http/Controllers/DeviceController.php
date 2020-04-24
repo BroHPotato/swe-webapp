@@ -35,9 +35,10 @@ class DeviceController extends Controller
 
     public function edit($device)
     {
-        $device = $this->deviceProvider->find($device);
+        $device = $this->deviceProvider->find($device)??[];
         $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId) ?? [];
-        return view('devices.edit', compact(['device', 'sensors']));
+        $gateways = $this->gatewayProvider->findAll()??[];
+        return view('devices.edit', compact(['device', 'sensors','gateways']));
     }
 
     /**
@@ -77,7 +78,7 @@ class DeviceController extends Controller
         return view('devices.show', compact(['device', 'sensors', 'gateway']));
     }
 
-    public function store()
+    public function store() //todo refactor
     {
         $data = request()->validate([
             'realDeviceId' => 'required|numeric',
@@ -87,43 +88,118 @@ class DeviceController extends Controller
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*'
         ]);
-        $createdDevice = $this->deviceProvider->store(json_encode([
+        if (!$this->deviceProvider->store(json_encode([
             'realDeviceId' => $data['realDeviceId'],
             'name' => $data['name'],
             'gatewayId' => $data['gatewayId'],
             'frequency' => $data['frequency']
-        ]));
-        if (!$createdDevice) {
-            return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo e Sensori non creati']);
+        ]))) {
+            return redirect(
+                route('devices.index')
+            )->withErrors(['NotCreate' => 'Dispositivo e Sensori non creati']);
         } elseif ($data['sensorId']) {
-            $createdSensor = false;
+            //fetch and filter of the new device
+            $devices = $this->deviceProvider->findAllFromGateway($data['gatewayId']);
+            $newDevice = current(array_filter($devices, function ($dev) use ($data) {
+                return $dev->realDeviceId == $data['realDeviceId'] && $dev->gatewayId == $data['gatewayId'];
+            }));
+            dd($newDevice);
+            /////
             if ($data['sensorId'] === $data['sensorType']) {
                 foreach ($data['sensorId'] as $key => $value) {
-                    $createdSensor = $this->sensorProvider->store(json_encode([
-                        'realDeviceId' => $data['realDeviceId'],
+                    if (!$this->sensorProvider->store($newDevice->deviceId, json_encode([
+                        'device' => $newDevice->deviceId,
                         'realSensorId' => $value,
                         'type' => $data['sensorType'][$key]
-                    ]));
-                    if (!$createdSensor) {
-                        break;
+                    ]))) {
+                        return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo creato,
+                        ma si e verificato un errore durante la creazione dei sensori']);
                     }
                 }
             }
-            if (!$createdSensor) {
-                return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo creato e Sensori non creati']);
-            } else {
-                return redirect(route('devices.index'))->withErrors(['GoodCreate' => 'Dispositivo e Sensori creati con succerro']);
-            }
+            return redirect(route('devices.index'))
+                ->withErrors(['GoodCreate' => 'Dispositivo e Sensori creati con successo']);
         } else {
             return
-                redirect(route('devices.index'))->withErrors(['GoodCreate' => 'Dispositivo creato con successo']);
+                redirect(route('devices.index'))
+                    ->withErrors(['GoodCreate' => 'Dispositivo creato con successo']);
         }
     }
 
     public function destroy($deviceId)
     {
         return $this->deviceProvider->destroy($deviceId) ?
-            redirect(route('devices.index'))->withErrors(['GoodDestroy' => 'Dispositivo eliminato con successo']) :
-            redirect(route('devices.index'))->withErrors(['NotDestroy' => 'Dispositivo non eliminato']);
+            redirect(route('devices.index'))
+                ->withErrors(['GoodDestroy' => 'Dispositivo eliminato con successo']) :
+            redirect(route('devices.index'))
+                ->withErrors(['NotDestroy' => 'Dispositivo non eliminato']);
+    }
+
+    public function update($deviceId) //todo refactor
+    {
+        $data = request()->validate([
+            'realDeviceId' => 'required|numeric',
+            'name' => 'required|string',
+            'gatewayId' => 'required|numeric',
+            'frequency' => 'required|numeric|in:0.5,1,1.5,2,2.5,3,3.5,4,4.5,5',
+            'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
+            'sensorType.*' => 'nullable|string|required_with:sensorId.*'
+        ]);
+        if (!$this->deviceProvider->update($deviceId, json_encode([
+            'realDeviceId' => $data['realDeviceId'],
+            'name' => $data['name'],
+            'gatewayId' => $data['gatewayId'],
+            'frequency' => $data['frequency']
+        ]))) {
+            return redirect(route('devices.index'))
+                ->withErrors(['NotUpdate' => 'Dispositivo e Sensori non aggiornati']);
+        } else {
+            if ($data['sensorId'] === $data['sensorType']) {
+                $data['sensorId'] = $data['sensorId']??[];
+                $newDevice = $this->deviceProvider->find($deviceId);
+                $oldSensors = $this->sensorProvider->findAllFromDevice($deviceId);
+
+                $oldSensorsId = [];
+                foreach ($oldSensors as $s) {
+                    $oldSensorsId[] = $s->realSensorId;
+                }
+
+                $toInsert = array_diff($data['sensorId'], $oldSensorsId);
+                $toDelete = array_diff($oldSensorsId, $data['sensorId']);
+                $toModify = array_intersect($data['sensorId'], $oldSensorsId);
+
+                foreach ($toInsert as $key => $value) {
+                    if (!$this->sensorProvider->store($newDevice->deviceId, json_encode([
+                        'device' => $newDevice->deviceId,
+                        'realSensorId' => $value,
+                        'type' => $data['sensorType'][$key]
+                    ]))) {
+                        return redirect(route('devices.index'))
+                            ->withErrors(['NotUpdate' => 'Dispositivo aggiornato,
+                            ma si e verificato un errore durante l\'aggiornamento dei sensori']);
+                    }
+                }
+                foreach ($toDelete as $key => $value) {
+                    if (!$this->sensorProvider->destroy($newDevice->deviceId, $value)) {
+                        return redirect(route('devices.index'))
+                            ->withErrors(['NotUpdate' => 'Dispositivo aggiornato,
+                            ma si e verificato un errore durante l\'aggiornamento dei sensori']);
+                    }
+                }
+                foreach ($toModify as $key => $value) {
+                    if (!$this->sensorProvider->update($newDevice->deviceId, $value, json_encode([
+                        'realSensorId' => $value,
+                        'type' => $data['sensorType'][$key]
+                    ]))) {
+                        return redirect(route('devices.index'))
+                            ->withErrors(['NotUpdate' => 'Dispositivo aggiornato,
+                            ma si e verificato un errore durante l\'aggiornamento dei sensori']);
+                    }
+                }
+            }
+            return redirect(route('devices.index'))
+                ->withErrors(['GoodUpdate' => 'Dispositivo e Sensori aggiornati con successo']);
+        }
     }
 }
+//todo vedere per i comandi
