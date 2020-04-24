@@ -119,7 +119,7 @@
                         <div class="form-group row">
                             <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId">
+                                <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId[]">
                                 @error('sensorId')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -130,7 +130,7 @@
                         <div class="form-group row">
                             <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType">
+                                <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType[]">
                                 @error('sensorType')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
