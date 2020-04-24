@@ -32,7 +32,7 @@
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-bell"></span> Lista alerts</h6>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive-xl">
                             <table class="table table-bordered table-striped border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>

@@ -27,7 +27,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive-xl">
                     <table class="table border-secondary table-bordered table-striped dataTableUsers">
                         <thead class="thead-dark table-borderless">
                             <tr>
