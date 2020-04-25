@@ -112,8 +112,8 @@ class DeviceController extends Controller
             /////
             if ($data['sensorId'] === $data['sensorType']) {
                 foreach ($data['sensorId'] as $key => $value) {
-                    if (
-                        !$this->sensorProvider->store(
+                    if (!
+                        $this->sensorProvider->store(
                             $newDevice->deviceId,
                             json_encode([
                                 'device' => $newDevice->deviceId,
@@ -155,8 +155,7 @@ class DeviceController extends Controller
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*'
         ]);
-        if (
-            !
+        if (!
             $this->deviceProvider->update(
                 $deviceId,
                 json_encode([
@@ -185,11 +184,11 @@ class DeviceController extends Controller
                 $toModify = array_intersect($data['sensorId'], $oldSensorsId);
 
                 foreach ($toInsert as $key => $value) {
-                    if (
-                    !$this->sensorProvider->store($newDevice->deviceId, json_encode([
-                        'device' => $newDevice->deviceId,
-                        'realSensorId' => $value,
-                        'type' => $data['sensorType'][$key]
+                    if (!
+                        $this->sensorProvider->store($newDevice->deviceId, json_encode([
+                            'device' => $newDevice->deviceId,
+                            'realSensorId' => $value,
+                            'type' => $data['sensorType'][$key]
                         ]))
                     ) {
                         return redirect(route('devices.index'))
@@ -205,8 +204,7 @@ class DeviceController extends Controller
                     }
                 }
                 foreach ($toModify as $key => $value) {
-                    if (
-                        !
+                    if (!
                         $this->sensorProvider->update($newDevice->deviceId, $value, json_encode([
                             'realSensorId' => $value,
                             'type' => $data['sensorType'][$key]
