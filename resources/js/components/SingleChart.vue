@@ -15,99 +15,120 @@
 export default {
     props: {
         sensor: { type: Object, default: null },
+        alerts: { type: Array, default: Array.from([]) },
+        frequency: { type: Number, default: 3 },
     },
     data: function () {
         return {
-            chartOptions: {
-                chart: {
-                    type: "line",
-                    height: 400,
-                },
-                toolbar: {
-                    show: false,
-                },
-                markers: {
-                    size: 1,
-                },
-                stroke: {
-                    curve: "straight",
-                },
-                xaxis: {
-                    type: "datetime",
-                    range: 60000, // mantiene in memoria 10 secondi
-                    tickPlacement: "between",
-                    labels: {
-                        format: "dd/MM/yy - HH:mm:ss",
-                    },
-                    title: {
-                        text: "Tempo",
-                    },
-                },
-                yaxis: {
-                    min: 0,
-                    title: {
-                        text: "Valore",
-                    },
-                },
-                legend: {
-                    position: "top",
-                    horizontalAlign: "right",
-                    floating: true,
-                    offsetY: -25,
-                    offsetX: -5,
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-            },
-            series: [
-                {
-                    name: this.sensor.type,
-                    data: [],
-                },
-            ],
+            chartOptions: {},
+            series: [],
         };
     },
     created() {
-        const now = Date.now();
-        const temp = [];
-        for (let i = 0; i < 20; i++) {
-            temp.push([
-                new Date(now - (20 - i) * 3000).toISOString(),
-                Math.floor(Math.random() * 11),
-            ]);
-        }
         this.vars = {
-            newDataSeries: temp,
+            newDataSeries: [],
         };
+        this.chartOptions = {
+            annotations: {
+                yaxis: this.generateSensorLine(),
+            },
+            chart: {
+                type: "line",
+                height: 400,
+                toolbar: {
+                    show: false,
+                },
+                zoom: {
+                    enabled: false,
+                },
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            yaxis: {
+                title: {
+                    text: "Valore",
+                },
+            },
+            xaxis: {
+                type: "datetime",
+                range: 180000, // mantiene in memoria 30 secondi
+                tickPlacement: "between",
+                title: {
+                    text: "Tempo",
+                },
+            },
+        };
+        this.series = this.fetchOldData(20);
     },
     mounted() {
-        this.fetchData();
-        this.startInterval(3000);
+        setInterval(() => {
+            this.fetchNewData();
+            this.series = [
+                {
+                    name: this.sensor.type,
+                    data: this.vars.newDataSeries,
+                },
+            ];
+        }, this.frequency * 1000);
     },
     methods: {
-        fetchData() {
+        generateSensorLine() {
+            const temp = [];
+            this.alerts.forEach((alert) =>
+                temp.push({
+                    y: alert.threshold,
+                    borderColor: "#00E396",
+                    label: {
+                        borderColor: "#00E396",
+                        style: {
+                            color: "#fff",
+                            background: "#00E396",
+                        },
+                        text:
+                            "Alert #" + alert.alertId + " @ " + alert.threshold,
+                        position: "left",
+                        offsetX: 60,
+                    },
+                })
+            );
+            return temp;
+        },
+        fetchNewData() {
             axios
-                .get("/data/" + this.sensor.sensorId)
+                .get("/data/sensors/" + this.sensor.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries.push([
-                        new Date(response.data.time).toISOString(),
+                        new Date(response.data.time).getTime(),
                         response.data.value,
                     ]);
-                })
-                .catch((errors) => {
-                    this.vars.newDataSeries.push([Date.now(), NaN]);
                 });
         },
-        startInterval(timer) {
-            return setInterval(() => {
-                this.fetchData();
-                this.series = [
-                    {
-                        data: this.vars.newDataSeries,
-                    },
-                ];
-            }, timer);
+        fetchOldData(howMany) {
+            axios
+                .get(
+                    "/data/sensors?sensors=" +
+                        this.sensor.sensorId +
+                        "&limit=" +
+                        howMany
+                )
+                .then((response) => {
+                    for (const sensor in response.data) {
+                        if (
+                            Object.prototype.hasOwnProperty.call(
+                                response.data,
+                                sensor
+                            )
+                        ) {
+                            response.data[sensor].forEach((data) =>
+                                this.vars.newDataSeries.push([
+                                    new Date(data.time).getTime(),
+                                    data.value,
+                                ])
+                            );
+                        }
+                    }
+                });
         },
     },
 };

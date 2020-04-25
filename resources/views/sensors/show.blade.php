@@ -26,6 +26,8 @@
                 <div class="card-body">
                     <single-chart
                     :sensor="{{json_encode($sensor)}}"
+                    :frequency ="{{$device->frequency}}"
+                    @canany(['isUser', 'isMod']) :alerts = "{{json_encode($alerts['enable'])}}" @endcanany
                     ></single-chart>
                 </div>
             </div>

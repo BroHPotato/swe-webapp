@@ -42,8 +42,10 @@ class ViewController extends Controller
         $view = $this->viewProvider->find($viewId);
         $graphs = $this->viewGraphProvider->findAllFromView($viewId);
         $devices = $this->deviceProvider->findAll();
+        $auxDev = [];
         foreach ($devices as $d) {
             $sensors[$d->deviceId] = $this->sensorProvider->findAllFromDevice($d->deviceId);
+            $auxDev[$d->deviceId] = $d->frequency;
         }
         $sensorsOnGraphs = [];
         foreach ($graphs as $g) {
@@ -67,7 +69,7 @@ class ViewController extends Controller
                 }
             }
         }
-        return view('views.show', compact(['graphs','view','sensorsOnGraphs', 'sensors', 'devices']));
+        return view('views.show', compact(['graphs','view','sensorsOnGraphs', 'sensors', 'devices', 'auxDev']));
     }
 
     public function destroy($userId)

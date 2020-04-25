@@ -88,14 +88,16 @@ class DeviceController extends Controller
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*'
         ]);
-        if (!$this->deviceProvider->store(
-            json_encode([
-                'realDeviceId' => $data['realDeviceId'],
-                'name' => $data['name'],
-                'gatewayId' => $data['gatewayId'],
-                'frequency' => $data['frequency']
-            ])
-        )
+        if (
+            !
+            $this->deviceProvider->store(
+                json_encode([
+                    'realDeviceId' => $data['realDeviceId'],
+                    'name' => $data['name'],
+                    'gatewayId' => $data['gatewayId'],
+                    'frequency' => $data['frequency']
+                ])
+            )
         ) {
             return redirect(
                 route('devices.index')
@@ -110,11 +112,15 @@ class DeviceController extends Controller
             /////
             if ($data['sensorId'] === $data['sensorType']) {
                 foreach ($data['sensorId'] as $key => $value) {
-                    if (!$this->sensorProvider->store($newDevice->deviceId, json_encode([
-                        'device' => $newDevice->deviceId,
-                        'realSensorId' => $value,
-                        'type' => $data['sensorType'][$key]
-                        ]))
+                    if (
+                        !$this->sensorProvider->store(
+                            $newDevice->deviceId,
+                            json_encode([
+                                'device' => $newDevice->deviceId,
+                                'realSensorId' => $value,
+                                'type' => $data['sensorType'][$key]
+                            ])
+                        )
                     ) {
                         return redirect(route('devices.index'))->withErrors(['NotCreate' => 'Dispositivo creato,
                         ma si e verificato un errore durante la creazione dei sensori']);
@@ -149,12 +155,17 @@ class DeviceController extends Controller
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*'
         ]);
-        if (!$this->deviceProvider->update($deviceId, json_encode([
-            'realDeviceId' => $data['realDeviceId'],
-            'name' => $data['name'],
-            'gatewayId' => $data['gatewayId'],
-            'frequency' => $data['frequency']
-            ]))
+        if (
+            !
+            $this->deviceProvider->update(
+                $deviceId,
+                json_encode([
+                    'realDeviceId' => $data['realDeviceId'],
+                    'name' => $data['name'],
+                    'gatewayId' => $data['gatewayId'],
+                    'frequency' => $data['frequency']
+                ])
+            )
         ) {
             return redirect(route('devices.index'))
                 ->withErrors(['NotUpdate' => 'Dispositivo e Sensori non aggiornati']);
@@ -195,10 +206,12 @@ class DeviceController extends Controller
                 }
                 foreach ($toModify as $key => $value) {
                     if (
-                    !$this->sensorProvider->update($newDevice->deviceId, $value, json_encode([
-                        'realSensorId' => $value,
-                        'type' => $data['sensorType'][$key]
-                        ]))
+                        !
+                        $this->sensorProvider->update($newDevice->deviceId, $value, json_encode([
+                            'realSensorId' => $value,
+                            'type' => $data['sensorType'][$key]
+                            ])
+                        )
                     ) {
                         return redirect(route('devices.index'))
                             ->withErrors(['NotUpdate' => 'Dispositivo aggiornato,

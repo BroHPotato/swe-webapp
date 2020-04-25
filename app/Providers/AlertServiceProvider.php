@@ -68,6 +68,30 @@ class AlertServiceProvider extends BasicProvider
             return null;
         }
     }
+    public function findAllFromSensor($sensorId)
+    {
+        try {
+            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                'query' => ['sensorId' => $sensorId]
+            ]))->getBody());
+            $alerts = ['enable' => [], 'disable' => []];
+            foreach ($response->enabled as $e) {
+                $alert = new Alert();
+                $alert->fill((array)$e);
+                $alerts['enable'][] = $alert;
+            }
+            foreach ($response->disabled as $e) {
+                $alert = new Alert();
+                $alert->fill((array)$e);
+                $alerts['disable'][] = $alert;
+            }
+            return $alerts;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
+        }
+    }
     public function disable($identifier)
     {
         try {

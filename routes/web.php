@@ -35,7 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/viewGraphs/{viewGraphId}', 'GraphsController@destroy')->name('graphs.destroy');
 
     //data
-    Route::get('data/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
+    Route::get('data/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
+    Route::get('data/sensors', 'SensorController@fetchMoar')->name('sensors.fetchMoar');
     //dashboard
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 

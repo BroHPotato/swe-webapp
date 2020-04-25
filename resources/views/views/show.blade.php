@@ -129,7 +129,11 @@
                     <double-chart
                         :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
                         :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
-                        :variance = {{$graph->correlation}}
+                        :variance = '{{$graph->correlation}}'
+                        :frequency = '{{max(
+                                            $auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device],
+                                            $auxDev[$sensorsOnGraphs[$graph->viewGraphId][1]->device]
+                                        )}}'
                     ></double-chart>
                 </div>
             </div>
