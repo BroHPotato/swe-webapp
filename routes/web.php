@@ -19,6 +19,7 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
+
 //routes protette dai guests
 Route::middleware('auth')->group(function () {
 
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('data/sensors', 'SensorController@fetchMoar')->name('sensors.fetchMoar');
     //dashboard
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('coffee', 'DashboardController@coffee')->name('dashboard.coffee');
 
     //routes per gestione profilo
     Route::get('settings/edit', 'SettingsController@edit')->name('settings.edit');
@@ -58,6 +60,7 @@ Route::middleware('auth')->group(function () {
         Route::put('users/{userId}', 'UserController@update')->name('users.update');
         Route::get('users/{userId}/edit', 'UserController@edit')->name('users.edit');
         Route::put('users/{userId}/restore', 'UserController@restore')->name('users.restore');
+        Route::put('users/{userId}/reset', 'UserController@reset')->name('users.reset');
         Route::delete('users/{userId}/delete', 'UserController@destroy')->name('users.destroy');
 
         //logs

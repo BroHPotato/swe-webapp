@@ -166,7 +166,7 @@ class SensorServiceProvider extends BasicProvider
     }
 
 
-    public function store(string $deviceId, string $body)
+    public function store($deviceId, string $body)
     {
         try {
             $this->request->post('/devices/' . $deviceId . '/sensors', array_merge($this->setHeaders(), [
@@ -175,11 +175,12 @@ class SensorServiceProvider extends BasicProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
+            dd($e);
             return false;
         }
     }
 
-    public function update(string $deviceId, string $sensorId, string $body)
+    public function update($deviceId, $sensorId, string $body)
     {
         try {
             $this->request->put(

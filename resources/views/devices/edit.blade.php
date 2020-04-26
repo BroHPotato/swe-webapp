@@ -33,7 +33,7 @@
                         <div class="form-group row">
                             <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span>Id dispositivo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('realDeviceId')??$device->realDeviceId}}" name="deviceid">
+                                <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('realDeviceId')??$device->realDeviceId}}" name="realDeviceId">
                                 @error('realDeviceId')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -74,15 +74,10 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option @if($device->frequency=='0.5') selected @endif value="0.5">0.5</option>
                                         <option @if($device->frequency=='1') selected @endif value="1">1</option>
-                                        <option @if($device->frequency=='1.5') selected @endif value="1.5">1.5</option>
                                         <option @if($device->frequency=='2') selected @endif value="2" >2</option>
-                                        <option @if($device->frequency=='2.5') selected @endif value="2.5" >2.5</option>
                                         <option @if($device->frequency=='3') selected @endif value="3">3</option>
-                                        <option @if($device->frequency=='3.5') selected @endif value="3.5">3.5</option>
                                         <option @if($device->frequency=='4') selected @endif value="4">4</option>
-                                        <option @if($device->frequency=='4.5') selected @endif value="4.5">4.5</option>
                                         <option @if($device->frequency=='5') selected @endif value="5">5</option>
                                     </select>
                                     @error('frequency')
@@ -118,16 +113,20 @@
                                         <span class="fas fa-trash text-danger delete"></span>
                                     </div>
                                 </div>
-                                @endforeach
+                            @endforeach
                         </div>
                     </form>
                     <div class="d-inline-block my-2 px-0 float-right">
-                        <button class="btn btn-danger btn-icon-split">
-                    <span class="icon text-white-50">
-                        <span class="fas fa-trash"></span>
-                    </span>
+                        <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split" href="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-trash"></span>
+                                        </span>
                             <span class="text">Elimina</span>
-                        </button>
+                        </a>
+                        <form id="delete" action="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </div>
                     @endcan
                 </div>

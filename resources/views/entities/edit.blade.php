@@ -52,27 +52,29 @@
                         </div>
                     </form>
                 </div>
-        </div>
-        <div class="d-inline-block my-1 px-0">
-            <button type="submit" class="btn btn-success btn-icon-split" form="update">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-save"></span>
-                        </span>
-                <span class="text">Salva</span>
-            </button>
-        </div>
-            <div class="d-inline-block my-1 px-0 float-right">
-                <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                    <span class="text">Elimina</span>
-                </a>
-                <form id="delete" action="{{ route('entities.destroy', ['entityId' => $entity->entityId]) }}" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                </form>
             </div>
+            <div class="d-inline-block my-1 px-0">
+                <button type="submit" class="btn btn-success btn-icon-split" form="update">
+                            <span class="icon text-white-50">
+                              <span class="fas fa-save"></span>
+                            </span>
+                    <span class="text">Salva</span>
+                </button>
+            </div>
+            @if($entity->deleted!==true)
+                <div class="d-inline-block my-1 px-0 float-right">
+                    <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-trash"></span>
+                                        </span>
+                        <span class="text">Elimina</span>
+                    </a>
+                    <form id="delete" action="{{ route('entities.destroy', ['entityId' => $entity->entityId]) }}" method="POST" style="display: none;">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
+            @endif
         @endcan
     </div>
 

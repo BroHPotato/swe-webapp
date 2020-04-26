@@ -31,7 +31,7 @@
                         <div class="form-group row">
                             <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span> Id dispositivo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="" name="realDeviceId">
+                                <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('realDeviceId')}}" name="realDeviceId">
                                 @error('realDeviceId')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                         <div class="form-group row">
                             <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="" name="name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="{{old("name")}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -72,15 +72,10 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option value="0.5">0.5</option>
                                         <option value="1">1</option>
-                                        <option value="1.5">1.5</option>
                                         <option value="2">2</option>
-                                        <option value="2.5">2.5</option>
                                         <option value="3">3</option>
-                                        <option value="3.5">3.5</option>
                                         <option value="4">4</option>
-                                        <option value="4.5">4.5</option>
                                         <option value="5">5</option>
                                     </select>
                                     @error('frequency')
@@ -95,7 +90,28 @@
                             </div>
                         </div>
                         <div id="sensorsList">
-
+                            @foreach(old('sensorId')??[] as $key => $Id)
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label">
+                                        <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$Id}}</span>
+                                    </label>
+                                    <label class="col-lg-2 col-form-label">
+                                        <span class="fas fa-tag mx-1"></span>Id sensore
+                                    </label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control" placeholder="Id sensore" value="{{$Id}}" name="sensorId[]">
+                                    </div>
+                                    <label class="col-lg-2 col-form-label">
+                                        <span class="fas fa-tape mx-1"></span>Tipologia
+                                    </label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" value="{{old('sensorType')[$key]}}" name="sensorType[]">
+                                    </div>
+                                    <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                                        <span class="fas fa-trash text-danger delete"></span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </form>
                     @endcan

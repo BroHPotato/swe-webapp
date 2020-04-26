@@ -42,7 +42,7 @@
                                     <th>Soglia</th>
                                     <th>Valore</th>
                                     <th>Ultimo invio</th>
-                                    @canany(['isMod', 'isAdmin'])
+                                    @canany(['isMod'/*, 'isAdmin'*/])
                                         <th class="bg-secondary"> </th>
                                     @endcanany
                                 </tr>
@@ -57,7 +57,7 @@
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
                                             <td>{{$list['alert']->lastSent??'-'}}</td>
-                                            @canany(['isMod', 'isAdmin'])
+                                            @canany(['isMod'/*, 'isAdmin'todo ?? admin non puo' modificare gli alerts*/])
                                             <td>
                                                 <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                                     <span class="icon text-white-50">

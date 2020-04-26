@@ -113,6 +113,19 @@ class DeviceServiceProvider extends BasicProvider
         }
     }
 
+    public function findFromGateway($gateway, $deviceId)
+    {
+        try {
+            $response = json_decode($this->request->get('/gateways/' . $gateway . '/devices/' . $deviceId, $this->setHeaders())->getBody());
+            $device = new Device();
+            $device->fill((array)$response);
+            return $device;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+        }
+    }
+
     public function store(string $body)
     {
         try {

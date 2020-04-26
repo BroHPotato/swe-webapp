@@ -31,7 +31,7 @@
                         <div class="form-group row">
                             <label for="inputEntityName" class="col-sm-4 col-form-label"><span class="fas fa-building"></span> Nome ente</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="" name="name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="{{old('name')}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                         <div class="form-group row">
                             <label for="inputEntityLocation" class="col-sm-4 col-form-label"><span class="fas fa-location-arrow"></span> Luogo </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('location') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="" name="location">
+                                <input type="text" class="form-control @error('location') is-invalid @enderror" id="inputEntityLocation" placeholder="Sede dell'ente" value="{{old('location')}}" name="location">
                                 @error('location')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

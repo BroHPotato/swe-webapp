@@ -31,7 +31,7 @@
                         <div class="form-group row">
                             <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="" name="name">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('name')}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
