@@ -97,7 +97,7 @@
                         </div>
                         <div id="sensorsList">
                             @foreach($sensors as $sensor)
-                                <div class="form-group row">
+                                <div id="sensore{{$sensor->realSensorId}}" class="form-group row">
                                     <label class="col-lg-3 col-form-label">
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore {{$sensor->realSensorId}}
                                     </label>
@@ -105,13 +105,13 @@
                                         <span class="fas fa-tag mx-1"></span>Id sensore
                                     </label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Id sensore" value="{{$sensor->sensorId}}" name="sensorId">
+                                        <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$sensor->sensorId}}" name="sensorId">
                                     </div>
                                     <label class="col-lg-2 col-form-label">
                                         <span class="fas fa-tape mx-1"></span>Tipologia
                                     </label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Tipo di sensore" value="{{$sensor->type}}" name="sensorType">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType">
                                     </div>
                                     <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
                                         <span class="fas fa-trash text-danger delete"></span>
