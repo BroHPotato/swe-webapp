@@ -45,6 +45,11 @@ export default {
             stroke: {
                 curve: "smooth",
             },
+            tooltip: {
+                x: {
+                    format: "HH-mm-ss dd/MM/yyyy",
+                },
+            },
             yaxis: {
                 title: {
                     text: "Valore",
@@ -56,6 +61,9 @@ export default {
                 tickPlacement: "between",
                 title: {
                     text: "Tempo",
+                },
+                labels: {
+                    format: "HH-mm-ss dd/MM/yyyy",
                 },
             },
         };
