@@ -87,6 +87,7 @@ class ViewGraphServiceProvider extends BasicProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
+            dd($e);
             return false;
         }
     }

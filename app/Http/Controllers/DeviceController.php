@@ -152,7 +152,8 @@ class DeviceController extends Controller
         $data['gatewayId'] = intval($data['gatewayId']);
         $data['frequency'] = intval($data['frequency']);
         $updateDeviceBody = [];
-        ($oldDevice->realDeviceId !== $data['realDeviceId']) ? $updateDeviceBody['realDeviceId'] = $data['realDeviceId'] : null;
+        ($oldDevice->realDeviceId !== $data['realDeviceId'])
+            ? $updateDeviceBody['realDeviceId'] = $data['realDeviceId'] : null;
         ($oldDevice->name !== $data['name']) ? $updateDeviceBody['name'] = $data['name'] : null;
         ($oldDevice->gatewayId !== $data['gatewayId']) ? $updateDeviceBody['gatewayId'] = $data['gatewayId'] : null;
         ($oldDevice->frequency !== $data['frequency']) ? $updateDeviceBody['frequency'] = $data['frequency'] : null;

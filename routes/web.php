@@ -19,11 +19,8 @@ Auth::routes(['register' => false, 'reset' => false]);
 
 Route::get('login/tfa', 'Auth\LoginController@showTfaForm')->name('tfaLogin');
 
-
 //routes protette dai guests
 Route::middleware('auth')->group(function () {
-
-
 
     //routes per la gestione delle views
     Route::get('views', 'ViewController@index')->name('views.index');
@@ -38,6 +35,7 @@ Route::middleware('auth')->group(function () {
     //data
     Route::get('data/sensors/{sensorId}', 'SensorController@fetch')->name('sensors.fetch');
     Route::get('data/sensors', 'SensorController@fetchMoar')->name('sensors.fetchMoar');
+
     //dashboard
     Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('coffee', 'DashboardController@coffee')->name('dashboard.coffee');
@@ -52,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
     //routes protette solo per admin e mod
     Route::middleware(['can:isAdmin' || 'can:isMod'])->group(function () {
+
         //routes per gestione user
         Route::get('users', 'UserController@index')->name('users.index');
         Route::get('users/create', 'UserController@create')->name('users.create');
@@ -65,9 +64,11 @@ Route::middleware('auth')->group(function () {
 
         //logs
         Route::get('logs', 'LogsController@index')->name('logs.index');
+
         //delete alert per admin
         Route::delete('alerts/{alertId}', 'AlertsController@destroy')->name('alerts.destroy');
     });
+
     //routes protette solo per mod
     Route::middleware('can:isMod')->group(function () {
 
@@ -78,6 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::get('alerts/{alertId}', 'AlertsController@edit')->name('alerts.edit');
         Route::put('alerts/{alertId}', 'AlertsController@update')->name('alerts.update');
     });
+
     //routes protette solo per admin
     Route::middleware('can:isAdmin')->group(function () {
 

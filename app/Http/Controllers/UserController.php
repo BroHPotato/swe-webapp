@@ -193,6 +193,7 @@ class UserController extends Controller
         return $this->provider->update($userId, $data) ?
             redirect(route('users.show', ['userId' => $userId]))
                 ->withErrors(['GoodUpdate' => 'Password aggiornata con successo' . $change]) :
-            redirect(route('users.show', ['userId' => $userId]))->withErrors(['NotUpdate' => 'Password non modificata']);
+            redirect(route('users.show', ['userId' => $userId]))
+                ->withErrors(['NotUpdate' => 'Password non modificata']);
     }
 }

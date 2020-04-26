@@ -63,6 +63,7 @@
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <select class="form-control @error('sensor2') is-invalid @enderror" name="sensor2" id="inputSensor2">
+                                            <option value="">Nessuno</option>
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
                                                     <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
@@ -126,15 +127,22 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    <double-chart
-                        :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
-                        :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
-                        :variance = '{{$graph->correlation}}'
-                        :frequency = '{{max(
-                                            $auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device],
-                                            $auxDev[$sensorsOnGraphs[$graph->viewGraphId][1]->device]
-                                        )}}'
-                    ></double-chart>
+                    @if($sensorsOnGraphs[$graph->viewGraphId][1]??false)
+                        <double-chart
+                            :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
+                            :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
+                            :variance = '{{$graph->correlation}}'
+                            :frequency = '{{max(
+                                                $auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device],
+                                                $auxDev[$sensorsOnGraphs[$graph->viewGraphId][1]->device]
+                                            )}}'
+                        ></double-chart>
+                    @else
+                        <single-chart
+                            :sensor="{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}"
+                            :frequency ="{{$auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device]}}"
+                        ></single-chart>
+                    @endif
                 </div>
             </div>
         </div>

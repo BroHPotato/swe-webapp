@@ -2,7 +2,7 @@
     <div>
         <apexchart
             ref="RTChart"
-            height="300"
+            height="400"
             type="line"
             :options="chartOptions"
             :series="series"
