@@ -5,13 +5,15 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Modifica ente</h1>
         </div>
-        <div class="d-sm-inline-flex mb-4 ml-sm-auto">
-            <a href="{{route('entities.index')}}" class="btn btn-danger btn-icon-split">
-                <span class="icon text-white-50">
-                    <span class="fas fa-arrow-circle-left"></span>
-                </span>
-                <span class="text">Torna indietro</span>
-            </a>
+        <div class="row">
+            <div class="col-auto mb-4 ">
+                <a href="{{route('entities.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-arrow-circle-left"></span>
+                        </span>
+                    <span class="text">Torna indietro</span>
+                </a>
+            </div>
         </div>
         @can(['isAdmin'])
         <div class="card shadow mb-4">

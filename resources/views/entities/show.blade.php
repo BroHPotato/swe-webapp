@@ -5,13 +5,15 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Informazioni ente</h1>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto">
-            <a href="{{route('entities.index')}}" class="btn btn-danger btn-icon-split">
+        <div class="row">
+            <div class="col-auto mb-4 ">
+                <a href="{{route('entities.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                         <span class="icon text-white-50">
                           <span class="fas fa-arrow-circle-left"></span>
                         </span>
-                <span class="text">Torna indietro</span>
-            </a>
+                    <span class="text">Torna indietro</span>
+                </a>
+            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -50,13 +52,6 @@
                             <th>Email</th>
                         </tr>
                         </thead>
-                        <tfoot class="thead-dark table-borderless">
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cognome</th>
-                            <th>Email</th>
-                        </tr>
-                        </tfoot>
                         <tbody>
                             @foreach($users as $user)
                                 <tr>
