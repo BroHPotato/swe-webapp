@@ -181,8 +181,8 @@ class DeviceController extends Controller
             $toModify = array_intersect($data['sensorId'], $oldSensorsId);
             $check = (
                 $this->insertSensors($toInsert, $device, $data) &&
-                $this->modifySensors($toInsert, $device, $data, $oldSensorsKeyed) &&
-                $this->deleteSensors($toInsert, $device)
+                $this->modifySensors($toModify, $device, $data, $oldSensorsKeyed) &&
+                $this->deleteSensors($toDelete, $device)
             );
         }
         if (!(count($data['sensorId']) === count($data['sensorType'])) || !$check) {
