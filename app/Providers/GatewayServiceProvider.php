@@ -89,4 +89,45 @@ class GatewayServiceProvider extends BasicProvider
             return null;
         }
     }
+
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    public function update(string $who, string $body)
+    {
+        try {
+            $this->request->put('/gateways/' . $who, array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    /**
+     * @param string $who
+     * @return bool
+     */
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/gateways/' . $who, $this->setHeaders());
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
 }

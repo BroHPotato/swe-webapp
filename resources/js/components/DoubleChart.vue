@@ -21,134 +21,116 @@ export default {
         sensor1: { type: Object, default: null },
         sensor2: { type: Object, default: null },
         variance: { type: Number, default: 0 },
+        frequency: { type: Number, default: 3 },
     },
     data: function () {
         return {
-            chartOptions: {
-                chart: {
-                    type: "line",
-                    height: 400,
-                },
-                toolbar: {
-                    show: false,
-                },
-                markers: {
-                    size: 1,
-                },
-                stroke: {
-                    curve: "straight",
-                },
-                xaxis: {
-                    type: "datetime",
-                    range: 60000, // mantiene in memoria 10 secondi
-                    tickPlacement: "between",
-                    labels: {
-                        format: "dd/MM/yy - HH:mm:ss",
-                    },
-                    title: {
-                        text: "Tempo",
-                    },
-                },
-                yaxis: {
-                    // logarithmic: true,
-                    title: {
-                        text: "Valore",
-                    },
-                    forceNiceScale: true,
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-            },
-            series: [
-                {
-                    name: this.sensor1.type,
-                    data: [],
-                },
-                {
-                    name: this.sensor2.type,
-                    data: [],
-                },
-            ],
+            chartOptions: {},
+            series: [],
         };
     },
     created() {
-        const temp1 = [];
-        const temp2 = [];
-        const s1 = [];
-        const s2 = [];
-        const now = Date.now();
-        for (let i = 0; i < 20; i++) {
-            s1.push(Math.floor(Math.random() * 11));
-            temp1.push([
-                new Date(now - (20 - i) * 3000).toISOString(),
-                s1[s1.length - 1],
-            ]);
-        }
-        for (let i = 0; i < 20; i++) {
-            s2.push(Math.floor(Math.random() * 11));
-            temp2.push([
-                new Date(now - (20 - i) * 3000).toISOString(),
-                s2[s2.length - 1],
-            ]);
-        }
         this.vars = {
-            newDataSeries1: temp1,
-            newDataSeries2: temp2,
-            data1: s1,
-            data2: s2,
+            newDataSeries: [this.sensor1.sensorId, this.sensor2.sensorId],
+            VarData: [this.sensor1.sensorId, this.sensor2.sensorId],
         };
+        this.vars.newDataSeries[this.sensor1.sensorId] = [];
+        this.vars.newDataSeries[this.sensor2.sensorId] = [];
+        this.vars.VarData[this.sensor1.sensorId] = [];
+        this.vars.VarData[this.sensor2.sensorId] = [];
+        this.chartOptions = {
+            chart: {
+                type: "line",
+                height: 400,
+                toolbar: {
+                    show: false,
+                },
+                zoom: {
+                    enabled: false,
+                },
+            },
+            stroke: {
+                curve: "smooth",
+            },
+            tooltip: {
+                x: {
+                    format: "HH-mm-ss dd/MM/yyyy",
+                },
+            },
+            yaxis: {
+                title: {
+                    text: "Valore",
+                },
+            },
+            xaxis: {
+                type: "datetime",
+                range: 180000, // mantiene in memoria 30 secondi
+                tickPlacement: "between",
+                title: {
+                    text: "Tempo",
+                },
+                labels: {
+                    format: "HH-mm-ss dd/MM/yyyy",
+                },
+            },
+        };
+        this.series = this.fetchOldData(20);
     },
     mounted() {
-        this.fetchData();
-        this.startInterval(3000);
+        setInterval(() => {
+            this.fetchNewData(this.sensor1.sensorId);
+            this.fetchNewData(this.sensor2.sensorId);
+            this.series = [
+                {
+                    name: this.sensor1.type,
+                    data: this.vars.newDataSeries[this.sensor1.sensorId],
+                },
+                {
+                    name: this.sensor2.type,
+                    data: this.vars.newDataSeries[this.sensor2.sensorId],
+                },
+            ];
+            this.calculateVariance();
+        }, this.frequency * 1000);
     },
     methods: {
-        fetchData() {
+        fetchOldData(howMany) {
             axios
-                .get("/data/" + this.sensor1.sensorId)
+                .get(
+                    "/data/sensors?sensors[]=" +
+                        this.sensor1.sensorId +
+                        "&sensors[]=" +
+                        this.sensor2.sensorId +
+                        "&limit=" +
+                        howMany
+                )
                 .then((response) => {
-                    this.vars.newDataSeries1.push([
-                        new Date(response.data.time).toISOString(),
-                        response.data.value,
-                    ]);
-                    this.vars.data1.push(response.data.value);
-                })
-                .catch((errors) => {
-                    this.vars.newDataSeries1 = [
-                        new Date(Date.now()).toISOString(),
-                        NaN,
-                    ];
-                });
-            axios
-                .get("/data/" + this.sensor2.sensorId)
-                .then((response) => {
-                    this.vars.newDataSeries2.push([
-                        new Date(response.data.time).toISOString(),
-                        response.data.value,
-                    ]);
-                    this.vars.data2.push(response.data.value);
-                })
-                .catch((errors) => {
-                    this.vars.newDataSeries2 = [
-                        new Date(Date.now()).toISOString(),
-                        NaN,
-                    ];
+                    for (const sensor in response.data) {
+                        if (
+                            Object.prototype.hasOwnProperty.call(
+                                response.data,
+                                sensor
+                            )
+                        ) {
+                            response.data[sensor].forEach((data) => {
+                                this.vars.newDataSeries[sensor].push([
+                                    new Date(data.time).getTime(),
+                                    data.value,
+                                ]);
+                                this.vars.VarData[sensor].push(data.value);
+                            });
+                        }
+                    }
                 });
         },
-        startInterval(timer) {
-            return setInterval(() => {
-                this.fetchData();
-                this.calculateVariance();
-                this.series = [
-                    {
-                        data: this.vars.newDataSeries1,
-                    },
-                    {
-                        data: this.vars.newDataSeries2,
-                    },
-                ];
-            }, timer);
+        fetchNewData(sensor) {
+            axios.get("/data/sensors/" + sensor).then((response) => {
+                this.vars.newDataSeries[sensor].push([
+                    new Date(response.data.time).getTime(),
+                    response.data.value,
+                ]);
+                this.vars.VarData[sensor].push(response.data.value);
+            });
         },
         calculateVariance() {
             const variance = [
@@ -160,13 +142,22 @@ export default {
             let calc = NaN;
             switch (this.variance) {
                 case 1:
-                    calc = covariance(this.vars.data1, this.vars.data2);
+                    calc = covariance(
+                        this.vars.VarData[this.sensor1.sensorId],
+                        this.vars.VarData[this.sensor2.sensorId]
+                    );
                     break;
                 case 2:
-                    calc = Pearson.rank(this.vars.data1, this.vars.data2);
+                    calc = Pearson.rank(
+                        this.vars.VarData[this.sensor1.sensorId],
+                        this.vars.VarData[this.sensor2.sensorId]
+                    );
                     break;
                 case 3:
-                    new Spearman(this.vars.data1, this.vars.data2)
+                    new Spearman(
+                        this.vars.VarData[this.sensor1.sensorId],
+                        this.vars.VarData[this.sensor2.sensorId]
+                    )
                         .calc()
                         .then((value) => {
                             calc = value;

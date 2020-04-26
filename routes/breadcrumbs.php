@@ -100,9 +100,9 @@ Breadcrumbs::for('entities.index', function ($trail) {
     $trail->push('Gestione enti', route('entities.index'));
 });
 
-Breadcrumbs::for('entities.show', function ($trail, $entityName) {
+Breadcrumbs::for('entities.show', function ($trail, $entityId) {
     $trail->parent('entities.index');
-    $trail->push($entityName, route('entities.show', ['entityName' => $entityName]));
+    $trail->push('Ente ' . $entityId, route('entities.show', ['entityId' => $entityId]));
 });
 
 Breadcrumbs::for('entities.create', function ($trail) {
@@ -110,9 +110,9 @@ Breadcrumbs::for('entities.create', function ($trail) {
     $trail->push('Creazione ente', route('entities.create'));
 });
 
-Breadcrumbs::for('entities.edit', function ($trail, $entityName) {
+Breadcrumbs::for('entities.edit', function ($trail, $entityId) {
     $trail->parent('entities.index');
-    $trail->push('Modifica ente #' . $entityName, route('entities.edit', ['entityName' => $entityName]));
+    $trail->push('Modifica ente #' . $entityId, route('entities.edit', ['entityId' => $entityId]));
 });
 
 //Views

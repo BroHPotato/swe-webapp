@@ -29,4 +29,8 @@ class DashboardController extends Controller
             'user', 'entity', 'stats'
         ]));
     }
+    public function coffee()
+    {
+        return view('dashboard.coffee');
+    }
 }

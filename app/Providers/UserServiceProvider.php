@@ -198,12 +198,16 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     }
 
     /**
-     * @param string $who
-     * @param string $body
+     * @param $who
+     * @param $body
      */
-    public function update(string $who, string $body)
+    public function update(string $who, $body)
     {
         try {
+            if (key_exists('password', $body)) {
+                $body['password'] = $body['password'];/*todo sha512*/
+            }
+            $body = json_encode($body, JSON_FORCE_OBJECT);
             $response = json_decode($this->request->put('users/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
             ]))->getBody());
@@ -219,7 +223,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     }
 
     /**
-     * @param string $who
+     * @param $who
      */
     public function destroy(string $who)
     {
@@ -228,16 +232,21 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            return true;
+            return false;
         }
     }
 
     /**
-     * @param string $body
+     * @param $body
+     * @return bool
      */
-    public function store(string $body)
+    public function store($body)
     {
         try {
+            if (key_exists('password', $body)) {
+                $body['password'] = $body['password'];/*todo sha512*/
+            }
+            $body = json_encode($body, JSON_FORCE_OBJECT);
             $this->request->post('users', array_merge($this->setHeaders(), [
                 'body' => $body
             ]));

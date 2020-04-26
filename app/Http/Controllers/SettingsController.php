@@ -30,7 +30,7 @@ class SettingsController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $alerts = $this->alertsProvider->findAll();
+        $alerts = $this->alertsProvider->findAll() ?? [];
         $alertsWithSensors = [];
         $sensorsCache = [];
         $devicesCache = [];

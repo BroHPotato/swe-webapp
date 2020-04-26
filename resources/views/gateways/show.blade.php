@@ -21,7 +21,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive-sm">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-striped table-bordered border-secondary">
                         <thead class="thead-dark table-borderless">
                         <tr>
                             <th>Id</th>
@@ -31,9 +31,9 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{$gateway->gatewayId}}</td>
+                            <td><span class="logic-id">{{$gateway->gatewayId}}</span></td>
                             <td>{{$gateway->name}}</td>
-                            <td>{{3}}</td> {{--NUMERO DI DISPOSITIVI DA PRENDERE DINAMICAMENTE--}}
+                            <td>{{count($devicesWithSensors)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -47,20 +47,24 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive-sm">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-striped table-bordered border-secondary">
                         <thead class="thead-dark table-borderless">
                         <tr>
-                            <th>Id</th>
+                            <th><span class="fas fa-list-ul"></span></th>
                             <th>Nome</th>
-                            <th>Numero di sensori</th>
+                            <th>Sensori</th>
+                            <th>Frequenza</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Termostato</td>
-                            <td>3</td>
-                        </tr>
+                        @foreach($devicesWithSensors as $device)
+                            <tr>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device['device']->deviceId ])}}" class="logic-id">{{$device['device']->deviceId}}</a></td>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device['device']->deviceId ])}}">{{$device['device']->name}}</a></td>
+                                <td>{{count($device['sensors'])}}</td>
+                                <td>{{$device['device']->frequency}}s</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

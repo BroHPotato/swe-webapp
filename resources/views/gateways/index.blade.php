@@ -5,6 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Gateway </h1>
         </div>
+        @include('layouts.error')
         <div class="row">
             <div class="col-auto mb-4">
                 <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split">
@@ -42,21 +43,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($gateways as $gateway)
+                        @foreach($gatewaysWithDevices as $gWd)
                             <tr>
-                                <td>{{$gateway->gatewayId}}</td>
-                                <td><span class="text-gray-800">{{substr($gateway->name, 0, 3)}}</span>{{substr($gateway->name, 3)}}</td>
-                                <td>2</td>  {{-- IL NUMERO DI DISPOSITIVI VA PRESO DINAMICAMENTE --}}
+                                <td>{{$gWd['gateway']->gatewayId}}</td>
+                                <td><span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}</td>
+                                <td>{{count($gWd['devices'])}}</td>
                                 <td class="text-center"><a href="{{route('gateways.show', [
-                                                    'gatewayId' => $gateway->gatewayId
-                                            ])}}" class="btn btn-sm btn-success btn-icon-split">
+                                                    'gatewayId' => $gWd['gateway']->gatewayId
+                                            ])}}" class="btn btn-success btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-info-circle"></span>
                                         </span>
                                         <span class="text">Dettagli</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gateway->gatewayId ])}}" class="btn btn-sm btn-warning btn-icon-split">
+                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gWd['gateway']->gatewayId ])}}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>

@@ -6,11 +6,11 @@
             <h1 class="h3 mb-0 text-gray-800"> Modifica gateway</h1>
         </div>
         <div class="row">
-            <div class="col-auto mb-4 ">
+            <div class="col-auto mb-4">
                 <a href="{{route('gateways.index')}}" class="btn btn-sm btn-danger btn-icon-split">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-arrow-circle-left"></span>
-                        </span>
+                    <span class="icon text-white-50">
+                      <span class="fas fa-arrow-circle-left"></span>
+                    </span>
                     <span class="text">Torna indietro</span>
                 </a>
             </div>
@@ -27,14 +27,14 @@
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
                     <p>Puoi modificare un gateway inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('gateways.update', $gateway->gatewayId)--}}">
+                    <form method="POST" action="{{route('gateways.update', $gateway->gatewayId)}}" id="update">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('gatewayName') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('gatewayName')??$gateway->name}}" name="gatewayName">
-                                @error('gatewayName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('name')??$gateway->name}}" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -46,20 +46,24 @@
                 </div>
         </div>
         <div class="d-inline-block my-1">
-            <button class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                <span class="text">Elimina</span>
-            </button>
-        </div>
-        <div class="d-inline-block my-1 float-right">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
+            <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
                 <span class="text">Salva</span>
+            </button>
+        </div>
+        <div class="d-inline-block my-1 float-right">
+            <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-trash"></span>
+                                    </span>
+                <span class="text">Elimina</span>
             </a>
+            <form id="delete" action="{{ route('gateways.destroy', ['gatewayId' => $gateway->gatewayId]) }}" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
         </div>
         @endcan
     </div>

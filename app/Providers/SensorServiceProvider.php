@@ -119,18 +119,93 @@ class SensorServiceProvider extends BasicProvider
     public function fetch($sensorId)
     {
         try {
-            $limit = request()->query('limit');
-            return json_encode(array(
-                'time' => date("c"),
-                'value' => rand(0, 10) ,
-                'gatewayName' => 'string',
-                'realDeviceId' => 0,
-                'realSensorId' => 0,
-            ));//todo sostituire con
-            // json_decode($this->request->get('/data/' . $sensorId, $this->setHeaders())->getBody());
+            return $this->request->get(
+                '/data/' . $sensorId,
+                $this->setHeaders()
+            )->getBody();
         } catch (RequestException $e) {
             $this->isExpired($e);
-            return NAN;
+            return json_encode(array(
+                'time' => date("c"),
+                'value' => 0
+            ));
+        }
+    }
+    public function fetchMoar()
+    {
+        $limit = request()->query('limit');
+        $sensors = request()->query('sensors');
+        $toObj = [];
+        try {
+            return $this->request->get(
+                '/data',
+                array_merge(
+                    $this->setHeaders(),
+                    [
+                        'query' => [
+                            'sensors' => is_array($sensors) ? $sensors[0] . ',' . $sensors[1] : $sensors,
+                            'limit' => $limit
+                            ]
+                    ]
+                )
+            )->getBody();
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            foreach ($sensors as $sensor) {
+                $data = [];
+                for ($i = 0; $i < $limit; $i++) {
+                    $data[] = array(
+                        'time' => date("c"),
+                        'value' => 0
+                    );
+                }
+                $toObj[$sensor] = $data;
+            }
+            return json_encode((object) $toObj);
+        }
+    }
+
+
+    public function store($deviceId, string $body)
+    {
+        try {
+            $this->request->post('/devices/' . $deviceId . '/sensors', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            dd($e);
+            return false;
+        }
+    }
+
+    public function update($deviceId, $sensorId, string $body)
+    {
+        try {
+            $this->request->put(
+                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                array_merge($this->setHeaders(), [
+                'body' => $body
+                ])
+            );
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+    public function destroy(string $deviceId, string $sensorId)
+    {
+        try {
+            $this->request->delete(
+                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                $this->setHeaders()
+            );
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
         }
     }
     // ===================================================

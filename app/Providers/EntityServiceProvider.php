@@ -111,4 +111,40 @@ class EntityServiceProvider extends BasicProvider
             return null;
         }
     }
+
+    public function update(string $who, string $body)
+    {
+        try {
+            $this->request->put('/entities/' . $who, array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/entities/' . $who, $this->setHeaders());
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            dd($e->getMessage());
+            return false;
+        }
+    }
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
 }

@@ -5,6 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Profilo di {{$user->name . ' ' . $user->surname}}</h1>
         </div>
+        @include('layouts.error')
         <div class="d-sm-flex mb-4 ml-sm-auto">
             <a href="{{route('users.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                 <span class="icon text-white-50">
@@ -84,16 +85,18 @@
                                 </span>
                                 <span class="text">Modifica</span>
                             </a>
-                        @endif
-                        @if($user->type < Auth::user()->type)
                             @can(['isAdmin'])
-                                <!-- TODO - aggiungere il link per il reset password oppure usiamo cambio password in impostazioni -->
-                                <a href="#link-bello-reset-password" class="btn btn-primary btn-icon-split">
+                                <a class="btn btn-primary btn-icon-split" href="{{ route('users.reset', ['userId' => $user->userId ]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('reset-form-{{$user->userId}}').submit();">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-lock"></span>
                                     </span>
                                     <span class="text">Reset password</span>
                                 </a>
+                                <form id="reset-form-{{$user->userId}}" action="{{ route('users.reset', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('PUT')
+                                </form>
                             @endcan
                         @endif
                         @if($user->deleted)

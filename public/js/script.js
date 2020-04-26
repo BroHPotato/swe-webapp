@@ -2,6 +2,7 @@ const sensorsList = document.querySelector("#sensorsList");
 const addSensor = document.querySelector("#addSensor");
 const addDevice = document.querySelector("#addDevice");
 const form = document.querySelector("#sensorForm");
+const save = document.querySelector("#save");
 let trashes = document.querySelectorAll(".delete");
 
 const tables = document.querySelectorAll(".table");
@@ -43,19 +44,19 @@ if (addSensor !== null) {
                 sensorsList.innerHTML += `
             <div id="sensore${sensorIdValue}" class="form-group row">
                 <label class="col-lg-3 col-form-label">
-                    <span class="fas fa-thermometer-half mx-1"></span>Sensore ${sensorIdValue}
+                    <span class="fas fa-thermometer-half mx-1"></span>Sensore  <span class="real-id">${sensorIdValue}</span>
                 </label>
                 <label class="col-lg-2 col-form-label">
                     <span class="fas fa-tag mx-1"></span>Id sensore
                 </label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId">
+                    <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
                 <label class="col-lg-2 col-form-label">
                     <span class="fas fa-tape mx-1"></span>Tipologia
                 </label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType">
+                    <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
                 <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
                     <span class="fas fa-trash text-danger delete"></span>
@@ -100,6 +101,16 @@ if (addDevice !== null) {
         }
     });
 }
+// salva dispositivo
+// if (save !== null) {
+//     save.addEventListener("click", (e) => {
+//         e.preventDefault();
+//         const sensorIdValue = document.querySelectorAll("#inputSensorId");
+//         const sensorTypeValue = document.querySelectorAll("#inputSensorType");
+//         console.log(sensorIdValue, sensorTypeValue);
+//
+//     });
+// }
 
 trashes = document.querySelectorAll(".delete");
 // eliminazione sensore aggiunto
