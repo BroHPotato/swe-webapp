@@ -113,7 +113,7 @@
                                         <span class="fas fa-satellite-dish mx-1"></span> Invio
                                     </label>
                                     <div class="col-lg-2 col-sm-6">
-                                        <select class="stickToBottom" name="enableCmd[] ">
+                                        <select name="enableCmd[]" disabled>
                                             <option selected value="{{$sensor->cmdEnable}}">@if($sensor->cmdEnable===true)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>

@@ -91,24 +91,39 @@
                         </div>
                         <div id="sensorsList">
                             @foreach(old('sensorId')??[] as $key => $Id)
-                                <div class="form-group row">
+                                <div id="sensore{{$Id}}" class="form-group row">
                                     <label class="col-lg-3 col-form-label">
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$Id}}</span>
                                     </label>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id sensore
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tag mx-1"></span>Id
+                                    </label>
+                                    <div class="col-lg-1">
+                                        <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$Id}}" name="sensorId[]">
+                                    </div>
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tape mx-1"></span>Tipo
                                     </label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Id sensore" value="{{$Id}}" name="sensorId[]">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{old('sensorType')[$key]}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipologia
+                                    <label class="col-lg-1 col-sm-6 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> Invio
                                     </label>
-                                    <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Tipo di sensore" value="{{old('sensorType')[$key]}}" name="sensorType[]">
+                                    <div class="col-lg-2 col-sm-6">
+                                        <select name="enableCmd[]" disabled>
+                                            <option selected value="{{old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==true)Abilitato @else Disabilitato @endif</option>
+                                        </select>
                                     </div>
-                                    <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                                    <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
                                         <span class="fas fa-trash text-danger delete"></span>
+                                    </div>
+
+                                    <div class="col-lg-1 d-lg-none my-1 text-center">
+                                        <button class="btn btn-danger btn-icon-split delete">
+                                            <span class="fas fa-trash icon text-white-50"></span>
+                                            <span class="text">Elimina sensore</span>
+                                        </button>
                                     </div>
                                 </div>
                             @endforeach
