@@ -97,20 +97,35 @@
                                     <label class="col-lg-3 col-form-label">
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$sensor->realSensorId}}</span>
                                     </label>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id sensore
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tag mx-1"></span>Id
                                     </label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$sensor->realSensorId}}" name="sensorId[]">
                                     </div>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipologia
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tape mx-1"></span>Tipo
                                     </label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
-                                    <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
-                                        <span class="fas fa-trash text-danger delete"></span>
+                                    <label class="col-lg-2 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> Invio comandi
+                                    </label>
+                                    <div class="col-lg-1 row ">
+                                        <div class="col-sm-6">
+                                            <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif />
+                                        </div>
+                                        <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
+                                            <span class="fas fa-trash text-danger delete"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-1 d-lg-none my-1 text-center">
+                                        <button class="btn btn-danger btn-icon-split delete">
+                                            <span class="fas fa-trash icon text-white-50"></span>
+                                            <span class="text">Elimina sensore</span>
+                                        </button>
                                     </div>
                                 </div>
                             @endforeach

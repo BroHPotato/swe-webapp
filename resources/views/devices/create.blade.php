@@ -24,7 +24,7 @@
             </div>
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
-                    <p>Puoi modificare il dispositivo inserendo le informazioni elencate di seguito:</p>
+                    <p>Puoi creare il dispositivo inserendo le informazioni elencate di seguito:</p>
                     <form method="POST" action="{{route('devices.store')}}" id="create">
                         @csrf
                         @method('POST')
@@ -153,6 +153,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="commandCheck" />
+                                <label for="gridCheck">
+                                    <span>Abilita invio comandi con Telegram* </span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
+                            *Per inviare un comando tramite Telegram è necessario aver inserito il proprio username Telegram
+                            all'interno delle impostazioni ed aver attivato il bot con i comandi <code>/start</code> e <code>/login</code>.
+                            Per maggiori informazioni consultare il manuale utente.
+                        </p>
+                        <hr>
                         <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">

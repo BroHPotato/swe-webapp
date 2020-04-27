@@ -39,28 +39,47 @@ if (addSensor !== null) {
         if (!hasSensor) {
             const sensorTypeValue = document.querySelector("#inputSensorType")
                 .value;
+            const receiveCommand = document.querySelector("#commandCheck")
+                .checked;
+            let checkBox =
+                '<input type="checkbox" class="align-text-bottom" value="' +
+                receiveCommand +
+                '" readonly="readonly" name="enableCmd[]"';
+            if (receiveCommand === true) {
+                checkBox += "checked";
+            }
+            checkBox += "/>";
             // aggiunta sensore al dispositivo
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
             <div id="sensore${sensorIdValue}" class="form-group row">
                 <label class="col-lg-3 col-form-label">
-                    <span class="fas fa-thermometer-half mx-1"></span>Sensore  <span class="real-id">${sensorIdValue}</span>
+                    <span class="fas fa-thermometer-half mx-1"></span>Sensore<span class="real-id">${sensorIdValue}</span>
                 </label>
-                <label class="col-lg-2 col-form-label">
-                    <span class="fas fa-tag mx-1"></span>Id sensore
+                <label class="col-lg-1 col-form-label">
+                    <span class="fas fa-tag mx-1"></span>Id
                 </label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
-                <label class="col-lg-2 col-form-label">
-                    <span class="fas fa-tape mx-1"></span>Tipologia
+                <label class="col-lg-1 col-form-label">
+                    <span class="fas fa-tape mx-1"></span>Tipo
                 </label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                <label class="col-lg-2 col-form-label">
+                    <span class="fas fa-satellite-dish mx-1"></span>Comandi
+                </label>
+                <div class="col-lg-1 row ">
+                    <div class="col-sm-6">
+                        ${checkBox}
+                    </div>
+                    <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
                     <span class="fas fa-trash text-danger delete"></span>
                 </div>
+                </div>
+
                 <div class="col-lg-1 d-lg-none my-1 text-center">
                     <button class="btn btn-danger btn-icon-split delete">
                         <span class="fas fa-trash icon text-white-50"></span>
