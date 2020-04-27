@@ -109,12 +109,12 @@
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-2 col-form-label">
+                                    <label class="col-lg-2 col-sm-6 col-form-label">
                                         <span class="fas fa-satellite-dish mx-1"></span> Invio comandi
                                     </label>
-                                    <div class="col-lg-1 row ">
+                                    <div class="col-lg-1 col-sm-6 row ">
                                         <div class="col-sm-6">
-                                            <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif />
+                                            <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif disabled/>
                                         </div>
                                         <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
                                             <span class="fas fa-trash text-danger delete"></span>
@@ -182,6 +182,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="commandCheck" />
+                                <label for="gridCheck">
+                                    <span>Abilita invio comandi con Telegram* </span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
+                            *Per inviare un comando tramite Telegram è necessario aver inserito il proprio username Telegram
+                            all'interno delle impostazioni ed aver attivato il bot con i comandi <code>/start</code> e <code>/login</code>.
+                            Per maggiori informazioni consultare il manuale utente.
+                        </p>
+                        <hr>
                         <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">

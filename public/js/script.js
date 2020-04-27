@@ -48,7 +48,7 @@ if (addSensor !== null) {
             if (receiveCommand === true) {
                 checkBox += "checked";
             }
-            checkBox += "/>";
+            checkBox += " disabled/>";
             // aggiunta sensore al dispositivo
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
@@ -68,16 +68,16 @@ if (addSensor !== null) {
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <label class="col-lg-2 col-form-label">
-                    <span class="fas fa-satellite-dish mx-1"></span>Comandi
+                <label class="col-lg-2 col-sm-6 col-form-label">
+                    <span class="fas fa-satellite-dish mx-1"></span>Ricezione comandi
                 </label>
-                <div class="col-lg-1 row ">
+                <div class="col-lg-1 col-sm-6 row">
                     <div class="col-sm-6">
                         ${checkBox}
                     </div>
                     <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
-                    <span class="fas fa-trash text-danger delete"></span>
-                </div>
+                        <span class="fas fa-trash text-danger delete"></span>
+                    </div>
                 </div>
 
                 <div class="col-lg-1 d-lg-none my-1 text-center">
@@ -88,16 +88,15 @@ if (addSensor !== null) {
                 </div>
             </div>
         `;
-
                 trashes = document.querySelectorAll(".delete");
                 // eliminazione sensore aggiunto
                 trashes.forEach((trash) => {
                     trash.addEventListener("click", (e) => {
                         e.preventDefault();
-                        trash.parentElement.parentElement.remove();
+                        trash.parentElement.parentElement.parentElement.remove();
                     });
+                    form.reset();
                 });
-                form.reset();
             } else {
                 alert("Id e tipo di sensore necessitano di un valore");
             }
@@ -120,22 +119,11 @@ if (addDevice !== null) {
         }
     });
 }
-// salva dispositivo
-// if (save !== null) {
-//     save.addEventListener("click", (e) => {
+// trashes = document.querySelectorAll(".delete");
+// // eliminazione sensore aggiunto
+// trashes.forEach((trash) => {
+//     trash.addEventListener("click", (e) => {
 //         e.preventDefault();
-//         const sensorIdValue = document.querySelectorAll("#inputSensorId");
-//         const sensorTypeValue = document.querySelectorAll("#inputSensorType");
-//         console.log(sensorIdValue, sensorTypeValue);
-//
+//         trash.parentElement.parentElement.remove();
 //     });
-// }
-
-trashes = document.querySelectorAll(".delete");
-// eliminazione sensore aggiunto
-trashes.forEach((trash) => {
-    trash.addEventListener("click", (e) => {
-        e.preventDefault();
-        trash.parentElement.parentElement.remove();
-    });
-});
+// });
