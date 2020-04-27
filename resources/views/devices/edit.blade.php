@@ -109,11 +109,13 @@
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-2 col-sm-6 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span> Invio comandi
+                                    <label class="col-lg-1 col-sm-6 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> Invio
                                     </label>
-                                    <div class="col-lg-1 col-sm-6">
-                                        <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif disabled/>
+                                    <div class="col-lg-2 col-sm-6">
+                                        <select class="stickToBottom" name="enableCmd[] ">
+                                            <option selected value="{{$sensor->cmdEnable}}">@if($sensor->cmdEnable===true)Abilitato @else Disabilitato @endif</option>
+                                        </select>
                                     </div>
                                     <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
                                         <span class="fas fa-trash text-danger delete"></span>
@@ -183,10 +185,10 @@
                         <div class="form-group row">
                             <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
                             <div class="col-sm-9">
-                                <input type="checkbox" id="commandCheck" />
-                                <label for="gridCheck">
-                                    <span>Abilita invio comandi con Telegram* </span>
-                                </label>
+                                <select id="commandCheck">
+                                    <option value="true">Abilitato</option>
+                                    <option value="false" selected="selected" >Disabilitato</option>
+                                </select>
                             </div>
                         </div>
                         <hr>

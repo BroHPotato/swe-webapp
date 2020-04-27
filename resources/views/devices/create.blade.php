@@ -156,10 +156,10 @@
                         <div class="form-group row">
                             <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
                             <div class="col-sm-9">
-                                <input type="checkbox" id="commandCheck" />
-                                <label for="gridCheck">
-                                    <span>Abilita invio comandi con Telegram* </span>
-                                </label>
+                                <select id="commandCheck">
+                                    <option value="true">Abilitato</option>
+                                    <option value="false" selected="selected" >Disabilitato</option>
+                                </select>
                             </div>
                         </div>
                         <hr>

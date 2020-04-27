@@ -40,15 +40,16 @@ if (addSensor !== null) {
             const sensorTypeValue = document.querySelector("#inputSensorType")
                 .value;
             const receiveCommand = document.querySelector("#commandCheck")
-                .checked;
-            let checkBox =
-                '<input type="checkbox" class="align-text-bottom" value="' +
-                receiveCommand +
-                '" readonly="readonly" name="enableCmd[]"';
-            if (receiveCommand === true) {
-                checkBox += "checked";
+                .value;
+            let select = '<select class="stickToBottom" name="enableCmd[]">';
+            console.log(receiveCommand);
+            if (receiveCommand === "true") {
+                select += '<option selected value="true">Abilitato</option>';
+            } else {
+                select +=
+                    '<option selected value="false">Disabilitato</option>';
             }
-            checkBox += " disabled/>";
+            select += " </select>";
             // aggiunta sensore al dispositivo
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
@@ -68,11 +69,11 @@ if (addSensor !== null) {
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <label class="col-lg-2 col-sm-6 col-form-label">
-                    <span class="fas fa-satellite-dish mx-1"></span>Invio comandi
+                <label class="col-lg-1 col-sm-6 col-form-label">
+                    <span class="fas fa-satellite-dish mx-1"></span>Invio
                 </label>
-                <div class="col-lg-1 col-sm-6">
-                    ${checkBox}
+                <div class="col-lg-2 col-sm-6">
+                    ${select}
                 </div>
                 <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
                     <span class="fas fa-trash text-danger delete"></span>
