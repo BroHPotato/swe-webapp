@@ -59,7 +59,7 @@ if (addSensor !== null) {
                 <label class="col-lg-1 col-form-label">
                     <span class="fas fa-tag mx-1"></span>Id
                 </label>
-                <div class="col-lg-2">
+                <div class="col-lg-1">
                     <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
                 <label class="col-lg-1 col-form-label">
@@ -69,17 +69,14 @@ if (addSensor !== null) {
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
                 <label class="col-lg-2 col-sm-6 col-form-label">
-                    <span class="fas fa-satellite-dish mx-1"></span>Ricezione comandi
+                    <span class="fas fa-satellite-dish mx-1"></span>Invio comandi
                 </label>
-                <div class="col-lg-1 col-sm-6 row">
-                    <div class="col-sm-6">
-                        ${checkBox}
-                    </div>
-                    <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
-                        <span class="fas fa-trash text-danger delete"></span>
-                    </div>
+                <div class="col-lg-1 col-sm-6">
+                    ${checkBox}
                 </div>
-
+                <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
+                    <span class="fas fa-trash text-danger delete"></span>
+                </div>
                 <div class="col-lg-1 d-lg-none my-1 text-center">
                     <button class="btn btn-danger btn-icon-split delete">
                         <span class="fas fa-trash icon text-white-50"></span>
@@ -93,7 +90,7 @@ if (addSensor !== null) {
                 trashes.forEach((trash) => {
                     trash.addEventListener("click", (e) => {
                         e.preventDefault();
-                        trash.parentElement.parentElement.parentElement.remove();
+                        trash.parentElement.parentElement.remove();
                     });
                     form.reset();
                 });
@@ -119,11 +116,11 @@ if (addDevice !== null) {
         }
     });
 }
-// trashes = document.querySelectorAll(".delete");
-// // eliminazione sensore aggiunto
-// trashes.forEach((trash) => {
-//     trash.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         trash.parentElement.parentElement.remove();
-//     });
-// });
+trashes = document.querySelectorAll(".delete");
+// eliminazione sensore aggiunto
+trashes.forEach((trash) => {
+    trash.addEventListener("click", (e) => {
+        e.preventDefault();
+        trash.parentElement.parentElement.remove();
+    });
+});

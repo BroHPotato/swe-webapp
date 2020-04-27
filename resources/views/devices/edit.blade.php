@@ -100,7 +100,7 @@
                                     <label class="col-lg-1 col-form-label">
                                         <span class="fas fa-tag mx-1"></span>Id
                                     </label>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-1">
                                         <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$sensor->realSensorId}}" name="sensorId[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
@@ -112,13 +112,11 @@
                                     <label class="col-lg-2 col-sm-6 col-form-label">
                                         <span class="fas fa-satellite-dish mx-1"></span> Invio comandi
                                     </label>
-                                    <div class="col-lg-1 col-sm-6 row ">
-                                        <div class="col-sm-6">
-                                            <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif disabled/>
-                                        </div>
-                                        <div class="col-lg-6 col-form-label text-center d-none d-lg-block">
-                                            <span class="fas fa-trash text-danger delete"></span>
-                                        </div>
+                                    <div class="col-lg-1 col-sm-6">
+                                        <input type="checkbox" class="align-bottom" value="{{$sensor->cmdEnable}}" name="enableCmd[]" @if($sensor->cmdEnable) checked @endif disabled/>
+                                    </div>
+                                    <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
+                                        <span class="fas fa-trash text-danger delete"></span>
                                     </div>
 
                                     <div class="col-lg-1 d-lg-none my-1 text-center">
