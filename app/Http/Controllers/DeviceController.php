@@ -87,7 +87,7 @@ class DeviceController extends Controller
             'frequency' => 'required|numeric|in:1,2,3,4,5',
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*',
-            'cmdEnable.*' => 'nullable|string|required_with:sensorId.*'
+            'enableCmd.*' => 'nullable|string|required_with:sensorId.*'
         ]);
         $data['realDeviceId'] = intval($data['realDeviceId']);
         $data['gatewayId'] = intval($data['gatewayId']);
@@ -103,7 +103,7 @@ class DeviceController extends Controller
                 route('devices.index')
             )->withErrors(['NotCreate' => 'Dispositivo e Sensori non creati']);
         }
-        if (count($data['sensorId']) === count($data['sensorType']) && count($data['sensorId']) === count($data['cmdEnable'])) {
+        if (count($data['sensorId']) === count($data['sensorType']) && count($data['sensorId']) === count($data['enableCmd'])) {
             //fetch and filter of the new device
             $device = $this->deviceProvider->findFromGateway($data['gatewayId'], $data['realDeviceId']);
             if (!$this->insertSensors($data['sensorId'], $device, $data)) {
@@ -134,7 +134,7 @@ class DeviceController extends Controller
             'frequency' => 'required|numeric|in:1,2,3,4,5',
             'sensorId.*' => 'nullable|numeric|required_with:sensorType.*',
             'sensorType.*' => 'nullable|string|required_with:sensorId.*',
-            'cmdEnable.*' => 'nullable|string|required_with:sensorId.*'
+            'enableCmd.*' => 'nullable|string|required_with:sensorId.*'
         ]);
         $data['realDeviceId'] = intval($data['realDeviceId']);
         $data['gatewayId'] = intval($data['gatewayId']);
@@ -163,7 +163,7 @@ class DeviceController extends Controller
         $data['sensorId'] = $data['sensorId'] ?? [];
         $data['sensorType'] = $data['sensorType'] ?? [];
         $check = true;
-        if (count($data['sensorId']) === count($data['sensorType']) && count($data['sensorId']) === count($data['cmdEnable'])) {
+        if (count($data['sensorId']) === count($data['sensorType']) && count($data['sensorId']) === count($data['enableCmd'])) {
             //se sono uguali
             $toInsert = array_diff($data['sensorId'], $oldSensorsId);
             $toDelete = array_diff($oldSensorsId, $data['sensorId']);
@@ -189,7 +189,7 @@ class DeviceController extends Controller
                 'deviceId' => $device->deviceId,
                 'realSensorId' => intval($value),
                 'type' => $data['sensorType'][$key],
-                'cmdEnabled' => boolval($data['cmdEnable'][$key])
+                'cmdEnabled' => $data['enableCmd'][$key] === 'true' ? true : false
             ]);
             if (!$this->sensorProvider->store($device->deviceId, $toSend)) {
                 return false;
@@ -200,10 +200,10 @@ class DeviceController extends Controller
     private function modifySensors($toModify, $device, $data, $oldSensorsKeyed)
     {
         foreach ($toModify as $key => $value) {
-            if ($oldSensorsKeyed[$value]->type !== $data['sensorType'][$key]) {
+            if ($oldSensorsKeyed[$value]->type !== $data['sensorType'][$key] || $oldSensorsKeyed[$value]->cmdEnabled !== $data['enableCmd'][$key]) {
                 $toSend = json_encode([
                     'type' => $data['sensorType'][$key],
-                    'cmdEnabled' => boolval($data['cmdEnable'][$key])
+                    'cmdEnabled' => $data['enableCmd'][$key] === 'true' ? true : false
                 ]);
                 if (!$this->sensorProvider->update($device->deviceId, $value, $toSend)) {
                     return false;
@@ -222,4 +222,3 @@ class DeviceController extends Controller
         return true;
     }
 }
-//todo vedere per i comandi
