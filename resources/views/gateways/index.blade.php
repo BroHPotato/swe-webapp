@@ -64,12 +64,17 @@
                                         <span class="text">Modifica</span>
                                     </a>
                                 </td>
-                                <td class="text-center"><a href="#" class="btn btn-sm btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-paper-plane"></span>
-                                        </span>
+                                <td class="text-center">
+                                    <a onclick="event.preventDefault(); document.getElementById('config').submit();" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-paper-plane"></span>
+                                    </span>
                                         <span class="text">Invia</span>
                                     </a>
+                                    <form id="config" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('PUT')
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

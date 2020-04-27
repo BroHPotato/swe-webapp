@@ -130,4 +130,15 @@ class GatewayServiceProvider extends BasicProvider
             return false;
         }
     }
+
+    public function sendConfig(string $who)
+    {
+        try {
+            $this->request->put('/gateways/' . $who . '/config', $this->setHeaders());
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
 }
