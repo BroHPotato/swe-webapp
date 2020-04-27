@@ -39,26 +39,43 @@ if (addSensor !== null) {
         if (!hasSensor) {
             const sensorTypeValue = document.querySelector("#inputSensorType")
                 .value;
+            const receiveCommand = document.querySelector("#commandCheck")
+                .value;
+            let select = '<select name="enableCmd[]" disabled>';
+            console.log(receiveCommand);
+            if (receiveCommand === "true") {
+                select += '<option selected value="true">Abilitato</option>';
+            } else {
+                select +=
+                    '<option selected value="false">Disabilitato</option>';
+            }
+            select += " </select>";
             // aggiunta sensore al dispositivo
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
             <div id="sensore${sensorIdValue}" class="form-group row">
                 <label class="col-lg-3 col-form-label">
-                    <span class="fas fa-thermometer-half mx-1"></span>Sensore  <span class="real-id">${sensorIdValue}</span>
+                    <span class="fas fa-thermometer-half mx-1"></span>Sensore<span class="real-id">${sensorIdValue}</span>
                 </label>
-                <label class="col-lg-2 col-form-label">
-                    <span class="fas fa-tag mx-1"></span>Id sensore
+                <label class="col-lg-1 col-form-label">
+                    <span class="fas fa-tag mx-1"></span>Id
                 </label>
-                <div class="col-lg-2">
+                <div class="col-lg-1">
                     <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
-                <label class="col-lg-2 col-form-label">
-                    <span class="fas fa-tape mx-1"></span>Tipologia
+                <label class="col-lg-1 col-form-label">
+                    <span class="fas fa-tape mx-1"></span>Tipo
                 </label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                <label class="col-lg-1 col-sm-6 col-form-label">
+                    <span class="fas fa-satellite-dish mx-1"></span>Invio
+                </label>
+                <div class="col-lg-2 col-sm-6">
+                    ${select}
+                </div>
+                <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
                     <span class="fas fa-trash text-danger delete"></span>
                 </div>
                 <div class="col-lg-1 d-lg-none my-1 text-center">
@@ -69,7 +86,6 @@ if (addSensor !== null) {
                 </div>
             </div>
         `;
-
                 trashes = document.querySelectorAll(".delete");
                 // eliminazione sensore aggiunto
                 trashes.forEach((trash) => {
@@ -77,8 +93,8 @@ if (addSensor !== null) {
                         e.preventDefault();
                         trash.parentElement.parentElement.remove();
                     });
+                    form.reset();
                 });
-                form.reset();
             } else {
                 alert("Id e tipo di sensore necessitano di un valore");
             }
@@ -101,17 +117,6 @@ if (addDevice !== null) {
         }
     });
 }
-// salva dispositivo
-// if (save !== null) {
-//     save.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         const sensorIdValue = document.querySelectorAll("#inputSensorId");
-//         const sensorTypeValue = document.querySelectorAll("#inputSensorType");
-//         console.log(sensorIdValue, sensorTypeValue);
-//
-//     });
-// }
-
 trashes = document.querySelectorAll(".delete");
 // eliminazione sensore aggiunto
 trashes.forEach((trash) => {
