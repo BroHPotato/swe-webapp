@@ -189,7 +189,7 @@ class DeviceController extends Controller
                 'deviceId' => $device->deviceId,
                 'realSensorId' => intval($value),
                 'type' => $data['sensorType'][$key],
-                'cmdEnabled' => $data['enableCmd'][$key]==='true'?true:false
+                'cmdEnabled' => $data['enableCmd'][$key] === 'true' ? true : false
             ]);
             if (!$this->sensorProvider->store($device->deviceId, $toSend)) {
                 return false;
@@ -203,7 +203,7 @@ class DeviceController extends Controller
             if ($oldSensorsKeyed[$value]->type !== $data['sensorType'][$key] || $oldSensorsKeyed[$value]->cmdEnabled !== $data['enableCmd'][$key]) {
                 $toSend = json_encode([
                     'type' => $data['sensorType'][$key],
-                    'cmdEnabled' => $data['enableCmd'][$key]==='true'?true:false
+                    'cmdEnabled' => $data['enableCmd'][$key] === 'true' ? true : false
                 ]);
                 if (!$this->sensorProvider->update($device->deviceId, $value, $toSend)) {
                     return false;
