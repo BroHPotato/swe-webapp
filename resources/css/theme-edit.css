@@ -89,3 +89,8 @@
     margin-right: -0.035em;
     font-style: italic;
 }
+
+.stickToBottom {
+    bottom: 0;
+    position: absolute;
+}

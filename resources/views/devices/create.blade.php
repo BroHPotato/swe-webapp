@@ -24,7 +24,7 @@
             </div>
             @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
-                    <p>Puoi modificare il dispositivo inserendo le informazioni elencate di seguito:</p>
+                    <p>Puoi creare il dispositivo inserendo le informazioni elencate di seguito:</p>
                     <form method="POST" action="{{route('devices.store')}}" id="create">
                         @csrf
                         @method('POST')
@@ -91,24 +91,39 @@
                         </div>
                         <div id="sensorsList">
                             @foreach(old('sensorId')??[] as $key => $Id)
-                                <div class="form-group row">
+                                <div id="sensore{{$Id}}" class="form-group row">
                                     <label class="col-lg-3 col-form-label">
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$Id}}</span>
                                     </label>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id sensore
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tag mx-1"></span>Id
+                                    </label>
+                                    <div class="col-lg-1">
+                                        <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$Id}}" name="sensorId[]">
+                                    </div>
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-tape mx-1"></span>Tipo
                                     </label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Id sensore" value="{{$Id}}" name="sensorId[]">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{old('sensorType')[$key]}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-2 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipologia
+                                    <label class="col-lg-1 col-sm-6 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> Invio
                                     </label>
-                                    <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Tipo di sensore" value="{{old('sensorType')[$key]}}" name="sensorType[]">
+                                    <div class="col-lg-2 col-sm-6">
+                                        <select name="enableCmd[]" disabled>
+                                            <option selected value="{{old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==true)Abilitato @else Disabilitato @endif</option>
+                                        </select>
                                     </div>
-                                    <div class="col-lg-1 col-form-label text-center d-none d-lg-block">
+                                    <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
                                         <span class="fas fa-trash text-danger delete"></span>
+                                    </div>
+
+                                    <div class="col-lg-1 d-lg-none my-1 text-center">
+                                        <button class="btn btn-danger btn-icon-split delete">
+                                            <span class="fas fa-trash icon text-white-50"></span>
+                                            <span class="text">Elimina sensore</span>
+                                        </button>
                                     </div>
                                 </div>
                             @endforeach
@@ -153,6 +168,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
+                            <div class="col-sm-9">
+                                <select id="commandCheck">
+                                    <option value="true">Abilitato</option>
+                                    <option value="false" selected="selected" >Disabilitato</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
+                            *Per inviare un comando tramite Telegram è necessario aver inserito il proprio username Telegram
+                            all'interno delle impostazioni ed aver attivato il bot con i comandi <code>/start</code> e <code>/login</code>.
+                            Per maggiori informazioni consultare il manuale utente.
+                        </p>
+                        <hr>
                         <div class="form-group row mx-1 float-right">
                             <button id="addSensor" type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
