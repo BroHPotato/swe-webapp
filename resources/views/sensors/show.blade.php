@@ -14,6 +14,46 @@
         </a>
     </div>
 
+    @can(['isAdmin'])
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista enti*</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive-lg">
+                <table class="table table-striped table-bordered border-secondary">
+                    <thead class="thead-dark table-borderless">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Luogo</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{--@foreach($entities as $entity)--}}
+                        <tr>
+                            <td>{{--$entity->name--}}Test</td>
+                            <td>{{--$entity->location--}}test</td>
+
+                            <td>{{--@if($entity->deleted===true)--}}
+                                {{-- <span class="badge badge-danger">Eliminato</span>--}}
+                             {{-- @else--}}
+                                    <span class="badge badge-success">Attivo</span>
+                                {{-- @endif--}}
+                            </td>
+                        </tr>
+                    {{-- @endforeach--}}
+                    </tbody>
+                </table>
+                <hr>
+                <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
+                    *Lista degli enti che hanno la possibilità di visualizzare i dati di questo sensore.
+                </p>
+            </div>
+        </div>
+    </div>
+    @endcan
+
     <div class="row">
          <div class="col-lg-12">
             <div class="card shadow mb-4">

@@ -37,7 +37,7 @@
                                 <th>Nome</th>
                                 <th>Luogo</th>
                                 <th>Status</th>
-                                <th> </th>
+                                <th></th>
                                 <th></th>
                             </tr>
                             </thead>
