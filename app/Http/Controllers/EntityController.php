@@ -104,7 +104,7 @@ class EntityController extends Controller
         $data = request()->validate([
             'sensors.*' => 'required|numeric'
         ]);
-        $newSensors = $data['sensors']??[];
+        $newSensors = $data['sensors'] ?? [];
         $sensors = $this->sensorProvider->findAllFromEntity($entityId) ?? [];
         $oldSensors = [];
         foreach ($sensors as $s) {
