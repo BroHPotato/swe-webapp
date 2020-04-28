@@ -88,13 +88,13 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-7 mb-4">
+            <div class="col-xl-6 col-md-12 mb-4">
                 <div class="card shadow">
-                    <div class="card-header py3">
+                    <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive-xl">
+                        <div class="table-responsive">
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>
@@ -117,20 +117,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 mb-4">
-                <div class="card shadow">
+            <div class="col-xl-6 col-md-12 mb-4">
+                <div class="card shadow ">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive-xl">
+                        <div class="table-responsive-md">
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                     <tr>
                                         <th>Id</th>
                                         <th>Tipo</th>
-                                        <th>Dispositivo</th>
-                                        <th>Invio comandi</th>
+                                        <th>Id Dispositivo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -140,7 +139,6 @@
                                             <td>{{$s->realSensorId}}</td>
                                             <td>{{$s->type}}</td>
                                             <td>{{$s->device}}</td>
-                                            <td>{{($s->cmdEnabled) ? 'Abilitato' : 'Disabilitato'}}</td>
                                             <td>
                                                 <span class="fas fa-trash text-danger delete"></span>
                                             </td>
@@ -148,14 +146,14 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="d-sm-flex ml-sm-auto float-right">
-                                <button type="submit" class="btn btn-success btn-icon-split" form="update">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-save"></span>
-                        </span>
-                                    <span class="text">Salva</span>
-                                </button>
-                            </div>
+                        </div>
+                        <div class="d-sm-flex ml-sm-auto float-right">
+                            <button type="submit" class="btn btn-success btn-icon-split" form="update">
+                                <span class="icon text-white-50">
+                                <span class="fas fa-save"></span>
+                                 </span>
+                                <span class="text">Salva</span>
+                            </button>
                         </div>
                     </div>
                 </div>

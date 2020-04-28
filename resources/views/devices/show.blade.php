@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>ID reale sensore</th>
                                     <th>Tipo di dato</th>
+                                    <th>Invio comandi</th>
                                     <th class="bg-secondary"> </th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                 <tr>
                                     <td><span class="real-id">{{$sensor->realSensorId}}</span></td>
                                     <td>{{$sensor->type}}</td>
+                                    <td>{{($sensor->cmdEnabled) ? 'Abilitato' : 'Disabilitato'}}</td>
                                     <td class="text-center"><a href="{{route('sensors.show', [
                                             'deviceId' => $device->deviceId,
                                             'sensorId' => $sensor->realSensorId
