@@ -134,7 +134,9 @@ class GatewayServiceProvider extends BasicProvider
     public function sendConfig(string $who)
     {
         try {
-            $this->request->put('/gateways/' . $who . '/config', $this->setHeaders());
+            $this->request->put('/gateways/' . $who, array_merge($this->setHeaders(), [
+                'body' => 'reconfig:true'
+            ]));
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
