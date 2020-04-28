@@ -204,9 +204,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     public function update(string $who, $body)
     {
         try {
-            if (key_exists('password', $body)) {
-                $body['password'] = $body['password'];/*todo sha512*/
-            }
             $body = json_encode($body, JSON_FORCE_OBJECT);
             $response = json_decode($this->request->put('users/' . $who, array_merge($this->setHeaders(), [
                 'body' => $body
@@ -243,9 +240,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     public function store($body)
     {
         try {
-            if (key_exists('password', $body)) {
-                $body['password'] = $body['password'];/*todo sha512*/
-            }
             $body = json_encode($body, JSON_FORCE_OBJECT);
             $this->request->post('users', array_merge($this->setHeaders(), [
                 'body' => $body
