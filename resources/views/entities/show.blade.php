@@ -57,14 +57,14 @@
                                     <label for="inputSensor1" class="col-sm-3 col-form-label"><span class="fas fa-thermometer-half"></span> Sensore</label>
                                     <div class="col-sm-9">
                                         <div class="input-group mb-3">
-                                            <select class="form-control @error('sensore') is-invalid @enderror" name="sensor" id="inputSensor">
-                                                {{--@foreach($devices as $d)--}}
-                                                   {{-- @foreach($sensors[$d->deviceId] as $s)--}}
-                                                        <option value="{{--$s->sensorId--}}">{{--$d->name . ' - @' . $s->realSensorId--}}Test</option>
-                                                    {{--@endforeach--}}
-                                                {{--@endforeach--}}
+                                            <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
+                                                @foreach($devices as $d)
+                                                   @foreach($sensors[$d->deviceId] as $s)
+                                                        <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                    @endforeach
+                                                @endforeach
                                             </select>
-                                            @error('sensor1')
+                                            @error('sensor')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                                 </span>
@@ -134,17 +134,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{--@foreach()--}}
+                                    @foreach($sensorsEntity as $s)
                                         <tr>
-                                            <td>{{12}}</td>
-                                            <td>{{'acqua'}}</td>
-                                            <td>{{123}}</td>
-                                            <td>{{'Abilitato'}}</td>
+                                            <td>{{$s->realSensorId}}</td>
+                                            <td>{{$s->type}}</td>
+                                            <td>{{$s->device}}</td>
+                                            <td>{{($s->cmdEnabled) ? 'Abilitato' : 'Disabilitato'}}</td>
                                             <td>
                                                 <span class="fas fa-trash text-danger delete"></span>
                                             </td>
                                         </tr>
-                                    {{--@endforeach--}}
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div class="d-sm-flex ml-sm-auto float-right">

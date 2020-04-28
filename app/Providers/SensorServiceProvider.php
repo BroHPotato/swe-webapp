@@ -25,7 +25,7 @@ class SensorServiceProvider extends BasicProvider
     {
         parent::__construct(app());
         $this->request = new Client([
-            'base_uri' => config('app.api') . '/devices',
+            'base_uri' => config('app.api') . '/devices/',
             'headers' => [
                 'Content-Type' => 'application/json'
             ]
@@ -40,7 +40,7 @@ class SensorServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get(
-                '/devices/' . $deviceId . '/sensors/' . $sensorId,
+                $deviceId . '/sensors/' . $sensorId,
                 $this->setHeaders()
             )->getBody());
             $sensor = new Sensor();
@@ -96,8 +96,35 @@ class SensorServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get(
-                '/devices/' . $deviceId . '/sensors',
+                $deviceId . '/sensors',
                 $this->setHeaders()
+            )->getBody());
+            $sensors = [];
+            foreach ($response as $d) {
+                $sensor = new Sensor();
+                $sensor->fill((array)$d);
+                $sensors[] = $sensor;
+            }
+            return $sensors;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return null;
+        }
+    }
+
+    public function findAllFromEntity($entityId)
+    {
+        try {
+            $response = json_decode($this->request->get(
+                '/sensors/',
+                array_merge(
+                    $this->setHeaders(),
+                    [
+                        'query' => [
+                            'entity' => $entityId
+                        ]
+                    ]
+                )
             )->getBody());
             $sensors = [];
             foreach ($response as $d) {

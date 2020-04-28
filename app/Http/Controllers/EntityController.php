@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entity;
+use App\Providers\DeviceServiceProvider;
 use App\Providers\EntityServiceProvider;
+use App\Providers\SensorServiceProvider;
 use App\Providers\UserServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -12,6 +14,8 @@ class EntityController extends Controller
 {
     private $entityProvider;
     private $usersProvider;
+    private $deviceProvider;
+    private $sensorProvider;
 
     /**
      * Create a new controller instance.
@@ -23,6 +27,8 @@ class EntityController extends Controller
         $this->middleware('auth');
         $this->entityProvider = new EntityServiceProvider();
         $this->usersProvider = new UserServiceProvider();
+        $this->deviceProvider = new DeviceServiceProvider();
+        $this->sensorProvider = new SensorServiceProvider();
     }
 
     public function create()
@@ -58,7 +64,12 @@ class EntityController extends Controller
     {
         $entity = $this->entityProvider->find($entityId);
         $users = $this->usersProvider->findAllFromEntity($entity->entityId) ?? [];
-        return view('entities.show', compact(['entity', 'users']));
+        $devices = $this->deviceProvider->findAll();
+        foreach ($devices as $d) {
+            $sensors[$d->deviceId] = $this->sensorProvider->findAllFromDevice($d->deviceId) ?? [];
+        }
+        $sensorsEntity = $this->sensorProvider->findAllFromEntity($entity->entityId) ?? [];
+        return view('entities.show', compact(['entity', 'users', 'sensors', 'devices', 'sensorsEntity']));
     }
 
     public function update($entityId)

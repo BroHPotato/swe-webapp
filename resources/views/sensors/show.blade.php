@@ -30,19 +30,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {{--@foreach($entities as $entity)--}}
-                        <tr>
-                            <td>{{--$entity->name--}}Test</td>
-                            <td>{{--$entity->location--}}test</td>
+                        @foreach($entities as $entity)
+                            <tr>
+                                <td>{{$entity->name}}</td>
+                                <td>{{$entity->location}}</td>
 
-                            <td>{{--@if($entity->deleted===true)--}}
-                                {{-- <span class="badge badge-danger">Eliminato</span>--}}
-                             {{-- @else--}}
-                                    <span class="badge badge-success">Attivo</span>
-                                {{-- @endif--}}
-                            </td>
-                        </tr>
-                    {{-- @endforeach--}}
+                                <td>
+                                    @if($entity->deleted===true)
+                                        <span class="badge badge-danger">Eliminato</span>
+                                    @else
+                                        <span class="badge badge-success">Attivo</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <hr>

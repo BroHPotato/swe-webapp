@@ -74,21 +74,24 @@ class EntityServiceProvider extends BasicProvider
     }
 
     /**
-     * @param $deviceId
-     * @return Entity|null
+     * @param $sensorId
+     * @return array
      */
-    public function findFromSensor($sensorId)
+    public function findAllFromSensor($sensorId)
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
                 'query' => ['sensor' => $sensorId]
             ]))->getBody());
-            $entity = new Entity();
-            $entity->fill((array)$response);
-            return $entity;
+            $entities = [];
+            foreach ($response as $e) {
+                $entity = new Entity();
+                $entity->fill((array)$e);
+                $entities[] = $entity;
+            }
+            return $entities;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
