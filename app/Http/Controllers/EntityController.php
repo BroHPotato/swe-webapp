@@ -104,15 +104,15 @@ class EntityController extends Controller
         $data = request()->validate([
         ]);
         $newSensors = [];
-        
+
 
         $sensors = $this->sensorProvider->findAllFromEntity($entityId);
-        foreach ($sensors as $s){
+        foreach ($sensors as $s) {
             $oldSensors[] = $s->sensorId;
         }
-        $toDelete= array_diff($newSensors, $oldSensors);
+        $toDelete = array_diff($newSensors, $oldSensors);
         $toInsert = array_diff($oldSensors, $newSensors);
-        $toSend = ['toInsert'=>$toInsert, 'toDelete'=>$toDelete];
+        $toSend = ['toInsert' => $toInsert, 'toDelete' => $toDelete];
         return $this->entityProvider->update($entityId, json_encode($toSend)) ?
             redirect(route('entities.show', ['entityId' => $entityId]))->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']) :
             redirect(route('entities.show', ['entityId' => $entityId]))->withErrors(['NotUpdate' => 'Sensori non aggiornati']);

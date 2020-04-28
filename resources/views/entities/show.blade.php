@@ -5,6 +5,7 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Informazioni ente</h1>
         </div>
+        @include('layouts.error')
         <div class="row">
             <div class="col-auto mb-4 ">
                 <a href="{{route('entities.index')}}" class="btn btn-sm btn-danger btn-icon-split">
