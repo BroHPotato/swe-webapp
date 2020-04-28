@@ -104,4 +104,11 @@ class GatewayController extends Controller
             redirect(route('gateways.index'))->withErrors(['GoodDestroy' => 'Gateway eliminato con successo']) :
             redirect(route('gateways.index'))->withErrors(['NotDestroy' => 'Gateway non eliminato']);
     }
+
+    public function sendConfig($gatewayId)
+    {
+        return $this->gatewayProvider->sendConfig($gatewayId) ?
+            redirect(route('gateways.index'))->withErrors(['GoodDestroy' => 'Configurazione inviata con successo']) :
+            redirect(route('gateways.index'))->withErrors(['NotDestroy' => 'Configurazione non inviata']);
+    }
 }

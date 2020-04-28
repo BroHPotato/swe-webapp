@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/gateways', 'GatewayController@store')->name('gateways.store');
         Route::get('/gateways/create', 'GatewayController@create')->name('gateways.create');
         Route::get('/gateways/{gatewayId}/edit', 'GatewayController@edit')->name('gateways.edit');
+        Route::put('/gateways/{gatewayId}/config', 'GatewayController@sendConfig')->name('gateways.config');
         Route::get('/gateways/{gatewayId}', 'GatewayController@show')->name('gateways.show');
         Route::put('/gateways/{gatewayId}', 'GatewayController@update')->name('gateways.update');
         Route::delete('/gateways/{gatewayId}', 'GatewayController@destroy')->name('gateways.destroy');

@@ -42,7 +42,7 @@ if (addSensor !== null) {
                 .value;
             const receiveCommand = document.querySelector("#commandCheck")
                 .value;
-            let select = '<select name="enableCmd[]" disabled>';
+            let select = '<select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
             //console.log(receiveCommand);
             if (receiveCommand === "true") {
                 select += '<option selected value="true">Abilitato</option>';
