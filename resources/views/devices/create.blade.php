@@ -108,10 +108,10 @@
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{old('sensorType')[$key]}}" name="sensorType[]">
                                     </div>
                                     <label class="col-lg-1 col-sm-6 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span> Invio
+                                        <span class="fas fa-satellite-dish mx-1"></span>Invio
                                     </label>
                                     <div class="col-lg-2 col-sm-6">
-                                        <select name="enableCmd[]" disabled>
+                                        <select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
                                             <option selected value="{{old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==true)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>
