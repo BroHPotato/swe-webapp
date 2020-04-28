@@ -51,17 +51,17 @@
                     </a>
                     <div class="collapse" id="collapseAddView">
                         <div class="card-body">
-                            <form method="POST" action="{{----}}">
+                            <form method="POST" action="{{route('entities.updateSensors', ['entityId' => $entity->entityId])}}" id="updateSensors">
                                 @csrf
-                                @method('POST')
+                                @method('PUT')
                                 <div class="form-group row">
-                                    <label for="inputSensor1" class="col-sm-3 col-form-label"><span class="fas fa-thermometer-half"></span> Sensore</label>
+                                    <label for="inputSensor" class="col-sm-3 col-form-label"><span class="fas fa-thermometer-half"></span> Sensore</label>
                                     <div class="col-sm-9">
                                         <div class="input-group mb-3">
                                             <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
                                                 @foreach($devices as $d)
                                                    @foreach($sensors[$d->deviceId] as $s)
-                                                        <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                        <option id="inputSensor{{$s->sensorId}}" value="{{$s->sensorId}}" data-real-id="{{$s->sensorId}}" data-type="{{$s->type}}" data-device="{{$s->device}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
                                                     @endforeach
                                                 @endforeach
                                             </select>
@@ -74,10 +74,10 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <button type="submit" class="btn btn-success btn-icon-split float-right mb-3">
-                            <span class="icon text-white-50">
-                              <span class="fas fa-plus-circle"></span>
-                            </span>
+                                <button type="submit" class="btn btn-success btn-icon-split float-right mb-3" id="connectSensor">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-plus-circle"></span>
+                                    </span>
                                     <span class="text">Aggiungi</span>
                                 </button>
                             </form>
@@ -133,14 +133,15 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="sensorsList">
                                     @foreach($sensorsEntity as $s)
-                                        <tr>
-                                            <td>{{$s->realSensorId}}</td>
+                                        <tr id="sensore{{$s->sensorId}}">
+                                            <td>{{$s->sensorId}}</td>
                                             <td>{{$s->type}}</td>
-                                            <td>{{$s->device}}</td>
+                                            <td class="logic-id">{{$s->device}}<span class="real-id">{{$s->realSensorId}}</span></td>
                                             <td>
                                                 <span class="fas fa-trash text-danger delete"></span>
+                                                <input form="updateSensors" type="checkbox" value="{{$s->sensorId}}" checked style="display: none" name="sensors[]">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -148,7 +149,7 @@
                             </table>
                         </div>
                         <div class="d-sm-flex ml-sm-auto float-right">
-                            <button type="submit" class="btn btn-success btn-icon-split" form="update">
+                            <button type="submit" class="btn btn-success btn-icon-split" form="updateSensors">
                                 <span class="icon text-white-50">
                                 <span class="fas fa-save"></span>
                                  </span>

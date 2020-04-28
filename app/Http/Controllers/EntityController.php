@@ -102,19 +102,21 @@ class EntityController extends Controller
     public function updateSensors($entityId)
     {
         $data = request()->validate([
+            'sensors.*' => 'required|numeric'
         ]);
-        $newSensors = [];
-
-
-        $sensors = $this->sensorProvider->findAllFromEntity($entityId);
+        $newSensors = $data['sensors']??[];
+        $sensors = $this->sensorProvider->findAllFromEntity($entityId) ?? [];
+        $oldSensors = [];
         foreach ($sensors as $s) {
             $oldSensors[] = $s->sensorId;
         }
-        $toDelete = array_diff($newSensors, $oldSensors);
-        $toInsert = array_diff($oldSensors, $newSensors);
-        $toSend = ['toInsert' => $toInsert, 'toDelete' => $toDelete];
+        $toInsert = array_diff($newSensors, $oldSensors);
+        $toDelete = array_diff($oldSensors, $newSensors);
+        $toSend = ['toInsert' => array_values($toInsert), 'toDelete' => array_values($toDelete)];
         return $this->entityProvider->update($entityId, json_encode($toSend)) ?
-            redirect(route('entities.show', ['entityId' => $entityId]))->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']) :
-            redirect(route('entities.show', ['entityId' => $entityId]))->withErrors(['NotUpdate' => 'Sensori non aggiornati']);
+            redirect(route('entities.show', ['entityId' => $entityId]))
+                ->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']) :
+            redirect(route('entities.show', ['entityId' => $entityId]))
+                ->withErrors(['NotUpdate' => 'Sensori non aggiornati']);
     }
 }
