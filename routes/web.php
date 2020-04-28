@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/entities', 'EntityController@store')->name('entities.store');
         Route::get('/entities/create', 'EntityController@create')->name('entities.create');
         Route::get('/entities/{entityId}/edit', 'EntityController@edit')->name('entities.edit');
+        Route::put('/entities/{entityId}/updateSensors', 'EntityController@updateSensors')
+            ->name('entities.updateSensors');
         Route::get('/entities/{entityId}', 'EntityController@show')->name('entities.show');
         Route::put('/entities/{entityId}', 'EntityController@update')->name('entities.update');
         Route::delete('/entities/{entityId}', 'EntityController@destroy')->name('entities.destroy');

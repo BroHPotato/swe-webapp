@@ -1,5 +1,6 @@
 const sensorsList = document.querySelector("#sensorsList");
 const addSensor = document.querySelector("#addSensor");
+const connectSensor = document.querySelector("#connectSensor");
 const addDevice = document.querySelector("#addDevice");
 const form = document.querySelector("#sensorForm");
 const save = document.querySelector("#save");
@@ -42,7 +43,7 @@ if (addSensor !== null) {
             const receiveCommand = document.querySelector("#commandCheck")
                 .value;
             let select = '<select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
-            console.log(receiveCommand);
+            //console.log(receiveCommand);
             if (receiveCommand === "true") {
                 select += '<option selected value="true">Abilitato</option>';
             } else {
@@ -117,6 +118,40 @@ if (addDevice !== null) {
         }
     });
 }
+
+if (connectSensor !== null) {
+    connectSensor.addEventListener("click", (e) => {
+        e.preventDefault();
+        const sensorIdValue = document.querySelector("#inputSensor").value;
+        const sensorDetails = document.querySelector('#inputSensor' + sensorIdValue);
+        const hasSensor =
+            sensorsList.querySelector("#sensore" + sensorIdValue) != null;
+        if (!hasSensor){
+            sensorsList.innerHTML += `
+                <tr id="sensore${sensorIdValue}">
+                    <td>${sensorIdValue}</td>
+                    <td>${sensorDetails.dataset.type}</td>
+                    <td class="logic-id">${sensorDetails.dataset.device}<span class="real-id">${sensorDetails.dataset.realId}</span></td>
+                    <td>
+                        <span class="fas fa-trash text-danger delete"></span>
+                        <input form="updateSensors" type="checkbox" value="${sensorIdValue}" checked style="display: none" name="sensors[]">
+                    </td>
+                </tr>
+            `;
+            trashes = document.querySelectorAll(".delete");
+            // eliminazione sensore aggiunto
+            trashes.forEach((trash) => {
+                trash.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    trash.parentElement.parentElement.remove();
+                });
+            });
+        } else {
+            alert("Il sensore è già assegnato a questo ente");
+        }
+    });
+}
+
 trashes = document.querySelectorAll(".delete");
 // eliminazione sensore aggiunto
 trashes.forEach((trash) => {

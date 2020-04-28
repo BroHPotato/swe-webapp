@@ -111,6 +111,9 @@ class UserController extends Controller
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
         return $this->provider->store($data) ? redirect(route('users.index'))
             ->withErrors(['GoodCreate' => 'Utente creato con successo con password: ' . $data['password']]) :
             redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
@@ -156,6 +159,9 @@ class UserController extends Controller
             $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
             $change = ' e con nuova password : ' . $data['password'];
         }
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
 
         return $this->provider->update($user->getAuthIdentifier(), $data) ?
             redirect(route('users.index'))
@@ -190,6 +196,9 @@ class UserController extends Controller
     {
         $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
         $change = ' e nuova password : ' . $data['password'];
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
         return $this->provider->update($userId, $data) ?
             redirect(route('users.show', ['userId' => $userId]))
                 ->withErrors(['GoodUpdate' => 'Password aggiornata con successo' . $change]) :

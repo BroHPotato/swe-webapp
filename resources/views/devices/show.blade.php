@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Informazioni dispositivo</h6>
@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>ID reale sensore</th>
                                     <th>Tipo di dato</th>
+                                    <th>Invio comandi</th>
                                     <th class="bg-secondary"> </th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                 <tr>
                                     <td><span class="real-id">{{$sensor->realSensorId}}</span></td>
                                     <td>{{$sensor->type}}</td>
+                                    <td>{{($sensor->cmdEnabled) ? 'Abilitato' : 'Disabilitato'}}</td>
                                     <td class="text-center"><a href="{{route('sensors.show', [
                                             'deviceId' => $device->deviceId,
                                             'sensorId' => $sensor->realSensorId
@@ -64,7 +66,7 @@
                                             <span class="icon text-white-50">
                                               <span class="fas fa-chart-area"></span>
                                             </span>
-                                            <span class="text">Mostra grafico</span>
+                                            <span class="text">Dettagli</span>
                                         </a>
                                     </td>
                                 </tr>
