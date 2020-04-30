@@ -19,19 +19,18 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                    <span class="icon text-blue-50">
-                          <span class="fas fa-plus-circle"></span>
+                          <span class="fas fa-edit"></span>
                    </span>
                     Modifica dispositivo
                 </h6>
             </div>
-            @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
                     <p>Puoi modificare un dispositivo inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" action="{{route('devices.update', $device->deviceId)}}" id="update">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span>Id dispositivo</label>
+                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="real-id"></span> ID dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('realDeviceId')??$device->realDeviceId}}" name="realDeviceId">
                                 @error('realDeviceId')
@@ -42,7 +41,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span>Nome dispositivo</label>
+                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="{{old('name')??$device->name}}" name="name">
                                 @error('name')
@@ -53,7 +52,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
+                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Seleziona gateway</label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('gatewayId') is-invalid @enderror" name="gatewayId" id="inputgatewayName">
@@ -91,6 +90,7 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div id="sensorsList">
                             @foreach($sensors as $sensor)
                                 <div id="sensore{{$sensor->realSensorId}}" class="form-group row">
@@ -98,19 +98,19 @@
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$sensor->realSensorId}}</span>
                                     </label>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id
+                                        <span class="real-id"></span> ID
                                     </label>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$sensor->realSensorId}}" name="sensorId[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipo
+                                        <span class="fas fa-tape mx-1"></span> Tipo
                                     </label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span>InvioCMD
+                                        <span class="fas fa-satellite-dish mx-1"></span> CMD
                                     </label>
                                     <div class="col-lg-2">
                                         <select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
@@ -132,7 +132,8 @@
                             @endforeach
                         </div>
                     </form>
-                    <div class="d-inline-block my-2 px-0 float-right">
+                    <hr>
+                    <div class="d-inline-block my-2 px-0 float-left">
                         <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split" href="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-trash"></span>
@@ -144,7 +145,6 @@
                             @method('DELETE')
                         </form>
                     </div>
-                    @endcan
                 </div>
         </div>
 
@@ -152,17 +152,16 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                    <span class="icon text-blue-50">
-                          <span class="fas fa-plus-circle"></span>
+                          <span class="fas fa-plus"></span>
                    </span>
                     Aggiunta sensore
                 </h6>
             </div>
-            @can(['isAdmin'])
-                <div id="cardDispositivo" class="card-body">
-                    <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
+                <div id="cardSensore" class="card-body">
+                    <p>Puoi aggiungere un nuovo sensore inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" id="sensorForm">
                         <div class="form-group row">
-                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="real-id"></span> ID sensore</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId[]">
                                 @error('sensorId')
@@ -173,7 +172,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
+                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span> Tipologia</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType[]">
                                 @error('sensorType')
@@ -184,9 +183,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
+                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span> Ricezione comandi *</label>
                             <div class="col-sm-9">
-                                <select id="commandCheck">
+                                <select class="form-control" id="commandCheck">
                                     <option value="true">Abilitato</option>
                                     <option value="false" selected="selected" >Disabilitato</option>
                                 </select>
@@ -208,7 +207,6 @@
                             </button>
                         </div>
                     </form>
-                    @endcan
                 </div>
         </div>
         <div class="d-sm-flex mb-4 ml-sm-auto float-right">

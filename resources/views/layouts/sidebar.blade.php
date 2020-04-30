@@ -97,7 +97,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
                 <a class="collapse-item" href="{{ route('entities.index') }}"><i class="far fa-building"></i> Gestione enti</a>
-                <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
                 <a class="collapse-item" href="{{ route('gateways.index') }}"><i class="fas fa-dungeon"></i> Gestione gateways</a>
                 <a class="collapse-item" href="{{ route('logs.index') }}"><i class="fas fa-receipt"></i> Logs</a>
             </div>

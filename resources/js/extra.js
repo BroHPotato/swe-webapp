@@ -32,22 +32,22 @@ if (addSensor !== null) {
                 sensorsList.innerHTML += `
             <div id="sensore${sensorIdValue}" class="form-group row">
                 <label class="col-lg-3 col-form-label">
-                    <span class="fas fa-thermometer-half mx-1"></span>Sensore<span class="real-id">${sensorIdValue}</span>
+                    <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id"></span> ${sensorIdValue}
                 </label>
                 <label class="col-lg-1 col-form-label">
-                    <span class="fas fa-tag mx-1"></span>Id
+                    <span class="real-id"></span> ID
                 </label>
                 <div class="col-lg-1">
                     <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
                 <label class="col-lg-1 col-form-label">
-                    <span class="fas fa-tape mx-1"></span>Tipo
+                    <span class="fas fa-tape mx-1"></span> Tipo
                 </label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
                 <label class="col-lg-1 col-form-label">
-                    <span class="fas fa-satellite-dish mx-1"></span>Invio
+                    <span class="fas fa-satellite-dish mx-1"></span> CMD
                 </label>
                 <div class="col-lg-2">
                     ${select}
