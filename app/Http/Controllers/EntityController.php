@@ -113,10 +113,10 @@ class EntityController extends Controller
         $toInsert = [];
         $toDelete = [];
         foreach (array_values(array_diff($newSensors, $oldSensors)) as $key => $value) {
-            $toInsert['Id' . $key] =  intval($value);
+            $toInsert['Id' . ($key + 1)] =  intval($value);
         }
         foreach (array_values(array_diff($oldSensors, $newSensors)) as $key => $value) {
-            $toDelete['Id' . $key] =  intval($value);
+            $toDelete['Id' . ($key + 1)] =  intval($value);
         }
         if (empty($toInsert) && empty($toDelete)) {
             return redirect(route('entities.show', ['entityId' => $entityId]))
