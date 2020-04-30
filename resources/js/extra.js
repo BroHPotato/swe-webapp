@@ -18,7 +18,7 @@ if (addSensor !== null) {
             const receiveCommand = document.querySelector("#commandCheck")
                 .value;
             let select =
-                '<select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
+                '<select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
 
             if (receiveCommand === "true") {
                 select += '<option selected value="true">Abilitato</option>';
@@ -46,17 +46,19 @@ if (addSensor !== null) {
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <label class="col-lg-1 col-sm-6 col-form-label">
+                <label class="col-lg-1 col-form-label">
                     <span class="fas fa-satellite-dish mx-1"></span>Invio
                 </label>
-                <div class="col-lg-2 col-sm-6">
+                <div class="col-lg-2">
                     ${select}
                 </div>
                 <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                    <span class="fas fa-trash text-danger delete"></span>
+                    <button class="btn btn-small btn-danger delete">
+                        <span class="fas fa-trash"></span>
+                    </button>
                 </div>
-                <div class="col-lg-1 d-lg-none my-1 text-center">
-                    <button class="btn btn-danger btn-icon-split delete">
+                <div class="col-lg-1 mt-2 d-lg-none my-1">
+                    <button class="btn btn-small btn-danger btn-icon-split delete">
                         <span class="fas fa-trash icon text-white-50"></span>
                         <span class="text">Elimina sensore</span>
                     </button>

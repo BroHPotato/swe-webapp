@@ -96,31 +96,32 @@
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$Id}}</span>
                                     </label>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id
+                                        <span class="real-id">@</span> ID
                                     </label>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$Id}}" name="sensorId[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipo
+                                        <span class="fas fa-tape mx-1"></span> Tipo
                                     </label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{old('sensorType')[$key]}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-1 col-sm-6 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span>Invio
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> Invio
                                     </label>
-                                    <div class="col-lg-2 col-sm-6">
-                                        <select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
+                                    <div class="col-lg-2">
+                                        <select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
                                             <option selected value="{{old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==true)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                                        <span class="fas fa-trash text-danger delete"></span>
+                                        <button class="btn btn-small btn-danger delete">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
                                     </div>
-
-                                    <div class="col-lg-1 d-lg-none my-1 text-center">
-                                        <button class="btn btn-danger btn-icon-split delete">
+                                    <div class="col-lg-1 mt-2 d-lg-none my-1">
+                                        <button class="btn btn-small btn-danger btn-icon-split delete">
                                             <span class="fas fa-trash icon text-white-50"></span>
                                             <span class="text">Elimina sensore</span>
                                         </button>

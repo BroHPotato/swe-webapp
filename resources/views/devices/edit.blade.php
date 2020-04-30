@@ -15,7 +15,7 @@
             </a>
         </div>
 
-        <div class="card shadow mb-4">
+        <div class="card shadow mt-2 mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                    <span class="icon text-blue-50">
@@ -109,20 +109,21 @@
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-1 col-sm-6 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span>Invio
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span>InvioCMD
                                     </label>
-                                    <div class="col-lg-2 col-sm-6">
-                                        <select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
+                                    <div class="col-lg-2">
+                                        <select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
                                             <option selected value="{{$sensor->cmdEnabled?'true':'false'}}">@if($sensor->cmdEnabled===true)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                                        <span class="fas fa-trash text-danger delete"></span>
+                                        <button class="btn btn-small btn-danger delete">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
                                     </div>
-
-                                    <div class="col-lg-1 d-lg-none my-1 text-center">
-                                        <button class="btn btn-danger btn-icon-split delete">
+                                    <div class="col-lg-1 mt-2 d-lg-none my-1">
+                                        <button class="btn btn-small btn-danger btn-icon-split delete">
                                             <span class="fas fa-trash icon text-white-50"></span>
                                             <span class="text">Elimina sensore</span>
                                         </button>
