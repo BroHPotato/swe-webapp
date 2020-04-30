@@ -14,7 +14,8 @@
                 <span class="text">Torna indietro</span>
             </a>
             @if($entity->deleted !== true)
-                <a href="#" onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-sm btn-danger btn-icon-split">
+                <a href="#" onclick="event.preventDefault();
+                 return confirm('Sei proprio sicuro di voler cancellare questo ente?') ? document.getElementById('delete').submit() : false;" class="btn btn-sm btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-trash"></span>
                     </span>

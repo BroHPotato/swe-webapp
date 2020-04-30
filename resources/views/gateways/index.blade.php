@@ -34,47 +34,41 @@
                     <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark table-borderless">
                         <tr>
-                            <th>ID </th>
                             <th>Nome</th>
                             <th>Numero Dispositivi</th>
-                            <th> </th>
-                            <th> </th>
-                            <th>Configurazione</th>
+                            <th>Ultimo invio</th>
+                            <th class="bg-secondary" width="200"> </th>
+                            <th class="bg-secondary" width="100"> </th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($gatewaysWithDevices as $gWd)
                             <tr>
-                                <td>{{$gWd['gateway']->gatewayId}}</td>
-                                <td><span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}</td>
+                                <td>
+                                    <a href="{{route('gateways.show', ['gatewayId' => $gWd['gateway']->gatewayId ])}}">
+                                        <span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}
+                                </td>
                                 <td>{{count($gWd['devices'])}}</td>
-                                <td class="text-center"><a href="{{route('gateways.show', [
-                                                    'gatewayId' => $gWd['gateway']->gatewayId
-                                            ])}}" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-info-circle"></span>
-                                        </span>
-                                        <span class="text">Dettagli</span>
-                                    </a>
-                                </td>
-                                <td class="text-center"><a href="{{route('gateways.edit', ['gatewayId' => $gWd['gateway']->gatewayId ])}}" class="btn btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-edit"></span>
-                                        </span>
-                                        <span class="text">Modifica</span>
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    <a onclick="event.preventDefault(); document.getElementById('config').submit();" class="btn btn-primary btn-icon-split">
+                                <td>{{$gWd['gateway']->lastSent}}</td>
+                                <td>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('config').submit();" class="btn btn-primary btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-paper-plane"></span>
                                     </span>
-                                        <span class="text">Invia</span>
+                                        <span class="text">Invia config</span>
                                     </a>
                                     <form id="config" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('PUT')
                                     </form>
+                                </td>
+                                <td>
+                                    <a href="{{route('gateways.edit', ['gatewayId' => $gWd['gateway']->gatewayId ])}}" class="btn btn-warning btn-icon-split">
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-edit"></span>
+                                        </span>
+                                        <span class="text">Modifica</span>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

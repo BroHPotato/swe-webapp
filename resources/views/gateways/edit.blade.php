@@ -6,13 +6,25 @@
             <h1 class="h3 mb-0 text-gray-800"> Modifica gateway</h1>
         </div>
         <div class="row">
-            <div class="col-auto mb-4">
+            <div class="col-md-12 d-flex justify-content-between mb-3">
                 <a href="{{route('gateways.index')}}" class="btn btn-sm btn-danger btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-arrow-circle-left"></span>
                     </span>
                     <span class="text">Torna indietro</span>
                 </a>
+                <a href="#" onclick="event.preventDefault();
+                       return confirm('Sei proprio sicuro di voler cancellare il gateway?') ? document.getElementById('delete').submit() : false;"
+                   class="btn btn-sm btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-trash"></span>
+                                    </span>
+                    <span class="text">Elimina gateway</span>
+                </a>
+                <form id="delete" action="{{ route('gateways.destroy', ['gatewayId' => $gateway->gatewayId]) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </div>
         </div>
         <div class="card shadow mb-4">
@@ -42,28 +54,14 @@
                             </div>
                         </div>
                     </form>
-
-                </div>
-        </div>
-        <div class="d-inline-block my-1">
-            <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="update">
+                    <hr>
+                    <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
-                <span class="text">Salva</span>
-            </button>
-        </div>
-        <div class="d-inline-block my-1 float-right">
-            <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                <span class="text">Elimina</span>
-            </a>
-            <form id="delete" action="{{ route('gateways.destroy', ['gatewayId' => $gateway->gatewayId]) }}" method="POST" style="display: none;">
-                @csrf
-                @method('DELETE')
-            </form>
+                        <span class="text">Conferma modifiche</span>
+                    </button>
+                </div>
         </div>
         @endcan
     </div>

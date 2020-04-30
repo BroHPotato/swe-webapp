@@ -41,17 +41,16 @@
                                 @enderror
                             </div>
                         </div>
+                        <hr>
                     </form>
+                    <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="create">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-plus-circle"></span>
+                    </span>
+                        <span class="text">Conferma aggiunta</span>
+                    </button>
                     @endcan
                 </div>
-        </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
-            <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="create">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-plus-circle"></span>
-                        </span>
-                <span class="text">Aggiungi</span>
-            </button>
         </div>
     </div>
 

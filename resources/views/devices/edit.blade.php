@@ -134,7 +134,8 @@
                     </form>
                     <hr>
                     <div class="d-inline-block my-2 px-0 float-left">
-                        <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split" href="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}">
+                        <a onclick="event.preventDefault();
+                         return confirm('Sei proprio sicuro di voler cancellare questo dispositivo?') ? document.getElementById('delete').submit() : false;" class="btn btn-danger btn-icon-split" href="#">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-trash"></span>
                                         </span>

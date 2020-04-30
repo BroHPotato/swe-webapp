@@ -14,7 +14,8 @@
             <span class="text">Torna indietro</span>
         </a>
         <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$alert->alertId]) }}"
-           onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
+           onclick="event.preventDefault();
+            return confirm('Sei proprio sicuro di voler cancellare questo alert?') ? document.getElementById('destroy-view').submit() : false;">
             <span class="icon text-white-50">
               <span class="fas fa-trash-alt"></span>
             </span>
