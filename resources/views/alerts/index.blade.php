@@ -43,7 +43,7 @@
                                     <th>Valore</th>
                                     <th>Ultimo invio</th>
                                     @canany(['isMod', 'isAdmin'])
-                                        <th class="bg-secondary"> Opzioni</th>
+                                        <th class="bg-secondary"> </th>
                                     @endcanany
                                 </tr>
                                 </thead>
