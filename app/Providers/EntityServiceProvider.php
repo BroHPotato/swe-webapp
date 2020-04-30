@@ -106,6 +106,9 @@ class EntityServiceProvider extends BasicProvider
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
                 'query' => ['user' => $userId]
             ]))->getBody());
+            if (empty($response)) {
+                return null;
+            }
             $entity = new Entity();
             $entity->fill((array)$response[0]);
             return $entity;
