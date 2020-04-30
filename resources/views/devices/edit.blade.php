@@ -73,11 +73,11 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option @if($device->frequency=='1') selected @endif value="1">1</option>
-                                        <option @if($device->frequency=='2') selected @endif value="2" >2</option>
-                                        <option @if($device->frequency=='3') selected @endif value="3">3</option>
-                                        <option @if($device->frequency=='4') selected @endif value="4">4</option>
-                                        <option @if($device->frequency=='5') selected @endif value="5">5</option>
+                                        <option @if($device->frequency=='1') selected @endif value="1">1s</option>
+                                        <option @if($device->frequency=='2') selected @endif value="2">2s</option>
+                                        <option @if($device->frequency=='3') selected @endif value="3">3s</option>
+                                        <option @if($device->frequency=='4') selected @endif value="4">4s</option>
+                                        <option @if($device->frequency=='5') selected @endif value="5">5s</option>
                                     </select>
                                     @error('frequency')
                                     <span class="invalid-feedback" role="alert">
