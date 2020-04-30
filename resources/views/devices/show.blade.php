@@ -23,8 +23,8 @@
                 </div>
                 <div class="card-body">
                     <ul>
-                        <li><strong>ID logico dispositivo:</strong> <span class="logic-id">{{$device->deviceId}}</span></li>
-                        <li><strong>ID reale dispositivo:</strong> <span class="real-id">{{$device->realDeviceId}}</span></li>
+                        <li><strong>ID logico dispositivo:</strong> D<span class="logic-id">{{$device->deviceId}}</span></li>
+                        <li><strong>ID reale dispositivo:</strong> D<span class="real-id">{{$device->realDeviceId}}</span></li>
                         <li><strong>Nome dispositivo:</strong> {{$device->name}}</li>
                         <li><strong>Gateway di appartenenza:</strong> {{$gateway->name}}</li>
                         <li><strong>Numero di sensori:</strong> {{count($sensors)}}</li>
@@ -47,7 +47,8 @@
                         <table class="table border-secondary table-bordered table-striped">
                             <thead class="thead-dark table-borderless">
                                 <tr>
-                                    <th>ID reale sensore</th>
+                                    <th>ID reale</th>
+                                    <th>ID logico</th>
                                     <th>Tipo di dato</th>
                                     <th>Invio comandi</th>
                                     <th class="bg-secondary"> </th>
@@ -56,7 +57,11 @@
                             <tbody>
                             @foreach($sensors as $sensor)
                                 <tr>
-                                    <td><span class="real-id">{{$sensor->realSensorId}}</span></td>
+                                    <td><a href="{{route('sensors.show', [
+                                            'deviceId' => $device->deviceId,
+                                            'sensorId' => $sensor->realSensorId
+                                        ])}}">S<span class="real-id">{{$sensor->realSensorId}}</span></a></td>
+                                    <td>S<span class="logic-id">{{$sensor->sensorId}}</span></td>
                                     <td>{{$sensor->type}}</td>
                                     <td>{{($sensor->cmdEnabled) ? 'Abilitato' : 'Disabilitato'}}</td>
                                     <td class="text-center"><a href="{{route('sensors.show', [
