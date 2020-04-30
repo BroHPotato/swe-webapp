@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Gateway </h1>
+            <h1 class="h3 mb-0 text-gray-800"> Gestione gateways </h1>
         </div>
         @include('layouts.error')
         <div class="row">

@@ -11,6 +11,16 @@
             <span class="thirema-logo-special-font thirema-logo-color-blue">r</span>
             <span class="thirema-logo-special-font thirema-logo-color-light">iot</span>
         </div>
+        @can(['isAdmin'])
+        <div class="thirema-logo-subtext d-none d-md-block">
+            admin
+        </div>
+        @endcan
+        @can(['isMod'])
+            <div class="thirema-logo-subtext thirema-logo-subtext-mod d-none d-md-block">
+                mod
+            </div>
+        @endcan
     </a>
 
     <hr class="sidebar-divider">
@@ -73,7 +83,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-receipt text-success"></i> <span>Logs</span></a>
     </li>
-        
+
     @endcan
 
 

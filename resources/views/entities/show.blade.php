@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Informazioni ente</h1>
+            <h1 class="h3 mb-0 text-gray-800"> {{$entity->name}}</h1>
         </div>
         @include('layouts.error')
         <div class="row">
@@ -24,6 +24,7 @@
                     </div>
                     <div class="card-body">
                        <ul>
+                           <li><strong>ID logico:</strong> <span class="logic-id"></span>{{$entity->entityId}}</li>
                            <li><strong>Nome ente:</strong> {{$entity->name}}</li>
                            <li><strong>Luogo:</strong> {{$entity->location}}</li>
                            <li><strong>Status:</strong>
@@ -126,7 +127,7 @@
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                     <tr>
-                                        <th><span class="real-id"></span></th>
+                                        <th>ID</th>
                                         <th>Tipo</th>
                                         <th>Dispositivo</th>
                                         <th></th>

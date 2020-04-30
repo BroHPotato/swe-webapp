@@ -94,3 +94,16 @@
     bottom: 0;
     position: absolute;
 }
+
+.thirema-logo-subtext {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 34px;
+    font-size: 7pt;
+    color: #db7171;
+}
+
+.thirema-logo-subtext-mod{
+    color: #9fdb71 !important;
+    margin-left: 40px !important;
+}

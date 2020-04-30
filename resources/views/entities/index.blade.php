@@ -34,19 +34,16 @@
                         <table class="table table-bordered table-striped border-secondary">
                             <thead class="thead-dark table-borderless">
                             <tr>
-                                <th><span class="fas fa-list-ul"></span></th>
                                 <th>Nome</th>
                                 <th>Luogo</th>
                                 <th>Status</th>
-                                <th class="bg-secondary"> </th>
+                                <th class="bg-secondary" width="100"> </th>
+                                <th class="bg-secondary" width="100"> </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($entities as $entity)
                                 <tr>
-                                    <td>
-                                        <a href="{{route('entities.show', ['entityId' => $entity->entityId ])}}">
-                                            <span class="logic-id"></span>{{$entity->entityId}}</a></td>
                                     <td><a href="{{route('entities.show', ['entityId' => $entity->entityId ])}}">{{$entity->name}}</a></td>
                                     <td>{{$entity->location}}</td>
                                     <td>@if($entity->deleted===true)
@@ -55,8 +52,16 @@
                                             <span class="badge badge-success">Attivo</span>
                                         @endif
                                     </td>
-                                    <td class="text-center">
-                                        <a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split">
+                                    <td>
+                                        <a href="{{route('entities.show', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-info btn-icon-split mr-3">
+                                            <span class="icon text-white-50">
+                                              <span class="fas fa-building"></span>
+                                            </span>
+                                            <span class="text">Gestisci</span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split mt-1">
                                             <span class="icon text-white-50">
                                               <span class="fas fa-edit"></span>
                                             </span>
