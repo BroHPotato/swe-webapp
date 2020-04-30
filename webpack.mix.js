@@ -11,7 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js(["resources/js/app.js", "resources/js/sb-admin-2.js"], "public/js")
+mix.js(
+    [
+        "resources/js/app.js",
+        "resources/js/sb-admin-2.js",
+        "resources/js/datatables-config.js",
+        "resources/js/extra.js",
+    ],
+    "public/js"
+)
     .sass("resources/sass/app.scss", "public/css")
     .styles(
         [

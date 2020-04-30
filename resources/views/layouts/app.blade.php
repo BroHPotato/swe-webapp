@@ -48,6 +48,5 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script> <!-- TODO: move into resources/js -->
 </html>
 
