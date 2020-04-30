@@ -60,10 +60,10 @@
                                         <td>{{$device->frequency}}s</td>
                                         <td class="text-center">
                                             <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-sm btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                              <span class="fas fa-edit"></span>
-                                            </span>
-                                            <span class="text">Modifica</span>
+                                                <span class="icon text-white-50">
+                                                  <span class="fas fa-edit"></span>
+                                                </span>
+                                                <span class="text">Modifica</span>
                                             </a>
                                         </td>
                                     </tr>
