@@ -70,11 +70,11 @@
                                 e, dopo aver avviato il bot direttamente dall'applicazione tramite il comando <code>/start</code>, inserire il comando <code>/login</code>.
                             </p>
                             <hr>
-                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                            <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <span class="fas fa-edit"></span>
+                                  <span class="fas fa-save"></span>
                                 </span>
-                                <span class="text">Modifica</span>
+                                <span class="text">Salva modifiche</span>
                             </button>
                         </form>
                     </div>
@@ -133,11 +133,11 @@
                                 </div>
                             </div>
                             <hr class="mt-4">
-                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                            <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-edit"></span>
                                 </span>
-                                <span class="text">Modifica</span>
+                                <span class="text">Salva modifiche</span>
                             </button>
                         </form>
                     </div>

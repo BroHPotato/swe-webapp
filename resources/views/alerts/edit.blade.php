@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="d-sm-flex mb-4">
-        <h1 class="h3 mb-0 text-gray-800"> Modifica alerts</h1>
+        <h1 class="h3 mb-0 text-gray-800"> Modifica alert</h1>
     </div>
     <div class="d-flex justify-content-between">
         <a href="{{route('alerts.index')}}" class="btn btn-sm btn-danger btn-icon-split mb-3">
@@ -18,7 +18,7 @@
             <span class="icon text-white-50">
               <span class="fas fa-trash-alt"></span>
             </span>
-            <span class="text">Elimina alerts</span>
+            <span class="text">Elimina alert</span>
         </a>
         <form id="destroy-view" action="{{ route('alerts.destroy', ['alertId'=>$alert->alertId]) }}" method="POST" style="display: none;">
             @csrf

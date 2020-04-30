@@ -73,7 +73,7 @@ Breadcrumbs::for('users.create', function ($trail) {
 });
 Breadcrumbs::for('users.edit', function ($trail, $userId) {
     $trail->parent('users.show', $userId);
-    $trail->push('Modifica utente #', route('users.edit', ['userId' => $userId]));
+    $trail->push('Modifica utente #'.$userId, route('users.edit', ['userId' => $userId]));
 });
 
 // Gateway
@@ -91,7 +91,7 @@ Breadcrumbs::for('gateways.create', function ($trail) {
 });
 Breadcrumbs::for('gateways.edit', function ($trail, $gatewayId) {
     $trail->parent('gateways.index');
-    $trail->push('Modifica gateway' . $gatewayId, route('gateways.edit', ['gatewayId' => $gatewayId]));
+    $trail->push('Modifica gateway #' . $gatewayId, route('gateways.edit', ['gatewayId' => $gatewayId]));
 });
 
 // Enti
@@ -102,7 +102,7 @@ Breadcrumbs::for('entities.index', function ($trail) {
 
 Breadcrumbs::for('entities.show', function ($trail, $entityId) {
     $trail->parent('entities.index');
-    $trail->push('Ente ' . $entityId, route('entities.show', ['entityId' => $entityId]));
+    $trail->push('Ente #' . $entityId, route('entities.show', ['entityId' => $entityId]));
 });
 
 Breadcrumbs::for('entities.create', function ($trail) {

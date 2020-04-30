@@ -42,8 +42,8 @@
                                     <th>Soglia</th>
                                     <th>Valore</th>
                                     <th>Ultimo invio</th>
-                                    @canany(['isMod'/*, 'isAdmin'*/])
-                                        <th class="bg-secondary"> </th>
+                                    @canany(['isMod', 'isAdmin'])
+                                        <th class="bg-secondary"> Opzioni</th>
                                     @endcanany
                                 </tr>
                                 </thead>
@@ -56,17 +56,33 @@
                                             <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}"><span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
-                                            <td>{{$list['alert']->lastSent??'-'}}</td>
-                                            @canany(['isMod'/*, 'isAdmin'todo ?? admin non puo' modificare gli alerts*/])
-                                            <td>
-                                                <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
-                                                    <span class="icon text-white-50">
-                                                      <span class="fas fa-edit"></span>
-                                                    </span>
-                                                    <span class="text">Modifica</span>
-                                                </a>
-                                            </td>
-                                            @endcanany
+                                            <td>{{$list['alert']->lastSent?date("d/m/Y - H:i:s", strtotime($list['alert']->lastSent)):'-'}}</td>
+                                            @can(['isMod'])
+                                                <td>
+                                                    <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                          <span class="fas fa-edit"></span>
+                                                        </span>
+                                                        <span class="text">Modifica</span>
+                                                    </a>
+                                                </td>
+                                            @endcan
+                                            @can(['isAdmin'])
+                                                <td>
+                                                    <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$list['alert']->alertId]) }}"
+                                                       onclick="event.preventDefault(); return confirm('Sei sicuro di voler rimuovere alert #{{ $list['alert']->alertId }}?') ?
+                                                       document.getElementById('destroy-alert-{{ $list['alert']->alertId }}').submit() : false;">
+                                                        <span class="icon text-white-50">
+                                                          <span class="fas fa-trash-alt"></span>
+                                                        </span>
+                                                        <span class="text">Elimina alert</span>
+                                                    </a>
+                                                    <form id="destroy-alert-{{ $list['alert']->alertId }}" action="{{ route('alerts.destroy', ['alertId'=>$list['alert']->alertId]) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                                 @endforeach

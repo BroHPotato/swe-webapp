@@ -16,40 +16,35 @@
                 </a>
             </div>
         </div>
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-building"></span>Informazioni ente</h4>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive-sm">
-                    <table class="table table-striped table-bordered border-secondary">
-                        <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th>Nome</th>
-                            <th>Luogo</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th>{{$entity->name}}</th>
-                            <th>{{$entity->location}}</th>
-                        </tr>
-                        </tbody>
-                    </table>
+        <div class="row mt-2">
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-building"></span> Informazioni ente</h6>
+                    </div>
+                    <div class="card-body">
+                       <ul>
+                           <li><strong>Nome ente:</strong> {{$entity->name}}</li>
+                           <li><strong>Luogo:</strong> {{$entity->location}}</li>
+                           <li><strong>Status:</strong>
+                               @if($entity->deleted===true)
+                                   <span class="badge badge-danger">Eliminato</span>
+                               @else
+                                   <span class="badge badge-success">Attivo</span>
+                               @endif</li>
+                       </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row mt-2">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <div class="card shadow mb-4">
-                    <a href="#collapseAddView" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseAddView">
-                        <h6 class="m-0 font-weight-bold text-primary">
+                    <a href="#collapseAddSensor" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseAddSensor">
+                        <h6 class="m-0 font-weight-bold text-success">
                             <span class="fas fa-plus-square"></span>
                             Aggiungi sensore
                         </h6>
                     </a>
-                    <div class="collapse" id="collapseAddView">
+                    <div class="collapse show" id="collapseAddSensor">
                         <div class="card-body">
                             <form method="POST" action="{{route('entities.updateSensors', ['entityId' => $entity->entityId])}}" id="updateSensors">
                                 @csrf
@@ -61,7 +56,13 @@
                                             <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
                                                 @foreach($devices as $d)
                                                    @foreach($sensors[$d->deviceId] as $s)
-                                                        <option id="inputSensor{{$s->sensorId}}" value="{{$s->sensorId}}" data-real-id="{{$s->sensorId}}" data-type="{{$s->type}}" data-device="{{$s->device}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                        <option id="inputSensor{{$s->sensorId}}"
+                                                                value="{{$s->sensorId}}"
+                                                                data-real-id="{{$s->sensorId}}"
+                                                                data-type="{{$s->type}}"
+                                                                data-device="{{$s->device}}">
+                                                            {{$s->type.' S@' . $s->realSensorId.' // '.$d->name . ' D#'.$s->device }}
+                                                        </option>
                                                     @endforeach
                                                 @endforeach
                                             </select>
@@ -73,12 +74,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
                                 <button type="submit" class="btn btn-success btn-icon-split float-right mb-3" id="connectSensor">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-plus-circle"></span>
                                     </span>
-                                    <span class="text">Aggiungi</span>
+                                    <span class="text">Aggiungi sensore</span>
                                 </button>
                             </form>
                         </div>
@@ -91,24 +91,22 @@
             <div class="col-xl-6 col-md-12 mb-4">
                 <div class="card shadow">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista membri ente</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                 <tr>
-                                    <th>Nome</th>
-                                    <th>Cognome</th>
-                                    <th>Email</th>
+                                    <th>Nome e Cognome</th>
+                                    <th>Ruolo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($users as $user)
                                         <tr>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->surname}}</td>
-                                            <td>{{$user->email}}</td>
+                                            <td><a href="{{route('users.show', ['userId' => $user->userId ])}}">{{$user->name}} {{$user->surname}}</a></td>
+                                            <td><span class="text-info">{{$user->getRole()}}</span> </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -120,40 +118,43 @@
             <div class="col-xl-6 col-md-12 mb-4">
                 <div class="card shadow ">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori</h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista sensori autorizzati</h6>
                     </div>
                     <div class="card-body">
+                        <p>Di seguito è riportata la lista dei sensori autorizzati per l'ente.</p>
                         <div class="table-responsive-md">
                             <table class="table table-striped table-bordered border-secondary">
                                 <thead class="thead-dark table-borderless">
                                     <tr>
-                                        <th>Id</th>
+                                        <th><span class="real-id"></span></th>
                                         <th>Tipo</th>
-                                        <th>Id Dispositivo</th>
+                                        <th>Dispositivo</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="sensorsList">
                                     @foreach($sensorsEntity as $s)
                                         <tr id="sensore{{$s->sensorId}}">
-                                            <td>{{$s->sensorId}}</td>
+                                            <td><a href="{{route('sensors.show', ['deviceId' => $s->device, 'sensorId' => $s->realSensorId ])}}">S<span class="real-id"></span>{{$s->realSensorId}}</td>
                                             <td>{{$s->type}}</td>
-                                            <td class="logic-id">{{$s->device}}<span class="real-id">{{$s->realSensorId}}</span></td>
+                                            <td><a href="{{route('devices.show', ['deviceId' => $s->device ])}}">D<span class="logic-id"></span>{{$s->device}}</a></td>
                                             <td>
-                                                <span class="fas fa-trash text-danger delete"></span>
-                                                <input form="updateSensors" type="checkbox" value="{{$s->sensorId}}" checked style="display: none" name="sensors[]">
+                                                <button class="btn btn-sm btn-danger delete">
+                                                    <span class="fas fa-trash"></span>
+                                                    <input form="updateSensors" type="checkbox" value="{{$s->sensorId}}" checked style="display: none" name="sensors[]">
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-sm-flex ml-sm-auto float-right">
+                        <div class="d-sm-flex ml-sm-auto">
                             <button type="submit" class="btn btn-success btn-icon-split" form="updateSensors">
                                 <span class="icon text-white-50">
                                 <span class="fas fa-save"></span>
                                  </span>
-                                <span class="text">Salva</span>
+                                <span class="text">Salva modifiche</span>
                             </button>
                         </div>
                     </div>

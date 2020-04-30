@@ -53,16 +53,15 @@
                             </div>
                         </div>
                     </form>
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-primary btn-icon-split" form="create">
+                        <span class="icon text-white-50">
+                          <span class="fas fa-plus-circle"></span>
+                        </span>
+                        <span class="text">Conferma aggiunta</span>
+                    </button>
                     @endcan
                 </div>
-        </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
-            <button type="submit" class="btn btn-success btn-icon-split" form="create">
-                        <span class="icon text-white-50">
-                          <span class="fas fa-save"></span>
-                        </span>
-                <span class="text">Salva</span>
-            </button>
         </div>
     </div>
 

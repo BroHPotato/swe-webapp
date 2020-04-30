@@ -30,7 +30,7 @@ if (addSensor !== null) {
 
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
-            <div id="sensore${sensorIdValue}" class="form-group row">
+            <div id="sensore${sensorIdValue}" class="form-group row bg-gray-200">
                 <label class="col-lg-3 col-form-label">
                     <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id"></span> ${sensorIdValue}
                 </label>
@@ -108,13 +108,15 @@ if (connectSensor !== null) {
             sensorsList.querySelector("#sensore" + sensorIdValue) != null;
         if (!hasSensor) {
             sensorsList.innerHTML += `
-                <tr id="sensore${sensorIdValue}">
-                    <td>${sensorIdValue}</td>
+                <tr id="sensore${sensorIdValue}" class="bg-gray-200">
+                    <td>S<span class="real-id"></span>${sensorIdValue}</td>
                     <td>${sensorDetails.dataset.type}</td>
-                    <td class="logic-id">${sensorDetails.dataset.device}<span class="real-id">${sensorDetails.dataset.realId}</span></td>
+                    <td>D<span class="logic-id"></span>${sensorDetails.dataset.device}</td>
                     <td>
-                        <span class="fas fa-trash text-danger delete"></span>
-                        <input form="updateSensors" type="checkbox" value="${sensorIdValue}" checked style="display: none" name="sensors[]">
+                        <button class="btn btn-sm btn-danger delete">
+                            <span class="fas fa-trash"></span>
+                            <input form="updateSensors" type="checkbox" value="${sensorIdValue}" checked style="display: none" name="sensors[]">
+                        </button>
                     </td>
                 </tr>
             `;

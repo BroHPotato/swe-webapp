@@ -138,7 +138,7 @@
                                         <span class="icon text-white-50">
                                           <span class="fas fa-trash"></span>
                                         </span>
-                            <span class="text">Elimina</span>
+                            <span class="text">Elimina dispositivo</span>
                         </a>
                         <form id="delete" action="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}" method="POST" style="display: none;">
                             @csrf
