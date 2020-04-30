@@ -110,9 +110,24 @@ class EntityController extends Controller
         foreach ($sensors as $s) {
             $oldSensors[] = $s->sensorId;
         }
-        $toInsert = array_diff($newSensors, $oldSensors);
-        $toDelete = array_diff($oldSensors, $newSensors);
-        $toSend = ['toInsert' => array_values($toInsert), 'toDelete' => array_values($toDelete)];
+        $toInsert = [];
+        $toDelete = [];
+        foreach (array_values(array_diff($newSensors, $oldSensors)) as $key => $value) {
+            $toInsert[] = ['Id' . $key => intval($value)];
+        }
+        foreach (array_values(array_diff($oldSensors, $newSensors)) as $key => $value) {
+            $toDelete[] = ['Id' . $key => intval($value)];
+        }
+        if (empty($toInsert) && empty($toDelete)) {
+            return redirect(route('entities.show', ['entityId' => $entityId]))
+                ->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']);
+        }
+        $toSend = [
+            'enableOrDisableSensors' => true,
+            'toInsert' => $toInsert,
+            'toDelete' => $toDelete
+        ];
+
         return $this->entityProvider->update($entityId, json_encode($toSend)) ?
             redirect(route('entities.show', ['entityId' => $entityId]))
                 ->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']) :
