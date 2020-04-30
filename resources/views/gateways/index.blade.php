@@ -30,10 +30,15 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-dungeon"></span> Lista gateway</h6>
             </div>
             <div class="card-body">
+                <div class="alert alert-info"><span class="fas fa-info-circle"></span>
+                    Una volta eseguite le modifiche a un dispositivo, è possibile inviare nuovamente la configurazione a un
+                    gateway, premendo l'apposito pulsante nella tabella.
+                </div>
                 <div class="table-responsive-xl">
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-striped border-secondary">
                         <thead class="thead-dark table-borderless">
                         <tr>
+                            <th>ID</th>
                             <th>Nome</th>
                             <th>Numero Dispositivi</th>
                             <th>Ultimo invio</th>
@@ -44,6 +49,8 @@
                         <tbody>
                         @foreach($gatewaysWithDevices as $gWd)
                             <tr>
+                                <td><a href="{{route('gateways.show', ['gatewayId' => $gWd['gateway']->gatewayId ])}}">
+                                        <span class="logic-id"></span>{{$gWd['gateway']->gatewayId}} </a></td>
                                 <td>
                                     <a href="{{route('gateways.show', ['gatewayId' => $gWd['gateway']->gatewayId ])}}">
                                         <span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}
@@ -51,11 +58,13 @@
                                 <td>{{count($gWd['devices'])}}</td>
                                 <td>{{$gWd['gateway']->lastSent}}</td>
                                 <td>
-                                    <a href="#" onclick="event.preventDefault(); document.getElementById('config').submit();" class="btn btn-primary btn-icon-split">
+                                    <a href="#" onclick="event.preventDefault();
+                                    return confirm('Sei sicuro di voler inviare la configurazione al gateway #{{$gWd['gateway']->gatewayId}} ?') ? document.getElementById('config').submit() : false;"
+                                       class="btn btn-sm btn-primary btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-paper-plane"></span>
                                     </span>
-                                        <span class="text">Invia config</span>
+                                        <span class="text">Invia config.</span>
                                     </a>
                                     <form id="config" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
                                         @csrf
@@ -63,7 +72,8 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="{{route('gateways.edit', ['gatewayId' => $gWd['gateway']->gatewayId ])}}" class="btn btn-warning btn-icon-split">
+                                    <a href="{{route('gateways.edit', ['gatewayId' => $gWd['gateway']->gatewayId ])}}"
+                                       class="btn btn-sm btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-edit"></span>
                                         </span>

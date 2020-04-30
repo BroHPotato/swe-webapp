@@ -23,6 +23,10 @@
                 </h6>
             </div>
                 <div id="cardDispositivo" class="card-body">
+                    <div class="alert alert-warning"><span class="fas fa-exclamation-triangle"></span>
+                        A seguito dell'aggiunta di un dispositivo è necessario inviare la <strong>nuova configurazione</strong> al gateway!
+                        Ricordati di farlo dalla <a href="{{route('gateways.index')}}">gestione gateways</a>.
+                    </div>
                     <p>Puoi creare il dispositivo inserendo le informazioni elencate di seguito:</p>
                     <form method="POST" action="{{route('devices.store')}}" id="create">
                         @csrf

@@ -25,6 +25,10 @@
                 </h6>
             </div>
                 <div id="cardDispositivo" class="card-body">
+                    <div class="alert alert-warning"><span class="fas fa-exclamation-triangle"></span>
+                        A seguito della modifica di un dispositivo è necessario inviare la <strong>nuova configurazione</strong> al gateway!
+                        Ricordati di farlo dalla <a href="{{route('gateways.index')}}">gestione gateways</a>.
+                    </div>
                     <p>Puoi modificare un dispositivo inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" action="{{route('devices.update', $device->deviceId)}}" id="update">
                         @csrf
