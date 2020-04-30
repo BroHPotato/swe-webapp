@@ -209,12 +209,12 @@
                     </form>
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
             <button type="submit" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
-                <span class="text">Salva</span>
+                <span class="text">Salva modifiche</span>
             </button>
         </div>
     </div>
