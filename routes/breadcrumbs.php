@@ -73,7 +73,7 @@ Breadcrumbs::for('users.create', function ($trail) {
 });
 Breadcrumbs::for('users.edit', function ($trail, $userId) {
     $trail->parent('users.show', $userId);
-    $trail->push('Modifica utente #'.$userId, route('users.edit', ['userId' => $userId]));
+    $trail->push('Modifica utente #' . $userId, route('users.edit', ['userId' => $userId]));
 });
 
 // Gateway
