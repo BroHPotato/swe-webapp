@@ -93,13 +93,13 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <span class="fas fa-lock text-success"></span>
-                                Reset Password
+                                Resetta la Password
                             </div>
                             <div class="col-sm-8">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="inputPassword" name="password" value=true>
                                     <label class="custom-control-label" for="inputPassword">
-                                        <i>La password verrà rigenerata in maniera automatica</i>
+                                        <strong>Nota:</strong><em> la password verrà rigenerata in maniera automatica.</em>
                                     </label>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="deleteCheck" name="deleted" value=true @if($user->deleted || old('deleted')) checked @endif>
                                     <label class="custom-control-label" for="deleteCheck">
-                                        <i>L'account non verra eliminato dal database</i>
+                                        <strong>Nota:</strong> <em>l'account non verrà eliminato dal database.</em>
                                     </label>
                                 </div>
                             </div>
@@ -132,18 +132,18 @@
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value=true @if($user->tfa || old('tfa')) checked @endif>
                                     <label class="custom-control-label" for="gridCheck">
-                                        <i>Autenticazione a due fattori con Telegram* </i>
+                                        <em>Autenticazione a due fattori con Telegram </em>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     @endcan
                         <hr>
-                    <button type="submit" class="btn btn-primary btn-icon-split">
+                    <button type="submit" class="btn btn-success btn-icon-split">
                         <span class="icon text-white-50">
-                            <span class="fas fa-edit"></span>
+                            <span class="fas fa-save"></span>
                         </span>
-                        <span class="text">Modifica</span>
+                        <span class="text">Salva modifiche</span>
                     </button>
                 </form>
                 @else

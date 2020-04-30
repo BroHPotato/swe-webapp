@@ -58,7 +58,7 @@
                                             <span class="text-info">{{$u['user']->getRole()}}</span>
                                         </td>
                                         @can('isAdmin')
-                                            <th>{{$u['entity']?$u['entity']->name:''}}</th>
+                                            <th>{{$u['entity']?$u['entity']->name:'-'}}</th>
                                         @endcan
                                         <td class="text-center">
                                             @if($u['user']->type < Auth::user()->type)
