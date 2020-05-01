@@ -73,7 +73,7 @@
     @can('isMod')
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Sezione Mod
+        Moderatore
     </div>
 
     <li class="nav-item">

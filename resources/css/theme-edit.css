@@ -36,6 +36,16 @@
     text-align: center !important;
 }
 
+table.dataTable.no-footer {
+    border-color: #FFF !important;
+}
+
+@media only screen and (min-width: 768px) {
+    .table-responsive {
+        overflow-x: hidden;
+    }
+}
+
 .logic-id::before {
     content: '\0023';
     color: #7bb0ff;
@@ -96,14 +106,12 @@
 }
 
 .thirema-logo-subtext {
-    position: absolute;
-    margin-top: 20px;
-    margin-left: 34px;
+    margin-top: 17px;
+    margin-left: -10px;
     font-size: 7pt;
-    color: #db7171;
+    color: #ec6254;
 }
 
 .thirema-logo-subtext-mod{
-    color: #9fdb71 !important;
-    margin-left: 40px !important;
+    color: #1cc88a !important;
 }
