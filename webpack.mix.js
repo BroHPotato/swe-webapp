@@ -23,6 +23,7 @@ mix.js(
     .sass("resources/sass/app.scss", "public/css")
     .styles(
         [
+            "resources/css/datatables.css",
             "resources/css/fontawesome.css",
             "resources/css/sb-admin-2.css",
             "resources/css/theme-edit.css",
