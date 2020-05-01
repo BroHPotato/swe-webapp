@@ -75,7 +75,7 @@ class GatewayServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'device=' . $device
+                'query' => 'deviceId=' . $device
             ]))->getBody());
             $gateways = [];
             foreach ($response as $g) {

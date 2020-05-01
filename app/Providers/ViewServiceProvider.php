@@ -61,7 +61,7 @@ class ViewServiceProvider extends BasicProvider
         }
     }
 
-    public function findAllFromUser($user)
+ /*   public function findAllFromUser($user)
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
@@ -78,7 +78,7 @@ class ViewServiceProvider extends BasicProvider
             $this->isExpired($e);
             return null;
         }
-    }
+    }*/
     /**
      * @param string $who
      */

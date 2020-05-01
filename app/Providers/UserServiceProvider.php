@@ -182,7 +182,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         try {
             $response = json_decode($this->request->get('users', array_merge($this->setHeaders(), [
-                'query' => 'entityId=' . $entityId
+                'query' => 'entity=' . $entityId
             ]))->getBody());
             $users = [];
             foreach ($response as $u) {

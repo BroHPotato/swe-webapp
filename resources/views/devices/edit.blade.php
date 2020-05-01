@@ -61,7 +61,7 @@
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('gatewayId') is-invalid @enderror" name="gatewayId" id="inputgatewayName">
                                         @foreach($gateways as $gateway)
-                                            <option @if($device->gatewayId == $gateway->gatewayId) selected @endif  value="{{$gateway->gatewayId}}">{{$gateway->name}}</option>
+                                            <option @if($device->gateway == $gateway->gatewayId) selected @endif  value="{{$gateway->gatewayId}}">{{$gateway->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('gatewayId')
