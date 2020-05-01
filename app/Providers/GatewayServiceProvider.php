@@ -135,7 +135,7 @@ class GatewayServiceProvider extends BasicProvider
     {
         try {
             $this->request->put('/gateways/' . $who, array_merge($this->setHeaders(), [
-                'body' => 'reconfig:true'
+                'body' => '{"reconfig":true}'
             ]));
             return true;
         } catch (RequestException $e) {
