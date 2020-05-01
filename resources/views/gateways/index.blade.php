@@ -59,14 +59,14 @@
                                 <td>{{$gWd['gateway']->lastSent}}</td>
                                 <td>
                                     <a href="#" onclick="event.preventDefault();
-                                    return confirm('Sei sicuro di voler inviare la configurazione al gateway #{{$gWd['gateway']->gatewayId}} ?') ? document.getElementById('config').submit() : false;"
+                                    return confirm('Sei sicuro di voler inviare la configurazione al gateway #{{$gWd['gateway']->gatewayId}} ?') ? document.getElementById('config{{$gWd['gateway']->gatewayId}}').submit() : false;"
                                        class="btn btn-sm btn-primary btn-icon-split">
                                     <span class="icon text-white-50">
                                       <span class="fas fa-paper-plane"></span>
                                     </span>
                                         <span class="text">Invia config.</span>
                                     </a>
-                                    <form id="config" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
+                                    <form id="config{{$gWd['gateway']->gatewayId}}" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
                                         @csrf
                                         @method('PUT')
                                     </form>
