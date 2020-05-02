@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Enti </h1>
+            <h1 class="h3 mb-0 text-gray-800"> Gestione enti </h1>
         </div>
         @include('layouts.error')
         <div class="row">
@@ -31,20 +31,20 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive-lg">
-                        <table class="table table-bordered table-striped"  id="dataTable" >
+                        <table class="table table-bordered table-striped border-secondary">
                             <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Nome</th>
                                 <th>Luogo</th>
                                 <th>Status</th>
-                                <th></th>
-                                <th></th>
+                                <th class="bg-secondary" width="100"> </th>
+                                <th class="bg-secondary" width="100"> </th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($entities as $entity)
                                 <tr>
-                                    <td>{{$entity->name}}</td>
+                                    <td><a href="{{route('entities.show', ['entityId' => $entity->entityId ])}}">{{$entity->name}}</a></td>
                                     <td>{{$entity->location}}</td>
                                     <td>@if($entity->deleted===true)
                                             <span class="badge badge-danger">Eliminato</span>
@@ -52,19 +52,19 @@
                                             <span class="badge badge-success">Attivo</span>
                                         @endif
                                     </td>
-                                    <td class="text-center"><a href="{{route('entities.show', [
-                                                    'entityId' => $entity->entityId
-                                            ])}}" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-info-circle"></span>
-                                        </span>
-                                            <span class="text">Dettagli</span>
+                                    <td>
+                                        <a href="{{route('entities.show', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-info btn-icon-split mr-3">
+                                            <span class="icon text-white-50">
+                                              <span class="fas fa-building"></span>
+                                            </span>
+                                            <span class="text">Gestisci</span>
                                         </a>
                                     </td>
-                                    <td class="text-center"><a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
-                                          <span class="fas fa-edit"></span>
-                                        </span>
+                                    <td>
+                                        <a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split mt-1">
+                                            <span class="icon text-white-50">
+                                              <span class="fas fa-edit"></span>
+                                            </span>
                                             <span class="text">Modifica</span>
                                         </a>
                                     </td>

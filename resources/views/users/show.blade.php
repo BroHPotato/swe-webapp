@@ -27,7 +27,7 @@
                         <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> {{$user->userId}}</p>
                         <p><span class="fas fa-signature"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
                         <p><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</p>
-                        <p><span class="fas fa-user-tag"></span> <strong>Ente:</strong> {{$entity->name??'N/A'}}</p>
+                        <p><span class="fas fa-building"></span> <strong>Ente:</strong> {{$entity->name??'-'}}</p>
                     </div>
                 </div>
             </div>

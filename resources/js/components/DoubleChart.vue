@@ -54,7 +54,7 @@ export default {
             },
             tooltip: {
                 x: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
             yaxis: {
@@ -70,7 +70,7 @@ export default {
                     text: "Tempo",
                 },
                 labels: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
         };
@@ -140,40 +140,49 @@ export default {
                 "Correlazione di Spearman",
             ];
             let calc = NaN;
-            switch (this.variance) {
-                case 1:
-                    calc = covariance(
-                        this.vars.VarData[this.sensor1.sensorId],
-                        this.vars.VarData[this.sensor2.sensorId]
-                    );
-                    break;
-                case 2:
-                    calc = Pearson.rank(
-                        this.vars.VarData[this.sensor1.sensorId],
-                        this.vars.VarData[this.sensor2.sensorId]
-                    );
-                    break;
-                case 3:
-                    new Spearman(
-                        this.vars.VarData[this.sensor1.sensorId],
-                        this.vars.VarData[this.sensor2.sensorId]
-                    )
-                        .calc()
-                        .then((value) => {
-                            calc = value;
-                            this.$refs.variance.innerHTML =
-                                variance[this.variance] +
-                                " : " +
-                                calc.toFixed(3);
-                        });
-                    break;
-                default:
-                    calc = NaN;
-                    break;
+            if (
+                this.vars.VarData[this.sensor1.sensorId].length ==
+                this.vars.VarData[this.sensor2.sensorId].length
+            ) {
+                switch (this.variance) {
+                    case 1:
+                        calc = covariance(
+                            this.vars.VarData[this.sensor1.sensorId],
+                            this.vars.VarData[this.sensor2.sensorId]
+                        );
+                        break;
+                    case 2:
+                        calc = Pearson.rank(
+                            this.vars.VarData[this.sensor1.sensorId],
+                            this.vars.VarData[this.sensor2.sensorId]
+                        );
+                        break;
+                    case 3:
+                        new Spearman(
+                            this.vars.VarData[this.sensor1.sensorId],
+                            this.vars.VarData[this.sensor2.sensorId]
+                        )
+                            .calc()
+                            .then((value) => {
+                                calc = value;
+                                this.$refs.variance.innerHTML =
+                                    "<hr> <span class='fas fa-project-diagram'></span> <strong>" +
+                                    variance[this.variance] +
+                                    "</strong>: " +
+                                    calc.toFixed(3);
+                            });
+                        break;
+                    default:
+                        calc = NaN;
+                        break;
+                }
             }
             if (!isNaN(calc)) {
                 this.$refs.variance.innerHTML =
-                    variance[this.variance] + " : " + calc.toFixed(3);
+                    "<hr> <span class='fas fa-project-diagram'></span> <strong>" +
+                    variance[this.variance] +
+                    "</strong>: " +
+                    calc.toFixed(3);
             }
         },
     },

@@ -47,7 +47,7 @@ export default {
             },
             tooltip: {
                 x: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
             yaxis: {
@@ -63,7 +63,7 @@ export default {
                     text: "Tempo",
                 },
                 labels: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
         };

@@ -15,23 +15,26 @@
             </a>
         </div>
 
-        <div class="card shadow mb-4">
+        <div class="card shadow mt-2 mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                    <span class="icon text-blue-50">
-                          <span class="fas fa-plus-circle"></span>
+                          <span class="fas fa-edit"></span>
                    </span>
                     Modifica dispositivo
                 </h6>
             </div>
-            @can(['isAdmin'])
                 <div id="cardDispositivo" class="card-body">
+                    <div class="alert alert-warning"><span class="fas fa-exclamation-triangle"></span>
+                        A seguito della modifica di un dispositivo è necessario inviare la <strong>nuova configurazione</strong> al gateway!
+                        Ricordati di farlo dalla <a href="{{route('gateways.index')}}">gestione gateways</a>.
+                    </div>
                     <p>Puoi modificare un dispositivo inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" action="{{route('devices.update', $device->deviceId)}}" id="update">
                         @csrf
                         @method('PUT')
                         <div class="form-group row">
-                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="fas fa-microchip"></span>Id dispositivo</label>
+                            <label for="inputDeviceId" class="col-sm-3 col-form-label"><span class="real-id"></span> ID dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('realDeviceId') is-invalid @enderror" id="inputDeviceId" placeholder="Id dispositivo" value="{{old('realDeviceId')??$device->realDeviceId}}" name="realDeviceId">
                                 @error('realDeviceId')
@@ -42,7 +45,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span>Nome dispositivo</label>
+                            <label for="inputDeviceName" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Nome dispositivo</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputDeviceName" placeholder="Nome dispositivo" value="{{old('name')??$device->name}}" name="name">
                                 @error('name')
@@ -53,12 +56,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
+                            <label for="inputGatewayName" class="col-sm-3 col-form-label"><span class="fas fa-dungeon"></span> Seleziona gateway</label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('gatewayId') is-invalid @enderror" name="gatewayId" id="inputgatewayName">
                                         @foreach($gateways as $gateway)
-                                            <option @if($device->gatewayId == $gateway->gatewayId) selected @endif  value="{{$gateway->gatewayId}}">{{$gateway->name}}</option>
+                                            <option @if($device->gateway == $gateway->gatewayId) selected @endif  value="{{$gateway->gatewayId}}">{{$gateway->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('gatewayId')
@@ -74,11 +77,11 @@
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
                                     <select class="form-control @error('frequency') is-invalid @enderror" name="frequency" id="inputFrequency">
-                                        <option @if($device->frequency=='1') selected @endif value="1">1</option>
-                                        <option @if($device->frequency=='2') selected @endif value="2" >2</option>
-                                        <option @if($device->frequency=='3') selected @endif value="3">3</option>
-                                        <option @if($device->frequency=='4') selected @endif value="4">4</option>
-                                        <option @if($device->frequency=='5') selected @endif value="5">5</option>
+                                        <option @if($device->frequency=='1') selected @endif value="1">1s</option>
+                                        <option @if($device->frequency=='2') selected @endif value="2">2s</option>
+                                        <option @if($device->frequency=='3') selected @endif value="3">3s</option>
+                                        <option @if($device->frequency=='4') selected @endif value="4">4s</option>
+                                        <option @if($device->frequency=='5') selected @endif value="5">5s</option>
                                     </select>
                                     @error('frequency')
                                     <span class="invalid-feedback" role="alert">
@@ -91,6 +94,7 @@
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div id="sensorsList">
                             @foreach($sensors as $sensor)
                                 <div id="sensore{{$sensor->realSensorId}}" class="form-group row">
@@ -98,31 +102,32 @@
                                         <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id">{{$sensor->realSensorId}}</span>
                                     </label>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tag mx-1"></span>Id
+                                        <span class="real-id"></span> ID
                                     </label>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="{{$sensor->realSensorId}}" name="sensorId[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
-                                        <span class="fas fa-tape mx-1"></span>Tipo
+                                        <span class="fas fa-tape mx-1"></span> Tipo
                                     </label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{$sensor->type}}" name="sensorType[]">
                                     </div>
-                                    <label class="col-lg-1 col-sm-6 col-form-label">
-                                        <span class="fas fa-satellite-dish mx-1"></span>Invio
+                                    <label class="col-lg-1 col-form-label">
+                                        <span class="fas fa-satellite-dish mx-1"></span> CMD
                                     </label>
-                                    <div class="col-lg-2 col-sm-6">
-                                        <select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
+                                    <div class="col-lg-2">
+                                        <select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
                                             <option selected value="{{$sensor->cmdEnabled?'true':'false'}}">@if($sensor->cmdEnabled===true)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                                        <span class="fas fa-trash text-danger delete"></span>
+                                        <button class="btn btn-small btn-danger delete">
+                                            <span class="fas fa-trash"></span>
+                                        </button>
                                     </div>
-
-                                    <div class="col-lg-1 d-lg-none my-1 text-center">
-                                        <button class="btn btn-danger btn-icon-split delete">
+                                    <div class="col-lg-1 mt-2 d-lg-none my-1">
+                                        <button class="btn btn-small btn-danger btn-icon-split delete">
                                             <span class="fas fa-trash icon text-white-50"></span>
                                             <span class="text">Elimina sensore</span>
                                         </button>
@@ -131,19 +136,20 @@
                             @endforeach
                         </div>
                     </form>
-                    <div class="d-inline-block my-2 px-0 float-right">
-                        <a onclick="event.preventDefault(); document.getElementById('delete').submit();" class="btn btn-danger btn-icon-split" href="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}">
+                    <hr>
+                    <div class="d-inline-block my-2 px-0 float-left">
+                        <a onclick="event.preventDefault();
+                         return confirm('Sei proprio sicuro di voler cancellare questo dispositivo?') ? document.getElementById('delete').submit() : false;" class="btn btn-danger btn-icon-split" href="#">
                                         <span class="icon text-white-50">
                                           <span class="fas fa-trash"></span>
                                         </span>
-                            <span class="text">Elimina</span>
+                            <span class="text">Elimina dispositivo</span>
                         </a>
                         <form id="delete" action="{{ route('devices.destroy', ['deviceId' => $device->deviceId]) }}" method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')
                         </form>
                     </div>
-                    @endcan
                 </div>
         </div>
 
@@ -151,17 +157,16 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
                    <span class="icon text-blue-50">
-                          <span class="fas fa-plus-circle"></span>
+                          <span class="fas fa-plus"></span>
                    </span>
                     Aggiunta sensore
                 </h6>
             </div>
-            @can(['isAdmin'])
-                <div id="cardDispositivo" class="card-body">
-                    <p>Puoi creare un nuovo sensore inserendo le informazioni elencate in seguito:</p>
+                <div id="cardSensore" class="card-body">
+                    <p>Puoi aggiungere un nuovo sensore inserendo le informazioni elencate in seguito:</p>
                     <form method="POST" id="sensorForm">
                         <div class="form-group row">
-                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="fas fa-tag"></span> Id sensore</label>
+                            <label for="inputSensorId" class="col-sm-3 col-form-label"><span class="real-id"></span> ID sensore</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorId') is-invalid @enderror" id="inputSensorId" placeholder="Id sensore" value="" name="sensorId[]">
                                 @error('sensorId')
@@ -172,7 +177,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span>Tipologia</label>
+                            <label for="inputSensorType" class="col-sm-3 col-form-label"><span class="fas fa-tape"></span> Tipologia</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control @error('sensorType') is-invalid @enderror" id="inputSensorType" placeholder="Tipo di sensore" value="" name="sensorType[]">
                                 @error('sensorType')
@@ -183,9 +188,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span>Ricezione comandi</label>
+                            <label for="commandCheck" class="col-sm-3 col-form-label"><span class="fas fa-satellite-dish"></span> Ricezione comandi *</label>
                             <div class="col-sm-9">
-                                <select id="commandCheck">
+                                <select class="form-control" id="commandCheck">
                                     <option value="true">Abilitato</option>
                                     <option value="false" selected="selected" >Disabilitato</option>
                                 </select>
@@ -207,15 +212,14 @@
                             </button>
                         </div>
                     </form>
-                    @endcan
                 </div>
         </div>
-        <div class="d-sm-flex mb-4 ml-sm-auto float-right">
+        <div class="d-sm-flex mb-4 ml-sm-auto">
             <button type="submit" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
-                <span class="text">Salva</span>
+                <span class="text">Salva modifiche</span>
             </button>
         </div>
     </div>

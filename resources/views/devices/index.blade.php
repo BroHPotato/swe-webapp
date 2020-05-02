@@ -52,7 +52,7 @@
                                 <tbody>
                                 @foreach($deviceOnGateway['devices'] as $device)
                                     <tr>
-                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="logic-id">{{$device->deviceId}}</a></td>
+                                        <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">D<span class="logic-id">{{$device->deviceId}}</span></a></td>
                                         <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
                                         <td><span class="badge badge-success">Attivo</span></td>
                                         <td class="small">{{$deviceOnGateway['gateway']->name}}</td>
@@ -60,10 +60,10 @@
                                         <td>{{$device->frequency}}s</td>
                                         <td class="text-center">
                                             <a href="{{route('devices.edit', ['deviceId' => $device->deviceId ])}}" class="btn btn-sm btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                              <span class="fas fa-edit"></span>
-                                            </span>
-                                            <span class="text">Modifica</span>
+                                                <span class="icon text-white-50">
+                                                  <span class="fas fa-edit"></span>
+                                                </span>
+                                                <span class="text">Modifica</span>
                                             </a>
                                         </td>
                                     </tr>
@@ -99,7 +99,7 @@
                         @foreach($devicesOnGateways as $deviceOnGateway)
                             @foreach($deviceOnGateway['devices'] as $device)
                             <tr>
-                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}" class="logic-id">{{$device->deviceId}}</a></td>
+                                <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">D<span class="logic-id">{{$device->deviceId}}</span></a></td>
                                 <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
                                 <td><span class="badge badge-success">Attivo</span></td>
                                 <td class="small">{{$deviceOnGateway['gateway']->name}}</td>

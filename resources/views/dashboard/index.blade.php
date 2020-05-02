@@ -126,11 +126,11 @@
                         </h6>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Nome e Cognome:</strong> {{$user->name}} {{$user->surname}}</li>
-                        <li class="list-group-item"><strong>Indirizzo email:</strong> {{$user->email}}</li>
-                        <li class="list-group-item"><strong>Ruolo:</strong> {{$user->getRole()}}</li>
-                        <li class="list-group-item"><strong>Ente di appartenenza:</strong> {{$entity->name??"-"}}</li>
-                        <li class="list-group-item"><strong>Indirizzo IP:</strong> &nbsp; <code>{{ request()->ip() }}</code></li>
+                        <li class="list-group-item"><span class="fas fa-signature"></span> <strong>Nome e Cognome:</strong> {{$user->name}} {{$user->surname}}</li>
+                        <li class="list-group-item"><span class="fas fa-envelope"></span> <strong>Indirizzo email:</strong> {{$user->email}}</li>
+                        <li class="list-group-item"><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</li>
+                        <li class="list-group-item"><span class="far fa-building"></span> <strong>Ente di appartenenza:</strong> {{$entity->name??"-"}}</li>
+                        <li class="list-group-item"><span class="fas fa-link"></span> <strong>Indirizzo IP:</strong> &nbsp; <code>{{ request()->ip() }}</code></li>
                     </ul>
                 </div>
             </div>

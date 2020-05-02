@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-sm-flex mb-4">
-            <h1 class="h3 mb-0 text-gray-800"> Informazioni Gateway</h1>
+            <h1 class="h3 mb-0 text-gray-800"> {{$gateway->name}}</h1>
         </div>
         <div class="row">
             <div class="col-auto mb-4 ">
@@ -17,52 +17,48 @@
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Informazioni Gateway</h4>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-dungeon"></span> Informazioni Gateway</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
-                    <table class="table table-striped table-bordered border-secondary">
-                        <thead class="thead-dark table-borderless">
-                        <tr>
-                            <th>Id</th>
-                            <th>Nome</th>
-                            <th>Numero di dispositivi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><span class="logic-id">{{$gateway->gatewayId}}</span></td>
-                            <td>{{$gateway->name}}</td>
-                            <td>{{count($devicesWithSensors)}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <ul>
+                    <li><strong>ID logico:</strong> <span class="logic-id">{{$gateway->gatewayId}}</span></li>
+                    <li><strong>Nome gateway:</strong> {{$gateway->name}}</li>
+                    <li><strong>Numero di dispositivi censiti:</strong> {{count($devicesWithSensors)}}</li>
+                    <li><strong>Ultimo invio della configurazione:</strong> {{$gateway->lastSent}}</li>
+                </ul>
             </div>
         </div>
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-thermometer-half"></span> Lista dispositivi</h6>
+                <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-microchip"></span> Lista dispositivi censiti dal gateway</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <table class="table table-striped table-bordered border-secondary">
-                        <thead class="thead-dark table-borderless">
+                        <thead class="thead-dark table-borderless border-secondary">
                         <tr>
                             <th><span class="fas fa-list-ul"></span></th>
                             <th>Nome</th>
                             <th>Sensori</th>
                             <th>Frequenza</th>
+                            <th class="bg-secondary"> </th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($devicesWithSensors as $device)
                             <tr>
-                                <td> <a href="{{route('devices.show', ['deviceId' => $device['device']->deviceId ])}}" class="logic-id">{{$device['device']->deviceId}}</a></td>
+                                <td><a href="{{route('devices.show', ['deviceId' => $device['device']->deviceId ])}}"> D<span class="logic-id"></span>{{$device['device']->deviceId}}</a></td>
                                 <td> <a href="{{route('devices.show', ['deviceId' => $device['device']->deviceId ])}}">{{$device['device']->name}}</a></td>
                                 <td>{{count($device['sensors'])}}</td>
                                 <td>{{$device['device']->frequency}}s</td>
+                                <td><a href="{{route('devices.edit', ['deviceId' => $device['device']->deviceId ])}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                  <span class="fas fa-edit"></span>
+                                                </span>
+                                        <span class="text">Modifica</span>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

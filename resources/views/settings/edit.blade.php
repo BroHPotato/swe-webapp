@@ -70,11 +70,11 @@
                                 e, dopo aver avviato il bot direttamente dall'applicazione tramite il comando <code>/start</code>, inserire il comando <code>/login</code>.
                             </p>
                             <hr>
-                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                            <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <span class="fas fa-edit"></span>
+                                  <span class="fas fa-save"></span>
                                 </span>
-                                <span class="text">Modifica</span>
+                                <span class="text">Salva modifiche</span>
                             </button>
                         </form>
                     </div>
@@ -98,7 +98,7 @@
                                     <span class="fas fa-lock-open text-danger"></span> Password attuale</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
-                                           placeholder="Password attuale" name="password">
+                                           placeholder="Password attuale" name="password" autocomplete="off">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -111,7 +111,7 @@
                                     <span class="fas fa-lock text-success"></span> Nuova password</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
-                                           placeholder="Nuova password" name="new password">
+                                           placeholder="Nuova password" name="new password" autocomplete="off">
                                     @error('new_password')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -124,7 +124,7 @@
                                     <span class="fas fa-redo-alt text-success"></span> Ripeti nuova password</label>
                                 <div class="col-sm-8">
                                     <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
-                                           placeholder="Ripeti nuova password" name="confirm password">
+                                           placeholder="Ripeti nuova password" name="confirm password" autocomplete="off">
                                     @error('confirm_password')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -133,11 +133,11 @@
                                 </div>
                             </div>
                             <hr class="mt-4">
-                            <button type="submit" class="btn btn-primary btn-icon-split float-right">
+                            <button type="submit" class="btn btn-success btn-icon-split">
                                 <span class="icon text-white-50">
-                                  <span class="fas fa-edit"></span>
+                                  <span class="fas fa-save"></span>
                                 </span>
-                                <span class="text">Modifica</span>
+                                <span class="text">Salva modifiche</span>
                             </button>
                         </form>
                     </div>
@@ -185,17 +185,16 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <hr>
-                        <button type="submit" class="btn btn-success btn-icon-split">
+                        <button type="submit" class="btn btn-success btn-icon-split my-3">
                             <span class="icon text-white-50">
-                                  <span class="fas fa-check-circle"></span>
+                                  <span class="fas fa-save"></span>
                             </span>
-                            <span class="text">Salva</span>
+                            <span class="text">Salva modifiche</span>
                         </button>
                     </form>
                 </div>
             </div>
         </div>
+        @endcan
     </div>
-    @endcan
 @endsection

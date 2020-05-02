@@ -11,6 +11,16 @@
             <span class="thirema-logo-special-font thirema-logo-color-blue">r</span>
             <span class="thirema-logo-special-font thirema-logo-color-light">iot</span>
         </div>
+        @can(['isAdmin'])
+        <div class="thirema-logo-subtext d-none d-md-block">
+            admin
+        </div>
+        @endcan
+        @can(['isMod'])
+            <div class="thirema-logo-subtext thirema-logo-subtext-mod d-none d-md-block">
+                mod
+            </div>
+        @endcan
     </a>
 
     <hr class="sidebar-divider">
@@ -63,21 +73,17 @@
     @can('isMod')
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
-        Mod
+        Moderatore
     </div>
 
     <li class="nav-item">
-        <a href="#" data-toggle="collapse" data-target="#collapseMod" aria-expanded="false" aria-controls="collapseMod" class="nav-link collapsed">
-            <i class="fas fa-fw fa-user-tie text-success"></i>
-            <span>Moderazione</span>
-        </a>
-        <div id="collapseMod" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
-                <a class="collapse-item" href="{{ route('logs.index') }}"><i class="fas fa-receipt"></i> Logs</a>
-            </div>
-        </div>
+        <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-users text-success"></i> <span>Gestione utenti</span></a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-receipt text-success"></i> <span>Logs</span></a>
+    </li>
+
     @endcan
 
 
@@ -89,20 +95,18 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseAdmin">
-            <i class="fas fa-fw fa-user-tie text-danger"></i>
-            <span>Amministrazione</span>
-        </a>
-        <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('users.index') }}"><i class="fas fa-users"></i> Gestione utenti</a>
-                <a class="collapse-item" href="{{ route('entities.index') }}"><i class="far fa-building"></i> Gestione enti</a>
-                <a class="collapse-item" href="{{ route('devices.index') }}"><i class="fas fa-microchip"></i> Gestione dispositivi</a>
-                <a class="collapse-item" href="{{ route('gateways.index') }}"><i class="fas fa-dungeon"></i> Gestione gateways</a>
-                <a class="collapse-item" href="{{ route('logs.index') }}"><i class="fas fa-receipt"></i> Logs</a>
-            </div>
-        </div>
+        <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-fw fa-users text-danger"></i> <span>Gestione utenti</span></a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('entities.index') }}"><i class="far fa-fw fa-building text-danger"></i> <span>Gestione enti</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('gateways.index') }}"><i class="fas fa-fw fa-dungeon text-danger"></i> <span>Gestione gateways</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-fw fa-receipt text-danger"></i> <span>Logs</span></a>
+    </li>
+
     @endcan
 
 

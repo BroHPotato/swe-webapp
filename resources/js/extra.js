@@ -6,31 +6,6 @@ const form = document.querySelector("#sensorForm");
 const save = document.querySelector("#save");
 let trashes = document.querySelectorAll(".delete");
 
-const tables = document.querySelectorAll(".table");
-
-if (tables !== undefined) {
-    tables.forEach((table) => {
-        $(document).ready(function () {
-            $(table).dataTable({
-                sDom:
-                    '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12 mb-0 mt-2"p>>',
-                scrollX: false,
-                autoWidth: true,
-                pageLength: 15,
-                ordering: false,
-                lengthChange: false,
-                pagingType: "simple_numbers",
-                searching: false,
-                language: {
-                    url:
-                        "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Italian.json",
-                    // "url": "dataTables.italian.lang"
-                },
-            });
-        });
-    });
-}
-
 if (addSensor !== null) {
     addSensor.addEventListener("click", (e) => {
         e.preventDefault();
@@ -42,8 +17,9 @@ if (addSensor !== null) {
                 .value;
             const receiveCommand = document.querySelector("#commandCheck")
                 .value;
-            let select = '<select name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
-            //console.log(receiveCommand);
+            let select =
+                '<select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
+
             if (receiveCommand === "true") {
                 select += '<option selected value="true">Abilitato</option>';
             } else {
@@ -51,36 +27,38 @@ if (addSensor !== null) {
                     '<option selected value="false">Disabilitato</option>';
             }
             select += " </select>";
-            // aggiunta sensore al dispositivo
+
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
-            <div id="sensore${sensorIdValue}" class="form-group row">
+            <div id="sensore${sensorIdValue}" class="form-group row bg-gray-200">
                 <label class="col-lg-3 col-form-label">
-                    <span class="fas fa-thermometer-half mx-1"></span>Sensore<span class="real-id">${sensorIdValue}</span>
+                    <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id"></span> ${sensorIdValue}
                 </label>
                 <label class="col-lg-1 col-form-label">
-                    <span class="fas fa-tag mx-1"></span>Id
+                    <span class="real-id"></span> ID
                 </label>
                 <div class="col-lg-1">
                     <input type="text" class="form-control" placeholder="Id sensore" readonly="readonly" value="${sensorIdValue}" name="sensorId[]">
                 </div>
                 <label class="col-lg-1 col-form-label">
-                    <span class="fas fa-tape mx-1"></span>Tipo
+                    <span class="fas fa-tape mx-1"></span> Tipo
                 </label>
                 <div class="col-lg-2">
                     <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
                 </div>
-                <label class="col-lg-1 col-sm-6 col-form-label">
-                    <span class="fas fa-satellite-dish mx-1"></span>Invio
+                <label class="col-lg-1 col-form-label">
+                    <span class="fas fa-satellite-dish mx-1"></span> CMD
                 </label>
-                <div class="col-lg-2 col-sm-6">
+                <div class="col-lg-2">
                     ${select}
                 </div>
                 <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                    <span class="fas fa-trash text-danger delete"></span>
+                    <button class="btn btn-small btn-danger delete">
+                        <span class="fas fa-trash"></span>
+                    </button>
                 </div>
-                <div class="col-lg-1 d-lg-none my-1 text-center">
-                    <button class="btn btn-danger btn-icon-split delete">
+                <div class="col-lg-1 mt-2 d-lg-none my-1">
+                    <button class="btn btn-small btn-danger btn-icon-split delete">
                         <span class="fas fa-trash icon text-white-50"></span>
                         <span class="text">Elimina sensore</span>
                     </button>
@@ -104,7 +82,7 @@ if (addSensor !== null) {
         }
     });
 }
-// aggiunta dispositivo
+
 if (addDevice !== null) {
     addDevice.addEventListener("click", (e) => {
         const deviceIdValue = document.querySelector("#inputDeviceId").value;
@@ -123,18 +101,22 @@ if (connectSensor !== null) {
     connectSensor.addEventListener("click", (e) => {
         e.preventDefault();
         const sensorIdValue = document.querySelector("#inputSensor").value;
-        const sensorDetails = document.querySelector('#inputSensor' + sensorIdValue);
+        const sensorDetails = document.querySelector(
+            "#inputSensor" + sensorIdValue
+        );
         const hasSensor =
             sensorsList.querySelector("#sensore" + sensorIdValue) != null;
-        if (!hasSensor){
+        if (!hasSensor) {
             sensorsList.innerHTML += `
-                <tr id="sensore${sensorIdValue}">
-                    <td>${sensorIdValue}</td>
+                <tr id="sensore${sensorIdValue}" class="bg-gray-200">
+                    <td>S<span class="real-id"></span>${sensorIdValue}</td>
                     <td>${sensorDetails.dataset.type}</td>
-                    <td class="logic-id">${sensorDetails.dataset.device}<span class="real-id">${sensorDetails.dataset.realId}</span></td>
+                    <td>D<span class="logic-id"></span>${sensorDetails.dataset.device}</td>
                     <td>
-                        <span class="fas fa-trash text-danger delete"></span>
-                        <input form="updateSensors" type="checkbox" value="${sensorIdValue}" checked style="display: none" name="sensors[]">
+                        <button class="btn btn-sm btn-danger delete">
+                            <span class="fas fa-trash"></span>
+                            <input form="updateSensors" type="checkbox" value="${sensorIdValue}" checked style="display: none" name="sensors[]">
+                        </button>
                     </td>
                 </tr>
             `;
@@ -153,7 +135,6 @@ if (connectSensor !== null) {
 }
 
 trashes = document.querySelectorAll(".delete");
-// eliminazione sensore aggiunto
 trashes.forEach((trash) => {
     trash.addEventListener("click", (e) => {
         e.preventDefault();
