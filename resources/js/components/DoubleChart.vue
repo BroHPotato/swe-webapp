@@ -54,7 +54,7 @@ export default {
             },
             tooltip: {
                 x: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
             yaxis: {
@@ -70,7 +70,7 @@ export default {
                     text: "Tempo",
                 },
                 labels: {
-                    format: "HH-mm-ss dd/MM/yyyy",
+                    format: "HH:mm:ss - dd/MM/yyyy",
                 },
             },
         };
@@ -162,8 +162,9 @@ export default {
                         .then((value) => {
                             calc = value;
                             this.$refs.variance.innerHTML =
+                                "<span class='fas fa-project-diagram'></span> <strong>" +
                                 variance[this.variance] +
-                                " : " +
+                                "</strong>: " +
                                 calc.toFixed(3);
                         });
                     break;
@@ -173,7 +174,10 @@ export default {
             }
             if (!isNaN(calc)) {
                 this.$refs.variance.innerHTML =
-                    variance[this.variance] + " : " + calc.toFixed(3);
+                    "<span class='fas fa-project-diagram'></span> <strong>" +
+                    variance[this.variance] +
+                    "</strong>: " +
+                    calc.toFixed(3);
             }
         },
     },

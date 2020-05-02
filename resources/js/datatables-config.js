@@ -35,12 +35,8 @@ $(document).ready(function () {
             },
         },
         fnDrawCallback: function (oSettings) {
-            if (
-                oSettings._iDisplayLength > oSettings.fnRecordsDisplay()
-            ) {
-                $(oSettings.nTableWrapper)
-                    .find(".dataTables_paginate")
-                    .hide();
+            if (oSettings._iDisplayLength > oSettings.fnRecordsDisplay()) {
+                $(oSettings.nTableWrapper).find(".dataTables_paginate").hide();
             }
         },
     });
