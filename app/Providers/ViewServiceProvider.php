@@ -78,9 +78,12 @@ class ViewServiceProvider extends BasicProvider
             $this->isExpired($e);
             return null;
         }
-    }*/
+    }
+ */
+
     /**
      * @param string $who
+     * @return bool
      */
     public function destroy(string $who)
     {
@@ -95,6 +98,7 @@ class ViewServiceProvider extends BasicProvider
 
     /**
      * @param string $body
+     * @return bool
      */
     public function store(string $body)
     {
