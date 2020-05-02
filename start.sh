@@ -3,13 +3,15 @@
 echo "Web application starting..."
 
 if [ ! -d "vendor/" ]; then
-	composer install
+	composer install --optimize-autoloader --no-dev
 fi
 
 if [ ! -d "node_modules/" ]; then
-	npm install
+	npm install --production
 fi
 
-npm run dev
+npm run prod
 
-php artisan serve --host=0.0.0.0 --port=8000
+php artisan view:cache
+
+php artisan serve --host=0.0.0.0 --port=8000 --env=.env.prod
