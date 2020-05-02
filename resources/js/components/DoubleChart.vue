@@ -162,7 +162,7 @@ export default {
                         .then((value) => {
                             calc = value;
                             this.$refs.variance.innerHTML =
-                                "<span class='fas fa-project-diagram'></span> <strong>" +
+                                "<hr> <span class='fas fa-project-diagram'></span> <strong>" +
                                 variance[this.variance] +
                                 "</strong>: " +
                                 calc.toFixed(3);
@@ -174,7 +174,7 @@ export default {
             }
             if (!isNaN(calc)) {
                 this.$refs.variance.innerHTML =
-                    "<span class='fas fa-project-diagram'></span> <strong>" +
+                    "<hr> <span class='fas fa-project-diagram'></span> <strong>" +
                     variance[this.variance] +
                     "</strong>: " +
                     calc.toFixed(3);
