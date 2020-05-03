@@ -47,7 +47,7 @@
                                         <select class="form-control @error('sensore1') is-invalid @enderror" name="sensor1" id="inputSensor1">
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
-                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                    <option value="{{$s->sensorId}}">{{$s->type.' S@' . $s->realSensorId.' // '.$d->name . ' D#'.$s->device }}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -67,7 +67,9 @@
                                             <option value="">Nessuno</option>
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
-                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                    <option value="{{$s->sensorId}}">
+                                                        {{$s->type.' S@' . $s->realSensorId.' // '.$d->name . ' D#'.$s->device }}
+                                                        </option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -113,7 +115,7 @@
 
     <div class="row">
     @foreach($graphs as $graph)
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-chart-area"></span> Dati real-time
