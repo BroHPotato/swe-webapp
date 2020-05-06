@@ -5,16 +5,28 @@
         <div class="d-sm-flex mb-4">
             <h1 class="h3 mb-0 text-gray-800"> Modifica gateway</h1>
         </div>
-
-            <div class="d-sm-inline-flex mb-4 ml-sm-auto">
-                <a href="{{route('gateways.index')}}" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                              <span class="fas fa-arrow-circle-left"></span>
-                            </span>
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-between mb-3">
+                <a href="{{route('gateways.index')}}" class="btn btn-sm btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                      <span class="fas fa-arrow-circle-left"></span>
+                    </span>
                     <span class="text">Torna indietro</span>
                 </a>
+                <a href="#" onclick="event.preventDefault();
+                       return confirm('Sei proprio sicuro di voler cancellare il gateway?') ? document.getElementById('delete').submit() : false;"
+                   class="btn btn-sm btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                      <span class="fas fa-trash"></span>
+                                    </span>
+                    <span class="text">Elimina gateway</span>
+                </a>
+                <form id="delete" action="{{ route('gateways.destroy', ['gatewayId' => $gateway->gatewayId]) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </div>
-
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
@@ -27,14 +39,14 @@
             @can(['isAdmin'])
                 <div id="cardGateway" class="card-body">
                     <p>Puoi modificare un gateway inserendo le informazioni elencate in seguito:</p>
-                    <form method="POST" action="{{--route('gateways.update', $gateway->gatewayId)--}}">
+                    <form method="POST" action="{{route('gateways.update', $gateway->gatewayId)}}" id="update">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
                         <div class="form-group row">
                             <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('gatewayName') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('gatewayName')??$gateway->name}}" name="gatewayName">
-                                @error('gatewayName')
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('name')??$gateway->name}}" name="name">
+                                @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -42,24 +54,14 @@
                             </div>
                         </div>
                     </form>
-
-                </div>
-        </div>
-        <div class="d-inline-block my-1">
-            <a href="#" id="addGateway" class="btn btn-success btn-icon-split">
+                    <hr>
+                    <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">
                           <span class="fas fa-save"></span>
                         </span>
-                <span class="text">Salva</span>
-            </a>
-        </div>
-        <div class="d-inline-block my-1 float-right">
-            <button class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-trash"></span>
-                                    </span>
-                <span class="text">Elimina</span>
-            </button>
+                        <span class="text">Conferma modifiche</span>
+                    </button>
+                </div>
         </div>
         @endcan
     </div>

@@ -14,7 +14,8 @@
             <span class="text">Torna indietro</span>
         </a>
         <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('views.destroy', ['viewId'=>$view->viewId]) }}"
-           onclick="event.preventDefault(); document.getElementById('destroy-view').submit();">
+           onclick="event.preventDefault();
+           return confirm('Sei sicuro di voler rimuovere questa pagina view?') ? document.getElementById('destroy-view').submit() : false;">
             <span class="icon text-white-50">
               <span class="fas fa-times"></span>
             </span>
@@ -63,6 +64,7 @@
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
                                         <select class="form-control @error('sensor2') is-invalid @enderror" name="sensor2" id="inputSensor2">
+                                            <option value="">Nessuno</option>
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
                                                     <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
@@ -126,11 +128,60 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    <double-chart
-                        :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
-                        :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
-                        :variance = {{$graph->correlation}}
-                    ></double-chart>
+                    @if($sensorsOnGraphs[$graph->viewGraphId][1]??false)
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Primo sensore</th>
+                                    <td><small>{{$sensorsOnGraphs[$graph->viewGraphId][0]->type}}</small></td>
+                                    <td>D<span class="logic-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][0]->device}} </td>
+                                    <td>S<span class="real-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][0]->realSensorId}} </td>
+                                    <td>(<a href="{{route('sensors.show', [
+                                            'deviceId' => $sensorsOnGraphs[$graph->viewGraphId][0]->device,
+                                            'sensorId' => $sensorsOnGraphs[$graph->viewGraphId][0]->realSensorId
+                                        ])}}">dettagli</a>)</td>
+                                </tr>
+                                <tr>
+                                    <th>Secondo sensore</th>
+                                    <td><small>{{$sensorsOnGraphs[$graph->viewGraphId][1]->type}}</small></td>
+                                    <td>D<span class="logic-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][1]->device}} </td>
+                                    <td>S<span class="real-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][1]->realSensorId}} </td>
+                                    <td>(<a href="{{route('sensors.show', [
+                                            'deviceId' => $sensorsOnGraphs[$graph->viewGraphId][1]->device,
+                                            'sensorId' => $sensorsOnGraphs[$graph->viewGraphId][1]->realSensorId
+                                        ])}}">dettagli</a>)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <double-chart
+                            :sensor1='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}'
+                            :sensor2='{{json_encode($sensorsOnGraphs[$graph->viewGraphId][1])}}'
+                            :variance = '{{$graph->correlation}}'
+                            :frequency = '{{max(
+                                                $auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device],
+                                                $auxDev[$sensorsOnGraphs[$graph->viewGraphId][1]->device]
+                                            )}}'
+                        ></double-chart>
+                    @else
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Sensore</th>
+                                    <td><small>{{$sensorsOnGraphs[$graph->viewGraphId][0]->type}}</small></td>
+                                    <td>D<span class="logic-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][0]->device}} </td>
+                                    <td>S<span class="real-id"></span>{{$sensorsOnGraphs[$graph->viewGraphId][0]->realSensorId}} </td>
+                                    <td>(<a href="{{route('sensors.show', [
+                                            'deviceId' => $sensorsOnGraphs[$graph->viewGraphId][0]->device,
+                                            'sensorId' => $sensorsOnGraphs[$graph->viewGraphId][0]->realSensorId
+                                        ])}}">dettagli</a>)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <single-chart
+                            :sensor="{{json_encode($sensorsOnGraphs[$graph->viewGraphId][0])}}"
+                            :frequency ="{{$auxDev[$sensorsOnGraphs[$graph->viewGraphId][0]->device]}}"
+                        ></single-chart>
+                    @endif
                 </div>
             </div>
         </div>

@@ -75,7 +75,7 @@ class GatewayServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'device=' . $device
+                'query' => 'deviceId=' . $device
             ]))->getBody());
             $gateways = [];
             foreach ($response as $g) {
@@ -87,6 +87,60 @@ class GatewayServiceProvider extends BasicProvider
         } catch (RequestException $e) {
             $this->isExpired($e);
             return null;
+        }
+    }
+
+    public function store(string $body)
+    {
+        try {
+            $this->request->post('', array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    public function update(string $who, string $body)
+    {
+        try {
+            $this->request->put('/gateways/' . $who, array_merge($this->setHeaders(), [
+                'body' => $body
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    /**
+     * @param string $who
+     * @return bool
+     */
+    public function destroy(string $who)
+    {
+        try {
+            $this->request->delete('/gateways/' . $who, $this->setHeaders());
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
+        }
+    }
+
+    public function sendConfig(string $who)
+    {
+        try {
+            $this->request->put('/gateways/' . $who, array_merge($this->setHeaders(), [
+                'body' => '{"reconfig":true}'
+            ]));
+            return true;
+        } catch (RequestException $e) {
+            $this->isExpired($e);
+            return false;
         }
     }
 }

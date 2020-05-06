@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gateway extends Model
 {
-    protected $fillable = ['gatewayId', 'name', 'devices'];
+    protected $fillable = ['gatewayId', 'name', 'lastSent'];
 }

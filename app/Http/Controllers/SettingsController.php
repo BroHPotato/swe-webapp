@@ -30,7 +30,7 @@ class SettingsController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $alerts = $this->alertsProvider->findAll();
+        $alerts = $this->alertsProvider->findAll() ?? [];
         $alertsWithSensors = [];
         $sensorsCache = [];
         $devicesCache = [];
@@ -75,8 +75,11 @@ class SettingsController extends Controller
         if (key_exists('new_password', $data)) {
             $data['password'] = $data['new_password'];
         }
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
         $service = new UserServiceProvider();
-        return $service->update($user->getAuthIdentifier(), json_encode($data)) ?
+        return $service->update($user->getAuthIdentifier(), $data) ?
             redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
             redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
     }

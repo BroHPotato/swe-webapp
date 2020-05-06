@@ -14,7 +14,7 @@
     <ul class="navbar-nav ml-auto">
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-0">
-            <a class="nav-link text-dark" href="{{ route('alerts.index') }}">
+            <a class="nav-link text-secondary" href="{{ route('alerts.index') }}">
                 <i class="fas fa-bell fa-fw"></i>
             </a>
         </li>

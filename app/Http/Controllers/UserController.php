@@ -68,7 +68,7 @@ class UserController extends Controller
     public function show($user)
     {
         $user = $this->provider->retrieveById($user);
-        $entity = (new EntityServiceProvider())->findFromUser($user);
+        $entity = (new EntityServiceProvider())->findFromUser($user->userId);
         return view('users.show', compact(['user', 'entity']));
     }
 
@@ -111,7 +111,10 @@ class UserController extends Controller
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
         }
-        return $this->provider->store(json_encode($data)) ? redirect(route('users.index'))
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
+        return $this->provider->store($data) ? redirect(route('users.index'))
             ->withErrors(['GoodCreate' => 'Utente creato con successo con password: ' . $data['password']]) :
             redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
@@ -156,8 +159,11 @@ class UserController extends Controller
             $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
             $change = ' e con nuova password : ' . $data['password'];
         }
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
 
-        return $this->provider->update($user->getAuthIdentifier(), json_encode($data, JSON_FORCE_OBJECT)) ?
+        return $this->provider->update($user->getAuthIdentifier(), $data) ?
             redirect(route('users.index'))
                 ->withErrors(['GoodUpdate' => 'Utente aggiornato con successo' . $change]) :
             redirect(route('users.index'))->withErrors(['NotUpdate' => 'Utente non aggiornato']);
@@ -172,7 +178,6 @@ class UserController extends Controller
         return $this->provider->destroy($userId) ?
             redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
             redirect(route('users.index'))->withErrors(['NotDestroy' => 'Utente non eliminato']);
-        ;
     }
 
     /**
@@ -185,6 +190,19 @@ class UserController extends Controller
         return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
             redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
             redirect(route('users.index'))->withErrors(['NotRestore' => 'Utente non ripristinato']);
-        ;
+    }
+
+    public function reset($userId)
+    {
+        $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
+        $change = ' e nuova password : ' . $data['password'];
+        if (key_exists('password', $data)) {
+            $data['password'] = $data['password'];/*todo sha512*/
+        }
+        return $this->provider->update($userId, $data) ?
+            redirect(route('users.show', ['userId' => $userId]))
+                ->withErrors(['GoodUpdate' => 'Password aggiornata con successo' . $change]) :
+            redirect(route('users.show', ['userId' => $userId]))
+                ->withErrors(['NotUpdate' => 'Password non modificata']);
     }
 }

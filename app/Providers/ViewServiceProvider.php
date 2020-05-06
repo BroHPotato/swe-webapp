@@ -61,26 +61,29 @@ class ViewServiceProvider extends BasicProvider
         }
     }
 
-    public function findAllFromUser($user)
-    {
-        try {
-            $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'userId=' . $user
-            ]))->getBody());
-            $views = [];
-            foreach ($response as $g) {
-                $view = new View();
-                $view->fill((array)$g);
-                $views[] = $view;
-            }
-            return $views;
-        } catch (RequestException $e) {
-            $this->isExpired($e);
-            return null;
-        }
-    }
+    /*   public function findAllFromUser($user)
+       {
+           try {
+               $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
+                   'query' => 'userId=' . $user
+               ]))->getBody());
+               $views = [];
+               foreach ($response as $g) {
+                   $view = new View();
+                   $view->fill((array)$g);
+                   $views[] = $view;
+               }
+               return $views;
+           } catch (RequestException $e) {
+               $this->isExpired($e);
+               return null;
+           }
+       }
+    */
+
     /**
      * @param string $who
+     * @return bool
      */
     public function destroy(string $who)
     {
@@ -95,6 +98,7 @@ class ViewServiceProvider extends BasicProvider
 
     /**
      * @param string $body
+     * @return bool
      */
     public function store(string $body)
     {

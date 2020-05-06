@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\AlertServiceProvider;
 use App\Providers\DeviceServiceProvider;
+use App\Providers\EntityServiceProvider;
 use App\Providers\SensorServiceProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
@@ -11,6 +13,8 @@ class SensorController extends Controller
 {
     private $sensorProvider;
     private $deviceProvider;
+    private $alertProvider;
+    private $entityProvider;
 
     /**
      * Create a new controller instance.
@@ -22,6 +26,8 @@ class SensorController extends Controller
         $this->middleware('auth');
         $this->sensorProvider = new SensorServiceProvider();
         $this->deviceProvider = new DeviceServiceProvider();
+        $this->alertProvider = new AlertServiceProvider();
+        $this->entityProvider = new EntityServiceProvider();
     }
 
     /**
@@ -43,13 +49,20 @@ class SensorController extends Controller
      */
     public function show($deviceId, $sensorId)
     {
-        $sensor = $this->sensorProvider->find($deviceId, $sensorId);
-        $device = $this->deviceProvider->find($deviceId);
-        return view('sensors.show', compact(['sensor', 'device']));
+        $sensor = $this->sensorProvider->find($deviceId, $sensorId) ?? abort(404);
+        $device = $this->deviceProvider->find($deviceId) ?? abort(404);
+        $alerts = $this->alertProvider->findAllFromSensor($sensor->sensorId) ?? [];
+        $entities = $this->entityProvider->findAllFromSensor($sensor->sensorId) ?? [];
+        return view('sensors.show', compact(['sensor', 'device', 'alerts', 'entities']));
     }
 
     public function fetch($sensorId)
     {
         return $this->sensorProvider->fetch($sensorId);
+    }
+
+    public function fetchMoar()
+    {
+        return $this->sensorProvider->fetchMoar();
     }
 }

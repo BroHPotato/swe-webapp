@@ -27,11 +27,10 @@
                 <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-users"></span> Lista utenti</h6>
             </div>
             <div class="card-body">
-                <div class="table-responsive-lg">
+                <div class="table-responsive-xl">
                     <table class="table border-secondary table-bordered table-striped dataTableUsers">
                         <thead class="thead-dark table-borderless">
                             <tr>
-                                <th>ID</th>
                                 <th>Nome e cognome</th>
                                 <th>Stato</th>
                                 <th>Email</th>
@@ -46,7 +45,6 @@
                             @canany(['isAdmin', 'isMod'])
                                 @foreach($usersWithEntity as $u)
                                     <tr>
-                                        <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->userId}}</a></td>
                                         <td><a href="{{route('users.show', ['userId' => $u['user']->userId ])}}">{{$u['user']->name}} {{$u['user']->surname}}</a></td>
                                         <td>
                                             @if($u['user']->deleted)
@@ -60,7 +58,7 @@
                                             <span class="text-info">{{$u['user']->getRole()}}</span>
                                         </td>
                                         @can('isAdmin')
-                                            <th>{{$u['entity']?$u['entity']->name:''}}</th>
+                                            <th>{{$u['entity']?$u['entity']->name:'-'}}</th>
                                         @endcan
                                         <td class="text-center">
                                             @if($u['user']->type < Auth::user()->type)

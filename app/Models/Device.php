@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    protected $fillable = ['deviceId', 'name', 'frequency', 'realDeviceId'];
+    protected $fillable = ['deviceId', 'name', 'frequency', 'realDeviceId', 'gateway'];
 }

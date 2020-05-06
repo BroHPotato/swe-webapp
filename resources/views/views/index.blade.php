@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('breadcrumbs', Breadcrumbs::render('views'))
+@section('breadcrumbs', Breadcrumbs::render('views.index'))
 @section('content')
 <div class="container-fluid">
     <div class="d-sm-flex mb-4">

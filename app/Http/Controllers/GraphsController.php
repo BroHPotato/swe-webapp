@@ -28,15 +28,21 @@ class GraphsController extends Controller
             $data = request()->validate([
                 'correlation' => 'required|string|in:0,1,2,3',
                 'sensor1' => 'required|string|different:sensor2',
-                'sensor2' => 'required|string|different:sensor1'
+                'sensor2' => 'nullable|string|different:sensor1'
             ]);
+            if (is_null($data['sensor2'])) {
+                $data['correlation'] = 0;
+                unset($data['sensor2']);
+            } else {
+                $data['sensor2'] = intval($data['sensor2']);
+            }
             $data['view'] = $viewId;
-            $data = array_map(function ($value) {
-                return (int)$value;
-            }, $data);
-            $this->viewGraphProvider->store(json_encode($data));
-            return redirect(route('views.show', ['viewId' => $viewId]))
-                ->withErrors(['GoodCreate' => 'Grafico creato con successo']);
+            $data['correlation'] = intval($data['correlation']);
+            $data['sensor1'] = intval($data['sensor1']);
+            if ($this->viewGraphProvider->store(json_encode($data))) {
+                return redirect(route('views.show', ['viewId' => $viewId]))
+                    ->withErrors(['GoodCreate' => 'Grafico creato con successo']);
+            }
         }
         return redirect(route('views.show', ['viewId' => $viewId]))
             ->withErrors(['NotCreate' => 'Grafico non creato']);
