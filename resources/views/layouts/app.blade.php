@@ -24,30 +24,29 @@
         <div id="wrapper">
             @auth
                 @include('layouts.sidebar')
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
+                <!-- Content Wrapper -->
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <!-- Main Content -->
+                    <div id="content">
 
-                @include('layouts.topbar')
-                <!-- Begin Page Content -->
-                    <div class="container-fluid">
+                    @include('layouts.topbar')
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
             @endauth
-                        @yield('content')
+            @yield('content')
             @auth
+                        </div>
+                        <!-- /.container-fluid -->
                     </div>
-                    <!-- /.container-fluid -->
+                    <!-- End of Main Content -->
+                    @include('layouts.footer')
                 </div>
-                <!-- End of Main Content -->
-                @include('layouts.footer')
+                <!-- End of Content Wrapper -->
             @endauth
-            </div>
-            <!-- End of Content Wrapper -->
         </div>
     </div>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
 </html>
 

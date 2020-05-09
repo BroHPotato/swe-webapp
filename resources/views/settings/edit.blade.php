@@ -42,7 +42,7 @@
                             <div class="form-group row">
                                 <label for="inputTg" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Username Telegram</label>
                                 <div class="col-sm-8">
-                                    <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
+                                    <input type="text" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                     @error('telegramName')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
