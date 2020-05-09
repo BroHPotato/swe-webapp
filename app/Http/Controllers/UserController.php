@@ -115,7 +115,7 @@ class UserController extends Controller
             $data['password'] = $data['password'];/*todo sha512*/
         }
         return $this->provider->store($data) ? redirect(route('users.index'))
-            ->withErrors(['GoodCreate' => 'Utente creato con successo con password: ' . $data['password']]) :
+            ->withErrors(['GoodCreate' => 'Utente creato con successo con password: <code>' . $data['password'] . '</code>']) :
             redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
 
@@ -176,8 +176,8 @@ class UserController extends Controller
     public function destroy($userId)
     {
         return $this->provider->destroy($userId) ?
-            redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente eliminato con successo']) :
-            redirect(route('users.index'))->withErrors(['NotDestroy' => 'Utente non eliminato']);
+            redirect(route('users.index'))->withErrors(['GoodDestroy' => 'Utente disattivato con successo']) :
+            redirect(route('users.index'))->withErrors(['NotDestroy' => 'Utente non disattivato']);
     }
 
     /**
