@@ -30,8 +30,8 @@
                             <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Data ora</th>
-                                <th>Nome e cognome</th>
                                 <th>Azione</th>
+                                <th>Nome e cognome</th>
                                 <th>Rango</th>
                                 <th>IP</th>
                             </tr>
@@ -40,8 +40,8 @@
                                 @foreach($logs as $l)
                                     <tr>
                                         <td class="small">{{$l["log"]->time}}</td>
-                                        <td><a href="{{route('users.show', ['userId' => $l['user']->userId])}}">{{$l['user']->name. ' ' .$l['user']->surname}}</a></td>
                                         <td class="small"><code>{{$l["log"]->operation}}</code></td>
+                                        <td><a href="{{route('users.show', ['userId' => $l['user']->userId])}}">{{$l['user']->name. ' ' .$l['user']->surname}}</a></td>
                                         <td>{{$l['user']->getRole()}}</td>
                                         <td><code>{{$l["log"]->ipAddr}}</code></td>
                                     </tr>

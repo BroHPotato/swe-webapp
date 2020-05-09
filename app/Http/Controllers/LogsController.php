@@ -22,7 +22,7 @@ class LogsController extends Controller
         $list = $this->logsProvider->findAll();
         $users = [];
         foreach ($list as $l) {
-            $l->time = date("d F Y - H:i", strtotime($l->time));
+            $l->time = date("d/m/Y - H:i:s", strtotime($l->time));
             if (key_exists($l->userId, $users)) {
                 $u = $users[$l->userId];
             } else {
