@@ -115,7 +115,9 @@ class UserController extends Controller
             $data['password'] = $data['password'];/*todo sha512*/
         }
         return $this->provider->store($data) ? redirect(route('users.index'))
-            ->withErrors(['GoodCreate' => 'Utente creato con successo con password: <code>' . $data['password'] . '</code>']) :
+            ->withErrors([
+                'GoodCreate' => 'Utente creato con successo con password: <code>' . $data['password'] . '</code>'
+            ]) :
             redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
 
