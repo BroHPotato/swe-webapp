@@ -143,10 +143,13 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p>In caso di problemi, si prega di contattare il supporto tecnico ai seguenti indirizzi email:</p>
+                        <p>In caso di problemi, si prega di contattare il supporto tecnico al seguente indirizzo email:</p>
                         <ul>
-                            <li><a href="mailto:#">support@tech.it</a></li>
-                            <li><a href="mailto:#">support2@tech.it</a></li>
+                            <li><a href="mailto:redroundrobin.site@gmail.com">redroundrobin.site@gmail.com</a></li>
+                        </ul>
+                        <p>In alternativa, è possibile contattarci direttamente anche tramite l'organizzazione su GitHub:</p>
+                        <ul>
+                            <li><a href="https://github.com/RedRoundRobin">github.com/RedRoundRobin</a></li>
                         </ul>
                     </div>
                 </div>

@@ -16,6 +16,15 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-12 mb-1">
+            <div class="card shadow mb-2">
+                <div class="card-body text-center">
+                    We have no more coffee. Please, take a cup of tea
+                    <a href="https://github.com/RedRoundRobin" rel="noopener noreferrer" target="_blank">with us</a>
+                        <span class="far fa-smile-wink"></span>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-12 mb-4">
             <div class="card shadow mb-4">
                 <div class="card-body text-center">
