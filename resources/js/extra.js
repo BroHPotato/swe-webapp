@@ -30,7 +30,7 @@ if (addSensor !== null) {
 
             if (sensorIdValue !== "" && sensorTypeValue !== "") {
                 sensorsList.innerHTML += `
-            <div id="sensore${sensorIdValue}" class="form-group row bg-gray-200">
+            <div id="sensore${sensorIdValue}" class="form-group row bg-gray-200 pt-3">
                 <label class="col-lg-3 col-form-label">
                     <span class="fas fa-thermometer-half mx-1"></span>Sensore <span class="real-id"></span> ${sensorIdValue}
                 </label>

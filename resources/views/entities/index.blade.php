@@ -52,16 +52,16 @@
                                             <span class="badge badge-success">Attivo</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a href="{{route('entities.show', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-info btn-icon-split mr-3">
+                                    <td class="text-center">
+                                        <a href="{{route('entities.show', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-info btn-icon-split">
                                             <span class="icon text-white-50">
                                               <span class="fas fa-building"></span>
                                             </span>
                                             <span class="text">Gestisci</span>
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split mt-1">
+                                    <td class="text-center">
+                                        <a href="{{route('entities.edit', ['entityId' => $entity->entityId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                             <span class="icon text-white-50">
                                               <span class="fas fa-edit"></span>
                                             </span>

@@ -53,7 +53,7 @@
                                         <tr>
                                             <td><span class="logic-id">{{$list['alert']->alertId}}</span></td>
                                             <td><a href="{{route('devices.show', ['deviceId' => $list['device']->deviceId])}}">{{$list['device']->name}}</a></td>
-                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}"><span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
+                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}">S<span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
                                             <td>{{$list['alert']->lastSent?date("d/m/Y - H:i:s", strtotime($list['alert']->lastSent)):'-'}}</td>

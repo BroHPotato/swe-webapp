@@ -45,7 +45,10 @@
                         <div class="form-group row">
                             <label for="inputGatewayName" class="col-sm-4 col-form-label"><span class="fas fa-dungeon"></span> Nome gateway</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputGatewayName" placeholder="Nome del gateway" value="{{old('name')??$gateway->name}}" name="name">
+                                <input type="text" required maxlength="30"
+                                       pattern="(gw_)([A-Za-z0-9_-]+){1,27}"
+                                       class="form-control @error('name') is-invalid @enderror" id="inputGatewayName"
+                                       placeholder="es: gw_nome-del-gateway" value="{{old('name')??$gateway->name}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -54,6 +57,9 @@
                             </div>
                         </div>
                     </form>
+                    <hr>
+                    <p class="text-muted"><span class="badge badge-danger">Attenzione!</span> Formato da rispettare: <code>gw_NOME-del_gateway123</code>.
+                        È possibile usare caratteri alfanumerici, trattini (-) e trattini bassi (_) con al massimo 30 caratteri (prefisso <code>gw_</code> compreso).</p>
                     <hr>
                     <button type="submit" id="addGateway" class="btn btn-success btn-icon-split" form="update">
                         <span class="icon text-white-50">

@@ -36,9 +36,11 @@
     text-align: center !important;
 }
 
+/*
 table.dataTable.no-footer {
-    border-color: #FFF !important;
+    border-color: #858796 !important;
 }
+*/
 
 @media only screen and (min-width: 768px) {
     .table-responsive {
