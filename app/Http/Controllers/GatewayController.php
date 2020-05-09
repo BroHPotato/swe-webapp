@@ -80,7 +80,7 @@ class GatewayController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'name' => 'required|string'
+            'name' => 'required|string|regex:/(gw_)([A-Za-z0-9_-]+){1,27}/'
         ]);
         return $this->gatewayProvider->store(json_encode($data)) ?
             redirect(route('gateways.index'))->withErrors(['GoodCreate' => 'Gateway creato con successo']) :
@@ -90,7 +90,7 @@ class GatewayController extends Controller
     public function update($gatewayId)
     {
         $data = request()->validate([
-            'name' => 'required|string'
+            'name' => 'required|string|regex:/(gw_)([A-Za-z0-9_-]+){1,27}/'
         ]);
         return $this->gatewayProvider->update($gatewayId, json_encode($data)) ?
             redirect(route('gateways.index'))->withErrors(['GoodUpdate' => 'Gateway aggiornato con successo']) :

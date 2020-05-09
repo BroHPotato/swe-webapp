@@ -98,32 +98,33 @@
                                     @method('PUT')
                                 </form>
                             @endcan
-                        @endif
-                        @if($user->deleted)
-                            <!-- TODO - non previsto dal AdR, ma se c'è anche nelle API manteniamolo e lo aggiungiamo a mano -->
-                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
+                            @if($user->deleted )
+                                <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-check"></span>
                                 </span>
-                                <span class="text">Ripristina</span>
-                            </a>
-                            <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('PUT')
-                            </form>
-                        @else
-                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
+                                    <span class="text">Ripristina</span>
+                                </a>
+                                <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('PUT')
+                                </form>
+                            @else
+                                <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-times"></span>
                                 </span>
-                                <span class="text">Disattiva utente</span>
-                            </a>
-                            <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                    <span class="text">Disattiva utente</span>
+                                </a>
+                                <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
+                        @else
+                            Non ci sono opzioni disponibili
                         @endif
                     </div>
                 </div>
