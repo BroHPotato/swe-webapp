@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico'>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Webapp' }} - RIoT</title>
+    <title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Web app' }} - RIoT</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
