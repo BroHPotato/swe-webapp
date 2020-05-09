@@ -85,7 +85,7 @@
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
                     </span>
-                                <span class="text">Crea</span>
+                                <span class="text">Crea alert</span>
                             </button>
                         </form>
                     </div>
