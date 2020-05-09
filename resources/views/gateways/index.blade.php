@@ -41,7 +41,7 @@
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Numero Dispositivi</th>
-                            <th>Ultimo invio</th>
+                            <th>Ultimo invio config.</th>
                             <th class="bg-secondary" width="200"> </th>
                             <th class="bg-secondary" width="100"> </th>
                         </tr>
@@ -56,7 +56,7 @@
                                         <span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}
                                 </td>
                                 <td>{{count($gWd['devices'])}}</td>
-                                <td>{{$gWd['gateway']->lastSent}}</td>
+                                <td>{{$gWd['gateway']->lastSent??'-'}}</td>
                                 <td>
                                     <a href="#" onclick="event.preventDefault();
                                     return confirm('Sei sicuro di voler inviare la configurazione al gateway #{{$gWd['gateway']->gatewayId}} ?') ? document.getElementById('config{{$gWd['gateway']->gatewayId}}').submit() : false;"

@@ -24,7 +24,7 @@
                     <li><strong>ID logico:</strong> <span class="logic-id">{{$gateway->gatewayId}}</span></li>
                     <li><strong>Nome gateway:</strong> {{$gateway->name}}</li>
                     <li><strong>Numero di dispositivi censiti:</strong> {{count($devicesWithSensors)}}</li>
-                    <li><strong>Ultimo invio della configurazione:</strong> {{$gateway->lastSent}}</li>
+                    <li><strong>Ultimo invio della configurazione:</strong> {{$gateway->lastSent??'-'}}</li>
                 </ul>
             </div>
         </div>
