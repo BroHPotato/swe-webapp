@@ -19,6 +19,8 @@ class BasicProvider extends ServiceProvider
             session()->invalidate();
             session()->flush();
             return redirect(route('login'));
+        } elseif ($e->getCode() != 401 || $e->getCode() == 0) {
+            ($e->getCode()) ? abort($e->getCode()) : abort(409);
         }
     }
 

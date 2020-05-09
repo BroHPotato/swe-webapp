@@ -189,7 +189,8 @@ class UserController extends Controller
     public function restore($userId)
     {
         $user = $this->provider->retrieveById($userId);
-        return $this->provider->update($user->getAuthIdentifier(), '{"deleted":false}') ?
+        $data['deleted'] = false;
+        return $this->provider->update($user->getAuthIdentifier(), $data) ?
             redirect(route('users.index'))->withErrors(['GoodRestore' => 'Utente ripristinato con successo']) :
             redirect(route('users.index'))->withErrors(['NotRestore' => 'Utente non ripristinato']);
     }

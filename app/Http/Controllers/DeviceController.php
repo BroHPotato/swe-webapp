@@ -72,9 +72,9 @@ class DeviceController extends Controller
      */
     public function show($deviceId)
     {
-        $device = $this->deviceProvider->find($deviceId) ?? [];
-        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId) ?? [];
-        $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0] ?? [];
+        $device = $this->deviceProvider->find($deviceId);
+        $sensors = $this->sensorProvider->findAllFromDevice($device->deviceId);
+        $gateway = $this->gatewayProvider->findAllFromDevice($device->deviceId)[0];
         return view('devices.show', compact(['device', 'sensors', 'gateway']));
     }
 
