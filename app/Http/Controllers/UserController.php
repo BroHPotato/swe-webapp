@@ -112,7 +112,7 @@ class UserController extends Controller
             $data['type'] = 0;
         }
         if (key_exists('password', $data)) {
-            $data['password'] = $data['password'];/*todo sha512*/
+            $data['password'] = hash('sha512', $data["password"]);
         }
         return $this->provider->store($data) ? redirect(route('users.index'))
             ->withErrors([
@@ -162,7 +162,7 @@ class UserController extends Controller
             $change = ' e con nuova password : ' . $data['password'];
         }
         if (key_exists('password', $data)) {
-            $data['password'] = $data['password'];/*todo sha512*/
+            $data['password'] = hash('sha512', $data["password"]);
         }
 
         return $this->provider->update($user->getAuthIdentifier(), $data) ?
@@ -200,7 +200,7 @@ class UserController extends Controller
         $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
         $change = ' e nuova password : ' . $data['password'];
         if (key_exists('password', $data)) {
-            $data['password'] = $data['password'];/*todo sha512*/
+            $data['password'] = hash('sha512', $data["password"]);
         }
         return $this->provider->update($userId, $data) ?
             redirect(route('users.show', ['userId' => $userId]))

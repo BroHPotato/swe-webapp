@@ -114,7 +114,9 @@ export default {
                         ) {
                             response.data[sensor].forEach((data) => {
                                 this.vars.newDataSeries[sensor].push([
-                                    new Date(data.time).getTime(),
+                                    new Date(
+                                        data.time.slice(0, -9) + "Z"
+                                    ).getTime(),
                                     data.value,
                                 ]);
                                 this.vars.VarData[sensor].push(data.value);
@@ -126,7 +128,7 @@ export default {
         fetchNewData(sensor) {
             axios.get("/data/sensors/" + sensor).then((response) => {
                 this.vars.newDataSeries[sensor].push([
-                    new Date(response.data.time).getTime(),
+                    new Date(response.data.time.slice(0, -9) + "Z").getTime(),
                     response.data.value,
                 ]);
                 this.vars.VarData[sensor].push(response.data.value);
