@@ -33,10 +33,10 @@
                                 <label for="inputSensore" class="col-sm-3 col-form-label"><span class="fas fa-temperature-high"></span> Sensore</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
+                                        <select required class="form-control @error('sensor') is-invalid @enderror" name="sensor" id="inputSensor">
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
-                                                    <option value="{{$s->sensorId}}">{{$d->name . ' - @' . $s->realSensorId}}</option>
+                                                    <option value="{{$s->sensorId}}">{{$s->type.' S@' . $s->realSensorId.' // '.$d->name . ' D#'.$s->device }}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
@@ -53,7 +53,7 @@
                                 <label for="inputSoglia" class="col-sm-3 col-form-label"><span class="fas fa-radiation"></span> Soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
+                                        <select required class="form-control @error('type') is-invalid @enderror" name="type" id="inputSoglia">
                                             <option value="0" selected>maggiore di</option>
                                             <option value="1">minore di</option>
                                             <option value="2">uguale a</option>
@@ -71,7 +71,7 @@
                                 <label for="inputValue" class="col-sm-3 col-form-label"><span class="fas fa-radiation-alt"></span> Valore di soglia</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <input type="number" step="0.1" class="form-control @error('threshold') is-invalid @enderror" name="threshold" id="inputValue"
+                                        <input type="number" step="0.1" required class="form-control @error('threshold') is-invalid @enderror" name="threshold" id="inputValue"
                                                placeholder="Inserisci un valore di soglia" value="valorenumerico">
                                         @error('threshold')
                                         <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-icon-split">
+                            <button type="submit" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
                       <span class="fas fa-plus-circle"></span>
                     </span>
