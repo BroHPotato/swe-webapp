@@ -110,6 +110,8 @@ class UserController extends Controller
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
+        } else {
+            $data['type'] = intval($data['type']);
         }
         $toSend = '';
         if (key_exists('password', $data)) {
@@ -156,6 +158,9 @@ class UserController extends Controller
             if ($data['telegramName'] != $user->getTelegramName()) {
                 $data['tfa'] = false;
             }
+        }
+        if (key_exists('type', $data)) {
+            $data['type'] = intval($data['type']);
         }
 
         $change = "";
