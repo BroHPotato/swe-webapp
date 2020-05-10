@@ -117,6 +117,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/devices/{deviceId}', 'DeviceController@show')->name('devices.show');
 
     //routes per gestione sensori
-    //Route::get('/devices/{deviceId}/sensors', 'SensorController@index')->name('sensors.index');
     Route::get('/devices/{deviceId}/sensors/{sensorId}', 'SensorController@show')->name('sensors.show');
 });
