@@ -110,13 +110,17 @@ class UserController extends Controller
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
+        } else {
+            $data['type'] = intval($data['type']);
         }
+        $toSend = '';
         if (key_exists('password', $data)) {
+            $toSend = $data["password"];
             $data['password'] = hash('sha512', $data["password"]);
         }
         return $this->provider->store($data) ? redirect(route('users.index'))
             ->withErrors([
-                'GoodCreate' => 'Utente creato con successo con password: <code>' . $data['password'] . '</code>'
+                'GoodCreate' => 'Utente creato con successo con password: ' . $toSend
             ]) :
             redirect(route('users.index'))->withErrors(['NotCreate' => 'Utente non creato']);
     }
@@ -154,6 +158,9 @@ class UserController extends Controller
             if ($data['telegramName'] != $user->getTelegramName()) {
                 $data['tfa'] = false;
             }
+        }
+        if (key_exists('type', $data)) {
+            $data['type'] = intval($data['type']);
         }
 
         $change = "";
