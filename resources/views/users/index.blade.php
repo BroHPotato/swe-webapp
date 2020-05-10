@@ -62,14 +62,12 @@
                                         @endcan
                                         <td class="text-center">
                                             @if($u['user']->type < Auth::user()->type)
-                                                <div class="d-sm-flex mb-4 ml-sm-auto">
-                                                    <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
-                                                        <span class="icon text-white-50">
-                                                          <span class="fas fa-user-edit"></span>
-                                                        </span>
-                                                        <span class="text">Modifica</span>
-                                                    </a>
-                                                </div>
+                                                <a href="{{route('users.edit', $u['user']->userId)}}" class="btn btn-sm btn-warning btn-icon-split">
+                                                    <span class="icon text-white-50">
+                                                      <span class="fas fa-user-edit"></span>
+                                                    </span>
+                                                    <span class="text">Modifica</span>
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>

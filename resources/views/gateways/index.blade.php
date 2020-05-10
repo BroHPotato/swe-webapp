@@ -56,14 +56,14 @@
                                         <span class="text-gray-800">{{substr($gWd['gateway']->name, 0, 3)}}</span>{{substr($gWd['gateway']->name, 3)}}
                                 </td>
                                 <td>{{count($gWd['devices'])}}</td>
-                                <td>{{$gWd['gateway']->lastSent??'-'}}</td>
-                                <td>
+                                <td class="small">{{$gWd['gateway']->lastSent?date("d/m/Y - H:i:s", strtotime($gWd['gateway']->lastSent)):'-'}}</td>
+                                <td class="text-center">
                                     <a href="#" onclick="event.preventDefault();
                                     return confirm('Sei sicuro di voler inviare la configurazione al gateway #{{$gWd['gateway']->gatewayId}} ?') ? document.getElementById('config{{$gWd['gateway']->gatewayId}}').submit() : false;"
                                        class="btn btn-sm btn-primary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                      <span class="fas fa-paper-plane"></span>
-                                    </span>
+                                        <span class="icon text-white-50">
+                                          <span class="fas fa-paper-plane"></span>
+                                        </span>
                                         <span class="text">Invia config.</span>
                                     </a>
                                     <form id="config{{$gWd['gateway']->gatewayId}}" action="{{ route('gateways.config', ['gatewayId' => $gWd['gateway']->gatewayId]) }}" method="POST" style="display: none;">
