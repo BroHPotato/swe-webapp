@@ -44,7 +44,7 @@
                                 <label for="inputSensor1" class="col-sm-3 col-form-label"><span class="fas fa-thermometer-half"></span> Sensore 1</label>
                                 <div class="col-sm-9">
                                     <div class="input-group mb-3">
-                                        <select class="form-control @error('sensore1') is-invalid @enderror" name="sensor1" id="inputSensor1">
+                                        <select required class="form-control @error('sensore1') is-invalid @enderror" name="sensor1" id="inputSensor1">
                                             @foreach($devices as $d)
                                                 @foreach($sensors[$d->deviceId] as $s)
                                                     <option value="{{$s->sensorId}}">{{$s->type.' S@' . $s->realSensorId.' // '.$d->name . ' D#'.$s->device }}</option>

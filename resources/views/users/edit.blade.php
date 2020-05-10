@@ -30,7 +30,7 @@
                         <div class="form-group row">
                             <label for="inputName" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Nome</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Nome" value="{{old('name')??$user->name}}" name="name">
+                                <input required type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Nome" value="{{old('name')??$user->name}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                         <div class="form-group row">
                             <label for="inputSurname" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Cognome</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('surname') is-invalid @enderror" id="inputSurname" placeholder="Cognome" value="{{old('surname')??$user->surname}}" name="surname">
+                                <input required type="text" class="form-control @error('surname') is-invalid @enderror" id="inputSurname" placeholder="Cognome" value="{{old('surname')??$user->surname}}" name="surname">
                                 @error('surname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -54,7 +54,7 @@
                         <div class="form-group row">
                             <label for="inputType" class="col-sm-4 col-form-label"><span class="fas fa-user-tag"></span> Ruolo</label>
                             <div class="col-sm-8">
-                                <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputType">
+                                <select required class="form-control @error('type') is-invalid @enderror" name="type" id="inputType">
                                     <option value="0" @if($user->getRole()=='Utente') selected @endif>Utente</option>
                                     <option value="1" @if($user->getRole()=='Moderatore') selected @endif>Moderatore</option>
                                 </select>
@@ -70,7 +70,7 @@
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-4 col-form-label"><span class="fas fa-envelope text-gray-500"></span> Email</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
+                            <input required type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

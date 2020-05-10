@@ -31,7 +31,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-4 col-form-label"><span class="fas fa-envelope text-gray-500"></span> Email</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
+                                    <input required type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -97,7 +97,7 @@
                                 <label for="inputPA" class="col-sm-4 col-form-label">
                                     <span class="fas fa-lock-open text-danger"></span> Password attuale</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
+                                    <input required type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
                                            placeholder="Password attuale" name="password" autocomplete="off">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -110,7 +110,7 @@
                                 <label for="inputPN" class="col-sm-4 col-form-label">
                                     <span class="fas fa-lock text-success"></span> Nuova password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
+                                    <input required type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
                                            placeholder="Nuova password" name="new password" autocomplete="off">
                                     @error('new_password')
                                     <span class="invalid-feedback" role="alert">
@@ -123,7 +123,7 @@
                                 <label for="inputPNR" class="col-sm-4 col-form-label">
                                     <span class="fas fa-redo-alt text-success"></span> Ripeti nuova password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
+                                    <input required type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
                                            placeholder="Ripeti nuova password" name="confirm password" autocomplete="off">
                                     @error('confirm_password')
                                     <span class="invalid-feedback" role="alert">

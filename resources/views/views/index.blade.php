@@ -30,7 +30,7 @@
                         <div class="form-group row">
                             <label for="inputViewName" class="col-sm-4 col-form-label"><span class="fas fa-tag"></span> Nome view </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('viewName') is-invalid @enderror" id="inputViewName" placeholder="Nome della pagina view" value="{{old('viewName')}}" name="viewName">
+                                <input required type="text" class="form-control @error('viewName') is-invalid @enderror" id="inputViewName" placeholder="Nome della pagina view" value="{{old('viewName')}}" name="viewName">
                                 @error('viewName')
                                 <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
