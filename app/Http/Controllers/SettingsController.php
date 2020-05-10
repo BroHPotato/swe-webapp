@@ -76,7 +76,7 @@ class SettingsController extends Controller
             $data['password'] = $data['new_password'];
         }
         if (key_exists('password', $data)) {
-            $data['password'] = $data['password'];/*todo sha512*/
+            $data['password'] = hash('sha512', $data["password"]);
         }
         $service = new UserServiceProvider();
         return $service->update($user->getAuthIdentifier(), $data) ?
