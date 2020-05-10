@@ -21,7 +21,7 @@
                                     @csrf
 
                                     <div class="form-group">
-                                            <input id="email" type="email"
+                                            <input id="email" type="email" required
                                                    class="form-control form-control-user @error('email') is-invalid @enderror"
                                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                                                     placeholder="Indirizzo Email">
@@ -33,7 +33,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input id="password" type="password"
+                                        <input id="password" type="password" required
                                                class="form-control form-control-user @error('password') is-invalid @enderror"
                                                name="password" required autocomplete="current-password"
                                                placeholder="Password">

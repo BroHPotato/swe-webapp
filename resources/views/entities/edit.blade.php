@@ -47,7 +47,7 @@
                             <div class="form-group row">
                                 <label for="inputEntityName" class="col-sm-3 col-form-label"><span class="fas fa-building"></span> Nome ente</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="{{old('name')??$entity->name}}" name="name">
+                                    <input required type="text" class="form-control @error('name') is-invalid @enderror" id="inputEntityName" placeholder="Nome dell'ente" value="{{old('name')??$entity->name}}" name="name">
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
