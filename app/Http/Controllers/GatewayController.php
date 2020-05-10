@@ -36,7 +36,6 @@ class GatewayController extends Controller
     public function index()
     {
         $gateways = $this->gatewayProvider->findAll();
-        $devices = [];
         $gatewaysWithDevices = [];
         foreach ($gateways as $g) {
             $gatewaysWithDevices[$g->gatewayId]['gateway'] = $g;

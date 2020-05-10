@@ -104,7 +104,7 @@ class UserController extends Controller
             'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'type' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
         ]);
-        $data['password'] = substr(md5(microtime()), rand(0, 26), 6);
+        $data['password'] = substr(md5(microtime()), random_int(0, 26), 6);
         if (!key_exists('entityId', $data)) {
             $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
         }
@@ -165,7 +165,7 @@ class UserController extends Controller
 
         $change = "";
         if (key_exists('password', $data)) {
-            $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
+            $data['password'] =  substr(md5(microtime()), random_int(0, 26), 6);
             $change = ' e con nuova password : ' . $data['password'];
         }
         if (key_exists('password', $data)) {
@@ -204,7 +204,7 @@ class UserController extends Controller
 
     public function reset($userId)
     {
-        $data['password'] =  substr(md5(microtime()), rand(0, 26), 6);
+        $data['password'] =  substr(md5(microtime()), random_int(0, 26), 6);
         $change = ' e nuova password : ' . $data['password'];
         if (key_exists('password', $data)) {
             $data['password'] = hash('sha512', $data["password"]);
