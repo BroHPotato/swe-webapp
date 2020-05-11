@@ -15,7 +15,7 @@ class BasicProvider extends ServiceProvider
      */
     protected function isExpired(RequestException $e)
     {
-        if ($e->getCode() == 419/*fai il controllo del token*/) {
+        if ($e->getCode() == 419 || $e->getCode() == 403 /* fai il controllo del token */) {
             session()->invalidate();
             session()->flush();
             return redirect(route('login'));
