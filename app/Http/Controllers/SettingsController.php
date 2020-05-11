@@ -58,7 +58,7 @@ class SettingsController extends Controller
             'email' => 'email',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',
-            'password' => 'required_with:new_password|in:' . $user->getAuthPassword(),
+            'password' => 'required_with:new_password',
             'new_password' => 'required_with:password|min:6',
             'confirm_password' => 'required_with:new_password|same:new_password'
         ]);
@@ -69,24 +69,28 @@ class SettingsController extends Controller
             $data['tfa'] = false;
         }
 
-        if (key_exists('telegramName', $data)) {
-            if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
-                $data['tfa'] = false;
+        if ((key_exists('password', $data) && hash('sha512', $data['password'])==$user->getAuthPassword()) || !key_exists('password', $data)){
+            if (key_exists('tfa', $data)) {
+                $data['tfa'] = boolval($data['tfa']);
             }
+            if (key_exists('telegramName', $data)) {
+                if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
+                    $data['tfa'] = false;
+                }
+            }
+            $data = array_diff_assoc($data, $user->getAttributes());
+            if (key_exists('new_password', $data)) {
+                $data['password'] = $data['new_password'];
+            }
+            if (key_exists('password', $data)) {
+                $data['password'] = hash('sha512', $data["password"]);
+            }
+            $service = new UserServiceProvider();
+            return $service->update($user->getAuthIdentifier(), $data) ?
+                redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
+                redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
         }
-        $data = array_diff_assoc($data, $user->getAttributes());
-        if (key_exists('new_password', $data)) {
-            $data['password'] = $data['new_password'];
-        }
-        if (key_exists('password', $data)) {
-            $data['password'] = hash('sha512', $data["password"]);
-        }
-        $service = new UserServiceProvider();
-
-        //dd($data);
-        return $service->update($user->getAuthIdentifier(), $data) ?
-            redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
-            redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
+        return redirect('/settings/edit')->withErrors(['password' => trans('auth.failed')]);
     }
 
     public function updateAlerts()

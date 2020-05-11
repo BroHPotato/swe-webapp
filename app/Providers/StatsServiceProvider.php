@@ -29,7 +29,6 @@ class StatsServiceProvider extends BasicProvider
             return json_decode($this->request->get('', $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }

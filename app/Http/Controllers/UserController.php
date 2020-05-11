@@ -22,6 +22,7 @@ class UserController extends Controller
      * @var UserServiceProvider
      */
     private $provider;
+    private $entityProvider;
 
     /**
      * Create a new controller instance.
@@ -32,6 +33,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
         $this->provider = new UserServiceProvider();
+        $this->entityProvider = new EntityServiceProvider();
     }
 
     /**
@@ -42,7 +44,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->provider->findAll();
-        $entities = (new EntityServiceProvider())->findAll();
+        $entities = $this->entityProvider->findAll();
         $nullOrNot = function ($u) use (&$entities) {
             $entity = array_filter($entities, function ($e) use (&$u) {
                 return $u->entity == $e->entityId;
@@ -77,8 +79,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $entityProvider = new EntityServiceProvider();
-        $entities = $entityProvider->findAll();
+        $entities = $this->entityProvider->findAll();
         return view('users.create', compact('entities'));
     }
 

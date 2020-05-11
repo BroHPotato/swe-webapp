@@ -47,7 +47,7 @@ class DeviceServiceProvider extends BasicProvider
             return $device;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -67,7 +67,7 @@ class DeviceServiceProvider extends BasicProvider
             return $devices;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -90,7 +90,7 @@ class DeviceServiceProvider extends BasicProvider
             return $devices;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -109,7 +109,7 @@ class DeviceServiceProvider extends BasicProvider
             return $devices;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -125,7 +125,7 @@ class DeviceServiceProvider extends BasicProvider
             return $device;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
