@@ -109,23 +109,24 @@
                                         <span class="fas fa-tape mx-1"></span> Tipo
                                     </label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="{{old('sensorType')[$key]}}" name="sensorType[]">
+                                        <input type="text" class="form-control" placeholder="Tipo di sensore" required value="{{old('sensorType')[$key]}}" name="sensorType[]">
                                     </div>
                                     <label class="col-lg-1 col-form-label">
                                         <span class="fas fa-satellite-dish mx-1"></span> CMD
                                     </label>
                                     <div class="col-lg-2">
-                                        <select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">
+                                        <select class="form-control" name="enableCmd[]">
                                             <option selected value="{{old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==true)Abilitato @else Disabilitato @endif</option>
+                                            <option value="{{!old('cmdEnable')[$key]}}">@if(old('cmdEnable')[$key]==false)Abilitato @else Disabilitato @endif</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                                        <button class="btn btn-small btn-danger delete">
+                                        <button class="btn btn-sm btn-danger delete">
                                             <span class="fas fa-trash"></span>
                                         </button>
                                     </div>
                                     <div class="col-lg-1 mt-2 d-lg-none my-1">
-                                        <button class="btn btn-small btn-danger btn-icon-split delete">
+                                        <button class="btn btn-sm btn-danger btn-icon-split delete">
                                             <span class="fas fa-trash icon text-white-50"></span>
                                             <span class="text">Elimina sensore</span>
                                         </button>
