@@ -181,7 +181,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         try {
             $response = json_decode($this->request->get('users', array_merge($this->setHeaders(), [
-                'query' => 'entity=' . $entityId
+                'query' => 'entityId=' . $entityId
             ]))->getBody());
             $users = [];
             foreach ($response as $u) {
@@ -213,6 +213,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             }
             return true;
         } catch (RequestException $e) {
+            dd($e);
             $this->isExpired($e);
             return false;
         }
