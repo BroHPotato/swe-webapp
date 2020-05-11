@@ -88,8 +88,10 @@ class UserController extends Controller
      */
     public function edit($user)
     {
+        $entityProvider = new EntityServiceProvider();
+        $entities = $entityProvider->findAll();
         $user = $this->provider->retrieveById($user);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'entities'));
     }
 
     /**
@@ -136,6 +138,7 @@ class UserController extends Controller
             'name' => 'required|string|max:32',
             'surname' => 'required|string|max:32',
             'type' => 'in:0,1,2|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
+            'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'email' => 'required|email|max:32',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',

@@ -21,14 +21,14 @@
                 </h6>
             </div>
             <div class="card-body">
-                @if($user->type<Auth::user()->type)
+                @if($user->type < Auth::user()->type)
                     <p>Puoi modificare le informazioni dell'account cambiando i campi contenuti di seguito.</p>
                     <form method="POST" action="{{route('users.update', $user->userId)}}">
                     @csrf
                     @method('PUT')
                     @canany(['isAdmin', 'isMod'])
                         <div class="form-group row">
-                            <label for="inputName" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Nome</label>
+                            <label for="inputName" class="col-sm-4 col-form-label"><span class="fa fa-signature"></span> Nome</label>
                             <div class="col-sm-8">
                                 <input required type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Nome" value="{{old('name')??$user->name}}" name="name">
                                 @error('name')
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSurname" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Cognome</label>
+                            <label for="inputSurname" class="col-sm-4 col-form-label"><span class="fas fa-file-signature"></span> Cognome</label>
                             <div class="col-sm-8">
                                 <input required type="text" class="form-control @error('surname') is-invalid @enderror" id="inputSurname" placeholder="Cognome" value="{{old('surname')??$user->surname}}" name="surname">
                                 @error('surname')
@@ -59,6 +59,24 @@
                                     <option value="1" @if($user->getRole()=='Moderatore') selected @endif>Moderatore</option>
                                 </select>
                                 @error('type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="alert alert-warning"><span class="fas fa-exclamation-triangle"></span>
+                            <strong>Attenzione!</strong> Se si modifica l'ente di un utente, tutte le pagine view e tutte le impostazioni degli alert relativi al suo account verranno rimosse.
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEnte" class="col-sm-4 col-form-label text-warning"><span class="fas fa-dungeon"></span> Ente</label>
+                            <div class="col-sm-8">
+                                <select required class="form-control @error('entityId') is-invalid @enderror" name="entityId" id="inputEnte">
+                                    @foreach($entities as $entity)
+                                        <option value="{{$entity->entityId}}" @if($user->entity === $entity->entityId) selected @endif>{{$entity->name}} @if($user->entity === $entity->entityId) (corrente) @endif</option>
+                                    @endforeach
+                                </select>
+                                @error('entityId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
