@@ -59,7 +59,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa || old('tfa')) checked @endif @if(!$user->telegramChat) disabled @endif>
                                         <label class="custom-control-label" for="gridCheck">
-                                            <span>Autenticazione a due fattori con Telegram* </span>
+                                            <span>Autenticazione a due fattori con Telegram* @if(!$user->telegramChat) (<a href="{{route('settings.edit')}}">ricontrolla</a>)@endif </span>
                                         </label>
                                     </div>
                                 </div>

@@ -65,7 +65,10 @@ class SettingsController extends Controller
 
         if (key_exists('tfa', $data)) {
             $data['tfa'] = boolval($data['tfa']);
+        } else {
+            $data['tfa'] = false;
         }
+
         if (key_exists('telegramName', $data)) {
             if ($data['telegramName'] != $user->getTelegramName()  || is_null($user->getChatId())) {
                 $data['tfa'] = false;
@@ -79,6 +82,8 @@ class SettingsController extends Controller
             $data['password'] = hash('sha512', $data["password"]);
         }
         $service = new UserServiceProvider();
+
+        //dd($data);
         return $service->update($user->getAuthIdentifier(), $data) ?
             redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
             redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
