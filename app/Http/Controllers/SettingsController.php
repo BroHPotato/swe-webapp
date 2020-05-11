@@ -69,7 +69,7 @@ class SettingsController extends Controller
             $data['tfa'] = false;
         }
 
-        if ((key_exists('password', $data) && hash('sha512', $data['password'])==$user->getAuthPassword()) || !key_exists('password', $data)){
+        if ((key_exists('password', $data) && hash('sha512', $data['password']) == $user->getAuthPassword()) || !key_exists('password', $data)) {
             if (key_exists('tfa', $data)) {
                 $data['tfa'] = boolval($data['tfa']);
             }
