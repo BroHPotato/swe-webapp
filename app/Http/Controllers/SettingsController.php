@@ -91,7 +91,7 @@ class SettingsController extends Controller
                 redirect('/settings/edit')->withErrors(['GoodUpdate' => 'Impostazioni aggiornate con successo']) :
                 redirect('/settings/edit')->withErrors(['NotUpdate' => 'Impostazioni non aggiornate']);
         }
-        return redirect('/settings/edit')->withErrors(['password' => trans('auth.failed')]);
+        return redirect('/settings/edit')->withErrors(['password' => trans('passwords.oldNotValid')]);
     }
 
     public function updateAlerts()
