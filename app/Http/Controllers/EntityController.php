@@ -111,8 +111,8 @@ class EntityController extends Controller
             $oldSensors[] = $s->sensorId;
         }
 
-        $toInsert = array_values(array_map('intval',(array_diff($newSensors, $oldSensors)))) ?? [];
-        $toDelete = array_values(array_map('intval',(array_diff($oldSensors, $newSensors)))) ?? [];
+        $toInsert = array_values(array_map('intval', (array_diff($newSensors, $oldSensors)))) ?? [];
+        $toDelete = array_values(array_map('intval', (array_diff($oldSensors, $newSensors)))) ?? [];
 
         if (empty($toInsert) && empty($toDelete)) {
             return redirect(route('entities.show', ['entityId' => $entityId]))

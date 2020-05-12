@@ -158,7 +158,7 @@ class UserController extends Controller
             $data['tfa'] = boolval($data['tfa']);
         }
         if (key_exists('telegramName', $data)) {
-            if ($data['telegramName'] != $user->getTelegramName() && $user->getTelegramName()!=null) {
+            if ($data['telegramName'] != $user->getTelegramName() && $user->getTelegramName() != null) {
                 $data['tfa'] = false;
             }
         }
