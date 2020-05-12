@@ -42,7 +42,7 @@
                     <div class="card-body">
                         <p><span class="fas fa-envelope text-gray-500"></span> <strong>Email:</strong> {{$user->email}}</p>
                         <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName??'-'}}</p>
-                        <p><span class="fas fa-sign-in-alt text-primary"></span> <strong>Prima autenticazione Telegram:</strong> {{$user->telegramChat?'Sì':'No'}}</p>
+                        <p><span class="fas fa-check text-success"></span> <strong>Conferma account Telegram:</strong> {{$user->telegramChat?'Sì':'No'}}</p>
                     </div>
                 </div>
             </div>
