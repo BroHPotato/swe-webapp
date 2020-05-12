@@ -213,7 +213,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             }
             return true;
         } catch (RequestException $e) {
-            dd($e);
             $this->isExpired($e);
             return false;
         }
