@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel='shortcut icon' type='image/x-icon' href='{{ asset('favicon.ico') }}'>
 
     <!-- CSRF Token -->
@@ -45,6 +45,10 @@
             @endauth
         </div>
     </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <span class="fas fa-angle-up"></span>
+    </a>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
