@@ -103,6 +103,9 @@ class DeviceController extends Controller
                 route('devices.index')
             )->withErrors(['NotCreate' => 'Dispositivo e Sensori non creati']);
         }
+        $data['sensorId'] = $data['sensorId'] ?? [];
+        $data['sensorType'] = $data['sensorType'] ?? [];
+        $data['enableCmd'] = $data['enableCmd'] ?? [];
         $numId = count($data['sensorId']);
         $numType = count($data['sensorType']);
         $numCmd = count($data['enableCmd']);
@@ -165,6 +168,7 @@ class DeviceController extends Controller
         //ci sono dispositivi nel form
         $data['sensorId'] = $data['sensorId'] ?? [];
         $data['sensorType'] = $data['sensorType'] ?? [];
+        $data['enableCmd'] = $data['enableCmd'] ?? [];
         $check = true;
         $numId = count($data['sensorId']);
         $numType = count($data['sensorType']);
