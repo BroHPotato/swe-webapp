@@ -98,7 +98,10 @@
                     </div>
                     @can('isAdmin')
                         <div class="form-group row">
-                            <label for="inputTelegramName" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Nome Telegram</label>
+                            <label for="inputTelegramName" class="col-sm-4 col-form-label">
+                                <span class="fab fa-telegram text-primary"></span> Nome Telegram
+                                @if($user->telegramChat) <span class="fas fa-check text-success" title="Account Telegram verificato!"></span> @endif
+                            </label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control @error('telegramName') is-invalid @enderror" id="inputTelegramName" placeholder="Nome Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                 @error('telegramName')

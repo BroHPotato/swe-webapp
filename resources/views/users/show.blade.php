@@ -24,7 +24,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> {{$user->userId}}</p>
+                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> #{{$user->userId}}</p>
                         <p><span class="fas fa-signature"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
                         <p><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</p>
                         <p><span class="fas fa-building"></span> <strong>Ente:</strong> {{$entity->name??'-'}}</p>
@@ -41,7 +41,8 @@
                     </div>
                     <div class="card-body">
                         <p><span class="fas fa-envelope text-gray-500"></span> <strong>Email:</strong> {{$user->email}}</p>
-                        <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName?? 'N/D'}}</p>
+                        <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName??'-'}}</p>
+                        <p><span class="fas fa-check text-success"></span> <strong>Conferma account Telegram:</strong> {{$user->telegramChat?'Sì':'No'}}</p>
                     </div>
                 </div>
             </div>
@@ -60,7 +61,7 @@
                             @else
                                 <span class="badge badge-danger">Disattivo</span>
                             @endif</p>
-                        <p><span class="fas fa-user-lock"></span> <strong>Stato:</strong>
+                        <p><span class="fas fa-user-lock"></span> <strong>Status account:</strong>
                             @if($user->deleted)
                                 <span class="badge badge-danger">Disattivo</span>
                             @else
