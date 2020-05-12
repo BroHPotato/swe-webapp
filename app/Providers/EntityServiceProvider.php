@@ -124,6 +124,7 @@ class EntityServiceProvider extends BasicProvider
             ]));
             return true;
         } catch (RequestException $e) {
+            dd($body, $e);
             $this->isExpired($e);
             return false;
         }
