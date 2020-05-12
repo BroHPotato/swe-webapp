@@ -100,15 +100,4 @@ class ViewGraphServiceProvider extends BasicProvider
             return false;
         }
     }
-    /*    public function update(string $who, string $body)
-        {
-            try {
-                $this->request->put('/viewGraphs/' . $who, array_merge($this->setHeaders(), [
-                    'body' => $body
-                ]));
-            } catch (RequestException $e) {
-                $this->isExpired($e);
-                abort($e->getCode(), $e->getResponse()->getReasonPhrase());
-            }
-        }*/
 }
