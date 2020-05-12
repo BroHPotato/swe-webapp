@@ -89,8 +89,7 @@ class UserController extends Controller
      */
     public function edit($user)
     {
-        $entityProvider = new EntityServiceProvider();
-        $entities = $entityProvider->findAll();
+        $entities = $this->entityProvider->findAll();
         $user = $this->provider->retrieveById($user);
         return view('users.edit', compact('user', 'entities'));
     }
