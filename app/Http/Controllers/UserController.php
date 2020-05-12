@@ -167,6 +167,10 @@ class UserController extends Controller
             $data['type'] = intval($data['type']);
         }
 
+        if (key_exists('entityId', $data)) {
+            $data['entityId'] = intval($data['entityId']);
+        }
+
         $change = "";
         if (key_exists('password', $data)) {
             $data['password'] =  substr(md5(microtime()), random_int(0, 26), 6);
