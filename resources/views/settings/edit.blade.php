@@ -24,6 +24,12 @@
                         </h6>
                     </div>
                     <div class="card-body">
+                        @if(!$user->telegramChat)
+                            <div class="alert alert-warning px-3"><span class="fab fa-telegram"></span>
+                                La prima autenticazione a Telegram <strong>non</strong> è stata eseguita.
+                                In questo modo non potrai ricevere alert o abilitare l'autenticazione a due fattori.
+                                <a href="https://t.me/RIoT_RRR_Bot" target="_blank">Vai al <strong>Bot Telegram</strong></a>.</div>
+                        @endif
                         <p>Puoi modificare le informazioni del tuo account cambiando i campi contenuti di seguito.</p>
                         <form method="POST" action="{{route('settings.update')}}">
                             @csrf
@@ -40,7 +46,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inputTg" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Username Telegram</label>
+                                <label for="inputTg" class="col-sm-4 col-form-label">
+                                    <span class="fab fa-telegram text-primary"></span> Username Telegram
+                                    @if($user->telegramChat) <span class="fas fa-check text-success" title="Account Telegram verificato!"></span> @endif
+                                </label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                     @error('telegramName')
@@ -68,6 +77,7 @@
                             <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
                                 *Per attivare l'<em>autenticazione a due fattori</em> è necessario inserire il proprio username Telegram
                                 e, dopo aver avviato il bot direttamente dall'applicazione tramite il comando <code>/start</code>, inserire il comando <code>/login</code>.
+                                <a href="https://t.me/RIoT_RRR_Bot" target="_blank">Vai al <strong>Bot Telegram</strong></a>.
                             </p>
                             <hr>
                             <button type="submit" class="btn btn-success btn-icon-split">
