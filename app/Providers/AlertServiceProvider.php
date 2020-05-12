@@ -38,7 +38,6 @@ class AlertServiceProvider extends BasicProvider
             return $alert;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }

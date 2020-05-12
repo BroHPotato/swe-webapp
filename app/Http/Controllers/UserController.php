@@ -22,6 +22,7 @@ class UserController extends Controller
      * @var UserServiceProvider
      */
     private $provider;
+    private $entityProvider;
 
     /**
      * Create a new controller instance.
@@ -32,6 +33,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
         $this->provider = new UserServiceProvider();
+        $this->entityProvider = new EntityServiceProvider();
     }
 
     /**
@@ -42,7 +44,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->provider->findAll();
-        $entities = (new EntityServiceProvider())->findAll();
+        $entities = $this->entityProvider->findAll();
         $nullOrNot = function ($u) use (&$entities) {
             $entity = array_filter($entities, function ($e) use (&$u) {
                 return $u->entity == $e->entityId;
@@ -77,8 +79,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $entityProvider = new EntityServiceProvider();
-        $entities = $entityProvider->findAll();
+        $entities = $this->entityProvider->findAll();
         return view('users.create', compact('entities'));
     }
 
@@ -88,8 +89,10 @@ class UserController extends Controller
      */
     public function edit($user)
     {
+        $entityProvider = new EntityServiceProvider();
+        $entities = $entityProvider->findAll();
         $user = $this->provider->retrieveById($user);
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'entities'));
     }
 
     /**
@@ -136,6 +139,7 @@ class UserController extends Controller
             'name' => 'required|string|max:32',
             'surname' => 'required|string|max:32',
             'type' => 'in:0,1,2|numeric|required_if:' . Auth::user()->getRole() . '==, "isAdmin"',
+            'entityId' => 'nullable|numeric|required_if:' . Auth::user()->getRole() . ',==,Admin',
             'email' => 'required|email|max:32',
             'telegramName' => 'nullable|string|required_if:tfa,==,true',
             'tfa' => 'nullable|in:true',

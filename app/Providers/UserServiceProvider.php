@@ -53,7 +53,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $user;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -170,7 +169,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $users;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -193,7 +192,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $users;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 

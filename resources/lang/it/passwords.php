@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'oldNotValid' => "La password vecchia non è valida.",
     'password' => "Le password devono corrispondere e contenere almeno 6 caratteri.",
     'reset'    => "La tua password è stata resettata!",
     'sent'     => "Ti abbiamo inviato il link per il reset della password via email!",

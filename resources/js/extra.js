@@ -18,13 +18,15 @@ if (addSensor !== null) {
             const receiveCommand = document.querySelector("#commandCheck")
                 .value;
             let select =
-                '<select class="form-control" name="enableCmd[]" style="pointer-events: none; cursor: not-allowed; opacity: 0.6">';
+                '<select class="form-control" required name="enableCmd[]">';
 
             if (receiveCommand === "true") {
                 select += '<option selected value="true">Abilitato</option>';
+                select += '<option value="true">Disabilitato</option>';
             } else {
                 select +=
                     '<option selected value="false">Disabilitato</option>';
+                select += '<option value="true">Abilitato</option>';
             }
             select += " </select>";
 
@@ -44,7 +46,7 @@ if (addSensor !== null) {
                     <span class="fas fa-tape mx-1"></span> Tipo
                 </label>
                 <div class="col-lg-2">
-                    <input type="text" class="form-control" placeholder="Tipo di sensore" readonly="readonly" value="${sensorTypeValue}" name="sensorType[]">
+                    <input type="text" class="form-control" placeholder="Tipo di sensore" required value="${sensorTypeValue}" name="sensorType[]">
                 </div>
                 <label class="col-lg-1 col-form-label">
                     <span class="fas fa-satellite-dish mx-1"></span> CMD
@@ -53,12 +55,12 @@ if (addSensor !== null) {
                     ${select}
                 </div>
                 <div class="col-lg-1 col-form-label d-none d-lg-block text-center">
-                    <button class="btn btn-small btn-danger delete">
+                    <button class="btn btn-sm btn-danger delete">
                         <span class="fas fa-trash"></span>
                     </button>
                 </div>
                 <div class="col-lg-1 mt-2 d-lg-none my-1">
-                    <button class="btn btn-small btn-danger btn-icon-split delete">
+                    <button class="btn btn-sm btn-danger btn-icon-split delete">
                         <span class="fas fa-trash icon text-white-50"></span>
                         <span class="text">Elimina sensore</span>
                     </button>

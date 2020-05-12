@@ -64,7 +64,7 @@ class ViewGraphServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => 'view=' . $viewId
+                'query' => 'viewId=' . $viewId
             ]))->getBody());
             $graphs = [];
             foreach ($response as $g) {
