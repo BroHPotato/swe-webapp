@@ -42,12 +42,12 @@
 `npm run prettier-eslint-test`
 
 
-### Comandi per i test JS :fire:
+### Comandi per i test JS
 
 `npm test`
 
 
-### Comandi per il code style PHP :fire:
+### Comandi per il code style PHP 
 
 - Check:
 
