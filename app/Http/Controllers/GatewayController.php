@@ -88,9 +88,14 @@ class GatewayController extends Controller
 
     public function update($gatewayId)
     {
+        $currentGateway = $this->gatewayProvider->find($gatewayId);
         $data = request()->validate([
             'name' => 'required|string|regex:/(gw_)([A-Za-z0-9_-]+){1,27}/'
         ]);
+        if ($currentGateway->name == $data['name']) {
+            return redirect(route('gateways.index'))
+                ->withErrors(['GoodUpdate' => 'Gateway aggiornato con successo']);
+        }
         return $this->gatewayProvider->update($gatewayId, json_encode($data)) ?
             redirect(route('gateways.index'))->withErrors(['GoodUpdate' => 'Gateway aggiornato con successo']) :
             redirect(route('gateways.index'))->withErrors(['NotUpdate' => 'Gateway non aggiornato']);
