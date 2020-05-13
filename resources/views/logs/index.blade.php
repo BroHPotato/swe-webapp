@@ -34,7 +34,7 @@
                                 <th>Target</th>
                                 <th>Nome e cognome</th>
                                 <th>Rango</th>
-                                <th>IP</th>
+                                <th>Indirizzo IP</th>
                             </tr>
                             </thead>
                             <tbody>
