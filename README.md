@@ -2,7 +2,7 @@
 
 # Web application - ThiReMa
 
-:fire: Versione componente: `v0.4.0-rc` 
+:fire: Versione componente: `v1.0.0-rc` 
 
 :pushpin: Main repo: [swe-thirema](https://github.com/RedRoundRobin/swe-thirema)
 
@@ -14,7 +14,7 @@
 
 ![Repository Checker](https://github.com/RedRoundRobin/swe-webapp/workflows/Repository%20Checker/badge.svg)
 
-[![Coverage Status](https://coveralls.io/repos/github/RedRoundRobin/swe-webapp/badge.svg?branch=develop)](https://coveralls.io/github/RedRoundRobin/swe-webapp?branch=develop)
+[Coverage Status](https://coveralls.io/github/RedRoundRobin/swe-webapp?branch=develop)
 
 
 ### Installazione e primo avvio
