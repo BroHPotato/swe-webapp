@@ -21,16 +21,16 @@
                 </h6>
             </div>
             <div class="card-body">
-                @if($user->type<Auth::user()->type)
+                @if($user->type < Auth::user()->type)
                     <p>Puoi modificare le informazioni dell'account cambiando i campi contenuti di seguito.</p>
                     <form method="POST" action="{{route('users.update', $user->userId)}}">
                     @csrf
                     @method('PUT')
                     @canany(['isAdmin', 'isMod'])
                         <div class="form-group row">
-                            <label for="inputName" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Nome</label>
+                            <label for="inputName" class="col-sm-4 col-form-label"><span class="fa fa-signature"></span> Nome</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Nome" value="{{old('name')??$user->name}}" name="name">
+                                <input required type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Nome" value="{{old('name')??$user->name}}" name="name">
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -39,9 +39,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputSurname" class="col-sm-4 col-form-label"><span class="fas fa-user"></span> Cognome</label>
+                            <label for="inputSurname" class="col-sm-4 col-form-label"><span class="fas fa-file-signature"></span> Cognome</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control @error('surname') is-invalid @enderror" id="inputSurname" placeholder="Cognome" value="{{old('surname')??$user->surname}}" name="surname">
+                                <input required type="text" class="form-control @error('surname') is-invalid @enderror" id="inputSurname" placeholder="Cognome" value="{{old('surname')??$user->surname}}" name="surname">
                                 @error('surname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -54,11 +54,29 @@
                         <div class="form-group row">
                             <label for="inputType" class="col-sm-4 col-form-label"><span class="fas fa-user-tag"></span> Ruolo</label>
                             <div class="col-sm-8">
-                                <select class="form-control @error('type') is-invalid @enderror" name="type" id="inputType">
+                                <select required class="form-control @error('type') is-invalid @enderror" name="type" id="inputType">
                                     <option value="0" @if($user->getRole()=='Utente') selected @endif>Utente</option>
                                     <option value="1" @if($user->getRole()=='Moderatore') selected @endif>Moderatore</option>
                                 </select>
                                 @error('type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="alert alert-warning"><span class="fas fa-exclamation-triangle"></span>
+                            <strong>Attenzione!</strong> Se si modifica l'ente di un utente, tutte le pagine view e tutte le impostazioni degli alert relativi al suo account verranno rimosse.
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEnte" class="col-sm-4 col-form-label text-warning"><span class="fas fa-dungeon"></span> Ente</label>
+                            <div class="col-sm-8">
+                                <select required class="form-control @error('entityId') is-invalid @enderror" name="entityId" id="inputEnte">
+                                    @foreach($entities as $entity)
+                                        <option value="{{$entity->entityId}}" @if($user->entity === $entity->entityId) selected @endif>{{$entity->name}} @if($user->entity === $entity->entityId) (corrente) @endif</option>
+                                    @endforeach
+                                </select>
+                                @error('entityId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -70,7 +88,7 @@
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-4 col-form-label"><span class="fas fa-envelope text-gray-500"></span> Email</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
+                            <input required type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -80,7 +98,10 @@
                     </div>
                     @can('isAdmin')
                         <div class="form-group row">
-                            <label for="inputTelegramName" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Nome Telegram</label>
+                            <label for="inputTelegramName" class="col-sm-4 col-form-label">
+                                <span class="fab fa-telegram text-primary"></span> Nome Telegram
+                                @if($user->telegramChat) <span class="fas fa-check text-success" title="Account Telegram verificato!"></span> @endif
+                            </label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control @error('telegramName') is-invalid @enderror" id="inputTelegramName" placeholder="Nome Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                 @error('telegramName')

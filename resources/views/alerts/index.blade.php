@@ -6,6 +6,7 @@
     <div class="d-sm-flex mb-4">
         <h1 class="h3 mb-0 text-gray-800"> Alerts</h1>
     </div>
+    @include('layouts.error')
     <div class="row">
         <div class="col-auto mb-4 ">
             <a href="{{route('dashboard.index')}}" class="btn btn-sm btn-danger btn-icon-split mr-3">
@@ -53,12 +54,12 @@
                                         <tr>
                                             <td><span class="logic-id">{{$list['alert']->alertId}}</span></td>
                                             <td><a href="{{route('devices.show', ['deviceId' => $list['device']->deviceId])}}">{{$list['device']->name}}</a></td>
-                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}"><span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
+                                            <td><a href="{{route('sensors.show', ['deviceId' => $list['device']->deviceId, 'sensorId' => $list['sensor']->realSensorId])}}">S<span class="real-id">{{$list['sensor']->realSensorId}}</span></td>
                                             <td>{{$list['alert']->getType()}}</td>
                                             <td>{{$list['alert']->threshold}}</td>
                                             <td>{{$list['alert']->lastSent?date("d/m/Y - H:i:s", strtotime($list['alert']->lastSent)):'-'}}</td>
                                             @can(['isMod'])
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{route('alerts.edit', ['alertId' => $list['alert']->alertId])}}" class="btn btn-sm btn-warning btn-icon-split">
                                                         <span class="icon text-white-50">
                                                           <span class="fas fa-edit"></span>
@@ -68,8 +69,8 @@
                                                 </td>
                                             @endcan
                                             @can(['isAdmin'])
-                                                <td>
-                                                    <a class="btn btn-sm btn-danger btn-icon-split mb-3" href="{{ route('alerts.destroy', ['alertId'=>$list['alert']->alertId]) }}"
+                                                <td class="text-center">
+                                                    <a class="btn btn-sm btn-danger btn-icon-split" href="{{ route('alerts.destroy', ['alertId'=>$list['alert']->alertId]) }}"
                                                        onclick="event.preventDefault(); return confirm('Sei sicuro di voler rimuovere alert #{{ $list['alert']->alertId }}?') ?
                                                        document.getElementById('destroy-alert-{{ $list['alert']->alertId }}').submit() : false;">
                                                         <span class="icon text-white-50">

@@ -121,7 +121,7 @@ class SensorServiceProvider extends BasicProvider
                     $this->setHeaders(),
                     [
                         'query' => [
-                            'entity' => $entityId
+                            'entityId' => $entityId
                         ]
                     ]
                 )
@@ -202,7 +202,6 @@ class SensorServiceProvider extends BasicProvider
             return true;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            dd($e);
             return false;
         }
     }

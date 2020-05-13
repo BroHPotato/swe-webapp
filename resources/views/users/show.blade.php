@@ -24,7 +24,7 @@
                         </h6>
                     </div>
                     <div class="card-body">
-                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> {{$user->userId}}</p>
+                        <p><span class="fas fa-hashtag"></span> <strong>ID:</strong> #{{$user->userId}}</p>
                         <p><span class="fas fa-signature"></span> <strong>Nome e cognome:</strong> {{$user->name . ' ' . $user->surname}}</p>
                         <p><span class="fas fa-user-tag"></span> <strong>Ruolo:</strong> {{$user->getRole()}}</p>
                         <p><span class="fas fa-building"></span> <strong>Ente:</strong> {{$entity->name??'-'}}</p>
@@ -41,7 +41,8 @@
                     </div>
                     <div class="card-body">
                         <p><span class="fas fa-envelope text-gray-500"></span> <strong>Email:</strong> {{$user->email}}</p>
-                        <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName?? 'N/D'}}</p>
+                        <p><span class="fab fa-telegram text-primary"></span> <strong>Username Telegram:</strong> {{$user->telegramName??'-'}}</p>
+                        <p><span class="fas fa-check text-success"></span> <strong>Conferma account Telegram:</strong> {{$user->telegramChat?'Sì':'No'}}</p>
                     </div>
                 </div>
             </div>
@@ -60,7 +61,7 @@
                             @else
                                 <span class="badge badge-danger">Disattivo</span>
                             @endif</p>
-                        <p><span class="fas fa-user-lock"></span> <strong>Stato:</strong>
+                        <p><span class="fas fa-user-lock"></span> <strong>Status account:</strong>
                             @if($user->deleted)
                                 <span class="badge badge-danger">Disattivo</span>
                             @else
@@ -98,32 +99,33 @@
                                     @method('PUT')
                                 </form>
                             @endcan
-                        @endif
-                        @if($user->deleted)
-                            <!-- TODO - non previsto dal AdR, ma se c'è anche nelle API manteniamolo e lo aggiungiamo a mano -->
-                            <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
+                            @if($user->deleted )
+                                <a class="btn btn-success btn-icon-split" href="{{ route('users.restore', ['userId' => $user->userId ]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('restore-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-check"></span>
                                 </span>
-                                <span class="text">Ripristina</span>
-                            </a>
-                            <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('PUT')
-                            </form>
-                        @else
-                            <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
-                               onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
+                                    <span class="text">Ripristina</span>
+                                </a>
+                                <form id="restore-form-{{$user->userId}}" action="{{ route('users.restore', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('PUT')
+                                </form>
+                            @else
+                                <a class="btn btn-danger btn-icon-split" href="{{ route('users.destroy', ['userId' => $user->userId ]) }}"
+                                   onclick="event.preventDefault(); document.getElementById('delete-form-{{$user->userId}}').submit();">
                                 <span class="icon text-white-50">
                                   <span class="fas fa-user-times"></span>
                                 </span>
-                                <span class="text">Disattiva utente</span>
-                            </a>
-                            <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                    <span class="text">Disattiva utente</span>
+                                </a>
+                                <form id="delete-form-{{$user->userId}}" action="{{ route('users.destroy', ['userId' => $user->userId ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
+                        @else
+                            Non ci sono opzioni disponibili
                         @endif
                     </div>
                 </div>

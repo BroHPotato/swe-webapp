@@ -2,12 +2,13 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='shortcut icon' type='image/x-icon' href='{{ asset('favicon.ico') }}'>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Webapp' }} - RIoT</title>
+    <title>{{ ($breadcrumb = Breadcrumbs::current()) ? $breadcrumb->title : 'Web app' }} - RIoT</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,30 +24,33 @@
         <div id="wrapper">
             @auth
                 @include('layouts.sidebar')
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
+                <!-- Content Wrapper -->
+                <div id="content-wrapper" class="d-flex flex-column">
+                    <!-- Main Content -->
+                    <div id="content">
 
-                @include('layouts.topbar')
-                <!-- Begin Page Content -->
-                    <div class="container-fluid">
+                    @include('layouts.topbar')
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
             @endauth
-                        @yield('content')
+            @yield('content')
             @auth
+                        </div>
+                        <!-- /.container-fluid -->
                     </div>
-                    <!-- /.container-fluid -->
+                    <!-- End of Main Content -->
+                    @include('layouts.footer')
                 </div>
-                <!-- End of Main Content -->
-                @include('layouts.footer')
+                <!-- End of Content Wrapper -->
             @endauth
-            </div>
-            <!-- End of Content Wrapper -->
         </div>
     </div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <span class="fas fa-angle-up"></span>
+    </a>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}"></script>
 </html>
 

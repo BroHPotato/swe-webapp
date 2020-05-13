@@ -38,7 +38,6 @@ class AlertServiceProvider extends BasicProvider
             return $alert;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -64,7 +63,6 @@ class AlertServiceProvider extends BasicProvider
             return $alerts;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -88,7 +86,6 @@ class AlertServiceProvider extends BasicProvider
             return $alerts;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            //abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }

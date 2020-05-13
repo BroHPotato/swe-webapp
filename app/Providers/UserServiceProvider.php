@@ -53,7 +53,6 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $user;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -126,8 +125,8 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             'headers' => [
                 'X-Forwarded-For' => request()->ip()
             ],
-            'body' => '{"username":"' . $credentials["email"] . '","password":"' . $credentials["password"]
-                /*todo sha512*/ . '"}'
+            'body' => '{"username":"' . $credentials["email"] . '","password":"' .
+                hash('sha512', $credentials["password"]) . '"}'
         ])->getBody());
 
         if (property_exists($response, 'tfa')) {
@@ -170,7 +169,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $users;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 
@@ -182,7 +181,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
     {
         try {
             $response = json_decode($this->request->get('users', array_merge($this->setHeaders(), [
-                'query' => 'entity=' . $entityId
+                'query' => 'entityId=' . $entityId
             ]))->getBody());
             $users = [];
             foreach ($response as $u) {
@@ -193,7 +192,7 @@ class UserServiceProvider extends BasicProvider implements UserProvider
             return $users;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
+            return null;
         }
     }
 

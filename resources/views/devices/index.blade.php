@@ -55,7 +55,11 @@
                                         <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">D<span class="logic-id">{{$device->deviceId}}</span></a></td>
                                         <td> <a href="{{route('devices.show', ['deviceId' => $device->deviceId ])}}">{{$device->name}}</a></td>
                                         <td><span class="badge badge-success">Attivo</span></td>
-                                        <td class="small">{{$deviceOnGateway['gateway']->name}}</td>
+                                        <td class="small">
+                                            <a class="text-danger" href="{{route('gateways.show', ['gatewayId' => $deviceOnGateway['gateway']->gatewayId])}}">
+                                                {{$deviceOnGateway['gateway']->name}}
+                                            </a>
+                                        </td>
                                         <td>{{$deviceOnGateway['sensors'][$device->deviceId]}}</td>
                                         <td>{{$device->frequency}}s</td>
                                         <td class="text-center">

@@ -80,8 +80,11 @@ class AlertsController extends Controller
         $data["threshold"] = doubleval($data["threshold"]);
         $data["type"] = intval($data["type"]);
         $data["entity"] = Auth::user()->entity;
-        $this->alertProvider->store(json_encode($data));
-        return redirect(route('alerts.index'));
+        return $this->alertProvider->store(json_encode($data)) ?
+            redirect(route('alerts.index'))
+                ->withErrors(['GoodDestroy' => 'Alert inserito con successo']) :
+            redirect(route('alerts.index'))
+                ->withErrors(['NotDestroy' => 'Alert non inserito']);
     }
 
     /**
@@ -98,8 +101,11 @@ class AlertsController extends Controller
         $data["sensor"] = intval($data["sensor"]);
         $data["threshold"] = doubleval($data["threshold"]);
         $data["type"] = intval($data["type"]);
-        $this->alertProvider->update($alertId, json_encode($data, JSON_FORCE_OBJECT));
-        return redirect(route('alerts.index'));
+        return $this->alertProvider->update($alertId, json_encode($data, JSON_FORCE_OBJECT)) ?
+            redirect(route('alerts.index'))
+                ->withErrors(['GoodDestroy' => 'Alert aggiornato con successo']) :
+            redirect(route('alerts.index'))
+                ->withErrors(['NotDestroy' => 'Alert non aggiornato']);
     }
 
     /**
@@ -108,7 +114,10 @@ class AlertsController extends Controller
      */
     public function destroy($alertId)
     {
-        $this->alertProvider->destroy($alertId);
-        return redirect(route('alerts.index'));
+        return $this->alertProvider->destroy($alertId) ?
+            redirect(route('alerts.index'))
+                ->withErrors(['GoodDestroy' => 'Alert eliminato con successo']) :
+            redirect(route('alerts.index'))
+                ->withErrors(['NotDestroy' => 'Alert non eliminato']);
     }
 }

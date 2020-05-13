@@ -81,7 +81,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-receipt text-success"></i> <span>Logs</span></a>
+        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-list-alt text-success"></i> <span>Logs</span></a>
     </li>
 
     @endcan
@@ -104,7 +104,7 @@
         <a class="nav-link" href="{{ route('gateways.index') }}"><i class="fas fa-fw fa-dungeon text-danger"></i> <span>Gestione gateways</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-fw fa-receipt text-danger"></i> <span>Logs</span></a>
+        <a class="nav-link" href="{{ route('logs.index') }}"><i class="fas fa-fw fa-list-alt text-danger"></i> <span>Logs</span></a>
     </li>
 
     @endcan

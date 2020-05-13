@@ -24,6 +24,12 @@
                         </h6>
                     </div>
                     <div class="card-body">
+                        @if(!$user->telegramChat)
+                            <div class="alert alert-warning px-3"><span class="fab fa-telegram"></span>
+                                La prima autenticazione a Telegram <strong>non</strong> è stata eseguita.
+                                In questo modo non potrai ricevere alert o abilitare l'autenticazione a due fattori.
+                                <a href="https://t.me/RIoT_RRR_Bot" target="_blank" rel="noopener noreferrer">Vai al <strong>Bot Telegram</strong></a>.</div>
+                        @endif
                         <p>Puoi modificare le informazioni del tuo account cambiando i campi contenuti di seguito.</p>
                         <form method="POST" action="{{route('settings.update')}}">
                             @csrf
@@ -31,7 +37,7 @@
                             <div class="form-group row">
                                 <label for="inputEmail" class="col-sm-4 col-form-label"><span class="fas fa-envelope text-gray-500"></span> Email</label>
                                 <div class="col-sm-8">
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
+                                    <input required type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" value="{{old('email')??$user->email}}" name="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -40,9 +46,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="inputTg" class="col-sm-4 col-form-label"><span class="fab fa-telegram text-primary"></span> Username Telegram</label>
+                                <label for="inputTg" class="col-sm-4 col-form-label">
+                                    <span class="fab fa-telegram text-primary"></span> Username Telegram
+                                    @if($user->telegramChat) <span class="fas fa-check text-success" title="Account Telegram verificato!"></span> @endif
+                                </label>
                                 <div class="col-sm-8">
-                                    <input type="username" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
+                                    <input type="text" class="form-control @error('telegramName') is-invalid @enderror" id="inputTg" placeholder="Username Telegram" value="{{old('telegramName')??$user->telegramName}}" name="telegramName">
                                     @error('telegramName')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -59,7 +68,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="gridCheck" name="tfa" value="true" @if($user->tfa || old('tfa')) checked @endif @if(!$user->telegramChat) disabled @endif>
                                         <label class="custom-control-label" for="gridCheck">
-                                            <span>Autenticazione a due fattori con Telegram* </span>
+                                            <span>Autenticazione a due fattori con Telegram* @if(!$user->telegramChat) (<a href="{{route('settings.edit')}}">ricontrolla</a>)@endif </span>
                                         </label>
                                     </div>
                                 </div>
@@ -68,6 +77,7 @@
                             <p class="my-2 small"><span class="fas fa-info-circle text-primary"></span>
                                 *Per attivare l'<em>autenticazione a due fattori</em> è necessario inserire il proprio username Telegram
                                 e, dopo aver avviato il bot direttamente dall'applicazione tramite il comando <code>/start</code>, inserire il comando <code>/login</code>.
+                                <a href="https://t.me/RIoT_RRR_Bot" target="_blank" rel="noopener noreferrer">Vai al <strong>Bot Telegram</strong></a>.
                             </p>
                             <hr>
                             <button type="submit" class="btn btn-success btn-icon-split">
@@ -97,7 +107,7 @@
                                 <label for="inputPA" class="col-sm-4 col-form-label">
                                     <span class="fas fa-lock-open text-danger"></span> Password attuale</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
+                                    <input required type="password" class="form-control @error('password') is-invalid @enderror" id="inputPA"
                                            placeholder="Password attuale" name="password" autocomplete="off">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -110,7 +120,7 @@
                                 <label for="inputPN" class="col-sm-4 col-form-label">
                                     <span class="fas fa-lock text-success"></span> Nuova password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
+                                    <input required type="password" class="form-control @error('new_password') is-invalid @enderror" id="inputPN"
                                            placeholder="Nuova password" name="new password" autocomplete="off">
                                     @error('new_password')
                                     <span class="invalid-feedback" role="alert">
@@ -123,7 +133,7 @@
                                 <label for="inputPNR" class="col-sm-4 col-form-label">
                                     <span class="fas fa-redo-alt text-success"></span> Ripeti nuova password</label>
                                 <div class="col-sm-8">
-                                    <input type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
+                                    <input required type="password" class="form-control @error('confirm_password') is-invalid @enderror" id="inputPNR"
                                            placeholder="Ripeti nuova password" name="confirm password" autocomplete="off">
                                     @error('confirm_password')
                                     <span class="invalid-feedback" role="alert">

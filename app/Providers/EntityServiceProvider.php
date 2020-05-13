@@ -47,7 +47,6 @@ class EntityServiceProvider extends BasicProvider
             return $entity;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -68,7 +67,6 @@ class EntityServiceProvider extends BasicProvider
             return $entities;
         } catch (RequestException $e) {
             $this->isExpired($e);
-            abort($e->getCode(), $e->getResponse()->getReasonPhrase());
             return null;
         }
     }
@@ -81,7 +79,7 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => ['sensor' => $sensorId]
+                'query' => ['sensorId' => $sensorId]
             ]))->getBody());
             $entities = [];
             foreach ($response as $e) {
@@ -104,7 +102,7 @@ class EntityServiceProvider extends BasicProvider
     {
         try {
             $response = json_decode($this->request->get('', array_merge($this->setHeaders(), [
-                'query' => ['user' => $userId]
+                'query' => ['userId' => $userId]
             ]))->getBody());
             if (empty($response)) {
                 return null;

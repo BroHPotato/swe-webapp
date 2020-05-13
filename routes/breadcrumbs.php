@@ -13,6 +13,11 @@ Breadcrumbs::for('tfaLogin', function ($trail) {
 Breadcrumbs::for('dashboard.index', function ($trail) {
     $trail->push('Home', route('dashboard.index'));
 });
+Breadcrumbs::for('dashboard.coffee', function ($trail) {
+    $trail->parent('dashboard.index');
+    $trail->push('Errore 418', route('dashboard.index'));
+});
+
 
 // Impostazioni
 Breadcrumbs::for('settings.edit', function ($trail) {

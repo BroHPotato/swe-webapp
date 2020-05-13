@@ -20,7 +20,7 @@
                                 <form class="user" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <input id="code" type="text"
+                                        <input id="code" type="text" required
                                                class="form-control form-control-user form-codice-tfa @error('code') is-invalid @enderror"
                                                name="code" placeholder="Inserisci il codice" autocomplete="off">
 

@@ -107,7 +107,9 @@ export default {
                 .get("/data/sensors/" + this.sensor.sensorId)
                 .then((response) => {
                     this.vars.newDataSeries.push([
-                        new Date(response.data.time).getTime(),
+                        new Date(
+                            response.data.time.slice(0, -9) + "Z"
+                        ).getTime(),
                         response.data.value,
                     ]);
                 });
@@ -130,7 +132,9 @@ export default {
                         ) {
                             response.data[sensor].forEach((data) =>
                                 this.vars.newDataSeries.push([
-                                    new Date(data.time).getTime(),
+                                    new Date(
+                                        data.time.slice(0, -9) + "Z"
+                                    ).getTime(),
                                     data.value,
                                 ])
                             );

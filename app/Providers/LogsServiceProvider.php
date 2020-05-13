@@ -33,8 +33,7 @@ class LogsServiceProvider extends BasicProvider
     public function findAll()
     {
         try {
-            $response = json_decode($this->request->get('', $this->setHeaders())->getBody());
-            return $response;
+            return json_decode($this->request->get('', $this->setHeaders())->getBody());
         } catch (RequestException $e) {
             $this->isExpired($e);
             return null;

@@ -110,14 +110,10 @@ class EntityController extends Controller
         foreach ($sensors as $s) {
             $oldSensors[] = $s->sensorId;
         }
-        $toInsert = [];
-        $toDelete = [];
-        foreach (array_values(array_diff($newSensors, $oldSensors)) as $key => $value) {
-            $toInsert['Id' . ($key + 1)] =  intval($value);
-        }
-        foreach (array_values(array_diff($oldSensors, $newSensors)) as $key => $value) {
-            $toDelete['Id' . ($key + 1)] =  intval($value);
-        }
+
+        $toInsert = array_values(array_map('intval', (array_diff($newSensors, $oldSensors)))) ?? [];
+        $toDelete = array_values(array_map('intval', (array_diff($oldSensors, $newSensors)))) ?? [];
+
         if (empty($toInsert) && empty($toDelete)) {
             return redirect(route('entities.show', ['entityId' => $entityId]))
                 ->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']);
@@ -127,8 +123,7 @@ class EntityController extends Controller
             'toInsert' => $toInsert,
             'toDelete' => $toDelete
         ];
-
-        return $this->entityProvider->update($entityId, json_encode($toSend, JSON_FORCE_OBJECT)) ?
+        return $this->entityProvider->update($entityId, json_encode($toSend)) ?
             redirect(route('entities.show', ['entityId' => $entityId]))
                 ->withErrors(['GoodUpdate' => 'Sensori aggiornati con successo']) :
             redirect(route('entities.show', ['entityId' => $entityId]))

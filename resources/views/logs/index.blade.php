@@ -20,7 +20,7 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-history"></span> Lista Logs</h6>
+                    <h6 class="m-0 font-weight-bold text-primary"><span class="fas fa-list-alt"></span> Lista Logs</h6>
                 </div>
                 <div class="card-body">
                     @can(['isMod']) <div class="alert alert-info"><span class="fas fa-info-circle"></span> Si stanno visualizzando le logs di tutti gli utenti del proprio ente.</div> @endcan
@@ -30,8 +30,8 @@
                             <thead class="thead-dark table-borderless">
                             <tr>
                                 <th>Data ora</th>
-                                <th>Nome e cognome</th>
                                 <th>Azione</th>
+                                <th>Nome e cognome</th>
                                 <th>Rango</th>
                                 <th>IP</th>
                             </tr>
@@ -40,8 +40,8 @@
                                 @foreach($logs as $l)
                                     <tr>
                                         <td class="small">{{$l["log"]->time}}</td>
+                                        <td><code>{{$l["log"]->operation}}</code></td>
                                         <td><a href="{{route('users.show', ['userId' => $l['user']->userId])}}">{{$l['user']->name. ' ' .$l['user']->surname}}</a></td>
-                                        <td class="small"><code>{{$l["log"]->operation}}</code></td>
                                         <td>{{$l['user']->getRole()}}</td>
                                         <td><code>{{$l["log"]->ipAddr}}</code></td>
                                     </tr>
