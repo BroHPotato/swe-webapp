@@ -109,6 +109,8 @@ class UserController extends Controller
         $data['password'] = substr(md5(microtime()), random_int(0, 26), 6);
         if (!key_exists('entityId', $data)) {
             $data['entityId'] = (new EntityServiceProvider())->findFromUser(Auth::id())->entityId;
+        } else {
+            $data['entityId'] = intval($data['entityId']);
         }
         if (!key_exists('type', $data)) {
             $data['type'] = 0;
