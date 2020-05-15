@@ -14,4 +14,4 @@ npm run prod
 
 php artisan view:cache
 
-php artisan serve --host=0.0.0.0 --port=8000 --env=.env.prod
+php artisan serve --host=0.0.0.0 --port=8000 --env=prod
